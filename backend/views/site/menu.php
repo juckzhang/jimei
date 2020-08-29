@@ -43,7 +43,7 @@ use common\models\mysql\AdModel;
                                 <li><a href="<?=Url::to(['phone/brand-list'])?>" target="navTab" rel="brand-list">品牌列表</a></li>
                             <?php endif;?>
                             <?php if(\Yii::$app->user->can('phone/relation-list')):?>
-                                <li><a href="<?=Url::to(['phone/relation-list'])?>" target="navTab" rel="brand-list">机型材质关系</a></li>
+                                <li><a href="<?=Url::to(['phone/relation-list'])?>" target="navTab" rel="relation-list">机型材质关系</a></li>
                             <?php endif;?>
                         </ul>
                     </li>
@@ -59,19 +59,12 @@ use common\models\mysql\AdModel;
                     </li>
                 <?php endif;?>
 
-                <?php if(\Yii::$app->user->can('distribution')):?>
-                    <li><a>配货单管理</a>
-                        <ul>
-                            <?php if(\Yii::$app->user->can('distribution/distribution-list')):?>
-                                <li><a href="<?=Url::to(['distribution/distribution-list'])?>" target="navTab" rel="color-list">配货单列表</a></li>
-                            <?php endif;?>
-                        </ul>
-                    </li>
-                <?php endif;?>
-
                 <?php if(\Yii::$app->user->can('order')):?>
                     <li><a>订单管理</a>
                         <ul>
+                            <?php if(\Yii::$app->user->can('order/distribution-list')):?>
+                                <li><a href="<?=Url::to(['order/distribution-list'])?>" target="navTab" rel="distribution-list">配货单列表</a></li>
+                            <?php endif;?>
                             <?php if(\Yii::$app->user->can('order/order-list')):?>
                                 <li><a href="<?=Url::to(['order/order-list'])?>" target="navTab" rel="order-list">订单列表</a></li>
                             <?php endif;?>

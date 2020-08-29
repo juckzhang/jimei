@@ -78,10 +78,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                     <?php if(\Yii::$app->user->can('order/edit-order')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
-
-                    <?php if(\Yii::$app->user->can('order/order-list')):?>
-                        <a title="订单" target="dialog" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnEdit">订单</a>
-                    <?php endif;?>
                 </td>
             </tr>
         <?php endforeach;?>

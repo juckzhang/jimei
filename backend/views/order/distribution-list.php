@@ -24,7 +24,7 @@ $search = ArrayHelper::getValue($params,'search');
     <?php endforeach;?>
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['distribution/distribution-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/distribution-list','search' => $search])?>" method="post">
         <?php foreach ($other as $key => $value):?>
             <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
         <?php endforeach;?>
@@ -33,12 +33,12 @@ $search = ArrayHelper::getValue($params,'search');
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if(\Yii::$app->user->can('distribution/edit-distribution')):?>
-            <li><a class="add" href="<?=Url::to(['distribution/edit-distribution'])?>" target="dialog"><span>添加</span></a></li>
+            <?php if(\Yii::$app->user->can('order/edit-distribution')):?>
+            <li><a class="add" href="<?=Url::to(['order/edit-distribution'])?>" target="dialog"><span>添加</span></a></li>
             <?php endif;?>
 
-            <?php if(\Yii::$app->user->can('distribution/delete-distribution')):?>
-            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['distribution/delete-distribution'])?>" class="delete"><span>批量删除</span></a></li>
+            <?php if(\Yii::$app->user->can('order/delete-distribution')):?>
+            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/delete-distribution'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
         </ul>
     </div>
@@ -62,12 +62,16 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data->num?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
-                    <?php if(\Yii::$app->user->can('distribution/delete-distribution')):?>
+                    <?php if(\Yii::$app->user->can('order/delete-distribution')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
-                    <?php if(\Yii::$app->user->can('distribution/edit-distribution')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['distribution/edit-distribution','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <?php if(\Yii::$app->user->can('order/edit-distribution')):?>
+                    <a title="编辑" target="dialog" href="<?=Url::to(['order/edit-distribution','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('order/order-list')):?>
+                        <a title="订单" target="dialog" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnEdit">订单</a>
                     <?php endif;?>
                 </td>
             </tr>

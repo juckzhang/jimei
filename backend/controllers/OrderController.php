@@ -1,8 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use backend\services\DistributionService;
 use common\constants\CodeConstant;
 use common\models\mysql\ColorModel;
+use common\models\mysql\DistributionModel;
 use common\models\mysql\MaterialModel;
 use common\models\mysql\OrderModel;
 use common\models\mysql\PhoneModel;
@@ -78,5 +80,53 @@ class OrderController extends BaseController
         $data = OrderService::getService()->BaseOrderList($baseId);
 
         return $this->returnAjaxSuccess($data);
+    }
+
+    public function actionDistributionList()
+    {
+        $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
+        $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
+        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
+        $data = DistributionService::getService()->DistributionList($_keyWord,$_page,$_prePage);
+        return $this->render('distribution-list',$data);
+    }
+
+    public function actionEditDistribution()
+    {
+        if(\Yii::$app->request->getIsPost())
+        {
+            $id = ArrayHelper::getValue($this->paramData,'id');
+            $result = DistributionService::getService()->editInfo($id,DistributionModel::className());
+            if($result instanceof Model)
+                return $this->returnAjaxSuccess([
+                    'message' => '编辑成功',
+                    'navTabId' => 'distribution-list',
+                    'callbackType' => 'forward',
+                    'forwardUrl' => Url::to(['order/distribution-list'])
+                ]);
+            return $this->returnAjaxError($result);
+        }else{
+            $id = ArrayHelper::getValue($this->paramData,'id');
+            $model = DistributionModel::find()->where(['id' => $id])->asArray()->one();
+
+            return $this->render('edit-distribution',['model' => $model]);
+        }
+    }
+
+    public function actionDeleteDistribution()
+    {
+        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+
+        $return = DistributionService::getService()->deleteInfo($ids, DistributionModel::className());
+        if($return === true)
+            return $this->returnAjaxSuccess([
+                'message' => '删除成功',
+                'navTabId' => 'distribution-list',
+                'callbackType' => 'forward',
+                'forwardUrl'  => Url::to(['order/distribution-list'])
+            ]);
+        return $this->returnAjaxError($return);
     }
 }

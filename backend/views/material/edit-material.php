@@ -3,7 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
 ?>
-<h2 class="contentTitle">材质</h2>
+<h2 class="contentTitle">编辑材质</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['material/edit-material','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
