@@ -25,7 +25,7 @@ class ThemeController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = ThemeService::getService()->editTheme($id);
+            $result = ThemeService::getService()->editInfo($id,ThemeModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -48,7 +48,7 @@ class ThemeController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = ThemeService::getService()->deleteTheme($ids);
+        $return = ThemeService::getService()->deleteInfo($ids,ThemeModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

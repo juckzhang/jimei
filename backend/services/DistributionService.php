@@ -23,15 +23,5 @@ class DistributionService extends BackendService
 
         return $data;
     }
-
-    public function editDistribution($id)
-    {
-        return $this->editInfo($id,DistributionModel::className());
-    }
-
-    public function deleteDistribution($id)
-    {
-        return $this->deleteInfo($id,DistributionModel::className());
-    }
 }
 

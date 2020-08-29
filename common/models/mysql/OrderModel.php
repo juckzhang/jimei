@@ -36,4 +36,9 @@ class OrderModel extends ActiveRecord
             ->select(['id','name'])
             ->asArray();
     }
+
+    public function getRelat(){
+        return $this->hasOne(MaterialPhoneModel::className(), ['mobile_id' => 'mobile_id','material_id' => 'material_id'])
+            ->asArray();
+    }
 }

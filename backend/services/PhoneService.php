@@ -5,7 +5,6 @@ use common\models\mysql\BrandModel;
 use common\models\mysql\MaterialPhoneModel;
 use common\models\mysql\PhoneModel;
 use backend\services\base\BackendService;
-use MongoDB\Driver\Manager;
 
 class PhoneService extends BackendService
 {
@@ -32,17 +31,6 @@ class PhoneService extends BackendService
         return $data;
     }
 
-    public function editPhone($id)
-    {
-        return $this->editInfo($id,PhoneModel::className());
-    }
-
-    public function deletePhone($id)
-    {
-        return $this->deleteInfo($id,PhoneModel::className());
-    }
-
-
     //品牌
     public function brandList($keyWord,$page,$prePage,array $order = [])
     {
@@ -66,16 +54,6 @@ class PhoneService extends BackendService
         return BrandModel::find()->where(['!=','status' , BrandModel::STATUS_DELETED])->asArray()->all();
     }
 
-    public function editBrand($id)
-    {
-        return $this->editInfo($id,BrandModel::className());
-    }
-
-    public function deleteBrand($id)
-    {
-        return $this->deleteInfo($id,BrandModel::className());
-    }
-
     // 机型
     public function RelationList($page,$prePage,array $order = [])
     {
@@ -97,16 +75,6 @@ class PhoneService extends BackendService
                 ->all();
 
         return $data;
-    }
-
-    public function editRelation($id)
-    {
-        return $this->editInfo($id,MaterialPhoneModel::className());
-    }
-
-    public function deleteRelation($id)
-    {
-        return $this->deleteInfo($id,MaterialPhoneModel::className());
     }
 }
 

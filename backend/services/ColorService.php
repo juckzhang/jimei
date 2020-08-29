@@ -23,15 +23,5 @@ class ColorService extends BackendService
 
         return $data;
     }
-
-    public function editColor($id)
-    {
-        return $this->editInfo($id,ColorModel::className());
-    }
-
-    public function deleteColor($id)
-    {
-        return $this->deleteInfo($id,ColorModel::className());
-    }
 }
 

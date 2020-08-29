@@ -29,7 +29,7 @@ class OrderController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = OrderService::getService()->editOrder($id);
+            $result = OrderService::getService()->editInfo($id,OrderModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -62,7 +62,7 @@ class OrderController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = OrderService::getService()->deleteOrder($ids);
+        $return = OrderService::getService()->deleteInfo($ids,OrderModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

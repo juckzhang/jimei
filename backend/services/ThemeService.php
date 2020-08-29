@@ -23,15 +23,5 @@ class ThemeService extends BackendService
 
         return $data;
     }
-
-    public function editTheme($id)
-    {
-        return $this->editInfo($id,ThemeModel::className());
-    }
-
-    public function deleteTheme($id)
-    {
-        return $this->deleteInfo($id,ThemeModel::className());
-    }
 }
 

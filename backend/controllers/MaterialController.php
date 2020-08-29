@@ -26,7 +26,7 @@ class MaterialController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = MaterialService::getService()->editMaterial($id);
+            $result = MaterialService::getService()->editInfo($id, MaterialModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -49,7 +49,7 @@ class MaterialController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = MaterialService::getService()->deleteMaterial($ids);
+        $return = MaterialService::getService()->deleteInfo($ids,MaterialModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

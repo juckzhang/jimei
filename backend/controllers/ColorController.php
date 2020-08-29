@@ -25,7 +25,7 @@ class ColorController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = ColorService::getService()->editColor($id);
+            $result = ColorService::getService()->editInfo($id, ColorModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -48,7 +48,7 @@ class ColorController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = ColorService::getService()->deleteColor($ids);
+        $return = ColorService::getService()->deleteInfo($ids, ColorModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

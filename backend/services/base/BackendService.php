@@ -11,7 +11,7 @@ class BackendService extends Service
         return [(int)$offset,(int)$limit];
     }
 
-    protected function deleteInfo($id,$modelName)
+    public function deleteInfo($id,$modelName)
     {
         $primaryKey = $modelName::primaryKey()[0];
         $num = $modelName::updateAll(['status' => $modelName::STATUS_DELETED],[$primaryKey => $id]);
@@ -19,7 +19,7 @@ class BackendService extends Service
         return false;
     }
 
-    protected function editInfo($id,$modelName)
+    public function editInfo($id,$modelName)
     {
         $model = $modelName::findOne($id);
         if($model == null) $model = new $modelName();

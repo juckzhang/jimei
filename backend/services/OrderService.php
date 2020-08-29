@@ -4,6 +4,7 @@ namespace backend\services;
 use common\models\mysql\DistributionModel;
 use common\models\mysql\OrderModel;
 use backend\services\base\BackendService;
+use yii\helpers\ArrayHelper;
 
 class OrderService extends BackendService
 {
@@ -33,16 +34,6 @@ class OrderService extends BackendService
         return $data;
     }
 
-    public function editOrder($id)
-    {
-        return $this->editInfo($id,OrderModel::className());
-    }
-
-    public function deleteOrder($id)
-    {
-        return $this->deleteInfo($id,OrderModel::className());
-    }
-
     public function BaseOrderList($baseId){
         // 获取base订单
         $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
@@ -53,10 +44,25 @@ class OrderService extends BackendService
             ->with('material')
             ->with('color')
             ->with('theme')
+            ->with('relat')
             ->asArray()
             ->all();
 
-        return ['sn' => $baseList['sn'], 'items' => $items];
+        $dataList = [];
+        foreach ($items as $item){
+            $dataList[] = [
+                'barcode' => $item['barcode'],
+                'theme' => ArrayHelper::getValue($item, 'theme.name'),
+                'template_url' => ArrayHelper::getValue($item, 'theme.template_url'),
+                'modal' => ArrayHelper::getValue($item, 'phone.modal'),
+                'width' => ArrayHelper::getValue($item, 'phone.width'),
+                'height' => ArrayHelper::getValue($item, 'phone.height'),
+                'material' => ArrayHelper::getValue($item, 'material.name'),
+                'left' => ArrayHelper::getValue($item, 'relat.left', 0),
+                'top' => ArrayHelper::getValue($item, 'relat.top', 0),
+            ];
+        }
+        return ['sn' => $baseList['sn'], 'items' => $dataList];
     }
 }
 

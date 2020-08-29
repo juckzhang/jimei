@@ -4,6 +4,7 @@ namespace backend\controllers;
 use common\constants\CodeConstant;
 use common\models\mysql\BrandModel;
 use common\models\mysql\MaterialModel;
+use common\models\mysql\MaterialPhoneModel;
 use common\models\mysql\PhoneModel;
 use Yii;
 use backend\services\PhoneService;
@@ -27,7 +28,7 @@ class PhoneController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = PhoneService::getService()->editPhone($id);
+            $result = PhoneService::getService()->editInfo($id, PhoneModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -51,7 +52,7 @@ class PhoneController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = PhoneService::getService()->deletePhone($ids);
+        $return = PhoneService::getService()->deleteInfo($ids, PhoneModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -78,7 +79,7 @@ class PhoneController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = PhoneService::getService()->editBrand($id);
+            $result = PhoneService::getService()->editInfi($id, BrandModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -101,7 +102,7 @@ class PhoneController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = PhoneService::getService()->deleteBrand($ids);
+        $return = PhoneService::getService()->deleteInfo($ids, BrandModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -119,12 +120,12 @@ class PhoneController extends BaseController
         return $this->render('relation-list',$data);
     }
 
-    public function actionEditBrand()
+    public function actionEditRelation()
     {
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = PhoneService::getService()->editRelation($id);
+            $result = PhoneService::getService()->editInfo($id, MaterialPhoneModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -153,7 +154,7 @@ class PhoneController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = PhoneService::getService()->deleteRelation($ids);
+        $return = PhoneService::getService()->deleteInfo($ids, MaterialPhoneModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

@@ -23,15 +23,5 @@ class MaterialService extends BackendService
 
         return $data;
     }
-
-    public function editMaterial($id)
-    {
-        return $this->editInfo($id,MaterialModel::className());
-    }
-
-    public function deleteMaterial($id)
-    {
-        return $this->deleteInfo($id,MaterialModel::className());
-    }
 }
 
