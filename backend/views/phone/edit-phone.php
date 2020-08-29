@@ -6,7 +6,7 @@ use backend\services\BrandService;
 $param = \Yii::$app->request->getPost();
 $brandList   = BrandService::getService()->allList();
 ?>
-<h2 class="contentTitle">编辑台词</h2>
+<h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-phone','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
@@ -18,7 +18,7 @@ $brandList   = BrandService::getService()->allList();
                 </dd>
             </dl>
             <dl>
-                <dt>资源分类：</dt>
+                <dt>品牌分类：</dt>
                 <dd>
                     <select name="PhoneModel[brand_id]" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
                         <?php foreach($brandList as $brand):?>

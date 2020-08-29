@@ -1,9 +1,9 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\MaterialService;
+use backend\services\brandService;
 
-$mediaService = MaterialService::getService();
+$mediaService = brandService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
@@ -12,7 +12,7 @@ $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 ?>
-<div class="" id="phone-list" rel="phone-list">
+<div class="" id="brand-list" rel="brand-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search", value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
@@ -24,7 +24,7 @@ $search = ArrayHelper::getValue($params,'search');
     <?php endforeach;?>
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['media/brand-list','search' => $search])?>" method="post">
         <?php foreach ($other as $key => $value):?>
             <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
         <?php endforeach;?>
@@ -33,12 +33,12 @@ $search = ArrayHelper::getValue($params,'search');
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
-            <li><a class="add" href="<?=Url::to(['phone/edit-phone'])?>" target="dialog"><span>添加</span></a></li>
+            <?php if(\Yii::$app->user->can('brand/edit-brand')):?>
+            <li><a class="add" href="<?=Url::to(['brand/edit-brand'])?>" target="dialog"><span>添加</span></a></li>
             <?php endif;?>
 
-            <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
-            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['phone/delete-phone'])?>" class="delete"><span>批量删除</span></a></li>
+            <?php if(\Yii::$app->user->can('brand/delete-brand')):?>
+            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['brand/delete-brand'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
         </ul>
     </div>
@@ -48,9 +48,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
             <th width="80">名称</th>
-            <th width="80">品牌</th>
-            <th width="80">宽</th>
-            <th width="80">高</th>
+            <th width="80">条码</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -58,19 +56,18 @@ $search = ArrayHelper::getValue($params,'search');
         <tbody>
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
+                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
                 <td><?=$data->id?></td>
-                <td><?=$data->modal?></td>
-                <td><?=$data->brand->name?></td>
+                <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
-                    <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
-                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
+                    <?php if(\Yii::$app->user->can('brand/delete-brand')):?>
+                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['brand/delete-brand','ids' => $data->id])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
-                    <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['phone/edit-phone','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <?php if(\Yii::$app->user->can('brand/edit-brand')):?>
+                    <a title="编辑" target="dialog" href="<?=Url::to(['brand/edit-brand','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>
@@ -88,7 +85,7 @@ $search = ArrayHelper::getValue($params,'search');
             </select>
             <span>条，共<?=$dataCount?>条</span>
         </div>
-        <div class="pagination" rel='phone-list' targetType="<?=$search?'dialog':'navTab'?>" totalCount="<?=$dataCount?>" numPerPage="<?=$prePage?>" pageNumShown="10" currentPage="<?=$page?>"></div>
+        <div class="pagination" rel='brand-list' targetType="<?=$search?'dialog':'navTab'?>" totalCount="<?=$dataCount?>" numPerPage="<?=$prePage?>" pageNumShown="10" currentPage="<?=$page?>"></div>
     </div>
 </div>
 </div>
