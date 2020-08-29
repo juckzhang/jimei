@@ -8,4 +8,9 @@ class PhoneModel extends ActiveRecord
     {
         return "{{%phone}}";
     }
+
+    public function getBrand(){
+        return $this->hasOne(BrandModel::className(), ['brand_id' => 'id'])
+            ->select(['id','name']);
+    }
 }
