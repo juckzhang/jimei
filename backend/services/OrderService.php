@@ -50,10 +50,12 @@ class OrderService extends BackendService
 
         $dataList = [];
         foreach ($items as $item){
+            $templateUrl = ArrayHelper::getValue($item, 'theme.template_url');
+            if($templateUrl) $templateUrl = \Yii::$app->params['picUrlPrefix'] . $templateUrl;
             $dataList[] = [
                 'barcode' => $item['barcode'],
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
-                'template_url' => ArrayHelper::getValue($item, 'theme.template_url'),
+                'template_url' => $templateUrl,
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
                 'width' => ArrayHelper::getValue($item, 'phone.width'),
                 'height' => ArrayHelper::getValue($item, 'phone.height'),

@@ -5,7 +5,7 @@ use jimei;
 CREATE TABLE if NOT EXISTS jimei_theme(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
-  template_url VARCHAR(15) NOT NULL default '' comment '图片地址',
+  template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
