@@ -12,9 +12,6 @@ use yii\helpers\Url;
 <body>
 <div id="login">
     <div id="login_header">
-<!--        <h1 class="login_logo">-->
-<!--            <a href="http://demo.dwzjs.com"><img src="/images/logo.png" width="240"> <!--img src="/themes/default/images/login_logo.gif" /></a>-->
-<!--        </h1>-->
         <div class="login_headerContent">
             <div class="navList">
                 <ul>
@@ -40,11 +37,6 @@ use yii\helpers\Url;
                     <label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
                     <input type="password" name="LoginForm[password]" size="20" <?=$model->password?> class="login_input"/>
                 </p>
-<!--                <p>-->
-<!--                    <label>验证码：</label>-->
-<!--                    <input class="code" type="text" size="7" />-->
-<!--                    <span><img src="/themes/default/images/header_bg.png" alt="" width="72" height="24" /></span>-->
-<!--                </p>-->
                 <p id="error" style="color:#f71752;margin-left:80px;">&nbsp;</p>
                 <?php if($model->hasErrors()):?>
                     <script>
@@ -69,7 +61,7 @@ use yii\helpers\Url;
             <div class="login_inner">
                 <p>请勿在非安全的网络中登陆后台，防止账号信息泄露</p>
                 <p>有疑问联系xxxxx.mail.com</p>
-                <p>最影后台管理平台，请您注意账号安全...</p>
+                <p>极美后台管理平台，请您注意账号安全...</p>
             </div>
         </div>
     </div>

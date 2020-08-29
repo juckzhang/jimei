@@ -17,7 +17,7 @@ class MaterialController extends BaseController
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
         $_order = $this->_sortOrder(MaterialModel::tableName().'.');
-        $data = MaterialService::getService()->MaterialList($_keyWord,$_order,$_page,$_prePage);
+        $data = MaterialService::getService()->MaterialList($_keyWord,$_page,$_prePage, $_order);
         return $this->render('material-list',$data);
     }
 
