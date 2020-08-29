@@ -78,7 +78,7 @@ use common\models\mysql\AdModel;
                     <li><a>订单管理</a>
                         <ul>
                             <?php if(\Yii::$app->user->can('order/order-list')):?>
-                                <li><a href="<?=Url::to(['order/order-list'])?>" target="navTab" rel="color-list">订单列表</a></li>
+                                <li><a href="<?=Url::to(['order/order-list'])?>" target="navTab" rel="order-list">订单列表</a></li>
                             <?php endif;?>
                         </ul>
                     </li>
