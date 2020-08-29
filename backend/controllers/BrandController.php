@@ -16,7 +16,7 @@ class BrandController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = BrandService::getService()->MaterialList($_keyWord,$_page,$_prePage);
+        $data = BrandService::getService()->BrandList($_keyWord,$_page,$_prePage);
         return $this->render('brand-list',$data);
     }
 
