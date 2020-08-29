@@ -71,9 +71,6 @@ CREATE TABLE if NOT EXISTS jimei_phone(
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  key source_id(source_id),
-  key lang_type(lang_type),
-  key line_number(line_number)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
 
 -- 颜色
@@ -85,9 +82,6 @@ CREATE TABLE if NOT EXISTS jimei_color(
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  key source_id(source_id),
-  key lang_type(lang_type),
-  key line_number(line_number)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
 
 -- 管理平台相关记录表
@@ -97,7 +91,7 @@ CREATE TABLE IF NOT EXISTS kung_role(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员角色列表';
 
 create TABLE IF NOT EXISTS kung_admin(
@@ -108,7 +102,7 @@ create TABLE IF NOT EXISTS kung_admin(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员列表';
 
 CREATE TABLE IF NOT EXISTS kung_source(
@@ -119,7 +113,7 @@ CREATE TABLE IF NOT EXISTS kung_source(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned   NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned   NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源列表';
 
 -- 角色资源关系表
@@ -130,7 +124,7 @@ CREATE TABLE IF NOT EXISTS kung_role_source(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源角色关系表';
 
 CREATE TABLE IF NOT EXISTS kung_admin_operation(
