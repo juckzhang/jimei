@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\models\mysql\DistributionModel;
 use common\models\mysql\OrderModel;
 use backend\services\base\BackendService;
 
@@ -32,6 +33,22 @@ class OrderService extends BackendService
     public function deleteOrder($id)
     {
         return $this->deleteInfo($id,OrderModel::className());
+    }
+
+    public function BaseOrderList($baseId){
+        // 获取base订单
+        $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
+        $items = OrderModel::find()->where([
+                'status' => OrderModel::STATUS_ACTIVE,
+                'base_id' => $baseId,
+            ])->with('phone')
+            ->with('material')
+            ->with('color')
+            ->with('theme')
+            ->asArray()
+            ->all();
+
+        return ['sn' => $baseList['sn'], 'items' => $items];
     }
 }
 

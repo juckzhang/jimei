@@ -2,7 +2,11 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
+use common\models\mysql\ColorModel;
+use common\models\mysql\MaterialModel;
 use common\models\mysql\OrderModel;
+use common\models\mysql\PhoneModel;
+use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\OrderService;
 use yii\base\Model;
@@ -37,8 +41,18 @@ class OrderController extends BaseController
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
             $model = OrderModel::find()->where(['id' => $id])->asArray()->one();
+            $phone = PhoneModel::find()->where(['status' => PhoneModel::STATUS_ACTIVE])->asArray()->all();
+            $material = MaterialModel::find()->where(['status' => MaterialModel::STATUS_ACTIVE])->asArray()->all();
+            $theme = ThemeModel::find()->where(['status' => ThemeModel::STATUS_ACTIVE])->asArray()->all();
+            $color = ColorModel::find()->where(['status' => ColorModel::STATUS_ACTIVE])->asArray()->all();
 
-            return $this->render('edit-order',['model' => $model]);
+            return $this->render('edit-order',[
+                'model' => $model,
+                'phone' => $phone,
+                'material' => $material,
+                'theme' => $theme,
+                'color' => $color,
+            ]);
         }
     }
 
@@ -57,5 +71,12 @@ class OrderController extends BaseController
                 'forwardUrl'  => Url::to(['order/order-list'])
             ]);
         return $this->returnAjaxError($return);
+    }
+
+    public function actionListBase(){
+        $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
+        $data = OrderService::getService()->BaseOrderList($baseId);
+
+        return $this->returnAjaxSuccess($data);
     }
 }
