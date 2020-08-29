@@ -15,7 +15,7 @@ class OrderService extends BackendService
 
         $models = OrderModel::find()
             ->where(['!=','status' , OrderModel::STATUS_DELETED])
-            ->andFilterWhere(['$basid'=>$basid]);
+            ->andFilterWhere(['base_id' => $basid]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
