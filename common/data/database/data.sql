@@ -38,7 +38,7 @@ CREATE TABLE if NOT EXISTS jimei_order(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `order_id` VARCHAR(15) NOT NULL default '' comment'原始订单号',
   `base_id` int unsigned NOT NULL default  0 comment'打印单号',
-  barcode char(5) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
+  barcode char(20) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
   mobile_id int unsigned NOT NULL default  0 comment'手机型号id',
   theme_id int unsigned NOT NULL default  0 comment'素材',
   color_id int unsigned NOT NULL default  0 comment'颜色',

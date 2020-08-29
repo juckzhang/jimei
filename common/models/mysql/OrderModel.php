@@ -26,7 +26,7 @@ class OrderModel extends ActiveRecord
     public function getMaterial()
     {
         return $this->hasOne(MaterialModel::className(), ['material_id' => 'id'])
-            ->select(['id','width','height','modal'])
+            ->select(['id','name'])
             ->asArray();
     }
 
