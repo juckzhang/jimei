@@ -17,7 +17,7 @@ class PhoneController extends BaseController
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
         $data = PhoneService::getService()->PhoneList($_keyWord,$_page,$_prePage);
-        return $this->render('Phone-list',$data);
+        return $this->render('phone-list',$data);
     }
 
     public function actionEditPhone()
