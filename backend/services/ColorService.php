@@ -19,7 +19,7 @@ class ColorService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)->limit($limit)->offset($offset)->asArray()->all();
+            $data['dataList'] = $models->orderBy($order)->limit($limit)->offset($offset)->all();
 
         return $data;
     }
