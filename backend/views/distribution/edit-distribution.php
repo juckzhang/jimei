@@ -8,14 +8,14 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
     <form method="post" action="<?=Url::to(['distribution/edit-distribution','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
-                <dt>名称：</dt>
+                <dt>单号：</dt>
                 <dd>
-                    <input type="text" name="DistributionModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'sn','')?>"/>
+                    <input type="text" name="DistributionModel[sn]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'sn','')?>"/>
                     <span class="info">单号不能为空</span>
                 </dd>
             </dl>
             <dl>
-                <dt>条码：</dt>
+                <dt>数量：</dt>
                 <dd>
                     <input type="text" name="DistributionModel[number]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'number',0)?>"/>
                     <span class="info">数量</span>

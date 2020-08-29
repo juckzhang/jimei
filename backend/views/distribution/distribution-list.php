@@ -12,7 +12,7 @@ $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 ?>
-<div class="" id="theme-list" rel="theme-list">
+<div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search", value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
@@ -24,7 +24,7 @@ $search = ArrayHelper::getValue($params,'search');
     <?php endforeach;?>
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['theme/theme-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['distribution/distribution-list','search' => $search])?>" method="post">
         <?php foreach ($other as $key => $value):?>
             <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
         <?php endforeach;?>
@@ -33,12 +33,12 @@ $search = ArrayHelper::getValue($params,'search');
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
-            <li><a class="add" href="<?=Url::to(['theme/edit-theme'])?>" target="dialog"><span>添加</span></a></li>
+            <?php if(\Yii::$app->user->can('distribution/edit-distribution')):?>
+            <li><a class="add" href="<?=Url::to(['distribution/edit-distribution'])?>" target="dialog"><span>添加</span></a></li>
             <?php endif;?>
 
-            <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
-            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['theme/delete-theme'])?>" class="delete"><span>批量删除</span></a></li>
+            <?php if(\Yii::$app->user->can('distribution/delete-distribution')):?>
+            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['distribution/delete-distribution'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
         </ul>
     </div>
@@ -47,9 +47,8 @@ $search = ArrayHelper::getValue($params,'search');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
-            <th width="80">名称</th>
-            <th width="80">条码</th>
-            <th width="80">素材链接</th>
+            <th width="80">原始单号</th>
+            <th width="80">数量</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -59,17 +58,15 @@ $search = ArrayHelper::getValue($params,'search');
             <tr target="card-id" rel="<?=$data->id?>">
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
                 <td><?=$data->id?></td>
-                <td><?=$data->name?></td>
-                <td><?=$data->barcode?></td>
-                <td><?=$data->template_url?></td>
+                <td><?=$data->sn?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
-                    <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
+                    <?php if(\Yii::$app->user->can('distribution/delete-distribution')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
-                    <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['theme/edit-theme','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <?php if(\Yii::$app->user->can('distribution/edit-distribution')):?>
+                    <a title="编辑" target="dialog" href="<?=Url::to(['distribution/edit-distribution','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>
@@ -87,7 +84,7 @@ $search = ArrayHelper::getValue($params,'search');
             </select>
             <span>条，共<?=$dataCount?>条</span>
         </div>
-        <div class="pagination" rel='theme-list' targetType="<?=$search?'dialog':'navTab'?>" totalCount="<?=$dataCount?>" numPerPage="<?=$prePage?>" pageNumShown="10" currentPage="<?=$page?>"></div>
+        <div class="pagination" rel='distribution-list' targetType="<?=$search?'dialog':'navTab'?>" totalCount="<?=$dataCount?>" numPerPage="<?=$prePage?>" pageNumShown="10" currentPage="<?=$page?>"></div>
     </div>
 </div>
 </div>
