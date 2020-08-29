@@ -21,7 +21,7 @@ class MaterialController extends BaseController
         return $this->render('material-list',$data);
     }
 
-    public function actionMaterial()
+    public function actionEditMaterial()
     {
         if(\Yii::$app->request->getIsPost())
         {
