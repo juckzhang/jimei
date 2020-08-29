@@ -28,7 +28,7 @@ CREATE TABLE if NOT EXISTS jimei_material(
 CREATE TABLE if NOT EXISTS jimei_base_list(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `sn` VARCHAR(15) NOT NULL default '' comment '打印单号',
-  `num` int unsigned NOT NULL default  0 '订单数量',
+  `num` int unsigned NOT NULL default  0 comment'订单数量',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   task_status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未完成 1：任务处理锁定中 3: 已完成',
