@@ -6,7 +6,7 @@ use backend\services\base\BackendService;
 
 class ThemeService extends BackendService
 {
-    public function themeList($keyWord,$page,$prePage,array $order = [])
+    public function ThemeList($keyWord,$page,$prePage,array $order = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
