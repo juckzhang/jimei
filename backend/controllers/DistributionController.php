@@ -16,7 +16,7 @@ class DistributionController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = DistributionService::getService()->DistributionlList($_keyWord,$_page,$_prePage);
+        $data = DistributionService::getService()->DistributionList($_keyWord,$_page,$_prePage);
         return $this->render('distribution-list',$data);
     }
 
