@@ -87,7 +87,7 @@ class OrderController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = DistributionService::getService()->DistributionList($_keyWord,$_page,$_prePage);
+        $data = OrderService::getService()->DistributionList($_keyWord,$_page,$_prePage);
         return $this->render('distribution-list',$data);
     }
 
@@ -96,7 +96,7 @@ class OrderController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = DistributionService::getService()->editInfo($id,DistributionModel::className());
+            $result = OrderService::getService()->editInfo($id,DistributionModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -119,7 +119,7 @@ class OrderController extends BaseController
 
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
-        $return = DistributionService::getService()->deleteInfo($ids, DistributionModel::className());
+        $return = OrderService::getService()->deleteInfo($ids, DistributionModel::className());
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
