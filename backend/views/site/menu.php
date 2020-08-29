@@ -65,9 +65,6 @@ use common\models\mysql\AdModel;
                             <?php if(\Yii::$app->user->can('order/distribution-list')):?>
                                 <li><a href="<?=Url::to(['order/distribution-list'])?>" target="navTab" rel="distribution-list">配货单列表</a></li>
                             <?php endif;?>
-                            <?php if(\Yii::$app->user->can('order/order-list')):?>
-                                <li><a href="<?=Url::to(['order/order-list'])?>" target="navTab" rel="order-list">订单列表</a></li>
-                            <?php endif;?>
                         </ul>
                     </li>
                 <?php endif;?>
