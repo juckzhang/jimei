@@ -9,7 +9,7 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
 -- 材质
@@ -21,7 +21,7 @@ CREATE TABLE if NOT EXISTS jimei_material(
   `top` tinyint(1) NOT NULL default 0 comment '边距',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
 
 -- 配货单
@@ -32,7 +32,7 @@ CREATE TABLE if NOT EXISTS jimei_base_list(
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   task_status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未完成 1：任务处理锁定中 3: 已完成',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
 
 -- 订单列表
@@ -47,7 +47,7 @@ CREATE TABLE if NOT EXISTS jimei_order(
   meterial_id int unsigned NOT NULL default  0 comment'材质',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
 
 -- 手机品牌
@@ -57,7 +57,7 @@ CREATE TABLE if NOT EXISTS jimei_brand(
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
 
 -- 手机型号
@@ -70,7 +70,7 @@ CREATE TABLE if NOT EXISTS jimei_phone(
   height int unsigned NOT NULL DEFAULT 0 comment'手机高',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
 
 -- 颜色
@@ -81,7 +81,7 @@ CREATE TABLE if NOT EXISTS jimei_color(
   rdg char(6) NOT NULL DEFAULT '000000' comment'色值',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
 
 -- 管理平台相关记录表
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS kung_role(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员角色列表';
 
 create TABLE IF NOT EXISTS kung_admin(
@@ -102,7 +102,7 @@ create TABLE IF NOT EXISTS kung_admin(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员列表';
 
 CREATE TABLE IF NOT EXISTS kung_source(
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS kung_source(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned   NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned   NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源列表';
 
 -- 角色资源关系表
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS kung_role_source(
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源角色关系表';
 
 CREATE TABLE IF NOT EXISTS kung_admin_operation(
