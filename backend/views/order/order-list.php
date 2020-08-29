@@ -1,9 +1,9 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\MaterialService;
+use backend\services\orderService;
 
-$mediaService = MaterialService::getService();
+$mediaService = orderService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
@@ -59,23 +59,22 @@ $search = ArrayHelper::getValue($params,'search');
         </thead>
         <tbody>
         <?php foreach($dataList as $key => $data):?>
-            <tr target="card-id" rel="<?=$data->id?>">
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
-                <td><?=$data->id?></td>
-                <td><?=$data->barcode?></td>
-                <td><?=$data->distribution->sn?></td>
-                <td><?=$data->phone->modal?></td>
-                <td><?=$data->material->name?></td>
-                <td><?=$data->theme->name?></td>
-                <td><?=$data->color->name?></td>
-                <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
+            <tr target="card-id" rel="<?=$data['id']?>">
+                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
+                <td><?=$data['id']?></td>
+                <td><?=$data['barcode']?></td>
+                <td><?=$data['phone']['modal']?></td>
+                <td><?=$data['order']['name']?></td>
+                <td><?=$data['theme']['name']?></td>
+                <td><?=$data['color']['name']?></td>
+                <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
+                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/edit-order')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['order/edit-order','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="dialog" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>

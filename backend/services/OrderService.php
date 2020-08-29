@@ -20,7 +20,15 @@ class OrderService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)->limit($limit)->offset($offset)->all();
+            $data['dataList'] = $models->orderBy($order)
+                ->limit($limit)
+                ->offset($offset)
+                ->with('phone')
+                ->with('material')
+                ->with('color')
+                ->with('theme')
+                ->asArray()
+                ->all();
 
         return $data;
     }
