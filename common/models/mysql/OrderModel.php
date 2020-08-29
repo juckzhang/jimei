@@ -10,7 +10,7 @@ class OrderModel extends ActiveRecord
 
     public function getTheme()
     {
-        return $this->hasOne(ThemeModel::className(),['theme_id' => 'id'])
+        return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
             ->where(['status' => ThemeModel::STATUS_ACTIVE])
             ->select(['id','name','template_url'])
             ->asArray();
@@ -18,21 +18,21 @@ class OrderModel extends ActiveRecord
 
     public function getPhone()
     {
-        return $this->hasOne(PhoneModel::className(), ['mobile_id' => 'id'])
+        return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])
             ->select(['id','width','height','modal'])
             ->asArray();
     }
 
     public function getMaterial()
     {
-        return $this->hasOne(MaterialModel::className(), ['material_id' => 'id'])
+        return $this->hasOne(MaterialModel::className(), ['id' => 'material_id'])
             ->select(['id','name'])
             ->asArray();
     }
 
     public function getColor()
     {
-        return $this->hasOne(ColorModel::className(), ['color_id' => 'id'])
+        return $this->hasOne(ColorModel::className(), ['id' => 'color_id'])
             ->select(['id','name'])
             ->asArray();
     }
