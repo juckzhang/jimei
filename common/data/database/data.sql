@@ -85,7 +85,7 @@ CREATE TABLE if NOT EXISTS jimei_color(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
 
 -- 管理平台相关记录表
-CREATE TABLE IF NOT EXISTS kung_role(
+CREATE TABLE IF NOT EXISTS jimei_role(
   `id` int unsigned NOT NULL PRIMARY  key AUTO_INCREMENT COMMENT '自增ID，主键',
   `name` char(25) NOT NULL comment'角色名称',
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS kung_role(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员角色列表';
 
-create TABLE IF NOT EXISTS kung_admin(
+create TABLE IF NOT EXISTS jimei_admin(
   `id` int unsigned NOT NULL PRIMARY  key AUTO_INCREMENT COMMENT '自增ID，主键',
   role_id int unsigned NOT null default 0 comment'角色',
   `username` char(32) NOT NULL COMMENT '昵称，允许修改',
@@ -105,7 +105,7 @@ create TABLE IF NOT EXISTS kung_admin(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员列表';
 
-CREATE TABLE IF NOT EXISTS kung_source(
+CREATE TABLE IF NOT EXISTS jimei_source(
   `id` int unsigned NOT NULL PRIMARY  key AUTO_INCREMENT COMMENT '自增ID，主键',
   parent_id int unsigned NOT NULL DEFAULT 0 comment'父id',
   `name` char(25) NOT NULL comment'资源名称',
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS kung_source(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源列表';
 
 -- 角色资源关系表
-CREATE TABLE IF NOT EXISTS kung_role_source(
+CREATE TABLE IF NOT EXISTS jimei_role_source(
   `id` int unsigned NOT NULL PRIMARY  key AUTO_INCREMENT COMMENT '自增ID，主键',
   role_id int  unsigned NOT NULL comment'角色id',
   source_id int unsigned NOT NULL comment'资源id',
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS kung_role_source(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源角色关系表';
 
-CREATE TABLE IF NOT EXISTS kung_admin_operation(
+CREATE TABLE IF NOT EXISTS jimei_admin_operation(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'id',
   user_id int unsigned NOT NULL DEFAULT 0 comment'用户id',
   content VARCHAR(255) NOT NULL DEFAULT '' comment'操作内容说明',
