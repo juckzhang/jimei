@@ -65,6 +65,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['id']?></td>
                 <td><?=$data['barcode']?></td>
+                <td><?=$data['sn']?></td>
                 <td><?=$data['phone']['modal']?></td>
                 <td><?=$data['material']['name']?></td>
                 <td><?=$data['theme']['name']?></td>
