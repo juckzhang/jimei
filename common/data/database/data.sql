@@ -45,10 +45,21 @@ CREATE TABLE if NOT EXISTS jimei_order(
   theme_id int unsigned NOT NULL default  0 comment'素材',
   color_id int unsigned NOT NULL default  0 comment'颜色',
   meterial_id int unsigned NOT NULL default  0 comment'材质',
+  source varchar(125) not null default ''comment'订单来源',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
+
+-- 机型材质
+CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  mobile_id VARCHAR(15) NOT NULL default '' comment'机型id',
+  `material_id` int unsigned NOT NULL default  0 comment'材质id',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'机型材质关系表';
 
 -- 手机品牌
 CREATE TABLE if NOT EXISTS jimei_brand(

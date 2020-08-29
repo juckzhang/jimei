@@ -33,22 +33,14 @@ use common\models\mysql\AdModel;
                     </li>
                 <?php endif;?>
 
-                <!-- 品牌 -->
-                <?php if(\Yii::$app->user->can('brand')):?>
-                    <li><a>品牌管理</a>
-                        <ul>
-                            <?php if(\Yii::$app->user->can('brand/brand-list')):?>
-                                <li><a href="<?=Url::to(['brand/brand-list'])?>" target="navTab" rel="brand-list">品牌列表</a></li>
-                            <?php endif;?>
-                        </ul>
-                    </li>
-                <?php endif;?>
-
                 <?php if(\Yii::$app->user->can('phone')):?>
                     <li><a>机型管理</a>
                         <ul>
                             <?php if(\Yii::$app->user->can('phone/phone-list')):?>
                                 <li><a href="<?=Url::to(['phone/phone-list'])?>" target="navTab" rel="phone-list">机型列表</a></li>
+                            <?php endif;?>
+                            <?php if(\Yii::$app->user->can('phone/brand-list')):?>
+                                <li><a href="<?=Url::to(['phone/brand-list'])?>" target="navTab" rel="brand-list">品牌列表</a></li>
                             <?php endif;?>
                         </ul>
                     </li>

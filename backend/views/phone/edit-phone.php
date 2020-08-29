@@ -1,10 +1,6 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\BrandService;
-
-$param = \Yii::$app->request->getPost();
-$brandList   = BrandService::getService()->allList();
 ?>
 <h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
