@@ -42,6 +42,9 @@ use common\models\mysql\AdModel;
                             <?php if(\Yii::$app->user->can('phone/brand-list')):?>
                                 <li><a href="<?=Url::to(['phone/brand-list'])?>" target="navTab" rel="brand-list">品牌列表</a></li>
                             <?php endif;?>
+                            <?php if(\Yii::$app->user->can('phone/relation-list')):?>
+                                <li><a href="<?=Url::to(['phone/relation-list'])?>" target="navTab" rel="brand-list">机型材质关系</a></li>
+                            <?php endif;?>
                         </ul>
                     </li>
                 <?php endif;?>
