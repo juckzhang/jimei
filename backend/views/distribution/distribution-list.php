@@ -59,7 +59,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
                 <td><?=$data->id?></td>
                 <td><?=$data->sn?></td>
-                <td><?=$data->number?></td>
+                <td><?=$data->num?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('distribution/delete-distribution')):?>

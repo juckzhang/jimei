@@ -17,7 +17,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
             <dl>
                 <dt>数量：</dt>
                 <dd>
-                    <input type="text" name="DistributionModel[number]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'number',0)?>"/>
+                    <input type="text" name="DistributionModel[num]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'num',0)?>"/>
                     <span class="info">数量</span>
                 </dd>
             </dl>
