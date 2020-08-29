@@ -20,7 +20,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
-    <input type="hidden" name="base_id" value="<?=$baseId?>" />
+    <input type="hidden" name="base_id" value="<?=$baseId?>" id="base_id"/>
     <?php foreach ($other as $key => $value):?>
         <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
     <?php endforeach;?>
