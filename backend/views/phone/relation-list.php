@@ -49,8 +49,8 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="40">ID</th>
             <th width="80">机型名称</th>
             <th width="80">材质名称</th>
-            <th width="80">左边距</th>
-            <th width="80">上边距</th>
+            <th width="80">左右边距</th>
+            <th width="80">上下边距</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -61,6 +61,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['id']?></td>
                 <td><?=$data['phone']['modal']?></td>
+                <td><?=$data['material']['name']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>

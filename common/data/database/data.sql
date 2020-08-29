@@ -54,6 +54,8 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   mobile_id VARCHAR(15) NOT NULL default '' comment'机型id',
   `material_id` int unsigned NOT NULL default  0 comment'材质id',
+  `left` int unsigned NOT NULL default  0 comment'左右边距',
+  `top` int unsigned NOT NULL default  0 comment'上下边距',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
