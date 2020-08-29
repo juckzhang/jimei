@@ -49,8 +49,6 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="40">ID</th>
             <th width="80">名称</th>
             <th width="80">条码</th>
-            <th width="80">左右边距</th>
-            <th width="80">上下边距</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -62,8 +60,6 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data->id?></td>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
-                <td><?=$data->left?></td>
-                <td><?=$data->top?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('material/delete-material')):?>

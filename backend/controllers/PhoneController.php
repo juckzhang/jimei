@@ -79,13 +79,13 @@ class PhoneController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = PhoneService::getService()->editInfi($id, BrandModel::className());
+            $result = PhoneService::getService()->editInfo($id, BrandModel::className());
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'brand-list',
                     'callbackType' => 'forward',
-                    'forwardUrl' => Url::to(['brand/brand-list'])
+                    'forwardUrl' => Url::to(['phone/brand-list'])
                 ]);
             return $this->returnAjaxError($result);
         }else{

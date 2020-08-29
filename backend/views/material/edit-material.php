@@ -21,20 +21,6 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                     <span class="info">条码</span>
                 </dd>
             </dl>
-            <dl>
-                <dt>左右边距：</dt>
-                <dd>
-                    <input type="text" name="MaterialModel[left]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'left',0)?>"/>
-                    <span class="info">左右不能为空</span>
-                </dd>
-            </dl>
-            <dl>
-                <dt>上下边距：</dt>
-                <dd>
-                    <input type="text" name="MaterialModel[top]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'left',0)?>"/>
-                    <span class="info">上下不能为空</span>
-                </dd>
-            </dl>
         </div>
         <div class="formBar">
             <ul>

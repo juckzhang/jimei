@@ -11,6 +11,7 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$baseId = ArrayHelper::getValue($params,'base_id');
 ?>
 <div class="" id="order-list" rel="order-list">
 <form id="pagerForm" method="post" action="#rel#">
@@ -19,6 +20,7 @@ $search = ArrayHelper::getValue($params,'search');
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
+    <input type="hidden" name="base_id" value="<?=$baseId?>" />
     <?php foreach ($other as $key => $value):?>
         <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
     <?php endforeach;?>
@@ -75,6 +77,10 @@ $search = ArrayHelper::getValue($params,'search');
 
                     <?php if(\Yii::$app->user->can('order/edit-order')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('order/order-list')):?>
+                        <a title="订单" target="dialog" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnEdit">订单</a>
                     <?php endif;?>
                 </td>
             </tr>

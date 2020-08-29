@@ -8,14 +8,14 @@ use yii\helpers\ArrayHelper;
 
 class OrderService extends BackendService
 {
-    public function OrderList($keyWord,$page,$prePage,array $order = [])
+    public function OrderList($basid,$page,$prePage,array $order = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = OrderModel::find()
             ->where(['!=','status' , OrderModel::STATUS_DELETED])
-            ->andFilterWhere(['name','title',$keyWord]);
+            ->andFilterWhere(['$basid'=>$basid]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);

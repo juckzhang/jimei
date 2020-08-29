@@ -17,8 +17,6 @@ CREATE TABLE if NOT EXISTS jimei_material(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `name` VARCHAR(15) NOT NULL default '' comment '材质名称',
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
-  `left` tinyint(1) NOT NULL default 0 comment '边距',
-  `top` tinyint(1) NOT NULL default 0 comment '边距',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
