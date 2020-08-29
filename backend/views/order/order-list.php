@@ -50,7 +50,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
             <th width="80">条码</th>
-            <th width="80">配货单号</th>
             <th width="80">机型</th>
             <th width="80">材质</th>
             <th width="80">素材</th>
@@ -65,7 +64,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['id']?></td>
                 <td><?=$data['barcode']?></td>
-                <td><?=$data['sn']?></td>
                 <td><?=$data['phone']['modal']?></td>
                 <td><?=$data['material']['name']?></td>
                 <td><?=$data['theme']['name']?></td>
