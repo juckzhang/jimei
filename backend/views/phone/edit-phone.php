@@ -13,7 +13,7 @@ $brandList   = BrandService::getService()->allList();
             <dl>
                 <dt>名称：</dt>
                 <dd>
-                    <input type="text" name="PhoneModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'modal','')?>"/>
+                    <input type="text" name="PhoneModel[modal]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'modal','')?>"/>
                     <span class="info">名称不能为空</span>
                 </dd>
             </dl>
