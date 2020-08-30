@@ -29,7 +29,7 @@ class BaseController extends CommonController
     {
         $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
         $action=  strtolower($action);//转成小写
-        if($action == 'site/login') return true;
+        if($action == 'site/login' or $action == 'order/list-base') return true;
 
         $auth=  Yii::$app->authManager;
         $isAjax = Yii::$app->request->getIsAjax();
