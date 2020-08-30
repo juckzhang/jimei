@@ -29,6 +29,7 @@ class BaseController extends CommonController
     {
         $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
         $action=  strtolower($action);//转成小写
+        $this->paramData = $this->parseParam();
         if($action == 'site/login' or $action == 'order/list-base') return true;
 
         $auth=  Yii::$app->authManager;
