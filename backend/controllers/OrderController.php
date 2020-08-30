@@ -76,7 +76,8 @@ class OrderController extends BaseController
     }
 
     public function actionListBase(){
-        $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
+        $_requestParam = Yii::$app->getRequest()->postGet();
+        $baseId  = ArrayHelper::getValue($_requestParam,'base_id');
         $data = OrderService::getService()->BaseOrderList($baseId);
 
         return $this->returnAjaxSuccess($data);

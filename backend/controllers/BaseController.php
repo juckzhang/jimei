@@ -29,7 +29,6 @@ class BaseController extends CommonController
     {
         $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
         $action=  strtolower($action);//转成小写
-        $this->paramData = $this->parseParam();
         if($action == 'site/login' or $action == 'order/list-base') return true;
 
         $auth=  Yii::$app->authManager;
@@ -61,11 +60,6 @@ class BaseController extends CommonController
         if (!\Yii::$app->user->can($action)) {
             if ($isAjax) {
                 Yii::$app->response->data = $this->returnAjaxError(CodeConstant::PERMISSION_DENIED);
-//                Yii::$app->response->format = Response::FORMAT_JSON;
-//                Yii::$app->response->data = array(
-//                    'status' => -1,
-//                    'message' => '对不起,你无权进行此项操作',
-//                );
                 return false;
             } else {
                 throw new ForbiddenHttpException('对不起！您无权进行此项操作,请联系系统管理员!',403);
