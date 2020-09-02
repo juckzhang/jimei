@@ -56,6 +56,7 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   `material_id` int unsigned NOT NULL default  0 comment'材质id',
   `left` decimal(5,2) NOT NULL default  0 comment'左右边距',
   `top` decimal(5,2) NOT NULL default  0 comment'上下边距',
+  border_url varcahr(255) NOT NULL default '' comment'圆角素材链接',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'

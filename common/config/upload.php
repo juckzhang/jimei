@@ -15,6 +15,6 @@ return [
         'path'  => realpath(__DIR__ . '/../upload'),
         'url'   => 'http://localhost',
         'remoteUpload' => false,
-        'recursive' => false,
+        'recursive' => true,
     ],
 ];

@@ -2,9 +2,9 @@
 return [
     'picture' => [
         'extensions' => null,
-        'path'  => 'picture',
+        'path'  => 'picture/'.date('ymd'),
         'url'   => 'http://ss1.kungchinese.com/',
         'remoteUpload' => true,
-        'recursive' => false,
+        'recursive' => true,
     ],
 ];

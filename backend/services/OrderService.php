@@ -52,6 +52,10 @@ class OrderService extends BackendService
         foreach ($items as $item){
             $templateUrl = ArrayHelper::getValue($item, 'theme.template_url');
             if($templateUrl) $templateUrl = \Yii::$app->params['picUrlPrefix'] . $templateUrl;
+
+            $borderUrl = ArrayHelper::getValue($item, 'relat.border_url');
+            if($borderUrl) $borderUrl = \Yii::$app->params['picUrlPrefix'] . $borderUrl;
+
             $dataList[] = [
                 'barcode' => $item['barcode'],
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
@@ -62,6 +66,7 @@ class OrderService extends BackendService
                 'material' => ArrayHelper::getValue($item, 'material.name'),
                 'left' => ArrayHelper::getValue($item, 'relat.left', 0),
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
+                'border_url' => $borderUrl,
             ];
         }
         return ['sn' => $baseList['sn'], 'items' => $dataList];

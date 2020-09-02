@@ -51,6 +51,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="80">材质名称</th>
             <th width="80">左右边距</th>
             <th width="80">上下边距</th>
+            <th width="80">圆角边素材</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -64,6 +65,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data['material']['name']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
+                td><?=$data['border_url']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('phone/delete-relation')):?>

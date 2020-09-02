@@ -22,7 +22,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                 </dd>
             </dl>
             <dl>
-                <dt>海报图片：</dt>
+                <dt>素材：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
                 </dd>

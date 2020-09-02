@@ -40,6 +40,17 @@ use yii\helpers\ArrayHelper;
                     <span class="info">高不能为空</span>
                 </dd>
             </dl>
+            <dl>
+                <dt>素材：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[border_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'border_url','')?>"/>
+                </dd>
+            </dl>
+            <p>
+                <label>&nbsp;</label>
+                <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
+                <img id="upload" class="upload-btn" src="<?= ! empty($model['border_url']) ? \Yii::$app->params['imageUrlPrefix'] .$model['border_url'] : '/images/upload.png'?>" width="100px"/>
+            </p>
         </div>
         <div class="formBar">
             <ul>
@@ -49,3 +60,44 @@ use yii\helpers\ArrayHelper;
         </div>
     </form>
 </div>
+
+<script src="/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".upload-btn").on('click', function() {
+            $(this).parent().find('input[type=file]').click();
+        });
+
+        //上传图片
+        //选择文件之后执行上传
+        $('.upload-input').on('change',function(){
+            var name      = $(this).data('name'),
+                type      = $(this).data('type'),
+                id        = $(this).attr('id'),
+                imgObj    = $(this).parent().find('img[class=upload-btn]'),
+                inputText = $('.'+name);
+
+            $.ajaxFileUpload({
+                url:'<?=Url::to(['upload/upload-file'])?>',
+                secureuri:false,
+                fileElementId:id,//file标签的id
+                dataType: 'json',//返回数据的类型
+                data:{type: type},//一同上传的数据
+                success: function (result, status) {
+                    //把图片替换
+                    if(result.code == 200){
+                        var posterUrl = $.trim(result.data.url),
+                            fullName  = result.data.fullFileName;
+                        imgObj.attr("src", posterUrl);
+                        inputText.val(fullName);
+                    }else {
+                        alert(result.resultDesc);
+                    }
+                },
+                error: function (data, status, e) {
+                    alert(e);
+                }
+            });
+        });
+    });
+</script>

@@ -1,7 +1,6 @@
 <?php
 namespace backend\controllers;
 
-use backend\services\DistributionService;
 use common\constants\CodeConstant;
 use common\models\mysql\ColorModel;
 use common\models\mysql\DistributionModel;
@@ -73,14 +72,6 @@ class OrderController extends BaseController
                 'forwardUrl'  => Url::to(['order/order-list'])
             ]);
         return $this->returnAjaxError($return);
-    }
-
-    public function actionListBase(){
-        $_requestParam = Yii::$app->getRequest()->postGet();
-        $baseId  = ArrayHelper::getValue($_requestParam,'base_id');
-        $data = OrderService::getService()->BaseOrderList($baseId);
-
-        return $this->returnAjaxSuccess($data);
     }
 
     public function actionDistributionList()
