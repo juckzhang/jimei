@@ -65,7 +65,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data['material']['name']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
-                td><?=$data['border_url']?></td>
+                <td><?=$data['border_url']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('phone/delete-relation')):?>
