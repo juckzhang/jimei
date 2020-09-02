@@ -1,7 +1,6 @@
 <?php
 namespace backend\controllers;
 
-use backend\services\DistributionService;
 use Yii;
 use backend\services\OrderService;
 use yii\helpers\ArrayHelper;
@@ -10,6 +9,8 @@ class ApiController extends BaseController
 {
     public function beforeAction($action){
         $this->paramData = Yii::$app->getRequest()->postGet();
+
+        return true;
     }
 
     public function actionListBase(){
