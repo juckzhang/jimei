@@ -154,7 +154,7 @@ class UploadService extends Service
             $fullFileName = \Yii::getAlias('@webroot/') . $relativePath;
         }
 
-        if($model->file->saveAs($fullFileName))
+        if($model->file->saveAs($fullFileName, false))
             return [
                 'url' => \Yii::$app->params['imageUrlPrefix'] . $fullFileName,
                 'fullFileName' => $relativePath,
