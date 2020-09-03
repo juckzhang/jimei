@@ -78,8 +78,8 @@ CREATE TABLE if NOT EXISTS jimei_phone(
   brand_id int unsigned NOT NULL default  0 comment '品牌名称',
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   modal VARCHAR(15) NOT NULL DEFAULT '' comment'手机型号名称',
-  width int unsigned NOT NULL DEFAULT 0 comment'手机宽',
-  height int unsigned NOT NULL DEFAULT 0 comment'手机高',
+  width decimal(5,2) NOT NULL DEFAULT 0 comment'手机宽',
+  height decimal(5,2) NOT NULL DEFAULT 0 comment'手机高',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
