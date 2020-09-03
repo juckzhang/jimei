@@ -93,6 +93,6 @@ class UploadForm extends Model
 
     public function getRecursive()
     {
-        return (is_int($this->recursive) && $this->recursive > 0) ? $this->recursive : false;
+        return $this->recursive;
     }
 }
