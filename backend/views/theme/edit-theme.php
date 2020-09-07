@@ -27,6 +27,16 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                     <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
                 </dd>
             </dl>
+            <dl>
+                <dt>客户：</dt>
+                <dd>
+                    <select name="ThemeModel[customer_id]" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                        <?php foreach($customerList as $brand):?>
+                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'customer_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
+                        <?php endforeach;?>
+                    </select>
+                </dd>
+            </dl>
             <p>
                 <label>&nbsp;</label>
                 <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
