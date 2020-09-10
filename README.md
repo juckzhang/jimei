@@ -26,7 +26,7 @@
 
 ### 机型材质关系信息
 - url: /api/relation
-- 请求参数:phone_id: 机型id  material_id:材质id
+- 请求参数:mobile_id: 机型id  material_id:材质id
 
 ### 白板图片链接列表
 - url: /api/relation-list

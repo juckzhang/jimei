@@ -83,7 +83,7 @@ class ApiController extends BaseController
 
     //机型材质关系数据
     public function actionRelation(){
-        $phoneId  = ArrayHelper::getValue($this->paramData,'phone_id');
+        $phoneId  = ArrayHelper::getValue($this->paramData,'mobile_id');
         $materialId  = ArrayHelper::getValue($this->paramData,'material_id');
         $data = PhoneService::getService()->relationInfo($phoneId, $materialId);
 
