@@ -39,7 +39,7 @@ class ThemeController extends BaseController
             $id = ArrayHelper::getValue($this->paramData,'id');
             $model = ThemeModel::find()->where(['id' => $id])->asArray()->one();
             $customerList = CustomerModel::find()->where(['status' => CustomerModel::STATUS_ACTIVE])->asArray()->all();
-            return $this->render('edit-theme',['model' => $model]);
+            return $this->render('edit-theme',['model' => $model, 'customerList' => $customerList]);
         }
     }
 
