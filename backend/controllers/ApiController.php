@@ -74,6 +74,7 @@ class ApiController extends BaseController
     //素材
     public function actionThemeList(){
         $customterId = ArrayHelper::getValue($this->paramData,'customer_id');
+        $updateTime = ArrayHelper::getValue($this->paramData, 'update_time', 0);
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
         $data = ThemeService::getService()->ThemeList(null, $page, $count, [], ['customer_id' => $customterId]);
@@ -94,6 +95,7 @@ class ApiController extends BaseController
     public function actionRelationList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
+        $updateTime = ArrayHelper::getValue($this->paramData, 'update_time', 0);
         $data = PhoneService::getService()->RelationList($page, $count, [], true);
 
         return $this->returnAjaxSuccess($data);

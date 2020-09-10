@@ -58,13 +58,15 @@ class PhoneService extends BackendService
     }
 
     // 机型
-    public function RelationList($page,$prePage,array $order = [],$only = false)
+    public function RelationList($page,$prePage,array $order = [],$other = [], $only = false)
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
+        $updateTime = ArrayHelper::getValue($other, 'update_time');
 
         $models = MaterialPhoneModel::find()
-            ->where(['!=','status' , MaterialPhoneModel::STATUS_DELETED]);
+            ->where(['!=','status' , MaterialPhoneModel::STATUS_DELETED])
+            ->andFilterWhere(['>=', 'update_time', $updateTime]);
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 

@@ -12,11 +12,13 @@ class ThemeService extends BackendService
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
         $customerId = ArrayHelper::getValue($other, 'customer_id');
+        $updateTime = ArrayHelper::getValue($other, 'update_time');
 
         $models = $cardModels = ThemeModel::find()
             ->where(['!=','status' , ThemeModel::STATUS_DELETED])
             ->andFilterWhere(['name','title',$keyWord])
-            ->andFilterWhere(['customer_id' => $customerId]);
+            ->andFilterWhere(['customer_id' => $customerId])
+            ->andFilterWhere(['>=', 'update_time', $updateTime]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
