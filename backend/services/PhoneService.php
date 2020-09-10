@@ -79,6 +79,7 @@ class PhoneService extends BackendService
                 $borderUrl = $model['border_url'];
                 if(!empty($borderUrl)) $models[$key]['border_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
             }
+            $data['dataList'] = $models;
         }
 
         return $data;
