@@ -9,7 +9,7 @@
 - 请求参数: brand_id: 品牌id / page: 当前页面 / count: 每页返回数量
 
 ### 材质列表
-- url: /api/materila-list
+- url: /api/material-list
 - 请求参数:page: 当前页面 count: 每页返回数量
 
 ### 颜色列表

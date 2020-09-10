@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use backend\services\ColorService;
+use backend\services\CustomerService;
 use backend\services\MaterialService;
 use backend\services\PhoneService;
 use backend\services\ThemeService;
@@ -44,7 +45,7 @@ class ApiController extends BaseController
     }
 
     //材质列表
-    public function actionMeterialList(){
+    public function actionMaterialList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
         $data = MaterialService::getService()->materialList(null, $page, $count);
@@ -65,7 +66,7 @@ class ApiController extends BaseController
     public function actionCustomerList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = ThemeService::getService()->CustomerList(null, $page, $count);
+        $data = CustomerService::getService()->CustomerList(null, $page, $count);
 
         return $this->returnAjaxSuccess($data);
     }
@@ -93,7 +94,7 @@ class ApiController extends BaseController
     public function actionRelationList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = PhoneService::getService()->RelationList(null, $page, $count, [], true);
+        $data = PhoneService::getService()->RelationList($page, $count, [], true);
 
         return $this->returnAjaxSuccess($data);
     }
