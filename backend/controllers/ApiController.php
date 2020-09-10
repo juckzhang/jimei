@@ -77,7 +77,7 @@ class ApiController extends BaseController
         $updateTime = ArrayHelper::getValue($this->paramData, 'update_time', 0);
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = ThemeService::getService()->ThemeList(null, $page, $count, [], ['customer_id' => $customterId]);
+        $data = ThemeService::getService()->ThemeList(null, $page, $count, [], ['customer_id' => $customterId,'update_time' => $updateTime]);
 
         return $this->returnAjaxSuccess($data);
     }
@@ -96,7 +96,7 @@ class ApiController extends BaseController
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
         $updateTime = ArrayHelper::getValue($this->paramData, 'update_time', 0);
-        $data = PhoneService::getService()->RelationList($page, $count, [], true);
+        $data = PhoneService::getService()->RelationList($page, $count, [], ['update_time' => $updateTime], true);
 
         return $this->returnAjaxSuccess($data);
     }
