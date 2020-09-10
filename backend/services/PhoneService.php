@@ -5,18 +5,21 @@ use common\models\mysql\BrandModel;
 use common\models\mysql\MaterialPhoneModel;
 use common\models\mysql\PhoneModel;
 use backend\services\base\BackendService;
+use yii\helpers\ArrayHelper;
 
 class PhoneService extends BackendService
 {
     // 机型
-    public function PhoneList($keyWord,$page,$prePage,array $order = [])
+    public function PhoneList($keyWord,$page,$prePage,array $order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
+        $brandId = ArrayHelper::getValue($other, 'brand_id');
 
         $models = PhoneModel::find()
             ->where(['!=','status' , PhoneModel::STATUS_DELETED])
-            ->andFilterWhere(['name','title',$keyWord]);
+            ->andFilterWhere(['name','title',$keyWord])
+            ->andFilterWhere(['brand_id' => $brandId]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
@@ -55,7 +58,7 @@ class PhoneService extends BackendService
     }
 
     // 机型
-    public function RelationList($page,$prePage,array $order = [])
+    public function RelationList($page,$prePage,array $order = [],$only = false)
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
@@ -65,16 +68,32 @@ class PhoneService extends BackendService
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
-        if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)
+        if($data['pageCount'] > 0 AND $page <= $data['pageCount']){
+            $models = $models->orderBy($order)
                 ->limit($limit)
-                ->offset($offset)
-                ->with('phone')
-                ->with('material')
-                ->asArray()
-                ->all();
+                ->offset($offset);
+            if(!$only)
+                $models = $models->with('phone')->with('material');
+            $models = $models->asArray()->all();
+            foreach ($models as $key => $model){
+                $borderUrl = $model['border_url'];
+                if(!empty($borderUrl)) $models[$key]['border_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+            }
+        }
 
         return $data;
+    }
+
+    public function relationInfo($phoneId, $materialId){
+        $model = MaterialPhoneModel::find()->where(['status' => MaterialPhoneModel::STATUS_ACTIVE])
+            ->andWhere(['phone_id' => $phoneId])
+            ->andWhere(['material_id' => $materialId])
+            ->asArray()
+            ->one();
+        $borderUrl = $model['border_url'];
+        if(!empty($borderUrl)) $model['border_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+
+        return ['data' => $model];
     }
 }
 

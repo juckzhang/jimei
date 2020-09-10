@@ -8,4 +8,9 @@ class ThemeModel extends ActiveRecord
     {
         return "{{%theme}}";
     }
+
+    public function getCustomer(){
+        return $this->hasOne(CustomerModel::className(), ['id' => 'customer_id'])
+            ->select(['id','name']);
+    }
 }

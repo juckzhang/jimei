@@ -1,6 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use backend\services\ColorService;
+use backend\services\MaterialService;
+use backend\services\PhoneService;
+use backend\services\ThemeService;
 use Yii;
 use backend\services\OrderService;
 use yii\helpers\ArrayHelper;
@@ -16,6 +20,80 @@ class ApiController extends BaseController
     public function actionListBase(){
         $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
         $data = OrderService::getService()->BaseOrderList($baseId);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //品牌列表
+    public function actionBrandList(){
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = PhoneService::getService()->BrandList(null, $page, $count);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //机型列表
+    public function actionPhoneList(){
+        $brandId = ArrayHelper::getValue($this->paramData, 'brand_id');
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = PhoneService::getService()->PhoneList(null, $page, $count, [], ['brand_id' => $brandId]);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //材质列表
+    public function actionMeterialList(){
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = MaterialService::getService()->materialList(null, $page, $count);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //颜色
+    public function actionColorList(){
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = ColorService::getService()->colorList(null, $page, $count);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //客户
+    public function actionCustomerList(){
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = ThemeService::getService()->CustomerList(null, $page, $count);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //素材
+    public function actionThemeList(){
+        $customterId = ArrayHelper::getValue($this->paramData,'customer_id');
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = ThemeService::getService()->ThemeList(null, $page, $count, [], ['customer_id' => $customterId]);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //机型材质关系数据
+    public function actionRelation(){
+        $phoneId  = ArrayHelper::getValue($this->paramData,'phone_id');
+        $materialId  = ArrayHelper::getValue($this->paramData,'material_id');
+        $data = PhoneService::getService()->relationInfo($phoneId, $materialId);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
+    //border url list
+    public function actionRelationList(){
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = PhoneService::getService()->RelationList(null, $page, $count, [], true);
 
         return $this->returnAjaxSuccess($data);
     }

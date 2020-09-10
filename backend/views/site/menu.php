@@ -33,6 +33,26 @@ use common\models\mysql\AdModel;
                     </li>
                 <?php endif;?>
 
+                <?php if(\Yii::$app->user->can('customer')):?>
+                    <li><a>客户信息管理</a>
+                        <ul>
+                            <?php if(\Yii::$app->user->can('customer/customer-list')):?>
+                                <li><a href="<?=Url::to(['customer/customer-list'])?>" target="navTab" rel="customer-list">客户列表</a></li>
+                            <?php endif;?>
+                        </ul>
+                    </li>
+                <?php endif;?>
+
+                <?php if(\Yii::$app->user->can('meal')):?>
+                    <li><a>套餐信息管理</a>
+                        <ul>
+                            <?php if(\Yii::$app->user->can('meal/meal-list')):?>
+                                <li><a href="<?=Url::to(['meal/meal-list'])?>" target="navTab" rel="meal-list">套餐列表</a></li>
+                            <?php endif;?>
+                        </ul>
+                    </li>
+                <?php endif;?>
+
                 <?php if(\Yii::$app->user->can('phone')):?>
                     <li><a>机型管理</a>
                         <ul>
