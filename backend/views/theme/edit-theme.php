@@ -22,12 +22,6 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                 </dd>
             </dl>
             <dl>
-                <dt>素材：</dt>
-                <dd>
-                    <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
-                </dd>
-            </dl>
-            <dl>
                 <dt>客户：</dt>
                 <dd>
                     <select name="ThemeModel[customer_id]" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
@@ -35,6 +29,12 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                             <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'customer_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
                         <?php endforeach;?>
                     </select>
+                </dd>
+            </dl>
+            <dl>
+                <dt>素材：</dt>
+                <dd>
+                    <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
                 </dd>
             </dl>
             <p>
