@@ -47,27 +47,37 @@ $search = ArrayHelper::getValue($params,'search');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
-            <th width="80">名称</th>
-            <th width="80">条码</th>
+            <th width="80">品牌</th>
+            <th width="80">机型</th>
+            <th width="80">材质</th>
+            <th width="80">颜色</th>
+            <th width="80">客户</th>
+            <th width="80">素材</th>
+            <th width="80">同步状态</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach($dataList as $key => $data):?>
-            <tr target="card-id" rel="<?=$data->id?>">
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
-                <td><?=$data->id?></td>
-                <td><?=$data->name?></td>
-                <td><?=$data->barcode?></td>
-                <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
+            <tr target="card-id" rel="<?=$data['id']?>">
+                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
+                <td><?=$data['id']?></td>
+                <td><?=$data['brand']['name']?></td>
+                <td><?=$data['phone']['modal']?></td>
+                <td><?=$data['material']['name']?></td>
+                <td><?=$data['color']['name']?></td>
+                <td><?=$data['customer']['name']?></td>
+                <td><?=$data['theme']['name']?></td>
+                <td><?=$data['barcode']?></td>
+                <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
-                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
+                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data['id']])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('meal/edit-meal')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['meal/edit-meal','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="dialog" href="<?=Url::to(['meal/edit-meal','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>

@@ -10,7 +10,8 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   `customer_id` int unsigned NOT NULL default 0 comment'客户id',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`barcode`,`customer_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
 -- 材质
@@ -20,8 +21,9 @@ CREATE TABLE if NOT EXISTS jimei_material(
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (barcode)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'材质';
 
 -- 配货单
 CREATE TABLE if NOT EXISTS jimei_base_list(
@@ -31,8 +33,9 @@ CREATE TABLE if NOT EXISTS jimei_base_list(
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   task_status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未完成 1：任务处理锁定中 3: 已完成',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (sn)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'配货单列表';
 
 -- 订单列表
 CREATE TABLE if NOT EXISTS jimei_order(
@@ -41,14 +44,16 @@ CREATE TABLE if NOT EXISTS jimei_order(
   `base_id` int unsigned NOT NULL default  0 comment'打印单号',
   barcode char(20) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
   mobile_id int unsigned NOT NULL default  0 comment'手机型号id',
+  customer_id int unsigned NOT NULL default  0 comment'客户id',
   theme_id int unsigned NOT NULL default  0 comment'素材',
   color_id int unsigned NOT NULL default  0 comment'颜色',
   material_id int unsigned NOT NULL default  0 comment'材质',
   source varchar(125) not null default ''comment'订单来源',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (order_id,base_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
 -- 机型材质
 CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
@@ -60,7 +65,8 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   border_url varchar(255) NOT NULL default '' comment'圆角素材链接',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (mobile_id,material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'机型材质关系表';
 
 -- 手机品牌
@@ -70,8 +76,9 @@ CREATE TABLE if NOT EXISTS jimei_brand(
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (barcode)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'品牌';
 
 -- 手机型号
 CREATE TABLE if NOT EXISTS jimei_phone(
@@ -83,8 +90,9 @@ CREATE TABLE if NOT EXISTS jimei_phone(
   height decimal(5,2) NOT NULL DEFAULT 0 comment'手机高',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (brand_id,barcode)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'机型';
 
 -- 颜色
 CREATE TABLE if NOT EXISTS jimei_color(
@@ -94,8 +102,9 @@ CREATE TABLE if NOT EXISTS jimei_color(
   rdg char(6) NOT NULL DEFAULT '000000' comment'色值',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (barcode)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'颜色';
 
 -- 客户
 CREATE TABLE if NOT EXISTS jimei_customer(
@@ -104,8 +113,26 @@ CREATE TABLE if NOT EXISTS jimei_customer(
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'资源台词列表';
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (barcode)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'客户';
+
+-- 套餐
+CREATE TABLE if NOT EXISTS jimei_order(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  barcode char(20) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
+  brand_id int unsigned NOT NULL default  0 comment'品牌id',
+  mobile_id int unsigned NOT NULL default  0 comment'手机型号id',
+  customer_id int unsigned NOT NULL default  0 comment'客户id',
+  theme_id int unsigned NOT NULL default  0 comment'素材',
+  color_id int unsigned NOT NULL default  0 comment'颜色',
+  material_id int unsigned NOT NULL default  0 comment'材质',
+  source varchar(125) not null default ''comment'订单来源',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (brand_id, mobile_id,customer_id,theme_id,color_id,material_id,theme_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'套餐';
 
 -- 管理平台相关记录表
 CREATE TABLE IF NOT EXISTS jimei_role(

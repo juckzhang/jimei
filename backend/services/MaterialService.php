@@ -13,7 +13,7 @@ class MaterialService extends BackendService
 
         $models = $cardModels = MaterialModel::find()
             ->where(['!=','status' , MaterialModel::STATUS_DELETED])
-            ->andFilterWhere(['name','title',$keyWord]);
+            ->andFilterWhere(['like','name',$keyWord]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);

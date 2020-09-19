@@ -7,16 +7,9 @@ use yii\helpers\ArrayHelper;
     <form method="post" action="<?=Url::to(['phone/edit-phone','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
-                <dt>名称：</dt>
-                <dd>
-                    <input type="text" name="PhoneModel[modal]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'modal','')?>"/>
-                    <span class="info">名称不能为空</span>
-                </dd>
-            </dl>
-            <dl>
                 <dt>品牌分类：</dt>
                 <dd>
-                    <select name="PhoneModel[brand_id]" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
+                    <select name="MealModel[brand_id]" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
                         <?php foreach($brandList as $brand):?>
                             <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'brand_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
                         <?php endforeach;?>
@@ -24,24 +17,53 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
-                <dt>条码：</dt>
+                <dt>机型：</dt>
                 <dd>
-                    <input type="text" name="PhoneModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
-                    <span class="info">条码</span>
+                    <select name="MealModel[mobile_id]" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
+                        <?php foreach($phoneList as $brand):?>
+                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'mobile_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['modal']?></option>
+                        <?php endforeach;?>
+                    </select>
                 </dd>
             </dl>
             <dl>
-                <dt>宽：</dt>
+                <dt>材质：</dt>
                 <dd>
-                    <input type="text" name="PhoneModel[width]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'width',0)?>"/>
-                    <span class="info">宽不能为空</span>
+                    <select name="MealModel[material_id]" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
+                        <?php foreach($materialList as $brand):?>
+                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'material_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
+                        <?php endforeach;?>
+                    </select>
                 </dd>
             </dl>
             <dl>
-                <dt>高：</dt>
+                <dt>颜色：</dt>
                 <dd>
-                    <input type="text" name="PhoneModel[height]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'height',0)?>"/>
-                    <span class="info">高不能为空</span>
+                    <select name="MealModel[color_id]" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
+                        <?php foreach($colorList as $brand):?>
+                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'color_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
+                        <?php endforeach;?>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
+                <dt>客户：</dt>
+                <dd>
+                    <select name="MealModel[customer_id]" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                        <?php foreach($colorList as $brand):?>
+                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'customer_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
+                        <?php endforeach;?>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
+                <dt>素材：</dt>
+                <dd>
+                    <select name="MealModel[theme_id]" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
+                        <?php foreach($colorList as $brand):?>
+                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'theme_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
+                        <?php endforeach;?>
+                    </select>
                 </dd>
             </dl>
         </div>

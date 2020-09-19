@@ -1,19 +1,19 @@
 <?php
 namespace backend\services;
 
-use common\models\mysql\CustomerModel;
+use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
 
-class CustomerService extends BackendService
+class MealService extends BackendService
 {
     // 机型
-    public function CustomerList($keyWord,$page,$prePage,array $order = [])
+    public function mealList($keyWord,$page,$prePage,array $order = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
-        $models = CustomerModel::find()
-            ->where(['!=','status' , CustomerModel::STATUS_DELETED])
+        $models = MealModel::find()
+            ->where(['!=','status' , MealModel::STATUS_DELETED])
             ->andFilterWhere(['like','name',$keyWord]);
 
         $data['dataCount'] = $models->count();
@@ -22,7 +22,13 @@ class CustomerService extends BackendService
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
             $data['dataList'] = $models->orderBy($order)
                 ->limit($limit)
+                ->with('brand')
+                ->with('phone')
+                ->with('material')
+                ->with('color')
+                ->with('theme')
                 ->offset($offset)
+                ->asArray()
                 ->all();
 
         return $data;

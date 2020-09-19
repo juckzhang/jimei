@@ -18,7 +18,7 @@ class PhoneService extends BackendService
 
         $models = PhoneModel::find()
             ->where(['!=','status' , PhoneModel::STATUS_DELETED])
-            ->andFilterWhere(['name','title',$keyWord])
+            ->andFilterWhere(['like','modal',$keyWord])
             ->andFilterWhere(['brand_id' => $brandId]);
 
         $data['dataCount'] = $models->count();

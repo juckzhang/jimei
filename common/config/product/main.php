@@ -3,11 +3,11 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=kung', // MySQL, MariaDB
+            'dsn' => 'mysql:host=127.0.0.1;dbname=jimei', // MySQL, MariaDB
             'username' => 'root',
-            'password' => 'kung_admin_123@&',
+            'password' => 'ZCP38N8H.Yjt',
             'charset' => 'utf8mb4',
-            'tablePrefix' => 'kung_',
+            'tablePrefix' => 'jimei_',
         ],
 
         'uploadTool' => [
