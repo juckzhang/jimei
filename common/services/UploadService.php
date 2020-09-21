@@ -155,7 +155,7 @@ class UploadService extends Service
 
         if($model->file->saveAs($fullFileName))
             return [
-                'url' => \Yii::$app->params['imageUrlPrefix'] . $fullFileName,
+                'url' => \Yii::$app->params['imageUrlPrefix'] . $relativePath,
                 'fullFileName' => $relativePath,
             ];
 
