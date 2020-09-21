@@ -3,8 +3,8 @@ return [
     'picture' => [
         'extensions' => null,
         'path'  => 'upload/picture/'.date('Ymd'),
-        'url'   => 'http://ss1.kungchinese.com/',
-        'remoteUpload' => true,
+        'url'   => 'http://www.wolongtech.com/',
+        'remoteUpload' => false,
         'recursive' => true,
     ],
 ];
