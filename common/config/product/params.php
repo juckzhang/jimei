@@ -1,5 +1,5 @@
 <?php
 return [
-    'imageUrlPrefix' => 'http://ss1.kungchinese.com/',
+    'imageUrlPrefix' => 'http://www.wolongtech.com/',
     'domain'       => 'http://api.kungchinese.com/'
 ];
