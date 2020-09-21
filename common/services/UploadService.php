@@ -136,21 +136,20 @@ class UploadService extends Service
         if($subDirStr !== '') $subDirStr = trim($subDirStr,DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         //递归创建目录
         if($model->getRecursive())
-        {
             $subDirStr .= $this->createSubDirString($model->recursive);
-            //创建子目录
-            if(!is_dir($subDirStr))
-                mkdir($model->getPath() . DIRECTORY_SEPARATOR .$subDirStr,0755,true);
-        }
         //获取完整文件名
         if($subDirStr !== '') $subDirStr = trim($subDirStr,DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $dirName = $model->getPath() . DIRECTORY_SEPARATOR  . $subDirStr;
+        $fileNamePrefix = \Yii::getAlias('@webroot/') . $dirName;
+        if(!is_dir($fileNamePrefix))
+            mkdir($fileNamePrefix, 0755, true);
         if($fileName !== null)
         {
-            $relativePath = $model->getPath() . DIRECTORY_SEPARATOR  . $subDirStr .$fileName . '.'.$model->file->extension;
+            $relativePath = $dirName . $fileName . '.'.$model->file->extension;
             $fullFileName = \Yii::getAlias('@webroot/') . $relativePath;
         }
         else{
-            $relativePath = $model->getPath() . DIRECTORY_SEPARATOR  . $subDirStr . $model->file->baseName . '.' . $model->file->extension;
+            $relativePath = $dirName  . $subDirStr . $model->file->baseName . '.' . $model->file->extension;
             $fullFileName = \Yii::getAlias('@webroot/') . $relativePath;
         }
 
