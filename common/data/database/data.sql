@@ -118,7 +118,7 @@ CREATE TABLE if NOT EXISTS jimei_customer(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'客户';
 
 -- 套餐
-CREATE TABLE if NOT EXISTS jimei_order(
+CREATE TABLE if NOT EXISTS jimei_meal(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   barcode char(20) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
   brand_id int unsigned NOT NULL default  0 comment'品牌id',

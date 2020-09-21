@@ -139,7 +139,7 @@ class UploadService extends Service
         {
             $subDirStr .= $this->createSubDirString($model->recursive);
             //创建子目录
-            if(is_dir($subDirStr))
+            if(!is_dir($subDirStr))
                 mkdir($model->getPath() . DIRECTORY_SEPARATOR .$subDirStr,0755,true);
         }
         //获取完整文件名
