@@ -14,7 +14,7 @@ class BackendService extends Service
     public function deleteInfo($id,$modelName)
     {
         $primaryKey = $modelName::primaryKey()[0];
-        $num = $modelName::updateAll(['status' => $modelName::STATUS_DELETED],[$primaryKey => $id]);
+        $num = $modelName::deleteAll([$primaryKey => $id]);
         if($num > 0) return true;
         return false;
     }
