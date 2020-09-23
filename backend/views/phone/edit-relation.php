@@ -27,14 +27,14 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
-                <dt>左右边距：</dt>
+                <dt>左边距：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[left]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'left',0)?>"/>
                     <span class="info">宽不能为空</span>
                 </dd>
             </dl>
             <dl>
-                <dt>上下边距：</dt>
+                <dt>上边距：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[top]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'top',0)?>"/>
                     <span class="info">高不能为空</span>
