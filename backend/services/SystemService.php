@@ -83,7 +83,7 @@ class SystemService extends BackendService
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = RoleModel::find()->where(['status' => RoleModel::STATUS_ACTIVE])
-            ->andFilterWhere(['like','title',$keyWord])
+            ->andFilterWhere(['like','name',$keyWord])
             ->andFilterWhere(['catet_id' => $cateId]);
 
         $data['dataCount'] = $models->count();
@@ -157,7 +157,7 @@ class SystemService extends BackendService
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = AdminModel::find()->where(['status' => UserModel::STATUS_ACTIVE])
-            ->andFilterWhere(['like','title',$keyWord])
+            ->andFilterWhere(['like','username',$keyWord])
             ->andFilterWhere(['catet_id' => $cateId]);
 
         $data['dataCount'] = $models->count();

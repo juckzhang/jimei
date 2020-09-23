@@ -42,7 +42,7 @@ class PhoneService extends BackendService
 
         $models = BrandModel::find()
             ->where(['!=','status' , BrandModel::STATUS_DELETED])
-            ->andFilterWhere(['name','title',$keyWord]);
+            ->andFilterWhere(['like','name',$keyWord]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
