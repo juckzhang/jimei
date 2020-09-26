@@ -30,7 +30,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <table class="searchContent">
                     <tbody>
                     <tr>
-                        <td>关键词：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                        <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
                     </tr>
                     </tbody>
                 </table>
