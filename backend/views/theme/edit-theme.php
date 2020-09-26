@@ -11,14 +11,14 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                 <dt>名称：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'name','')?>"/>
-                    <span class="info">名称不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
                 <dt>条码：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
-                    <span class="info">条码</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
