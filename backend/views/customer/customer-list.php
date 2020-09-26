@@ -63,7 +63,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('customer/delete-customer')):?>
-                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
+                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['customer/delete-customer','ids' => $data->id])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('customer/edit-customer')):?>

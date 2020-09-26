@@ -6,19 +6,19 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['theme/edit-theme','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <div class="pageFormContent nowrap" layoutH="97">
+        <div class="pageFormContent" layoutH="97">
             <dl>
                 <dt>名称：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'name','')?>"/>
-                    <span class="info">名称不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
                 <dt>条码：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
-                    <span class="info">条码</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
@@ -32,7 +32,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                 </dd>
             </dl>
             <dl>
-                <dt>素材：</dt>
+                <dt>图案：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
                 </dd>
@@ -40,7 +40,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
             <p>
                 <label>&nbsp;</label>
                 <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
-                <img id="upload" class="upload-btn" src="<?= ! empty($model['template_url']) ? \Yii::$app->params['imageUrlPrefix'] .$model['template_url'] : '/images/upload.png'?>" width="100px"/>
+                <img id="upload" class="upload-btn" src='/images/upload.png' width="100px"/>
             </p>
         </div>
         <div class="formBar">
@@ -79,7 +79,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                     if(result.code == 200){
                         var posterUrl = $.trim(result.data.url),
                             fullName  = result.data.fullFileName;
-                        imgObj.attr("src", posterUrl);
+                        // imgObj.attr("src", posterUrl);
                         inputText.val(fullName);
                     }else {
                         alert(result.resultDesc);

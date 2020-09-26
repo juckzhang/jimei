@@ -27,7 +27,7 @@ use common\models\mysql\AdModel;
                     <li><a>素材管理</a>
                         <ul>
                             <?php if(\Yii::$app->user->can('theme/theme-list')):?>
-                                <li><a href="<?=Url::to(['theme/theme-list'])?>" target="navTab" rel="theme-list">素材列表</a></li>
+                                <li><a href="<?=Url::to(['theme/theme-list'])?>" target="navTab" rel="theme-list">图案列表</a></li>
                             <?php endif;?>
                         </ul>
                     </li>

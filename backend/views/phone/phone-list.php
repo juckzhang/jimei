@@ -63,7 +63,6 @@ $search = ArrayHelper::getValue($params,'search');
                 <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
                 <li><a class="add" href="<?=Url::to(['phone/edit-phone'])?>" target="dialog"><span>添加</span></a></li>
                 <?php endif;?>
-
                 <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
                 <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['phone/delete-phone'])?>" class="delete"><span>批量删除</span></a></li>
                 <?php endif;?>

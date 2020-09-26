@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 <h2 class="contentTitle">编辑机型材质关系</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-relation','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <div class="pageFormContent nowrap" layoutH="97">
+        <div class="pageFormContent" layoutH="97">
             <dl>
                 <dt>机型：</dt>
                 <dd>
@@ -30,18 +30,18 @@ use yii\helpers\ArrayHelper;
                 <dt>左边距：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[left]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'left',0)?>"/>
-                    <span class="info">宽不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
                 <dt>上边距：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[top]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'top',0)?>"/>
-                    <span class="info">高不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
-                <dt>素材：</dt>
+                <dt>上框图：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[border_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'border_url','')?>"/>
                 </dd>
@@ -49,7 +49,7 @@ use yii\helpers\ArrayHelper;
             <p>
                 <label>&nbsp;</label>
                 <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
-                <img id="upload" class="upload-btn" src="<?= ! empty($model['border_url']) ? \Yii::$app->params['imageUrlPrefix'] .$model['border_url'] : '/images/upload.png'?>" width="100px"/>
+                <img id="upload" class="upload-btn" src='/images/upload.png' width="100px"/>
             </p>
         </div>
         <div class="formBar">
@@ -88,7 +88,7 @@ use yii\helpers\ArrayHelper;
                     if(result.code == 200){
                         var posterUrl = $.trim(result.data.url),
                             fullName  = result.data.fullFileName;
-                        imgObj.attr("src", posterUrl);
+                        // imgObj.attr("src", posterUrl);
                         inputText.val(fullName);
                     }else {
                         alert(result.resultDesc);

@@ -50,7 +50,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="80">名称</th>
             <th width="80">条码</th>
             <th width="80">客户</th>
-            <th width="80">素材链接</th>
+            <th width="80">图案链接</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -67,7 +67,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
-                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data['id']])?>" class="btnDel">删除</a>
+                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['theme/delete-theme','ids' => $data['id']])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
