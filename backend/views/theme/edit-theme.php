@@ -32,7 +32,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                 </dd>
             </dl>
             <dl>
-                <dt>素材：</dt>
+                <dt>图案：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
                 </dd>
@@ -40,7 +40,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
             <p>
                 <label>&nbsp;</label>
                 <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
-                <img id="upload" class="upload-btn" src="<?= ! empty($model['template_url']) ? \Yii::$app->params['imageUrlPrefix'] .$model['template_url'] : '/images/upload.png'?>" width="100px"/>
+                <img id="upload" class="upload-btn" src='/images/upload.png' width="100px"/>
             </p>
         </div>
         <div class="formBar">
@@ -79,7 +79,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                     if(result.code == 200){
                         var posterUrl = $.trim(result.data.url),
                             fullName  = result.data.fullFileName;
-                        imgObj.attr("src", posterUrl);
+                        // imgObj.attr("src", posterUrl);
                         inputText.val(fullName);
                     }else {
                         alert(result.resultDesc);

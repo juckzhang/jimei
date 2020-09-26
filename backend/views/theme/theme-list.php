@@ -50,7 +50,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="80">名称</th>
             <th width="80">条码</th>
             <th width="80">客户</th>
-            <th width="80">素材链接</th>
+            <th width="80">图案链接</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
