@@ -3,7 +3,6 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use backend\services\MaterialService;
 
-$mediaService = MaterialService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
