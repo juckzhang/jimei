@@ -51,7 +51,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="80">材质名称</th>
             <th width="80">左边距</th>
             <th width="80">上边距</th>
-            <th width="80">圆角边素材</th>
+            <th width="80">上框图链接</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
