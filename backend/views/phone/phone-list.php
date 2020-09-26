@@ -32,26 +32,17 @@ $search = ArrayHelper::getValue($params,'search');
             <div class="searchBar">
                 <table class="searchContent">
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="combox">
-                                    <div class="select">
-                                        <a href="javascript:" name="other['brand_id']" value="">--</a>
-                                        <select class="combox" name="other['brand_id']" stype="display: none;">
-                                            <?php foreach ($brandList as $brand):?>
-                                            <option value="<?=$brand['id']?>" <?=$brandId==$brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
-                                            <? endforeach;?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>关键词：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                    </tr>
                     </tbody>
                 </table>
                 <div class="subBar">
                     <ul>
-                        <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                         <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                        <php if($search):?>
+                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
+                        <php endif;?>
                     </ul>
                 </div>
             </div>
