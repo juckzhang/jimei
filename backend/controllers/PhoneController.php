@@ -18,8 +18,9 @@ class PhoneController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = PhoneService::getService()->PhoneList($_keyWord,$_page,$_prePage);
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $_order = $this->_sortOrder();
+        $data = PhoneService::getService()->PhoneList($_page,$_prePage,$_order, $_other);
         return $this->render('phone-list',$data);
     }
 

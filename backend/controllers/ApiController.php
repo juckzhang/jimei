@@ -39,7 +39,7 @@ class ApiController extends BaseController
         $brandId = ArrayHelper::getValue($this->paramData, 'brand_id');
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = PhoneService::getService()->PhoneList(null, $page, $count, [], ['brand_id' => $brandId]);
+        $data = PhoneService::getService()->PhoneList($page, $count, [], ['brand_id' => $brandId]);
 
         return $this->returnAjaxSuccess($data);
     }

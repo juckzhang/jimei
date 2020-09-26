@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 class PhoneService extends BackendService
 {
     // 机型
-    public function PhoneList($keyWord,$page,$prePage,array $order = [], $other = [])
+    public function PhoneList($page,$prePage,array $order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
@@ -18,7 +18,6 @@ class PhoneService extends BackendService
 
         $models = PhoneModel::find()
             ->where(['!=','status' , PhoneModel::STATUS_DELETED])
-            ->andFilterWhere(['like','modal',$keyWord])
             ->andFilterWhere(['brand_id' => $brandId]);
 
         $data['dataCount'] = $models->count();
