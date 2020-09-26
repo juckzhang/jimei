@@ -20,9 +20,6 @@ $search = ArrayHelper::getValue($params,'search');
         <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
         <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
         <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
-        <?php foreach ($other as $key => $value):?>
-            <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-        <?php endforeach;?>
     </form>
     <div class="pageHeader">
         <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search])?>" method="post">
