@@ -21,6 +21,7 @@ class PhoneController extends BaseController
         $_other  = ArrayHelper::getValue($this->paramData,'other');
         $_order = $this->_sortOrder();
         $data = PhoneService::getService()->PhoneList($_page,$_prePage,$_order, $_other);
+        $data['brandList'] = BrandModel::find()->asArray()->all();
         return $this->render('phone-list',$data);
     }
 
