@@ -39,7 +39,7 @@ $search = ArrayHelper::getValue($params,'search');
                                         <a href="javascript:" name="other['brand_id']" value="">--</a>
                                         <select class="combox" name="other['brand_id']" stype="display: none;">
                                             <?php foreach ($brandList as $brand):?>
-                                            <option value="<?=$brand['id']?>" <?php $brandId==$brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
+                                            <option value="<?=$brand['id']?>" <?=$brandId==$brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
                                             <? endforeach;?>
                                         </select>
                                     </div>
