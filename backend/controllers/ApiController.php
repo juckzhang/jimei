@@ -66,7 +66,7 @@ class ApiController extends BaseController
     public function actionCustomerList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = CustomerService::getService()->CustomerList(null, $page, $count);
+        $data = CustomerService::getService()->CustomerList($page, $count);
 
         return $this->returnAjaxSuccess($data);
     }
