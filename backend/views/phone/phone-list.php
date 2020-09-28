@@ -22,9 +22,6 @@ $search = ArrayHelper::getValue($params,'search');
     </form>
     <div class="pageHeader">
         <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search])?>" method="post">
-            <?php foreach ($other as $key => $value):?>
-                <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-            <?php endforeach;?>
             <div class="searchBar">
                 <table class="searchContent">
                     <tbody>
@@ -33,7 +30,7 @@ $search = ArrayHelper::getValue($params,'search');
                         <td>品牌:
                             <select>
                             <option name="other[brand_id]" value="<?=$brandId?>">
-                                <option value="">--品牌筛选--</option>
+                                <option value="" selected>--品牌筛选--</option>
                                 <?php foreach ($brandList as $brand):?>
                                 <option value="<?=$brand['id']?>" <?=$brand['id']==$brandId ? 'selected' : ''?>><?=$brand['name']?></option>
                                 <?php endforeach;?>
