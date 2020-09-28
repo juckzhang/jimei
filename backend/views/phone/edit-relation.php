@@ -43,7 +43,7 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>上框图：</dt>
                 <dd>
-                    <input type="text" name="MaterialPhoneModel[border_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'border_url','')?>"/>
+                    <input type="text" readonly="true" name="MaterialPhoneModel[border_url]" class='template-url readonly' value="<?=ArrayHelper::getValue($model,'border_url','')?>"/>
                 </dd>
             </dl>
             <p>

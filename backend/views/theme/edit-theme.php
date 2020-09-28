@@ -34,7 +34,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
             <dl>
                 <dt>图案：</dt>
                 <dd>
-                    <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
+                    <input type="text" readonly="true" name="ThemeModel[template_url]" class='template-url readonly' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
                 </dd>
             </dl>
             <p>
