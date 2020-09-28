@@ -16,8 +16,9 @@ class ThemeController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = ThemeService::getService()->ThemeList($_keyWord,$_page,$_prePage);
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $_order = $this->_sortOrder();
+        $data = ThemeService::getService()->ThemeList($_page,$_prePage, $_order, $_other);
         return $this->render('theme-list',$data);
     }
 
