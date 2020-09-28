@@ -57,7 +57,7 @@ class ApiController extends BaseController
     public function actionColorList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = ColorService::getService()->colorList(null, $page, $count);
+        $data = ColorService::getService()->colorList($page, $count);
 
         return $this->returnAjaxSuccess($data);
     }
