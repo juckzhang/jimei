@@ -3,18 +3,19 @@ namespace backend\services;
 
 use common\models\mysql\CustomerModel;
 use backend\services\base\BackendService;
+use yii\helpers\ArrayHelper;
 
 class CustomerService extends BackendService
 {
     // 机型
-    public function CustomerList($keyWord,$page,$prePage,array $order = [])
+    public function CustomerList($page,$prePage,array $order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = CustomerModel::find()
             ->where(['!=','status' , CustomerModel::STATUS_DELETED])
-            ->andFilterWhere(['like','name',$keyWord]);
+            ->andFilterWhere(['like','name',ArrayHelper::getValue($other, 'keyword')]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);

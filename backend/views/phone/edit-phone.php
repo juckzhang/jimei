@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
                 <dt>名称：</dt>
                 <dd>
                     <input type="text" name="PhoneModel[modal]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'modal','')?>"/>
-                    <span class="info">名称不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
@@ -27,21 +27,21 @@ use yii\helpers\ArrayHelper;
                 <dt>条码：</dt>
                 <dd>
                     <input type="text" name="PhoneModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
-                    <span class="info">条码</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
                 <dt>宽：</dt>
                 <dd>
                     <input type="text" name="PhoneModel[width]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'width',0)?>"/>
-                    <span class="info">宽不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
             <dl>
                 <dt>高：</dt>
                 <dd>
                     <input type="text" name="PhoneModel[height]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'height',0)?>"/>
-                    <span class="info">高不能为空</span>
+                    <span class="info"></span>
                 </dd>
             </dl>
         </div>

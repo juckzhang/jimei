@@ -15,8 +15,9 @@ class ColorController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = ColorService::getService()->ColorList($_keyWord,$_page,$_prePage);
+        $_order = $this->_sortOrder();
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $data = ColorService::getService()->ColorList($_page,$_prePage, $_order, $_other);
         return $this->render('color-list',$data);
     }
 
