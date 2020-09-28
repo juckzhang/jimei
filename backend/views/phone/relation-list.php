@@ -29,8 +29,8 @@ $search = ArrayHelper::getValue($params,'search');
                 <tbody>
                 <tr>
                     <td>
-                        机型：<input name="phone.name" class="textInput" type="text" value="" suggestfields="name,id" suffix="[]" lookupgroup="phone" autocomplete="off" suggesturl="<?=Url::to(['phone/phone-list', 'search' => 1])?>">
-                        <span><a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone" suffix="[]">查找带回</a></span>
+                        机型：<input name="phone[].name" class="textInput" type="text" value="" suggestfields="name,id" lookupgroup="phone[]" autocomplete="off" suggesturl="<?=Url::to(['phone/phone-list', 'search' => 1])?>">
+                        <span><a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone[]">查找带回</a></span>
                     </td>
                 </tr>
                 </tbody>
