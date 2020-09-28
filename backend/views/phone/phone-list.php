@@ -30,8 +30,8 @@ $search = ArrayHelper::getValue($params,'search');
                     <tbody>
                     <tr>
                         <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
-                        <td>
-                            品牌:
+                        <td>品牌:
+                            <select>
                             <option name="other[brand_id]" value="<?=$brandId?>">
                                 <option value="">--品牌筛选--</option>
                                 <?php foreach ($brandList as $brand):?>
