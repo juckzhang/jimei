@@ -15,7 +15,7 @@ class CustomerController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_other  = ArrayHelper::getValue($this->paramData,'keyword');
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
         $_order  = $this->_sortOrder();
         $data = CustomerService::getService()->CustomerList($_page,$_prePage, $_order, $_other);
         return $this->render('customer-list',$data);
