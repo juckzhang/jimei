@@ -35,14 +35,14 @@ class PhoneService extends BackendService
     }
 
     //品牌
-    public function brandList($keyWord,$page,$prePage,array $order = [])
+    public function brandList($page,$prePage,$order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = BrandModel::find()
             ->where(['!=','status' , BrandModel::STATUS_DELETED])
-            ->andFilterWhere(['like','name',$keyWord]);
+            ->andFilterWhere(['like','name',ArrayHelper::getValue($other, 'keyword')]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);

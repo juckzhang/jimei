@@ -29,7 +29,7 @@ class ApiController extends BaseController
     public function actionBrandList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = PhoneService::getService()->BrandList(null, $page, $count);
+        $data = PhoneService::getService()->BrandList($page, $count);
 
         return $this->returnAjaxSuccess($data);
     }

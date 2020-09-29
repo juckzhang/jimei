@@ -71,8 +71,9 @@ class PhoneController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = PhoneService::getService()->BrandList($_keyWord,$_page,$_prePage);
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $_order = $this->_sortOrder();
+        $data = PhoneService::getService()->BrandList($_page,$_prePage, $_order, $_other);
         return $this->render('brand-list',$data);
     }
 
@@ -118,7 +119,9 @@ class PhoneController extends BaseController
     public function actionRelationList(){
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $data = PhoneService::getService()->RelationList($_page,$_prePage);
+        $_order = $this->_sortOrder();
+        $_other = ArrayHelper::getValue($this->paramData, 'other');
+        $data = PhoneService::getService()->RelationList($_page,$_prePage, $_order, $_other);
         return $this->render('relation-list',$data);
     }
 

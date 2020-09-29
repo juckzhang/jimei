@@ -29,7 +29,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <tbody>
                 <tr>
                     <td>
-                        机型：<input name="phone[].name" class="textInput" type="text" value="" suggestfields="name,id" lookupgroup="phone[]" autocomplete="off" suggesturl="<?=Url::to(['phone/phone-list', 'search' => 1])?>">
+                        机型：<input name="other[keyword]" class="textInput" type="text" value="<?=ArrayHelper::getValue($other, 'keyword')?>">
 <!--                        <span><a class="btnLook" href="--><=Url::to(['phone/phone-list', 'search' => 1])?><!--" lookupgroup="phone[]">查找带回</a></span>-->
                     </td>
                 </tr>
