@@ -11,6 +11,7 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
 ?>
 <div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
@@ -30,7 +31,7 @@ $search = ArrayHelper::getValue($params,'search');
                     <td>打印状态:
                         <select name="other[task_status]">
                             <option value="" selected>--打印状态--</option>
-                            <?php foreach (['1' => '未打印','2'=>'打印中','3'=>'已完成'] as $key => $item):?>
+                            <?php foreach ($status as $key => $item):?>
                                 <option value="<?=$key?>" <?=ArrayHelper::getValue($other,'task_status')==$key ? 'selected' : ''?>><?=$item?></option>
                             <?php endforeach;?>
                         </select>
@@ -80,7 +81,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data->id?></td>
                 <td><?=$data->sn?></td>
                 <td><?=$data->num?></td>
-                <td><?=$data->task_status?></td>
+                <td><?=ArrayHelper::getValue($status, $data->task_status,'未打印')?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-distribution')):?>
