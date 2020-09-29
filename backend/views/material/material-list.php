@@ -3,7 +3,6 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use backend\services\MaterialService;
 
-$mediaService = MaterialService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
@@ -21,7 +20,7 @@ $search = ArrayHelper::getValue($params,'search');
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['media/material-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['material/material-list','search' => $search])?>" method="post">
         <?php foreach ($other as $key => $value):?>
             <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
         <?php endforeach;?>
