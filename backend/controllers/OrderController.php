@@ -21,8 +21,9 @@ class OrderController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
+        $_other = ArrayHelper::getValue($this->paramData, 'other');
         $_order = $this->_sortOrder();
-        $data = OrderService::getService()->OrderList($baseId,$_page,$_prePage, $_order);
+        $data = OrderService::getService()->OrderList($baseId,$_page,$_prePage, $_order, $_other);
         return $this->render('order-list',$data);
     }
 
