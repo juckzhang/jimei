@@ -19,9 +19,6 @@ $search = ArrayHelper::getValue($params,'search');
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
-    <?php foreach ($other as $key => $value):?>
-        <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-    <?php endforeach;?>
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['media/material-list','search' => $search])?>" method="post">
@@ -49,7 +46,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="40">ID</th>
             <th width="80">名称</th>
             <th width="80">条码</th>
-            <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>

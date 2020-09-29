@@ -47,9 +47,9 @@ $search = ArrayHelper::getValue($params,'search');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
-            <th width="80">原始单号</th>
+            <th width="80">配货分组号</th>
             <th width="80">数量</th>
-            <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>

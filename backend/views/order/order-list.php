@@ -54,7 +54,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">材质</th>
             <th width="80">素材</th>
             <th width="80">颜色</th>
-            <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>
