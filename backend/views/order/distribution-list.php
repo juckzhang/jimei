@@ -31,7 +31,7 @@ $search = ArrayHelper::getValue($params,'search');
                         <select name="other[task_status]">
                             <option value="" selected>--打印状态--</option>
                             <?php foreach (['1' => '未打印','2'=>'打印中','3'=>'已完成'] as $key => $item):?>
-                                <option value="<?=$key?>" <?=ArrayHelper::getValue($params,'task_status')==$key ? 'selected' : ''?>><?=$item?></option>
+                                <option value="<?=$key?>" <?=ArrayHelper::getValue($other,'task_status')==$key ? 'selected' : ''?>><?=$item?></option>
                             <?php endforeach;?>
                         </select>
                     </td>

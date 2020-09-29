@@ -73,7 +73,7 @@ class OrderService extends BackendService
         return ['sn' => $baseList['sn'], 'items' => $dataList];
     }
 
-    public function DistributionList($page,$prePage,array $order = [], $other = [])
+    public function DistributionList($page,$prePage,$order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
