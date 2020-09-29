@@ -65,12 +65,12 @@ $search = ArrayHelper::getValue($params,'search');
             <tr>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
                 <th width="40">ID</th>
-                <th width="80">名称</th>
+                <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
-                <th width="80">品牌</th>
+                <th orderfield="brand_id" width="80">品牌</th>
                 <th width="80">宽</th>
                 <th width="80">高</th>
-                <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+                <th orderfield="update_time" width="80">修改时间</th>
                 <th width="70">操作</th>
             </tr>
             </thead>

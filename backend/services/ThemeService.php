@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 
 class ThemeService extends BackendService
 {
-    public function ThemeList($keyWord,$page,$prePage,array $order = [], $other = [])
+    public function ThemeList($keyWord,$page,$prePage,$order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
