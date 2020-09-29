@@ -21,7 +21,8 @@ class OrderController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
-        $data = OrderService::getService()->OrderList($baseId,$_page,$_prePage);
+        $_order = $this->_sortOrder();
+        $data = OrderService::getService()->OrderList($baseId,$_page,$_prePage, $_order);
         return $this->render('order-list',$data);
     }
 
@@ -78,8 +79,9 @@ class OrderController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = OrderService::getService()->DistributionList($_keyWord,$_page,$_prePage);
+        $_order  = $this->_sortOrder();
+        $_other  = ArrayHelper::getValue($this->paramData, 'keyword');
+        $data = OrderService::getService()->DistributionList($_page,$_prePage,$_order, $_other);
         return $this->render('distribution-list',$data);
     }
 

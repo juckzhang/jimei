@@ -73,14 +73,15 @@ class OrderService extends BackendService
         return ['sn' => $baseList['sn'], 'items' => $dataList];
     }
 
-    public function DistributionList($keyWord,$page,$prePage,array $order = [])
+    public function DistributionList($page,$prePage,array $order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = DistributionModel::find()
             ->where(['!=','status' , DistributionModel::STATUS_DELETED])
-            ->andFilterWhere(['like','name',$keyWord]);
+            ->andFilterWhere(['like','sn',ArrayHelper::getValue($other, 'keyword')])
+            ->andFilterWhere(['task_status' => ArrayHelper::getValue($other, 'task_status')]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
