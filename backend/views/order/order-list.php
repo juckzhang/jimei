@@ -24,31 +24,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search])?>" method="post">
-        <div class="searchBar">
-            <table class="searchContent">
-                <tbody>
-                <tr>
-                    <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
-                    <td>打印状态:
-                        <select name="other[task_status]">
-                            <option value="" selected>--打印状态--</option>
-                            <?php foreach (['1' => '未打印','2'=>'打印中','3'=>'已完成'] as $key => $item):?>
-                                <option value="<?=$key?>" <?=ArrayHelper::getValue($params,'task_status')==$key ? 'selected' : ''?>><?=$item?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="subBar">
-                <ul>
-                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <?php if($search):?>
-                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
-                    <?php endif;?>
-                </ul>
-            </div>
-        </div>
     </form>
 </div>
 <div class="pageContent">
