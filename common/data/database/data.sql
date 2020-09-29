@@ -32,7 +32,7 @@ CREATE TABLE if NOT EXISTS jimei_base_list(
   `num` int unsigned NOT NULL default  0 comment'订单数量',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  task_status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未完成 1：任务处理锁定中 3: 已完成',
+  task_status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 1：未完成 2：任务处理锁定中 3: 已完成',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
   unique (sn)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'配货单列表';

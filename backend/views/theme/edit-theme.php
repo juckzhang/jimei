@@ -34,14 +34,11 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
             <dl>
                 <dt>图案：</dt>
                 <dd>
-                    <input type="text" name="ThemeModel[template_url]" class='template-url' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
+                    <input type="text" readonly="true" name="ThemeModel[template_url]" class='template-url readonly' value="<?=ArrayHelper::getValue($model,'template_url','')?>"/>
+                    <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
+                    <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
                 </dd>
             </dl>
-            <p>
-                <label>&nbsp;</label>
-                <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
-                <img id="upload" class="upload-btn" src='/images/upload.png' width="100px"/>
-            </p>
         </div>
         <div class="formBar">
             <ul>

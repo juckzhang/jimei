@@ -47,14 +47,14 @@ $search = ArrayHelper::getValue($params,'search');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
-            <th width="80">品牌</th>
-            <th width="80">机型</th>
-            <th width="80">材质</th>
-            <th width="80">颜色</th>
-            <th width="80">客户</th>
-            <th width="80">素材</th>
+            <th orderfield="brand_id" width="80">品牌</th>
+            <th orderfield="mobile_id" width="80">机型</th>
+            <th orderfield="material_id" width="80">材质</th>
+            <th orderfield="color_id" width="80">颜色</th>
+            <th orderfield="customer_id" width="80">客户</th>
+            <th orderfield="theme_id" width="80">素材</th>
             <th width="80">同步状态</th>
-            <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>

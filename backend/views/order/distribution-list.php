@@ -11,6 +11,7 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
 ?>
 <div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
@@ -19,15 +20,34 @@ $search = ArrayHelper::getValue($params,'search');
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
-    <?php foreach ($other as $key => $value):?>
-        <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-    <?php endforeach;?>
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/distribution-list','search' => $search])?>" method="post">
-        <?php foreach ($other as $key => $value):?>
-            <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-        <?php endforeach;?>
+        <div class="searchBar">
+            <table class="searchContent">
+                <tbody>
+                <tr>
+                    <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                    <td>打印状态:
+                        <select name="other[task_status]">
+                            <option value="" selected>--打印状态--</option>
+                            <?php foreach ($status as $key => $item):?>
+                                <option value="<?=$key?>" <?=ArrayHelper::getValue($other,'task_status')==$key ? 'selected' : ''?>><?=$item?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <?php if($search):?>
+                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
     </form>
 </div>
 <div class="pageContent">
@@ -47,9 +67,10 @@ $search = ArrayHelper::getValue($params,'search');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="40">ID</th>
-            <th width="80">原始单号</th>
+            <th width="80">配货分组号</th>
             <th width="80">数量</th>
-            <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+            <th width="80">状态</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>
@@ -60,6 +81,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data->id?></td>
                 <td><?=$data->sn?></td>
                 <td><?=$data->num?></td>
+                <td><?=ArrayHelper::getValue($status, $data->task_status,'未打印')?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-distribution')):?>
@@ -71,7 +93,7 @@ $search = ArrayHelper::getValue($params,'search');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/order-list')):?>
-                        <a title="订单" target="navTab" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnEdit">订单</a>
+                        <a title="订单" target="navTab" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnInfo">订单</a>
                     <?php endif;?>
                 </td>
             </tr>

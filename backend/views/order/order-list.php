@@ -21,15 +21,26 @@ $baseId = ArrayHelper::getValue($params,'base_id');
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
     <input type="hidden" name="base_id" value="<?=$baseId?>" id="base_id"/>
-    <?php foreach ($other as $key => $value):?>
-        <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-    <?php endforeach;?>
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search])?>" method="post">
-        <?php foreach ($other as $key => $value):?>
-            <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-        <?php endforeach;?>
+        <div class="searchBar">
+            <table class="searchContent">
+                <tbody>
+                <tr>
+                    <td>关键词：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <?php if($search):?>
+                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
     </form>
 </div>
 <div class="pageContent">
@@ -54,7 +65,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">材质</th>
             <th width="80">素材</th>
             <th width="80">颜色</th>
-            <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
         </thead>

@@ -29,7 +29,6 @@ $search = ArrayHelper::getValue($params,'search');
                         <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
                         <td>品牌:
                             <select name="other[brand_id]">
-                            <option value="<?=$brandId?>">
                                 <option value="" selected>--品牌筛选--</option>
                                 <?php foreach ($brandList as $brand):?>
                                 <option value="<?=$brand['id']?>" <?=$brand['id']==$brandId ? 'selected' : ''?>><?=$brand['name']?></option>
@@ -66,12 +65,12 @@ $search = ArrayHelper::getValue($params,'search');
             <tr>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
                 <th width="40">ID</th>
-                <th width="80">名称</th>
+                <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
-                <th width="80">品牌</th>
+                <th orderfield="brand_id" width="80">品牌</th>
                 <th width="80">宽</th>
                 <th width="80">高</th>
-                <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="80">修改时间</th>
+                <th orderfield="update_time" width="80">修改时间</th>
                 <th width="70">操作</th>
             </tr>
             </thead>
@@ -93,6 +92,10 @@ $search = ArrayHelper::getValue($params,'search');
 
                         <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
                         <a title="编辑" target="dialog" href="<?=Url::to(['phone/edit-phone','id' => $data->id])?>" class="btnEdit">编辑</a>
+                        <?php endif;?>
+
+                        <?php if($search):?>
+                            <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>'})" title="查找带回">选择</a>
                         <?php endif;?>
                     </td>
                 </tr>
