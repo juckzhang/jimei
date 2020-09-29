@@ -62,11 +62,10 @@ class PhoneService extends BackendService
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
-        $updateTime = ArrayHelper::getValue($other, 'update_time');
 
         $models = MaterialPhoneModel::find()
             ->where(['!=','status' , MaterialPhoneModel::STATUS_DELETED])
-            ->andFilterWhere(['>=', 'update_time', $updateTime]);
+            ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 

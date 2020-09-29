@@ -3,6 +3,7 @@ namespace backend\services;
 
 use common\models\mysql\MaterialModel;
 use backend\services\base\BackendService;
+use yii\helpers\ArrayHelper;
 
 class MaterialService extends BackendService
 {
@@ -13,7 +14,7 @@ class MaterialService extends BackendService
 
         $models = $cardModels = MaterialModel::find()
             ->where(['!=','status' , MaterialModel::STATUS_DELETED])
-            ->andFilterWhere(['like','name',$keyWord]);
+            ->andFilterWhere(['like','name',ArrayHelper::getValue($other, 'keyword')]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
