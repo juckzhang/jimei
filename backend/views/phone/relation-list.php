@@ -22,28 +22,6 @@ $search = ArrayHelper::getValue($params,'search');
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/relation-list','search' => $search])?>" method="post">
-        <input type="hidden" name="other[phone_id]" value="<?=ArrayHelper::getValue($other,'phone_id')?>">
-        <input type="hidden" name="other[material_id]" value="<?=ArrayHelper::getValue($other,'material_id')?>">
-        <div class="searchBar">
-            <table class="searchContent">
-                <tbody>
-                <tr>
-                    <td>
-                        机型：<input name="other[keyword]" class="textInput" type="text" value="<?=ArrayHelper::getValue($other, 'keyword')?>">
-<!--                        <span><a class="btnLook" href="--><=Url::to(['phone/phone-list', 'search' => 1])?><!--" lookupgroup="phone[]">查找带回</a></span>-->
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="subBar">
-                <ul>
-                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <?php if($search):?>
-                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
-                    <?php endif;?>
-                </ul>
-            </div>
-        </div>
     </form>
 </div>
 <div class="pageContent">

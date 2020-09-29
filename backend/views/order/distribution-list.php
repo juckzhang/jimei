@@ -27,7 +27,7 @@ $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
             <table class="searchContent">
                 <tbody>
                 <tr>
-                    <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                    <td>关键词：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
                     <td>打印状态:
                         <select name="other[task_status]">
                             <option value="" selected>--打印状态--</option>
