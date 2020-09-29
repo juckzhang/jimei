@@ -81,7 +81,7 @@ class OrderController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_order  = $this->_sortOrder();
-        $_other  = ArrayHelper::getValue($this->paramData, 'keyword');
+        $_other  = ArrayHelper::getValue($this->paramData, 'other');
         $data = OrderService::getService()->DistributionList($_page,$_prePage,$_order, $_other);
         return $this->render('distribution-list',$data);
     }
