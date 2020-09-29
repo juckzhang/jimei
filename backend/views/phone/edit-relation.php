@@ -9,9 +9,9 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>机型：</dt>
                 <dd>
-                    <input type="hidden" name="orgLookup.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
-                    <input type="text" class="required textInput" name="orgLookup.name" value="" suggestfields="id,name" suggesturl="demo/database/db_lookupSuggest.html" lookupgroup="orgLookup" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="orgLookup">查找带回</a>
+                    <input type="hidden" name="orgLookup[].id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
+                    <input type="text" class="required textInput" name="orgLookup[].name" value="" suggestfields="id,name" suggesturl="demo/database/db_lookupSuggest.html" lookupgroup="orgLookup[]" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="orgLookup[]">查找带回</a>
                     <select name="MaterialPhoneModel[mobile_id]" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
                         <?php foreach($phoneList as $brand):?>
                             <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'mobile_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['modal']?></option>
