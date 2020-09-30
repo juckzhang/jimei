@@ -34,7 +34,7 @@ $search = ArrayHelper::getValue($params,'search');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('meal/edit-meal')):?>
-            <li><a class="add" href="<?=Url::to(['meal/edit-meal'])?>" target="dialog"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['meal/edit-meal'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
@@ -77,7 +77,7 @@ $search = ArrayHelper::getValue($params,'search');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('meal/edit-meal')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['meal/edit-meal','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['meal/edit-meal','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>

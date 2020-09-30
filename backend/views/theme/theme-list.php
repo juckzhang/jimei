@@ -47,7 +47,7 @@ $more = ArrayHelper::getValue($params, 'more');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
-            <li><a class="add" href="<?=Url::to(['theme/edit-theme'])?>" target="dialog"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['theme/edit-theme'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
@@ -88,7 +88,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>

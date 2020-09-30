@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 <h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-phone','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <div class="pageFormContent" layoutH="97">
+        <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>名称：</dt>
                 <dd>
