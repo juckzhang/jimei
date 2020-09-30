@@ -141,15 +141,13 @@ class PhoneController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $model = MaterialPhoneModel::find()->where(['id' => $id])->asArray()->one();
-            $phoneList = PhoneModel::find()->where(['status' => PhoneModel::STATUS_ACTIVE])->asArray()->all();
-            $materialList = MaterialModel::find()->where(['status' => MaterialModel::STATUS_ACTIVE])->asArray()->all();
+            $model = MaterialPhoneModel::find()
+                ->where(['id' => $id])
+                ->with('phone')
+                ->with('material')
+                ->asArray()->one();
 
-            return $this->render('edit-relation',[
-                'model' => $model,
-                'phoneList' => $phoneList,
-                'materialList' => $materialList,
-            ]);
+            return $this->render('edit-relation',['model' => $model]);
         }
     }
 
