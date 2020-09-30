@@ -42,23 +42,16 @@ class MealController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $model = MealModel::find()->where(['id' => $id])->asArray()->one();
-            $brand = BrandModel::find()->where(['status' => BrandModel::STATUS_ACTIVE])->asArray()->all();
-            $phone = PhoneModel::find()->where(['status' => PhoneModel::STATUS_ACTIVE])->asArray()->all();
-            $material = MaterialModel::find()->where(['status' => MaterialModel::STATUS_ACTIVE])->asArray()->all();
-            $theme = ThemeModel::find()->where(['status' => ThemeModel::STATUS_ACTIVE])->asArray()->all();
-            $customer = CustomerModel::find()->where(['status' => CustomerModel::STATUS_ACTIVE])->asArray()->all();
-            $color = ColorModel::find()->where(['status' => ColorModel::STATUS_ACTIVE])->asArray()->all();
+            $model = MealModel::find()->where(['id' => $id])
+                ->with('brand')
+                ->with('color')
+                ->with('material')
+                ->with('theme')
+                ->with('customer')
+                ->with('phone')
+                ->asArray()->one();
 
-            return $this->render('edit-meal',[
-                'model' => $model,
-                'brandList' => $brand,
-                'phoneList' => $phone,
-                'materialList' => $material,
-                'themeList' => $theme,
-                'customerList' => $customer,
-                'colorList' => $color,
-            ]);
+            return $this->render('edit-meal',['model' => $model,]);
         }
     }
 

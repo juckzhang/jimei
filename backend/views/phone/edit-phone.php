@@ -16,11 +16,9 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>品牌分类：</dt>
                 <dd>
-                    <select name="PhoneModel[brand_id]" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
-                        <?php foreach($brandList as $brand):?>
-                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'brand_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
-                        <?php endforeach;?>
-                    </select>
+                    <input type="hidden" name="PhoneModel[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="brand.name" value="<?=ArrayHelper::getValue($model,'brand.name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
                 </dd>
             </dl>
             <dl>

@@ -41,10 +41,11 @@ class PhoneController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $model = PhoneModel::find()->where(['id' => $id])->asArray()->one();
-            $brandList = BrandModel::find()->where(['status' => BrandModel::STATUS_ACTIVE])->asArray()->all();
+            $model = PhoneModel::find()->where(['id' => $id])
+                ->with('brand')
+                ->asArray()->one();
 
-            return $this->render('edit-phone',['model' => $model, 'brandList' => $brandList]);
+            return $this->render('edit-phone',['model' => $model]);
         }
     }
 
