@@ -48,7 +48,7 @@ class ApiController extends BaseController
     public function actionMaterialList(){
         $page  = ArrayHelper::getValue($this->paramData,'page');
         $count  = ArrayHelper::getValue($this->paramData,'count');
-        $data = MaterialService::getService()->materialList(null, $page, $count);
+        $data = MaterialService::getService()->materialList($page, $count);
 
         return $this->returnAjaxSuccess($data);
     }

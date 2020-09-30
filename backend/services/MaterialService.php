@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 
 class MaterialService extends BackendService
 {
-    public function materialList($keyWord,$page,$prePage,array $order = [])
+    public function materialList($page,$prePage,array $order = [],$other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
