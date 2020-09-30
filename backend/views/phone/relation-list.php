@@ -28,7 +28,7 @@ $search = ArrayHelper::getValue($params,'search');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('phone/edit-relation')):?>
-            <li><a class="add" href="<?=Url::to(['phone/edit-relation'])?>" target="navTav"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['phone/edit-relation'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('phone/delete-relation')):?>
