@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
                 <dt>机型：</dt>
                 <dd>
                     <input type="hidden" name="MaterialPhoneModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
-                    <input type="text" class="required textInput" name="phone-name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
+                    <input type="text" class="required textInput" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
@@ -18,8 +18,8 @@ use yii\helpers\ArrayHelper;
                 <dt>材质：</dt>
                 <dd>
                     <input type="hidden" name="MaterialPhoneModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
-                    <input type="text" class="required textInput" name="material-name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
+                    <input type="text" class="required textInput" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1])?>" lookupgroup="material">查找带回</a>
                 </dd>
             </dl>
             <dl>
