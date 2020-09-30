@@ -47,7 +47,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('order/edit-order')):?>
-            <li><a class="add" href="<?=Url::to(['order/edit-order'])?>" target="dialog"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['order/edit-order'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
@@ -86,7 +86,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/edit-order')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>

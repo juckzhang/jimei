@@ -11,10 +11,12 @@ $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $brandId = ArrayHelper::getValue($other, 'brand_id');
 $search = ArrayHelper::getValue($params,'search');
+$more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
         <input type="hidden" name="search", value="<?=$search?>">
+        <input type="hidden" name="more", value="<?=$more?>">
         <input type="hidden" name="pageNum" value="<?=$page?>" />
         <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
         <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -53,7 +55,7 @@ $search = ArrayHelper::getValue($params,'search');
         <div class="panelBar">
             <ul class="toolBar">
                 <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
-                <li><a class="add" href="<?=Url::to(['phone/edit-phone'])?>" target="dialog"><span>添加</span></a></li>
+                <li><a class="add" href="<?=Url::to(['phone/edit-phone'])?>" target="navTab"><span>添加</span></a></li>
                 <?php endif;?>
                 <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
                 <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['phone/delete-phone'])?>" class="delete"><span>批量删除</span></a></li>
@@ -63,7 +65,9 @@ $search = ArrayHelper::getValue($params,'search');
         <table class="table" width="1200" layoutH="138">
             <thead>
             <tr>
+                <?php if(!$search or $more):?>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+                <?php endif;?>
                 <th width="40">ID</th>
                 <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
@@ -77,7 +81,9 @@ $search = ArrayHelper::getValue($params,'search');
             <tbody>
             <?php foreach($dataList as $key => $data):?>
                 <tr target="card-id" rel="<?=$data->id?>">
+                    <?php if(!$search or $more):?>
                     <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
+                    <?php endif;?>
                     <td><?=$data->id?></td>
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>
@@ -91,7 +97,7 @@ $search = ArrayHelper::getValue($params,'search');
                         <?php endif;?>
 
                         <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
-                        <a title="编辑" target="dialog" href="<?=Url::to(['phone/edit-phone','id' => $data->id])?>" class="btnEdit">编辑</a>
+                        <a title="编辑" target="navTab" href="<?=Url::to(['phone/edit-phone','id' => $data->id])?>" class="btnEdit">编辑</a>
                         <?php endif;?>
 
                         <?php if($search):?>

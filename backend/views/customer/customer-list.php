@@ -11,10 +11,12 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage','20');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="customer-list" rel="customer-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search", value="<?=$search?>">
+    <input type="hidden" name="more", value="<?=$more?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -56,7 +58,9 @@ $search = ArrayHelper::getValue($params,'search');
     <table class="table" width="1200" layoutH="138">
         <thead>
         <tr>
+            <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <?php endif;?>
             <th width="40">ID</th>
             <th width="80">名称</th>
             <th width="80">条码</th>
@@ -67,7 +71,9 @@ $search = ArrayHelper::getValue($params,'search');
         <tbody>
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
+                <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
+                <?php endif;?>
                 <td><?=$data->id?></td>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>

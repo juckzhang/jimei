@@ -6,7 +6,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['theme/edit-theme','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <div class="pageFormContent" layoutH="97">
+        <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>名称：</dt>
                 <dd>
@@ -24,11 +24,9 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
             <dl>
                 <dt>客户：</dt>
                 <dd>
-                    <select name="ThemeModel[customer_id]" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                        <?php foreach($customerList as $brand):?>
-                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'customer_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
-                        <?php endforeach;?>
-                    </select>
+                    <input type="hidden" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>
             <dl>

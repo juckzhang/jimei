@@ -38,9 +38,10 @@ class ThemeController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $model = ThemeModel::find()->where(['id' => $id])->asArray()->one();
-            $customerList = CustomerModel::find()->where(['status' => CustomerModel::STATUS_ACTIVE])->asArray()->all();
-            return $this->render('edit-theme',['model' => $model, 'customerList' => $customerList]);
+            $model = ThemeModel::find()->where(['id' => $id])
+                ->with('customer')
+                ->asArray()->one();
+            return $this->render('edit-theme',['model' => $model]);
         }
     }
 
