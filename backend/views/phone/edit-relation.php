@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 <h2 class="contentTitle">编辑机型材质关系</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-relation','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <div class="pageFormContent" layoutH="97">
+        <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>机型：</dt>
                 <dd>
@@ -17,11 +17,9 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>材质：</dt>
                 <dd>
-                    <select name="MaterialPhoneModel[material_id]" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
-                        <?php foreach($materialList as $brand):?>
-                            <option value="<?=$brand['id']?>" <?=ArrayHelper::getValue($model, 'material_id') == $brand['id'] ? 'selected' : ''?>><?=$brand['name']?></option>
-                        <?php endforeach;?>
-                    </select>
+                    <input type="hidden" name="MaterialPhoneModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
+                    <input type="text" class="required textInput" name="material-name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
             <dl>
