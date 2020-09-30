@@ -70,6 +70,10 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(\Yii::$app->user->can('phone/edit-brand')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['phone/edit-brand','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
+
+                    <?php if($search):?>
+                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a>
+                    <?php endif;?>
                 </td>
             </tr>
         <?php endforeach;?>
