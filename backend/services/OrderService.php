@@ -62,6 +62,7 @@ class OrderService extends BackendService
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
                 'template_url' => $templateUrl,
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
+                'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type') ,
                 'width' => ArrayHelper::getValue($item, 'phone.width'),
                 'height' => ArrayHelper::getValue($item, 'phone.height'),
                 'material' => ArrayHelper::getValue($item, 'material.name'),
