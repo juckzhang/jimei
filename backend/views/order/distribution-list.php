@@ -77,7 +77,7 @@ $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
         <tbody>
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
+                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->sn}'}" : $data->id?>" type="checkbox"></td>
                 <td><?=$data->sn?></td>
                 <td><?=$data->num?></td>
                 <td><?=ArrayHelper::getValue($status, $data->task_status,'未打印')?></td>
@@ -93,6 +93,10 @@ $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
 
                     <?php if(\Yii::$app->user->can('order/order-list')):?>
                         <a title="订单" target="navTab" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnInfo">订单</a>
+                    <?php endif;?>
+
+                    <?php if($search):?>
+                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->sn?>'})" title="查找带回">选择</a>
                     <?php endif;?>
                 </td>
             </tr>

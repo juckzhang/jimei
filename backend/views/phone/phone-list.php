@@ -82,7 +82,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
             <?php foreach($dataList as $key => $data):?>
                 <tr target="card-id" rel="<?=$data->id?>">
                     <?php if(!$search or $more):?>
-                    <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
+                    <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}',brand_id:$data->brand_id}" : $data->id?>" type="checkbox"></td>
                     <?php endif;?>
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>
@@ -101,7 +101,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                         <?php endif;?>
 
                         <?php if($search):?>
-                            <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>'})" title="查找带回">选择</a>
+                            <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a>
                         <?php endif;?>
                     </td>
                 </tr>

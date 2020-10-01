@@ -9,8 +9,8 @@ use yii\helpers\Url;
             <dl>
                 <dt>配货分组号：</dt>
                 <dd>
-                    <input type="hidden" name="orderModel[sn]" data-name="sn.name" value="<?=ArrayHelper::getValue($model, 'sn')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="sn.name" value="<?=ArrayHelper::getValue($model,'sn')?>" data-name="sn.name" suggestfields="name" lookupgroup="sn" autocomplete="off">
+                    <input type="hidden" name="orderModel[base_id]" data-name="sn.id" value="<?=ArrayHelper::getValue($model, 'base_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="sn-name" value="<?=ArrayHelper::getValue($model,'sn.sn')?>" data-name="sn.name" suggestfields="name" lookupgroup="sn" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['order/distribution-list', 'search' => 1])?>" lookupgroup="sn">查找带回</a>
                 </dd>
             </dl>
@@ -38,15 +38,7 @@ use yii\helpers\Url;
                 </dd>
             </dl>
             <dl>
-                <dt>客户：</dt>
-                <dd>
-                    <input type="hidden" name="orderModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>素材分类：</dt>
+                <dt>图案：</dt>
                 <dd>
                     <input type="hidden" name="orderModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name" lookupgroup="theme" autocomplete="off">
@@ -59,13 +51,6 @@ use yii\helpers\Url;
                     <input type="hidden" name="orderModel[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="color.name" value="<?=ArrayHelper::getValue($model,'color.name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1])?>" lookupgroup="color">查找带回</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>条码：</dt>
-                <dd>
-                    <input type="text" name="orderModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
-                    <span class="info">条码</span>
                 </dd>
             </dl>
         </div>

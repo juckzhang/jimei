@@ -43,19 +43,15 @@ class OrderController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $model = OrderModel::find()->where(['id' => $id])->asArray()->one();
-            $phone = PhoneModel::find()->where(['status' => PhoneModel::STATUS_ACTIVE])->asArray()->all();
-            $material = MaterialModel::find()->where(['status' => MaterialModel::STATUS_ACTIVE])->asArray()->all();
-            $theme = ThemeModel::find()->where(['status' => ThemeModel::STATUS_ACTIVE])->asArray()->all();
-            $color = ColorModel::find()->where(['status' => ColorModel::STATUS_ACTIVE])->asArray()->all();
-
-            return $this->render('edit-order',[
-                'model' => $model,
-                'phone' => $phone,
-                'material' => $material,
-                'theme' => $theme,
-                'color' => $color,
-            ]);
+            $model = OrderModel::find()->where(['id' => $id])
+                ->with('brand')
+                ->with('phone')
+                ->with('material')
+                ->with('color')
+                ->with('customer')
+                ->with('theme')
+                ->asArray()->one();
+            return $this->render('edit-order',['model' => $model,]);
         }
     }
 
