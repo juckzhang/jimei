@@ -88,6 +88,7 @@ CREATE TABLE if NOT EXISTS jimei_phone(
   modal VARCHAR(15) NOT NULL DEFAULT '' comment'手机型号名称',
   width decimal(5,2) NOT NULL DEFAULT 0 comment'手机宽',
   height decimal(5,2) NOT NULL DEFAULT 0 comment'手机高',
+  canvas_type tinyint(1) NOT NULL DEFAULT  1 comment '画布类型 1:普通 2:大画布',
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',

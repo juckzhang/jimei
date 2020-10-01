@@ -12,6 +12,7 @@ $other = ArrayHelper::getValue($params, 'other', []);
 $brandId = ArrayHelper::getValue($other, 'brand_id');
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
+$canvasType = ['1' => '普通画布', '2' => '大画布'];
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
@@ -73,6 +74,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <th orderfield="brand_id" width="80">品牌</th>
                 <th width="80">宽</th>
                 <th width="80">高</th>
+                <th>画布类型</th>
                 <th orderfield="update_time" width="80">修改时间</th>
                 <th width="70">操作</th>
             </tr>
@@ -88,6 +90,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <td><?=$data->brand->name?></td>
                     <td><?=$data->width?></td>
                     <td><?=$data->height?></td>
+                    <td><?=ArrayHelper::getValue($canvasType, $this->canvas_type)?></td>
                     <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                     <td>
                         <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
