@@ -59,12 +59,12 @@ $more = ArrayHelper::getValue($params, 'more');
         <thead>
         <tr>
             <?php if(!$search or $more):?>
-            <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <th><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <?php endif;?>
-            <th width="22">名称</th>
-            <th width="22">条码</th>
-            <th orderfield="update_time" width="30">修改时间</th>
-            <th width="22">操作</th>
+            <th>名称</th>
+            <th>条码</th>
+            <th orderfield="update_time">修改时间</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
