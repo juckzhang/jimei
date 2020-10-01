@@ -56,6 +56,8 @@ $search = ArrayHelper::getValue($params,'search');
                         <input type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                     </td>
+                </tr>
+                <tr>
                     <td>
                         图案:
                         <input type="hidden" name="other[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($other, 'theme_id')?>">
