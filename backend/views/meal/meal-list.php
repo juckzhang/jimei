@@ -46,8 +46,8 @@ $search = ArrayHelper::getValue($params,'search');
                     </td>
                     <td>
                         颜色:
-                        <input type="hidden" name="other[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
-                        <input type="text" class="required textInput readonly" readonly="true" name="color.name" value="<?=ArrayHelper::getValue($model,'color.name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
+                        <input type="hidden" name="other[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($other, 'color_id')?>">
+                        <input type="text" class="required textInput readonly" readonly="true" name="color-name" value="<?=ArrayHelper::getValue($params,'color-name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1])?>" lookupgroup="color">查找带回</a>
                     </td>
                     <td>
