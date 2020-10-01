@@ -64,7 +64,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <th width="40">名称</th>
             <th width="22">条码</th>
             <th orderfield="update_time" width="40">修改时间</th>
-            <th>操作</th>
+            <th width="40">操作</th>
         </tr>
         </thead>
         <tbody>
