@@ -22,6 +22,34 @@ $search = ArrayHelper::getValue($params,'search');
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/relation-list','search' => $search])?>" method="post">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tbody>
+                <tr>
+                    <td>
+                        机型:
+                        <input type="hidden" name="other[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($other, 'phone_id')?>">
+                        <input type="text" class="required textInput readonly" readonly="true" name="phone-name" value="<?=ArrayHelper::getValue($params,'phone-name')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
+                        <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
+                    </td>
+                    <td>
+                        材质:
+                        <input type="hidden" name="other[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($other, 'material_id')?>">
+                        <input type="text" class="required textInput readonly" readonly="true" name="material-name" value="<?=ArrayHelper::getValue($params,'material-name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                        <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1])?>" lookupgroup="material">查找带回</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <?php if($search):?>
+                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
     </form>
 </div>
 <div class="pageContent">

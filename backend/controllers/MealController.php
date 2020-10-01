@@ -21,8 +21,9 @@ class MealController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $_keyWord  = ArrayHelper::getValue($this->paramData,'keyword');
-        $data = MealService::getService()->mealList($_keyWord,$_page,$_prePage);
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $_order = $this->_sortOrder();
+        $data = MealService::getService()->mealList($_page,$_prePage, $_order, $_other);
         return $this->render('meal-list',$data);
     }
 

@@ -30,13 +30,11 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                     <tbody>
                     <tr>
                         <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
-                        <td>品牌:
-                            <select name="other[brand_id]">
-                                <option value="" selected>--品牌筛选--</option>
-                                <?php foreach ($brandList as $brand):?>
-                                <option value="<?=$brand['id']?>" <?=$brand['id']==$brandId ? 'selected' : ''?>><?=$brand['name']?></option>
-                                <?php endforeach;?>
-                            </select>
+                        <td>
+                            品牌:
+                            <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
+                            <input type="text" class="required textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                            <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
                         </td>
                     </tr>
                     </tbody>
