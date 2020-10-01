@@ -90,7 +90,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                     <td><?=$data->brand->name?></td>
                     <td><?=$data->width?></td>
                     <td><?=$data->height?></td>
-                    <td><?=ArrayHelper::getValue($canvasType, $this->canvas_type)?></td>
+                    <td><?=ArrayHelper::getValue($canvasType, $data->canvas_type)?></td>
                     <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                     <td>
                         <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
