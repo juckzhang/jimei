@@ -22,9 +22,23 @@ $more = ArrayHelper::getValue($params, 'more');
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/brand-list','search' => $search])?>" method="post">
-        <?php foreach ($other as $key => $value):?>
-            <input type="hidden" name="other[<?=$key;?>]" value="<?=$value;?>"/>
-        <?php endforeach;?>
+        <div class="searchBar">
+            <table class="searchContent">
+                <tbody>
+                <tr>
+                    <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <?php if($search and $more):?>
+                        <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
     </form>
 </div>
 <div class="pageContent">
@@ -45,7 +59,6 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <?php endif;?>
-            <th width="40">ID</th>
             <th orderfield="name" width="80">名称</th>
             <th width="80">条码</th>
             <th orderfield="update_time" width="80">修改时间</th>
@@ -58,7 +71,6 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
                 <?php endif;?>
-                <td><?=$data->id?></td>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>

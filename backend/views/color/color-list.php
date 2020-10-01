@@ -61,7 +61,6 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <?php endif;?>
-            <th width="40">ID</th>
             <th width="80">名称</th>
             <th width="80">条码</th>
             <th orderfield="update_time" width="80">修改时间</th>
@@ -74,7 +73,6 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
                 <?php endif;?>
-                <td><?=$data->id?></td>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
@@ -85,6 +83,10 @@ $more = ArrayHelper::getValue($params, 'more');
 
                     <?php if(\Yii::$app->user->can('color/edit-color')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['color/edit-color','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <?php endif;?>
+
+                    <?php if($search):?>
+                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a>
                     <?php endif;?>
                 </td>
             </tr>

@@ -29,6 +29,12 @@ $more = ArrayHelper::getValue($params, 'more');
                 <tbody>
                 <tr>
                     <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                    <td>
+                        客户:
+                        <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
+                        <input type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                        <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -61,7 +67,6 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <?php endif;?>
-            <th width="40">ID</th>
             <th orderfield="name" width="80">名称</th>
             <th width="80">条码</th>
             <th orderfield="brand_id" width="80">客户</th>
@@ -76,7 +81,6 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}'}" : $data['id']?>" type="checkbox"></td>
                 <?php endif;?>
-                <td><?=$data['id']?></td>
                 <td><?=$data['name']?></td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
@@ -89,6 +93,10 @@ $more = ArrayHelper::getValue($params, 'more');
 
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
                     <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <?php endif;?>
+
+                    <?php if($search):?>
+                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>'})" title="查找带回">选择</a>
                     <?php endif;?>
                 </td>
             </tr>

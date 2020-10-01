@@ -42,6 +42,16 @@ use yii\helpers\ArrayHelper;
                     <span class="info"></span>
                 </dd>
             </dl>
+            <dl>
+                <dt>画布类型：</dt>
+                <dd>
+                    <select name="PhoneModel[canvas_type]" value="<?=ArrayHelper::getValue($model, 'canvas_type')?>">
+                        <option value="1">普通画布</option>
+                        <option value="2" <?=ArrayHelper::getValue($model, 'canvas_type') == '2' ? 'selected' : ''?>>大画布</option>
+                    </select>
+                    <span class="info"></span>
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>

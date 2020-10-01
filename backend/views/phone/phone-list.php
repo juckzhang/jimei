@@ -12,6 +12,7 @@ $other = ArrayHelper::getValue($params, 'other', []);
 $brandId = ArrayHelper::getValue($other, 'brand_id');
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
+$canvasType = ['1' => '普通画布', '2' => '大画布'];
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
@@ -29,13 +30,11 @@ $more = ArrayHelper::getValue($params, 'more');
                     <tbody>
                     <tr>
                         <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
-                        <td>品牌:
-                            <select name="other[brand_id]">
-                                <option value="" selected>--品牌筛选--</option>
-                                <?php foreach ($brandList as $brand):?>
-                                <option value="<?=$brand['id']?>" <?=$brand['id']==$brandId ? 'selected' : ''?>><?=$brand['name']?></option>
-                                <?php endforeach;?>
-                            </select>
+                        <td>
+                            品牌:
+                            <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
+                            <input type="text" class="required textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                            <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
                         </td>
                     </tr>
                     </tbody>
@@ -68,12 +67,12 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php if(!$search or $more):?>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
                 <?php endif;?>
-                <th width="40">ID</th>
                 <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
                 <th orderfield="brand_id" width="80">品牌</th>
                 <th width="80">宽</th>
                 <th width="80">高</th>
+                <th>画布类型</th>
                 <th orderfield="update_time" width="80">修改时间</th>
                 <th width="70">操作</th>
             </tr>
@@ -84,12 +83,12 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(!$search or $more):?>
                     <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
                     <?php endif;?>
-                    <td><?=$data->id?></td>
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>
                     <td><?=$data->brand->name?></td>
                     <td><?=$data->width?></td>
                     <td><?=$data->height?></td>
+                    <td><?=ArrayHelper::getValue($canvasType, $data->canvas_type)?></td>
                     <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                     <td>
                         <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
