@@ -94,6 +94,10 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
                     <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
+
+                    <?php if($search):?>
+                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a>
+                    <?php endif;?>
                 </td>
             </tr>
         <?php endforeach;?>
