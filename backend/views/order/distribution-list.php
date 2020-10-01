@@ -66,7 +66,6 @@ $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
         <thead>
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
-            <th width="40">ID</th>
             <th width="80">配货分组号</th>
             <th width="80">数量</th>
             <th width="80">状态</th>
@@ -78,7 +77,6 @@ $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
-                <td><?=$data->id?></td>
                 <td><?=$data->sn?></td>
                 <td><?=$data->num?></td>
                 <td><?=ArrayHelper::getValue($status, $data->task_status,'未打印')?></td>

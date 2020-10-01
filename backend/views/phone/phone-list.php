@@ -68,7 +68,6 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php if(!$search or $more):?>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
                 <?php endif;?>
-                <th width="40">ID</th>
                 <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
                 <th orderfield="brand_id" width="80">品牌</th>
@@ -84,7 +83,6 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(!$search or $more):?>
                     <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
                     <?php endif;?>
-                    <td><?=$data->id?></td>
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>
                     <td><?=$data->brand->name?></td>

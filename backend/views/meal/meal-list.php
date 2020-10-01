@@ -46,7 +46,6 @@ $search = ArrayHelper::getValue($params,'search');
         <thead>
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
-            <th width="40">ID</th>
             <th orderfield="brand_id" width="80">品牌</th>
             <th orderfield="mobile_id" width="80">机型</th>
             <th orderfield="material_id" width="80">材质</th>
@@ -62,7 +61,6 @@ $search = ArrayHelper::getValue($params,'search');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
-                <td><?=$data['id']?></td>
                 <td><?=$data['brand']['name']?></td>
                 <td><?=$data['phone']['modal']?></td>
                 <td><?=$data['material']['name']?></td>
