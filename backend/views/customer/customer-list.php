@@ -63,7 +63,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php endif;?>
             <th>名称</th>
             <th>条码</th>
-            <th orderfield="update_time" width="30">修改时间</th>
+            <th orderfield="update_time" width="80">修改时间</th>
             <th>操作</th>
         </tr>
         </thead>
