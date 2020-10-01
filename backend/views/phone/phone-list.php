@@ -33,7 +33,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                         <td>
                             品牌:
                             <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
-                            <input type="text" class="required textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                            <input type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
                             <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
                         </td>
                     </tr>
@@ -41,6 +41,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                 </table>
                 <div class="subBar">
                     <ul>
+                        <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                         <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
                         <?php if($search):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>

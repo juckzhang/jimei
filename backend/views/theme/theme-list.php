@@ -32,7 +32,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <td>
                         客户:
                         <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
-                        <input type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                        <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                     </td>
                 </tr>
@@ -40,6 +40,7 @@ $more = ArrayHelper::getValue($params, 'more');
             </table>
             <div class="subBar">
                 <ul>
+                    <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
                     <?php if($search):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
