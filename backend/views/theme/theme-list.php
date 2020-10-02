@@ -80,7 +80,7 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data['id']?>">
                 <?php if(!$search or $more):?>
-                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}'}" : $data['id']?>" type="checkbox"></td>
+                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']}}" : $data['id']?>" type="checkbox"></td>
                 <?php endif;?>
                 <td><?=$data['name']?></td>
                 <td><?=$data['barcode']?></td>
@@ -97,7 +97,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php endif;?>
 
                     <?php if($search):?>
-                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>'})" title="查找带回">选择</a>
+                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a>
                     <?php endif;?>
                 </td>
             </tr>

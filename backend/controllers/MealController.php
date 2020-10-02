@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\services\PhoneService;
 use common\constants\CodeConstant;
 use common\models\mysql\BrandModel;
 use common\models\mysql\ColorModel;
@@ -31,9 +32,8 @@ class MealController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = MealService::getService()->editInfo($id, MealModel::className());
-            if($result instanceof Model)
+            $result = PhoneService::editMeal($this->paramData);
+            if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'meal-list',

@@ -29,6 +29,7 @@ class OrderService extends BackendService
                 ->with('material')
                 ->with('color')
                 ->with('theme')
+                ->with('sn')
                 ->asArray()
                 ->all();
 

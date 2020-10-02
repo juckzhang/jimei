@@ -39,5 +39,11 @@ class MealService extends BackendService
 
         return $data;
     }
+
+    // 编辑
+    public function editMeal($data){
+        $id = ArrayHelper::getValue($data,'id');
+        $result = MealService::getService()->editInfo($id, MealModel::className());
+    }
 }
 

@@ -37,6 +37,13 @@ class OrderModel extends ActiveRecord
             ->asArray();
     }
 
+    public function getSn()
+    {
+        return $this->hasOne(DistributionModel::className(), ['id' => 'base_id'])
+            ->select(['id','sn'])
+            ->asArray();
+    }
+
     public function getRelat(){
         return $this->hasOne(MaterialPhoneModel::className(), ['mobile_id' => 'mobile_id','material_id' => 'material_id'])
             ->asArray();
