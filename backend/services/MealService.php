@@ -64,7 +64,7 @@ class MealService extends BackendService
         $themeList = ThemeModel::find()->where(['id' => $themeIds])->asArray()->all();
 
         $batchData = []; $now = time();
-        $filed = ['brand_id','mobile_id','material_id','color_id','customer_id','theme_id','create_time', 'update_time'];
+        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
         foreach ($phoneList as $phone){
             $item = ['brand_id' => $phone['brand_id'], 'mobile_id' => $phone['id'],'create_time' => $now,'update_time' => $now];
             foreach ($colorIds as $colorId){
