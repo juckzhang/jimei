@@ -8,7 +8,7 @@ $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage','100');
+$prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->get('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
@@ -71,6 +71,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <th width="22">操作</th>
             <?php endif;?>
             <th orderfield="name" width="80">名称</th>
+            <th width="80">材质</th>
             <th width="80">条码</th>
             <th orderfield="brand_id" width="80">客户</th>
             <th width="80">原图名称</th>
@@ -88,6 +89,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><?=$data['name']?></td>
+                <td><?=$data['material']['name']?></td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['source_pic_name']?></td>

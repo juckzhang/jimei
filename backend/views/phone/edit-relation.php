@@ -46,7 +46,7 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <p>
-                <img src="<?=Yii::$app->params['picUrlPrefix'].ArrayHelper::getValue($model, 'border_url', '')?>" id="upload-pic"/>
+                <img src="<?=Yii::$app->params['picUrlPrefix'] . ArrayHelper::getValue($model, 'border_url', '')?>" id="upload-pic"/>
             </p>
         </div>
         <div class="formBar">

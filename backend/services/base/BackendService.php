@@ -6,6 +6,12 @@ class BackendService extends Service
 {
     protected function parsePageParam($page,$prePage)
     {
+        if(is_numeric($prePage))
+            \Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'prePage',
+                'value' => $prePage,
+                'expire' => 7*24*60*60,
+            ]));
         $limit = is_numeric($prePage) ? (int)$prePage : static::DEFAULT_PRE_PAGE;
         $offset = (is_numeric($page) AND $page > 0 ) ? ($page - 1) * $limit : static::DEFAULT_PAGE;
         return [(int)$offset,(int)$limit];

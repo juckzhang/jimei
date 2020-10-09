@@ -13,4 +13,9 @@ class ThemeModel extends ActiveRecord
         return $this->hasOne(CustomerModel::className(), ['id' => 'customer_id'])
             ->select(['id','name']);
     }
+
+    public function getMaterial(){
+        return $this->hasOne(MaterialModel::className(), ['id' => 'material_id'])
+            ->select(['id','name']);
+    }
 }

@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-$defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
+
+$params = \Yii::$app->request->getPost();
+$more = ArrayHelper::getValue($params, 'id') ? '' : 1;
 ?>
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
@@ -28,6 +30,14 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                     <input type="hidden" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>材质：</dt>
+                <dd>
+                    <input type="hidden" name="ThemeModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
                 </dd>
             </dl>
             <dl>

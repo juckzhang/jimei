@@ -1,8 +1,10 @@
 <?php
 namespace backend\services;
 
+use common\models\mysql\MaterialModel;
 use common\models\mysql\ThemeModel;
 use backend\services\base\BackendService;
+use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
 class ThemeService extends BackendService
@@ -22,7 +24,13 @@ class ThemeService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount']){
-            $models = $models->orderBy($order)->limit($limit)->asArray()->with('customer')->offset($offset)->all();
+            $models = $models->orderBy($order)
+                ->limit($limit)
+                ->asArray()
+                ->with('customer')
+                ->with('material')
+                ->offset($offset)
+                ->all();
             foreach ($models as $key => $model){
                 $borderUrl = $model['template_url'];
                 if(!empty($borderUrl)) $models[$key]['template_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
@@ -32,6 +40,35 @@ class ThemeService extends BackendService
 
 
         return $data;
+    }
+
+    public function editMaterial($data){
+        $id = ArrayHelper::getValue($data, 'id');
+        if($id){
+            $result = $this->editInfo($id, MaterialModel::className());
+            if($result instanceof Model) return true;
+
+            return false;
+        }
+        $materialIds = ArrayHelper::getValue($data, 'ThemeModel.material');
+        $data = ArrayHelper::getValue($data, 'ThemeModel');
+        $materialIds = explode(',', $materialIds);
+        $transaction = \Yii::$app->db->beginTransaction();
+        try{
+            foreach ($materialIds as $materialId){
+                $data['material_id'] = $materialId;
+                $model = new ThemeModel();
+                $model->load($data, '');
+                $model->save();
+            }
+            $transaction->commit();
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            return false;
+        }
+
+
+        return true;
     }
 }
 

@@ -25,9 +25,8 @@ class ThemeController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = ThemeService::getService()->editInfo($id,ThemeModel::className());
-            if($result instanceof Model)
+            $result = ThemeService::getService()->editMaterial($this->paramData);
+            if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'theme-list',
