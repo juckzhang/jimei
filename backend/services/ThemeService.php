@@ -1,7 +1,6 @@
 <?php
 namespace backend\services;
 
-use common\models\mysql\MaterialModel;
 use common\models\mysql\ThemeModel;
 use backend\services\base\BackendService;
 use yii\base\Model;
@@ -46,7 +45,7 @@ class ThemeService extends BackendService
     public function editTheme($data){
         $id = ArrayHelper::getValue($data, 'id');
         if($id){
-            $result = $this->editInfo($id, MaterialModel::className());
+            $result = $this->editInfo($id, ThemeModel::className());
             if($result instanceof Model) return true;
 
             return false;
