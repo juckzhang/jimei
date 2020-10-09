@@ -79,7 +79,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                 <th orderfield="update_time" width="80">修改时间</th>
                 <?php if(!$search):?>
                     <th width="70">操作</th>
-                <? endif;?>
+                <?php endif;?>
             </tr>
             </thead>
             <tbody>
