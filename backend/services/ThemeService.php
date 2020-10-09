@@ -71,7 +71,7 @@ class ThemeService extends BackendService
         return true;
     }
 
-    public function relationMaterialrelationMaterial($ids, $materialId){
+    public function relationMaterial($ids, $materialId){
         if(!is_array($ids)) $ids = explode(',', $ids);
         return $this->updateInfo($ids, ThemeModel::className(), ['material_id' => $materialId]);
     }
