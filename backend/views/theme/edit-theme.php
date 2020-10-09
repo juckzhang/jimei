@@ -39,7 +39,7 @@ $defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
                 </dd>
             </dl>
             <p>
-                <img src="" id="upload-pic"/>
+                <img src="<?=Yii::$app->params['picUrlPrefix'].ArrayHelper::getValue($model, 'template_url','')?>" id="upload-pic"/>
             </p>
         </div>
         <div class="formBar">
