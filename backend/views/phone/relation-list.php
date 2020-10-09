@@ -73,6 +73,7 @@ $search = ArrayHelper::getValue($params,'search');
             <th orderfield="material_id" width="80">材质名称</th>
             <th width="80">左边距</th>
             <th width="80">上边距</th>
+            <th width="80">原图名称</th>
             <th width="80">上框图链接</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
@@ -86,6 +87,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><?=$data['material']['name']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
+                <td><?=$data['source_pic_name']?></td>
                 <td><?=$data['border_url']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>

@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 <h2 class="contentTitle">编辑机型材质关系</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-relation','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+        <input type="hidden" id="source_pic_name" name="MaterialPhoneModel[source_pic_name]" value="<?=ArrayHelper::getValue($model,'source_pic_name','')?>"/>
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>机型：</dt>
@@ -44,6 +45,9 @@ use yii\helpers\ArrayHelper;
                     <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
                 </dd>
             </dl>
+            <p>
+                <img src="" id="upload-pic"/>
+            </p>
         </div>
         <div class="formBar">
             <ul>
@@ -66,8 +70,7 @@ use yii\helpers\ArrayHelper;
         $('.upload-input').on('change',function(){
             var name      = $(this).data('name'),
                 type      = $(this).data('type'),
-                id        = $(this).attr('id'),
-                inputText = $('.'+name);
+                id        = $(this).attr('id');
 
             $.ajaxFileUpload({
                 url:'<?=Url::to(['upload/upload-file'])?>',
@@ -78,10 +81,11 @@ use yii\helpers\ArrayHelper;
                 success: function (result, status) {
                     //把图片替换
                     if(result.code == 200){
-                        var posterUrl = $.trim(result.data.url),
-                            fullName  = result.data.fullFileName;
+                        var posterUrl = $.trim(result.data.url);
                         // imgObj.attr("src", posterUrl);
-                        inputText.val(fullName);
+                        $('#upload-pic').attr("src", posterUrl);
+                        $('.'+name).val(result.data.fullFileName);
+                        $('#source_pic_name').val(result.data.source_pic_name);
                     }else {
                         alert(result.resultDesc);
                     }
