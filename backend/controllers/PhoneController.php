@@ -3,7 +3,6 @@ namespace backend\controllers;
 
 use common\constants\CodeConstant;
 use common\models\mysql\BrandModel;
-use common\models\mysql\MaterialModel;
 use common\models\mysql\MaterialPhoneModel;
 use common\models\mysql\PhoneModel;
 use Yii;

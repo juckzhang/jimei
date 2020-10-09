@@ -5,7 +5,6 @@ use common\constants\CodeConstant;
 use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\ThemeService;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 

@@ -1,9 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\orderService;
 
-$mediaService = orderService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');

@@ -3,7 +3,6 @@ namespace backend\controllers;
 
 use common\models\mysql\RoleModel;
 use common\models\mysql\RoleSourceModel;
-use common\models\mysql\UserModel;
 use common\models\mysql\AdminModel;
 use Yii;
 use backend\services\SystemService;
