@@ -66,7 +66,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
-                <li><a href="<?=Url::to(['theme/relation-material'])?>" rel="ids[]" target="dialog" class="delete"><span>批量关联材质</span></a></li>
+                <li><a href="<?=Url::to(['theme/relation-material'])?>" target="navTab" class="delete"><span>批量关联材质</span></a></li>
             <?php endif;?>
         </ul>
     </div>
