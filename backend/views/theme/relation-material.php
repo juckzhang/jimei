@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 ?>
 <h2 class="contentTitle">关联材质</h2>
 <div class="pageContent">
