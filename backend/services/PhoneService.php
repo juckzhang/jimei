@@ -65,7 +65,9 @@ class PhoneService extends BackendService
 
         $models = MaterialPhoneModel::find()
             ->where(['!=','status' , MaterialPhoneModel::STATUS_DELETED])
-            ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
+            ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')])
+            ->andFilterWhere(['mobile_id' => ArrayHelper::getValue($other, 'mobile_id')])
+            ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')]);
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 

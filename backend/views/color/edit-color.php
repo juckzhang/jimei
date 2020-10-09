@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-$defaultSourceId = ArrayHelper::getValue(\Yii::$app->request->getPost(), 'id');
 ?>
 <h2 class="contentTitle">编辑颜色</h2>
 <div class="pageContent">

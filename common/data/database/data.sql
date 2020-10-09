@@ -6,12 +6,14 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
   template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `material_id` int unsigned NOT NULL default 0 comment'材质id',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (`barcode`,`customer_id`)
+  unique (`barcode`,`customer_id`, `material_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
 -- 材质
@@ -63,6 +65,7 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   `left` decimal(5,2) NOT NULL default  0 comment'左右边距',
   `top` decimal(5,2) NOT NULL default  0 comment'上下边距',
   border_url varchar(255) NOT NULL default '' comment'圆角素材链接',
+  source_pic_name varchar(255) NOT NULL DEFAULT  '' comment'原图片名称',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
@@ -128,7 +131,7 @@ CREATE TABLE if NOT EXISTS jimei_meal(
   theme_id int unsigned NOT NULL default  0 comment'素材',
   color_id int unsigned NOT NULL default  0 comment'颜色',
   material_id int unsigned NOT NULL default  0 comment'材质',
-  source varchar(125) not null default ''comment'订单来源',
+  sync_status tinyint unsigned NOT NULL DEFAULT 0 comment'同步状态 0：未同步 1 已同步',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',

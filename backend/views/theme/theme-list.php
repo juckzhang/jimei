@@ -1,14 +1,12 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\MaterialService;
 
-$mediaService = MaterialService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage','20');
+$prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
@@ -35,6 +33,12 @@ $more = ArrayHelper::getValue($params, 'more');
                         <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                     </td>
+                    <td>
+                        材质:
+                        <input type="hidden" name="other[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($other, 'material_id')?>">
+                        <input type="text" class="textInput readonly" readonly="true" name="material-name" value="<?=ArrayHelper::getValue($params,'material-name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                        <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1])?>" lookupgroup="material">查找带回</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -60,6 +64,10 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['theme/delete-theme'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
+
+            <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
+                <li><a href="<?=Url::to(['theme/relation-material'])?>" target="navTab" class="delete"><span>批量关联材质</span></a></li>
+            <?php endif;?>
         </ul>
     </div>
     <table class="table" width="1200" layoutH="138">
@@ -67,10 +75,14 @@ $more = ArrayHelper::getValue($params, 'more');
         <tr>
             <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <?php elseif ($search):?>
+                <th width="22">操作</th>
             <?php endif;?>
             <th orderfield="name" width="80">名称</th>
+            <th width="80">材质</th>
             <th width="80">条码</th>
             <th orderfield="brand_id" width="80">客户</th>
+            <th width="80">原图名称</th>
             <th width="80">图案链接</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
@@ -80,13 +92,18 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data['id']?>">
                 <?php if(!$search or $more):?>
-                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']}}" : $data['id']?>" type="checkbox"></td>
+                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']},material_id:{$data['material_id']}}" : $data['id']?>" type="checkbox"></td>
+                <?php elseif ($search):?>
+                    <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>,material_id:<?=$data['material_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><?=$data['name']?></td>
+                <td><?=$data['material']['name']?></td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
+                <td><?=$data['source_pic_name']?></td>
                 <td><?=$data['template_url']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
+                <?php if(!$search):?>
                 <td>
                     <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['theme/delete-theme','ids' => $data['id']])?>" class="btnDel">删除</a>
@@ -95,11 +112,8 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
                     <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
-
-                    <?php if($search):?>
-                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a>
-                    <?php endif;?>
                 </td>
+                <?php endif;?>
             </tr>
         <?php endforeach;?>
         </tbody>

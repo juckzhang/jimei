@@ -1,13 +1,12 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\MaterialService;
 
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage','20');
+$prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
@@ -60,11 +59,15 @@ $more = ArrayHelper::getValue($params, 'more');
         <tr>
             <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <?php elseif ($search):?>
+                <th width="22">操作</th>
             <?php endif;?>
             <th width="80">名称</th>
             <th width="80">条码</th>
             <th orderfield="update_time" width="80">修改时间</th>
+            <?php if(!$search):?>
             <th width="70">操作</th>
+            <?php endif;?>
         </tr>
         </thead>
         <tbody>
@@ -72,10 +75,13 @@ $more = ArrayHelper::getValue($params, 'more');
             <tr target="card-id" rel="<?=$data->id?>">
                 <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
+                <?php elseif ($search):?>
+                    <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
+                <?php if(!$search):?>
                 <td>
                     <?php if(\Yii::$app->user->can('material/delete-material')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['material/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
@@ -84,11 +90,8 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(\Yii::$app->user->can('material/edit-material')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['material/edit-material','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
-
-                    <?php if($search):?>
-                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a>
-                    <?php endif;?>
                 </td>
+                <?php endif;?>
             </tr>
         <?php endforeach;?>
         </tbody>

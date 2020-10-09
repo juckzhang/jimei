@@ -7,7 +7,7 @@ $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage','20');
+$prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $brandId = ArrayHelper::getValue($other, 'brand_id');
 $search = ArrayHelper::getValue($params,'search');
@@ -67,6 +67,8 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
             <tr>
                 <?php if(!$search or $more):?>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+                <?php elseif ($search):?>
+                    <th width="22">操作</th>
                 <?php endif;?>
                 <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
@@ -75,7 +77,9 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                 <th width="80">高</th>
                 <th>画布类型</th>
                 <th orderfield="update_time" width="80">修改时间</th>
-                <th width="70">操作</th>
+                <?php if(!$search):?>
+                    <th width="70">操作</th>
+                <?php endif;?>
             </tr>
             </thead>
             <tbody>
@@ -83,6 +87,8 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                 <tr target="card-id" rel="<?=$data->id?>">
                     <?php if(!$search or $more):?>
                     <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}',brand_id:$data->brand_id}" : $data->id?>" type="checkbox"></td>
+                    <?php elseif ($search):?>
+                        <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a></td>
                     <?php endif;?>
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>
@@ -91,6 +97,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                     <td><?=$data->height?></td>
                     <td><?=ArrayHelper::getValue($canvasType, $data->canvas_type)?></td>
                     <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
+                    <?php if(!$search):?>
                     <td>
                         <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
                         <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
@@ -99,11 +106,8 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                         <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
                         <a title="编辑" target="navTab" href="<?=Url::to(['phone/edit-phone','id' => $data->id])?>" class="btnEdit">编辑</a>
                         <?php endif;?>
-
-                        <?php if($search):?>
-                            <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a>
-                        <?php endif;?>
                     </td>
+                    <?php endif;?>
                 </tr>
             <?php endforeach;?>
             </tbody>

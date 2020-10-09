@@ -1,18 +1,10 @@
 <?php
 namespace backend\controllers;
 
-use backend\services\PhoneService;
 use common\constants\CodeConstant;
-use common\models\mysql\BrandModel;
-use common\models\mysql\ColorModel;
-use common\models\mysql\CustomerModel;
-use common\models\mysql\MaterialModel;
 use common\models\mysql\MealModel;
-use common\models\mysql\PhoneModel;
-use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\MealService;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -32,7 +24,7 @@ class MealController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $result = PhoneService::editMeal($this->paramData);
+            $result = MealService::editMeal($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -66,6 +58,22 @@ class MealController extends BaseController
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
+                'navTabId' => 'meal-list',
+                'callbackType' => 'forward',
+                'forwardUrl'  => Url::to(['meal/meal-list'])
+            ]);
+        return $this->returnAjaxError($return);
+    }
+
+    public function actionSyncMeal(){
+        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+
+        $return = MealService::getService()->syncMeal($ids);
+        if($return === true)
+            return $this->returnAjaxSuccess([
+                'message' => '同步成功',
                 'navTabId' => 'meal-list',
                 'callbackType' => 'forward',
                 'forwardUrl'  => Url::to(['meal/meal-list'])

@@ -1,14 +1,12 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\MaterialService;
 
-$mediaService = MaterialService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage','20');
+$prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 ?>
@@ -64,6 +62,14 @@ $search = ArrayHelper::getValue($params,'search');
                         <input type="text" class="textInput readonly" readonly="true" name="theme-name" value="<?=ArrayHelper::getValue($params,'theme-name')?>" data-name="theme.name" suggestfields="name" lookupgroup="theme" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1])?>" lookupgroup="theme">查找带回</a>
                     </td>
+                    <td>
+                        状态:
+                        <select name="other[sync_status]" value="<?=ArrayHelper::getValue($other, 'sync_status')?>">
+                            <option value="">--选择同步状态--</option>
+                            <option value="0">未同步</option>
+                            <option value="1">已同步</option>
+                        </select>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -88,6 +94,10 @@ $search = ArrayHelper::getValue($params,'search');
 
             <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['meal/delete-meal'])?>" class="delete"><span>批量删除</span></a></li>
+            <?php endif;?>
+
+            <?php if(\Yii::$app->user->can('meal/sync-meal')):?>
+                <li><a title="确实要同步这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['meal/sync-meal'])?>" class="add"><span>批量同步</span></a></li>
             <?php endif;?>
         </ul>
     </div>

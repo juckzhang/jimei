@@ -153,10 +153,15 @@ class UploadService extends Service
             $fullFileName = \Yii::getAlias('@webroot/') . $relativePath;
         }
 
+        $sourcePicName = $model->file->name;
         if($model->file->saveAs($fullFileName))
+            //生成jpg文件
+            $jpgName = rtrim($fullFileName, '.tif').'.jpg';
+            exec("convert -strip -quality 75 -layers flatten {$fileName} {$jpgName}");
             return [
-                'url' => \Yii::$app->params['imageUrlPrefix'] . $relativePath,
+                'url' => \Yii::$app->params['imageUrlPrefix'] . rtrim($relativePath, '.tif').'.jpg',
                 'fullFileName' => $relativePath,
+                'source_pic_name' => $sourcePicName,
             ];
 
         return CodeConstant::UPLOAD_FILE_FAILED;

@@ -2,11 +2,9 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
-use common\models\mysql\CustomerModel;
 use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\ThemeService;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -26,9 +24,8 @@ class ThemeController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = ThemeService::getService()->editInfo($id,ThemeModel::className());
-            if($result instanceof Model)
+            $result = ThemeService::getService()->editTheme($this->paramData);
+            if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'theme-list',
@@ -60,5 +57,26 @@ class ThemeController extends BaseController
                 'forwardUrl'  => Url::to(['theme/theme-list'])
             ]);
         return $this->returnAjaxError($return);
+    }
+
+    public function actionRelationMaterial()
+    {
+        if(\Yii::$app->request->getIsPost())
+        {
+            $ids = ArrayHelper::getValue($this->paramData,'theme_id');
+            $materialId = ArrayHelper::getValue($this->paramData,'material_id');
+
+            $return = ThemeService::getService()->relationMaterial($ids,$materialId);
+            if($return === true)
+                return $this->returnAjaxSuccess([
+                    'message' => '成功',
+                    'navTabId' => 'theme-list',
+                    'callbackType' => 'forward',
+                    'forwardUrl'  => Url::to(['theme/theme-list'])
+                ]);
+            return $this->returnAjaxError($return);
+        }else{
+            return $this->render('relation-material');
+        }
     }
 }

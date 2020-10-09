@@ -1,5 +1,5 @@
 <?php
 return [
-    'imageUrlPrefix' => 'http://kongchinese1.oss-cn-hongkong.aliyuncs.com/',
+    'imageUrlPrefix' => 'https://phonecases.dongbin.dev/',
     'domain'       => 'http://106.12.72.118/'
 ];
