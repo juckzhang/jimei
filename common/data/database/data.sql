@@ -130,7 +130,6 @@ CREATE TABLE if NOT EXISTS jimei_meal(
   theme_id int unsigned NOT NULL default  0 comment'素材',
   color_id int unsigned NOT NULL default  0 comment'颜色',
   material_id int unsigned NOT NULL default  0 comment'材质',
-  source varchar(125) not null default ''comment'订单来源',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',

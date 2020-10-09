@@ -1,18 +1,10 @@
 <?php
 namespace backend\controllers;
 
-use backend\services\PhoneService;
 use common\constants\CodeConstant;
-use common\models\mysql\BrandModel;
-use common\models\mysql\ColorModel;
-use common\models\mysql\CustomerModel;
-use common\models\mysql\MaterialModel;
 use common\models\mysql\MealModel;
-use common\models\mysql\PhoneModel;
-use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\MealService;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -32,7 +24,7 @@ class MealController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $result = PhoneService::editMeal($this->paramData);
+            $result = MealService::editMeal($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',

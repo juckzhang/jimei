@@ -2,7 +2,6 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
-use common\models\mysql\CustomerModel;
 use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\ThemeService;

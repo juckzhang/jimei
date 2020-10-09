@@ -3,6 +3,9 @@ namespace backend\services;
 
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
+use common\models\mysql\PhoneModel;
+use common\models\mysql\ThemeModel;
+use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
 class MealService extends BackendService
@@ -43,7 +46,44 @@ class MealService extends BackendService
     // 编辑
     public function editMeal($data){
         $id = ArrayHelper::getValue($data,'id');
-        $result = MealService::getService()->editInfo($id, MealModel::className());
+        if($id){
+            $result = $this->editInfo($id, MealModel::className());
+            if($result instanceof Model) return true;
+
+            return false;
+        }
+
+        //批量插入
+        $phoneIds = ArrayHelper::getValue($data, 'MealModel.mobile_id');
+        $materialIds = ArrayHelper::getValue($data, 'MealModel.material_id');
+        $colorIds = ArrayHelper::getValue($data, 'MealModel.color_id');
+        $themeIds = ArrayHelper::getValue($data, 'MealModel.theme_id');
+
+        if(!$phoneIds or !$materialIds or !$colorIds or !$themeIds) return false;
+        $phoneIds = explode(',', $phoneIds); $materialIds = explode(',',$materialIds);
+        $colorIds = explode(',', $colorIds); $themeIds = explode(',', $themeIds);
+        $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->asArray()->all();
+        $themeList = ThemeModel::find()->where(['id' => $themeIds])->asArray()->all();
+
+        $batchData = []; $now = time();
+        $filed = ['brand_id','mobile_id','material_id','color_id','customer_id','theme_id','create_time', 'update_time'];
+        foreach ($phoneList as $phone){
+            $item = ['brand_id' => $phone['brand_id'], 'mobile_id' => $phone['id'],'create_time' => $now,'update_time' => $now];
+            foreach ($materialIds as $materialId){
+                $item['material_id'] = $materialId;
+                foreach ($colorIds as $colorId){
+                    $item['color_id'] = $colorId;
+                    foreach ($themeList as $theme){
+                        $item['customer_id'] = $theme['customer_id'];
+                        $item['theme_id'] = $theme['id'];
+                        $batchData[] = $item;
+                    }
+                }
+            }
+        }
+        $result = \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
+
+        return $result;
     }
 }
 
