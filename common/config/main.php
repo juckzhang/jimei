@@ -15,6 +15,9 @@ return [
             'class' => 'common\components\Config',
             'ConfigPaths' => ['@common'],
         ],
+        'lang' => [
+            'class' => 'common\components\Lang',
+        ],
 
         'uploadTool' => [
             'class' => 'common\components\uploadRemote\UploadTool',
