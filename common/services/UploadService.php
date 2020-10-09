@@ -157,7 +157,7 @@ class UploadService extends Service
         if($model->file->saveAs($fullFileName))
             //生成jpg文件
             $jpgName = rtrim($fullFileName, '.tif').'.jpg';
-            exec("convert -strip -quality 75 -layers flatten {$fileName} {$jpgName}");
+            exec("convert -strip -quality 75 -layers flatten {$fullFileName} {$jpgName}");
             return [
                 'url' => \Yii::$app->params['imageUrlPrefix'] . rtrim($relativePath, '.tif').'.jpg',
                 'fullFileName' => $relativePath,
