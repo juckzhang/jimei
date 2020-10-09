@@ -64,4 +64,20 @@ class MealController extends BaseController
             ]);
         return $this->returnAjaxError($return);
     }
+
+    public function actionSyncMeal(){
+        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+
+        $return = MealService::getService()->syncMeal($ids);
+        if($return === true)
+            return $this->returnAjaxSuccess([
+                'message' => '同步成功',
+                'navTabId' => 'meal-list',
+                'callbackType' => 'forward',
+                'forwardUrl'  => Url::to(['meal/meal-list'])
+            ]);
+        return $this->returnAjaxError($return);
+    }
 }

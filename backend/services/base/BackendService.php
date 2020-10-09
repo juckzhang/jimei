@@ -41,5 +41,12 @@ class BackendService extends Service
         if($num > 0) return true;
         return false;
     }
+
+    protected function updateInfo($id, $modelName, $filed){
+        $primaryKey = $modelName::primaryKey()[0];
+        $num = $modelName::updateAll($filed,[$primaryKey => $id]);
+        if($num > 0) return true;
+        return false;
+    }
 }
 

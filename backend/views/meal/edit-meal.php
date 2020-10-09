@@ -19,14 +19,6 @@ if (ArrayHelper::getValue($model, 'id')) $more = '';
                 </dd>
             </dl>
             <dl>
-                <dt>材质：</dt>
-                <dd>
-                    <input type="hidden" name="MealModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'mmaterial_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
-                </dd>
-            </dl>
-            <dl>
                 <dt>颜色：</dt>
                 <dd>
                     <input type="hidden" name="MealModel[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
@@ -38,8 +30,9 @@ if (ArrayHelper::getValue($model, 'id')) $more = '';
                 <dt>图案：</dt>
                 <dd>
                     <input type="hidden" name="MealModel[customer_id]" data-name="theme.customer_id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                    <input type="hidden" name="MealModel[material_id]" data-name="theme.material_id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
                     <input type="hidden" name="MealModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name,customer_id" lookupgroup="theme" autocomplete="off">
+                    <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name,customer_id,material_id" lookupgroup="theme" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>

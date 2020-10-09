@@ -18,6 +18,7 @@ class ThemeService extends BackendService
             ->where(['!=','status' , ThemeModel::STATUS_DELETED])
             ->andFilterWhere(['like','name',ArrayHelper::getValue($other, 'keyword')])
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
+            ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')])
             ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
 
         $data['dataCount'] = $models->count();
@@ -42,7 +43,7 @@ class ThemeService extends BackendService
         return $data;
     }
 
-    public function editMaterial($data){
+    public function editTheme($data){
         $id = ArrayHelper::getValue($data, 'id');
         if($id){
             $result = $this->editInfo($id, MaterialModel::className());
@@ -69,6 +70,11 @@ class ThemeService extends BackendService
 
 
         return true;
+    }
+
+    public function relationMaterialrelationMaterial($ids, $materialId){
+        if(!is_array($ids)) $ids = explode(',', $ids);
+        return $this->updateInfo($ids, ThemeModel::className(), ['material_id' => $materialId]);
     }
 }
 

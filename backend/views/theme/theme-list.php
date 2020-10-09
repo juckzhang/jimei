@@ -1,9 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use backend\services\MaterialService;
 
-$mediaService = MaterialService::getService();
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
@@ -35,6 +33,12 @@ $more = ArrayHelper::getValue($params, 'more');
                         <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                     </td>
+                    <td>
+                        材质:
+                        <input type="hidden" name="other[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($other, 'material_id')?>">
+                        <input type="text" class="textInput readonly" readonly="true" name="material-name" value="<?=ArrayHelper::getValue($params,'material-name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                        <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1])?>" lookupgroup="material">查找带回</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -60,6 +64,10 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['theme/delete-theme'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
+
+            <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
+                <li><a href="<?=Url::to(['theme/relation-material'])?>" rel="ids[]" target="dialog" class="delete"><span>批量关联材质</span></a></li>
+            <?php endif;?>
         </ul>
     </div>
     <table class="table" width="1200" layoutH="138">
@@ -84,9 +92,9 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data['id']?>">
                 <?php if(!$search or $more):?>
-                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']}}" : $data['id']?>" type="checkbox"></td>
+                <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']},material_id:{$data['material_id']}}" : $data['id']?>" type="checkbox"></td>
                 <?php elseif ($search):?>
-                    <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a></td>
+                    <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>,material_id:<?=$data['material_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><?=$data['name']?></td>
                 <td><?=$data['material']['name']?></td>

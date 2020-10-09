@@ -25,7 +25,7 @@ class ThemeController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $result = ThemeService::getService()->editMaterial($this->paramData);
+            $result = ThemeService::getService()->editTheme($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -58,5 +58,26 @@ class ThemeController extends BaseController
                 'forwardUrl'  => Url::to(['theme/theme-list'])
             ]);
         return $this->returnAjaxError($return);
+    }
+
+    public function actionRelationMaterial()
+    {
+        if(\Yii::$app->request->getIsPost())
+        {
+            $ids = ArrayHelper::getValue($this->paramData,'theme_id');
+            $materialId = ArrayHelper::getValue($this->paramData,'material_id');
+
+            $return = ThemeService::getService()->relationMaterial($ids,$materialId);
+            if($return === true)
+                return $this->returnAjaxSuccess([
+                    'message' => '成功',
+                    'navTabId' => 'theme-list',
+                    'callbackType' => 'forward',
+                    'forwardUrl'  => Url::to(['theme/theme-list'])
+                ]);
+            return $this->returnAjaxError($return);
+        }else{
+            return $this->render('relation-material');
+        }
     }
 }
