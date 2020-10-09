@@ -10,7 +10,7 @@ use yii\helpers\Url;
                 <dd>
                     <input type="hidden" name="theme_id" data-name="theme.id" value="">
                     <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="" data-name="theme.name" suggestfields="name,customer_id,material_id" lookupgroup="theme" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more])?>" lookupgroup="theme">查找带回</a>
+                    <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => 1])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>
             <dl>
