@@ -5,7 +5,7 @@ use yii\base\Model;
 class Service extends Model
 {
     const DEFAULT_PAGE = 0;  //默认显示页
-    const DEFAULT_PRE_PAGE = 20; //默认每页显示数量
+    const DEFAULT_PRE_PAGE = 100; //默认每页显示数量
 
     protected $lang = [
         'en_US' => 'en',

@@ -8,7 +8,7 @@ $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage','20');
+$prePage = ArrayHelper::getValue($params,'numPerPage','100');
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
@@ -67,6 +67,8 @@ $more = ArrayHelper::getValue($params, 'more');
         <tr>
             <?php if(!$search or $more):?>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <?php elseif ($search):?>
+                <th width="22">操作</th>
             <?php endif;?>
             <th orderfield="name" width="80">名称</th>
             <th width="80">条码</th>
@@ -82,6 +84,8 @@ $more = ArrayHelper::getValue($params, 'more');
             <tr target="card-id" rel="<?=$data['id']?>">
                 <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']}}" : $data['id']?>" type="checkbox"></td>
+                <?php elseif ($search):?>
+                    <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><?=$data['name']?></td>
                 <td><?=$data['barcode']?></td>
@@ -89,6 +93,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['source_pic_name']?></td>
                 <td><?=$data['template_url']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
+                <?php if(!$search):?>
                 <td>
                     <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['theme/delete-theme','ids' => $data['id']])?>" class="btnDel">删除</a>
@@ -97,11 +102,8 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
                     <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
-
-                    <?php if($search):?>
-                        <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a>
-                    <?php endif;?>
                 </td>
+                <?php endif;?>
             </tr>
         <?php endforeach;?>
         </tbody>
