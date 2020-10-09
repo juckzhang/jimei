@@ -36,6 +36,7 @@ class MealService extends BackendService
                 ->with('material')
                 ->with('color')
                 ->with('theme')
+                ->with('customer')
                 ->offset($offset)
                 ->asArray()
                 ->all();
