@@ -67,8 +67,8 @@ $more = ArrayHelper::getValue($params, 'more');
                         状态:
                         <select name="other[sync_status]" value="<?=ArrayHelper::getValue($other, 'sync_status')?>">
                             <option value="">--选择同步状态--</option>
-                            <option value="0">未同步</option>
-                            <option value="1">已同步</option>
+                            <option value="0" <?=ArrayHelper::getValue($other, 'sync_status') === '0' ? 'selected' : ''?>>未同步</option>
+                            <option value="1" <?=ArrayHelper::getValue($other, 'sync_status') === '1' ? 'selected' : ''?>>已同步</option>
                         </select>
                     </td>
                 </tr>

@@ -23,6 +23,7 @@ class MealService extends BackendService
             ->andFilterWhere(['color_id' => ArrayHelper::getValue($other, 'color_id')])
             ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')])
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
+            ->andFilterWhere(['sync_status' => ArrayHelper::getValue($other, 'sync_status')])
             ->andFilterWhere(['theme_id' => ArrayHelper::getValue($other, 'theme_id')]);
 
         $data['dataCount'] = $models->count();
