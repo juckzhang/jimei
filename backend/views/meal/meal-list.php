@@ -130,7 +130,15 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['theme']['name']?></td>
                 <td><?=$data['sync_status'] == 0 ? '未同步' : '已同步'?></td>
-                <td><?=$data['barcode']?></td>
+                <td><?=sprintf(
+                        "%s%s%s%s%s%s",
+                        $data['brand']['barcode'],
+                        $data['phone']['barcode'],
+                        $data['material']['barcode'],
+                        $data['color']['barcode'],
+                        $data['customer']['barcode'],
+                        $data['theme']['barcode']
+                    )?></td>
                 <td><?=sprintf(
                         "%s%s%s (%s) %s",
                         $data['brand']['name'],

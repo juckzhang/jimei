@@ -67,7 +67,7 @@ class MealService extends BackendService
         $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('customer')->with('material')->asArray()->all();
         $colorList = ColorModel::find()->where(['id' => $colorIds])->asArray()->all();
         $batchData = []; $now = time();
-        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id','barcode'];
+        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
         foreach ($phoneList as $phone){
             $item = ['brand_id' => $phone['brand_id'], 'mobile_id' => $phone['id'],'create_time' => $now,'update_time' => $now];
             foreach ($colorList as $color){
@@ -78,15 +78,6 @@ class MealService extends BackendService
                     $materials = ArrayHelper::getValue($theme, 'material', []);
                     foreach ($materials as $material){
                         $item['material_id'] = $material['material_id'];
-                        $item['barcode'] = sprintf(
-                            "%s%s%s%s%s%s",
-                            $phone['brand']['barcode'],
-                            $phone['barcode'],
-                            $material['barcode'],
-                            $color['barcode'],
-                            $theme['customer']['barcode'],
-                            $theme['barcode']
-                        );
                         $batchData[] = $item;
                     }
                 }
