@@ -73,12 +73,11 @@ $more = ArrayHelper::getValue($params, 'more');
                 <th width="22">操作</th>
             <?php endif;?>
             <th orderfield="name" width="80">名称</th>
-            <th width="80">材质</th>
+            <th width="160">材质</th>
             <th width="80">条码</th>
             <th orderfield="brand_id" width="80">客户</th>
             <th width="80">图案原图名称</th>
             <th width="80">图案</th>
-            <th width="80">图案连接</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
             <th width="70">操作</th>
@@ -107,7 +106,6 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['source_pic_name']?></td>
-                <td><?=$data['template_url']?></td>
                 <td><img width="50" src="<?=rtrim($data['template_url'],'.tif').'.jpg'?>" /></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <?php if(!$search):?>
