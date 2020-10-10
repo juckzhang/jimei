@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\models\mysql\ColorModel;
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
@@ -62,21 +63,30 @@ class MealService extends BackendService
 
         if(!$phoneIds or !$colorIds or !$themeIds) return false;
         $phoneIds = explode(',', $phoneIds); $themeIds = explode(',', $themeIds); $colorIds = explode(',', $colorIds);
-        $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->asArray()->all();
-        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('material')->asArray()->all();
-
+        $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->with('brand')->asArray()->all();
+        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('customer')->with('material')->asArray()->all();
+        $colorList = ColorModel::find()->where(['id' => $colorIds])->asArray()->all();
         $batchData = []; $now = time();
-        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
+        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id','barcode'];
         foreach ($phoneList as $phone){
             $item = ['brand_id' => $phone['brand_id'], 'mobile_id' => $phone['id'],'create_time' => $now,'update_time' => $now];
-            foreach ($colorIds as $colorId){
-                $item['color_id'] = $colorId;
+            foreach ($colorList as $color){
+                $item['color_id'] = $color['id'];
                 foreach ($themeList as $theme){
                     $item['customer_id'] = $theme['customer_id'];
                     $item['theme_id'] = $theme['id'];
                     $materials = ArrayHelper::getValue($theme, 'material', []);
                     foreach ($materials as $material){
                         $item['material_id'] = $material['material_id'];
+                        $item['barcode'] = sprintf(
+                            "%s%s%s%s%s%s",
+                            $phone['brand']['barcode'],
+                            $phone['barcode'],
+                            $material['barcode'],
+                            $color['barcode'],
+                            $theme['customer']['barcode'],
+                            $theme['barcode']
+                        );
                         $batchData[] = $item;
                     }
                 }
