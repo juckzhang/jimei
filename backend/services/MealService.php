@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\models\mysql\ColorModel;
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
@@ -23,6 +24,7 @@ class MealService extends BackendService
             ->andFilterWhere(['color_id' => ArrayHelper::getValue($other, 'color_id')])
             ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')])
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
+            ->andFilterWhere(['sync_status' => ArrayHelper::getValue($other, 'sync_status')])
             ->andFilterWhere(['theme_id' => ArrayHelper::getValue($other, 'theme_id')]);
 
         $data['dataCount'] = $models->count();
@@ -61,15 +63,15 @@ class MealService extends BackendService
 
         if(!$phoneIds or !$colorIds or !$themeIds) return false;
         $phoneIds = explode(',', $phoneIds); $themeIds = explode(',', $themeIds); $colorIds = explode(',', $colorIds);
-        $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->asArray()->all();
-        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('material')->asArray()->all();
-
+        $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->with('brand')->asArray()->all();
+        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('customer')->with('material')->asArray()->all();
+        $colorList = ColorModel::find()->where(['id' => $colorIds])->asArray()->all();
         $batchData = []; $now = time();
         $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
         foreach ($phoneList as $phone){
             $item = ['brand_id' => $phone['brand_id'], 'mobile_id' => $phone['id'],'create_time' => $now,'update_time' => $now];
-            foreach ($colorIds as $colorId){
-                $item['color_id'] = $colorId;
+            foreach ($colorList as $color){
+                $item['color_id'] = $color['id'];
                 foreach ($themeList as $theme){
                     $item['customer_id'] = $theme['customer_id'];
                     $item['theme_id'] = $theme['id'];

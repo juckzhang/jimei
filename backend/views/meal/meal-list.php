@@ -67,8 +67,8 @@ $more = ArrayHelper::getValue($params, 'more');
                         状态:
                         <select name="other[sync_status]" value="<?=ArrayHelper::getValue($other, 'sync_status')?>">
                             <option value="">--选择同步状态--</option>
-                            <option value="0">未同步</option>
-                            <option value="1">已同步</option>
+                            <option value="0" <?=ArrayHelper::getValue($other, 'sync_status') === '0' ? 'selected' : ''?>>未同步</option>
+                            <option value="1" <?=ArrayHelper::getValue($other, 'sync_status') === '1' ? 'selected' : ''?>>已同步</option>
                         </select>
                     </td>
                 </tr>
@@ -114,6 +114,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <th orderfield="theme_id" width="80">素材</th>
             <th width="80">同步状态</th>
             <th width="80">套餐编号</th>
+            <th width="80">套餐名称</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -129,7 +130,23 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['theme']['name']?></td>
                 <td><?=$data['sync_status'] == 0 ? '未同步' : '已同步'?></td>
-                <td><?=$data['barcode']?></td>
+                <td><?=sprintf(
+                        "%s%s%s%s%s%s",
+                        $data['brand']['barcode'],
+                        $data['phone']['barcode'],
+                        $data['material']['barcode'],
+                        $data['color']['barcode'],
+                        $data['customer']['barcode'],
+                        $data['theme']['barcode']
+                    )?></td>
+                <td><?=sprintf(
+                        "%s%s%s (%s) %s",
+                        $data['brand']['name'],
+                        $data['phone']['modal'],
+                        $data['material']['name'],
+                        $data['color']['name'],
+                        $data['theme']['name']
+                    )?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
