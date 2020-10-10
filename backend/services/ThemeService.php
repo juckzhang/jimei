@@ -1,10 +1,9 @@
 <?php
 namespace backend\services;
 
-use common\models\mysql\ThemeMaterial;
+use common\models\mysql\ThemeMaterialModel;
 use common\models\mysql\ThemeModel;
 use backend\services\base\BackendService;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
 class ThemeService extends BackendService
@@ -55,13 +54,13 @@ class ThemeService extends BackendService
                 $transaction->rollBack();
                 return false;
             }
-            ThemeMaterial::deleteAll(['theme_id' => $model->id]);
+            ThemeMaterialModel::deleteAll(['theme_id' => $model->id]);
             $filed = ['theme_id', 'material_id','create_time','update_time'];
             $batchData = [];$now = time();
             foreach ($materialIds as $materialId) {
                 $batchData[] = ['theme_id' => $model->id, 'material_id' => $materialId, 'create_time' => $now, 'update_time' => $now];
             }
-            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterial::tableName(),$filed,$batchData)->execute();
+            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterialModel::tableName(),$filed,$batchData)->execute();
             $transaction->commit();
         }catch (\Exception $e){
             $transaction->rollBack();
@@ -86,9 +85,10 @@ class ThemeService extends BackendService
         }
         $transaction = \Yii::$app->db->beginTransaction();
         try{
-            ThemeMaterial::deleteAll(['theme_id' => $ids]);
-            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterial::tableName(),$filed,$batchData)->execute();
+            ThemeMaterialModel::deleteAll(['theme_id' => $ids]);
+            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterialModel::tableName(),$filed,$batchData)->execute();
             $transaction->commit();
+            return true;
         }catch (\Exception $e){
             $transaction->rollBack();
             return false;

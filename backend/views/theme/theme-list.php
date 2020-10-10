@@ -90,7 +90,16 @@ $more = ArrayHelper::getValue($params, 'more');
                     <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>,material_id:<?=$data['material_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><?=$data['name']?></td>
-                <td><?=$data['material']['name']?></td>
+                <td><?php
+                    $materialNames = [];
+                    $materials = ArrayHelper::getValue($data, 'material', []);
+                    foreach ($materials as $material){
+                        $materialNames[] = ArrayHelper::getValue($material, 'material.name');
+                    }
+                    $materialNames = implode(',', $materialNames);
+                    echo $materialNames;
+                    ?>
+                </td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
                 <td><img width="50" src="<?=rtrim($data['template_url'],'.tif').'.jpg'?>" /></td>

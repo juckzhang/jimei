@@ -15,7 +15,7 @@ class ThemeModel extends ActiveRecord
     }
 
     public function getMaterial(){
-        return $this->hasMany(ThemeModel::className(), ['id' => 'theme_id'])
+        return $this->hasMany(ThemeMaterialModel::className(), ['id' => 'theme_id'])
             ->select(['id','theme_id','material_id'])->with('material');
     }
 }

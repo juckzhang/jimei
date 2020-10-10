@@ -1,7 +1,7 @@
 <?php
 namespace common\models\mysql;
 
-class ThemeMaterial extends ActiveRecord
+class ThemeMaterialModel extends ActiveRecord
 {
 
     public static function tableName()
