@@ -40,7 +40,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <ul>
                     <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <?php if($search):?>
+                    <?php if($more):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
                     <?php endif;?>
                 </ul>
