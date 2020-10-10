@@ -93,7 +93,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php elseif ($search):?>
                     <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>,material_id:<?=$data['material_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
-                <td><?=$data['name']?></td>
+                <td><a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>"><?=$data['name']?></a></td>
                 <td><?php
                     $materialNames = [];
                     $materials = ArrayHelper::getValue($data, 'material', []);
