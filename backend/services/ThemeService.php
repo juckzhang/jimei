@@ -44,7 +44,6 @@ class ThemeService extends BackendService
 
     public function editTheme($data){
         $id = ArrayHelper::getValue($data, 'id');
-        $data = ArrayHelper::getValue($data, 'ThemeModel');
         $materialIds = ArrayHelper::getValue($data, 'ThemeMaterialModel.material_id');
         $materialIds = explode(',', $materialIds);
         $transaction = \Yii::$app->db->beginTransaction();
