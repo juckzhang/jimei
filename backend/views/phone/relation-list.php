@@ -9,6 +9,7 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="relation-list" rel="relation-list">
 <form id="pagerForm" method="post" action="#rel#">
