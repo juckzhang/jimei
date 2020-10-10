@@ -18,7 +18,7 @@ use yii\helpers\Url;
                 <dd>
                     <input type="hidden" name="material_id" data-name="material.id" value="">
                     <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1])?>" lookupgroup="material">查找带回</a>
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => 1])?>" lookupgroup="material">查找带回</a>
                 </dd>
             </dl>
         </div>

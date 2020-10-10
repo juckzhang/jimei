@@ -9,11 +9,21 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
   `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`barcode`,`customer_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
+
+-- 图案材质关系列表
+CREATE TABLE if NOT EXISTS jimei_theme_material(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `theme_id` int unsigned NOT NULL default 0 comment'图案id',
   `material_id` int unsigned NOT NULL default 0 comment'材质id',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (`barcode`,`customer_id`, `material_id`)
+  unique (`theme_id`,`material_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
 -- 材质

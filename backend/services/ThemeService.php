@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\models\mysql\ThemeMaterial;
 use common\models\mysql\ThemeModel;
 use backend\services\base\BackendService;
 use yii\base\Model;
@@ -44,36 +45,54 @@ class ThemeService extends BackendService
 
     public function editTheme($data){
         $id = ArrayHelper::getValue($data, 'id');
-        if($id){
-            $result = $this->editInfo($id, ThemeModel::className());
-            if($result instanceof Model) return true;
-
-            return false;
-        }
-        $materialIds = ArrayHelper::getValue($data, 'ThemeModel.material');
         $data = ArrayHelper::getValue($data, 'ThemeModel');
+        $materialIds = ArrayHelper::getValue($data, 'ThemeMaterialModel.material_id');
         $materialIds = explode(',', $materialIds);
         $transaction = \Yii::$app->db->beginTransaction();
         try{
-            foreach ($materialIds as $materialId){
-                $data['material_id'] = $materialId;
-                $model = new ThemeModel();
-                $model->load($data, '');
-                $model->save();
+            $model = $this->editInfo($id, ThemeModel::className());
+            if(!$model) {
+                $transaction->rollBack();
+                return false;
             }
+            ThemeMaterial::deleteAll(['theme_id' => $model->id]);
+            $filed = ['theme_id', 'material_id','create_time','update_time'];
+            $batchData = [];$now = time();
+            foreach ($materialIds as $materialId) {
+                $batchData[] = ['theme_id' => $model->id, 'material_id' => $materialId, 'create_time' => $now, 'update_time' => $now];
+            }
+            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterial::tableName(),$filed,$batchData)->execute();
             $transaction->commit();
         }catch (\Exception $e){
             $transaction->rollBack();
             return false;
         }
 
-
         return true;
     }
 
-    public function relationMaterial($ids, $materialId){
+    public function relationMaterial($ids, $materialIds){
         if(!is_array($ids)) $ids = explode(',', $ids);
-        return $this->updateInfo($ids, ThemeModel::className(), ['material_id' => $materialId]);
+        if(!is_array($materialIds)) $materialIds = explode(',', $materialIds);
+
+        $filed = ['theme_id', 'create_time','update_time', 'material_id'];
+        $batchData = [];$now = time();
+        foreach ($ids as $id){
+            $item = ['theme_id' => $id,'create_time' => $now, 'update_time' => $now];
+            foreach ($materialIds as $materialId) {
+                $item['material_id'] = $materialId;
+                $batchData[] = $item;
+            }
+        }
+        $transaction = \Yii::$app->db->beginTransaction();
+        try{
+            ThemeMaterial::deleteAll(['theme_id' => $ids]);
+            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterial::tableName(),$filed,$batchData)->execute();
+            $transaction->commit();
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            return false;
+        }
     }
 }
 
