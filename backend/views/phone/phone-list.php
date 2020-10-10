@@ -90,7 +90,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                     <?php elseif ($search):?>
                         <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a></td>
                     <?php endif;?>
-                    <td><a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>"><?=$data->modal?></a></td>
+                    <td><a title="编辑" target="navTab" href="<?=Url::to(['phone/edit-phone','id' => $data['id']])?>"><?=$data->modal?></a></td>
                     <td><?=$data->barcode?></td>
                     <td><?=$data->brand->name?></td>
                     <td><?=$data->width?></td>

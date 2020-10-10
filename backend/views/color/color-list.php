@@ -78,7 +78,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php elseif ($search):?>
                 <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a></td>
                 <?php endif;?>
-                <td><a title="编辑" target="dialog" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>"><?=$data->name?></a></td>
+                <td><a title="编辑" target="dialog" href="<?=Url::to(['color/edit-color','id' => $data['id']])?>"><?=$data->name?></a></td>
                 <td><?=$data->barcode?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <?php if(!$search):?>
