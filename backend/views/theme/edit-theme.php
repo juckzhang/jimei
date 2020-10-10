@@ -3,7 +3,6 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
 $params = \Yii::$app->request->getPost();
-$more = ArrayHelper::getValue($params, 'id') ? '' : 1;
 $materialIds = $materialNames = [];
 if(!empty($model)){
     $materials = ArrayHelper::getValue($model, 'material', []);
@@ -47,7 +46,7 @@ $materialIds = implode(',', $materialIds);
                 <dd>
                     <input type="hidden" name="ThemeMaterialModel[material_id]" data-name="material.id" value="<?=$materialIds?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=$materialNames?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => 1])?>" lookupgroup="material">查找带回</a>
                 </dd>
             </dl>
             <dl>
