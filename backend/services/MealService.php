@@ -81,9 +81,29 @@ class MealService extends BackendService
                 }
             }
         }
-        $result = \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
 
-        return $result;
+        $where = ['or'];
+        foreach ($batchData as $data){
+            $where[] = [
+                'brand_id' => $data['brand_id'],
+                'mobile_id' => $data['mobile_id'],
+                'color_id' => $data['color_id'],
+                'customer_id' => $data['customer_id'],
+                'theme_id' => $data['theme_id'],
+                'material_id' => $data['material_id'],
+            ];
+        }
+        $transaction = \Yii::$app->db->beginTransaction();
+        try{
+            MealModel::deleteAll($where);
+            \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
+            $transaction->commit();
+
+            return true;
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            return false;
+        }
     }
 
     public function syncMeal($ids){

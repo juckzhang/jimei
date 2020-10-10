@@ -18,6 +18,7 @@ $materialIds = implode(',', $materialIds);
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['theme/edit-theme','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+        <input type="hidden" id="source_pic_name" name="ThemeModel[source_pic_name]" value="<?=ArrayHelper::getValue($model,'source_pic_name','')?>"/>
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>名称：</dt>
@@ -96,6 +97,7 @@ $materialIds = implode(',', $materialIds);
                         var posterUrl = $.trim(result.data.url);
                         $('#upload-pic').attr("src", posterUrl);
                         $('.'+name).val(result.data.fullFileName);
+                        $('#source_pic_name').val(result.data.source_pic_name);
                     }else {
                         alert(result.resultDesc);
                     }
