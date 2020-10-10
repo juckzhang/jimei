@@ -13,7 +13,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
 ?>
 <div class="" id="order-list" rel="order-list">
 <form id="pagerForm" method="post" action="#rel#">
-    <input type="hidden" name="search", value="<?=$search?>">
+    <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />

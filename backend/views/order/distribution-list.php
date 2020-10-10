@@ -13,7 +13,7 @@ $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
 ?>
 <div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
-    <input type="hidden" name="search", value="<?=$search?>">
+    <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />

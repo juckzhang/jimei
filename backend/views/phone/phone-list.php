@@ -16,8 +16,8 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
-        <input type="hidden" name="search", value="<?=$search?>">
-        <input type="hidden" name="more", value="<?=$more?>">
+        <input type="hidden" name="search" value="<?=$search?>">
+        <input type="hidden" name="more" value="<?=$more?>">
         <input type="hidden" name="pageNum" value="<?=$page?>" />
         <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
         <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
