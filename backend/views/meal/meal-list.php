@@ -9,10 +9,11 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="meal-list" rel="meal-list">
 <form id="pagerForm" method="post" action="#rel#">
-    <input type="hidden" name="search", value="<?=$search?>">
+    <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -77,7 +78,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <ul>
                     <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <?php if($search):?>
+                    <?php if($more):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
                     <?php endif;?>
                 </ul>

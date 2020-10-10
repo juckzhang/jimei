@@ -16,8 +16,8 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
-        <input type="hidden" name="search", value="<?=$search?>">
-        <input type="hidden" name="more", value="<?=$more?>">
+        <input type="hidden" name="search" value="<?=$search?>">
+        <input type="hidden" name="more" value="<?=$more?>">
         <input type="hidden" name="pageNum" value="<?=$page?>" />
         <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
         <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -43,7 +43,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                     <ul>
                         <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                         <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                        <?php if($search):?>
+                        <?php if($more):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
                         <?php endif;?>
                     </ul>
@@ -90,7 +90,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                     <?php elseif ($search):?>
                         <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a></td>
                     <?php endif;?>
-                    <td><?=$data->modal?></td>
+                    <td><a title="编辑" target="navTab" href="<?=Url::to(['phone/edit-phone','id' => $data['id']])?>"><?=$data->modal?></a></td>
                     <td><?=$data->barcode?></td>
                     <td><?=$data->brand->name?></td>
                     <td><?=$data->width?></td>

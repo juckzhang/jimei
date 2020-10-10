@@ -3,7 +3,16 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
 $params = \Yii::$app->request->getPost();
-$more = ArrayHelper::getValue($params, 'id') ? '' : 1;
+$materialIds = $materialNames = [];
+if(!empty($model)){
+    $materials = ArrayHelper::getValue($model, 'material', []);
+    foreach ($materials as $material){
+        $materialIds[] = $material['material_id'];
+        $materialNames[] = ArrayHelper::getValue($material, 'material.name');
+    }
+}
+$materialNames = implode(',', $materialNames);
+$materialIds = implode(',', $materialIds);
 ?>
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
@@ -35,9 +44,9 @@ $more = ArrayHelper::getValue($params, 'id') ? '' : 1;
             <dl>
                 <dt>材质：</dt>
                 <dd>
-                    <input type="hidden" name="ThemeModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
+                    <input type="hidden" name="ThemeMaterialModel[material_id]" data-name="material.id" value="<?=$materialIds?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=$materialNames?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => 1])?>" lookupgroup="material">查找带回</a>
                 </dd>
             </dl>
             <dl>
@@ -49,7 +58,7 @@ $more = ArrayHelper::getValue($params, 'id') ? '' : 1;
                 </dd>
             </dl>
             <p>
-                <img src="<?=Yii::$app->params['picUrlPrefix'].ArrayHelper::getValue($model, 'template_url','')?>" id="upload-pic"/>
+                <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'template_url',''),'.tif').'.jpg'?>" id="upload-pic"/>
             </p>
         </div>
         <div class="formBar">

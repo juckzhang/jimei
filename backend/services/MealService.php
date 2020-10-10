@@ -62,7 +62,7 @@ class MealService extends BackendService
         if(!$phoneIds or !$colorIds or !$themeIds) return false;
         $phoneIds = explode(',', $phoneIds); $themeIds = explode(',', $themeIds); $colorIds = explode(',', $colorIds);
         $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->asArray()->all();
-        $themeList = ThemeModel::find()->where(['id' => $themeIds])->asArray()->all();
+        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('material')->asArray()->all();
 
         $batchData = []; $now = time();
         $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
@@ -73,14 +73,37 @@ class MealService extends BackendService
                 foreach ($themeList as $theme){
                     $item['customer_id'] = $theme['customer_id'];
                     $item['theme_id'] = $theme['id'];
-                    $item['material_id'] = $theme['material_id'];
-                    $batchData[] = $item;
+                    $materials = ArrayHelper::getValue($theme, 'material', []);
+                    foreach ($materials as $material){
+                        $item['material_id'] = $material['material_id'];
+                        $batchData[] = $item;
+                    }
                 }
             }
         }
-        $result = \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
 
-        return $result;
+        $where = ['or'];
+        foreach ($batchData as $data){
+            $where[] = [
+                'brand_id' => $data['brand_id'],
+                'mobile_id' => $data['mobile_id'],
+                'color_id' => $data['color_id'],
+                'customer_id' => $data['customer_id'],
+                'theme_id' => $data['theme_id'],
+                'material_id' => $data['material_id'],
+            ];
+        }
+        $transaction = \Yii::$app->db->beginTransaction();
+        try{
+            MealModel::deleteAll($where);
+            \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
+            $transaction->commit();
+
+            return true;
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            return false;
+        }
     }
 
     public function syncMeal($ids){

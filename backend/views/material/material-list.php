@@ -13,8 +13,8 @@ $more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="material-list" rel="material-list">
 <form id="pagerForm" method="post" action="#rel#">
-    <input type="hidden" name="search", value="<?=$search?>">
-    <input type="hidden" name="more", value="<?=$more?>">
+    <input type="hidden" name="search" value="<?=$search?>">
+    <input type="hidden" name="more" value="<?=$more?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -34,7 +34,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <ul>
                     <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <?php if($search and $more):?>
+                    <?php if($more):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
                     <?php endif;?>
                 </ul>
@@ -78,7 +78,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <?php elseif ($search):?>
                     <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a></td>
                 <?php endif;?>
-                <td><?=$data->name?></td>
+                <td><a title="编辑" target="dialog" href="<?=Url::to(['material/edit-material','id' => $data['id']])?>"><?=$data->name?></a></td>
                 <td><?=$data->barcode?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <?php if(!$search):?>

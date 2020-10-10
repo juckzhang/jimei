@@ -9,10 +9,11 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="relation-list" rel="relation-list">
 <form id="pagerForm" method="post" action="#rel#">
-    <input type="hidden" name="search", value="<?=$search?>">
+    <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -43,7 +44,7 @@ $search = ArrayHelper::getValue($params,'search');
                 <ul>
                     <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <?php if($search):?>
+                    <?php if($more):?>
                         <li><div class="button"><div class="buttonContent"><button type="button" multLookup="ids[]" warn="请选择部门">选择带回</button></div></div></li>
                     <?php endif;?>
                 </ul>
@@ -69,10 +70,10 @@ $search = ArrayHelper::getValue($params,'search');
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th orderfield="mobile_id" width="80">机型名称</th>
             <th orderfield="material_id" width="80">材质名称</th>
+            <th>原图名称</th>
             <th width="80">左边距</th>
             <th width="80">上边距</th>
-            <th width="80">原图名称</th>
-            <th width="80">上框图链接</th>
+            <th width="80">上框图</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -83,10 +84,10 @@ $search = ArrayHelper::getValue($params,'search');
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['phone']['modal']}-{$data['material']['name']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['phone']['modal']?></td>
                 <td><?=$data['material']['name']?></td>
+                <td><?=$data['source_pic_name']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
-                <td><?=$data['source_pic_name']?></td>
-                <td><?=$data['border_url']?></td>
+                <td><img width="50" src="<?=rtrim($data['border_url'],'.tif').'.jpg'?>" /></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('phone/delete-relation')):?>

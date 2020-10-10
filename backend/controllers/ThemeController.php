@@ -37,6 +37,7 @@ class ThemeController extends BaseController
             $id = ArrayHelper::getValue($this->paramData,'id');
             $model = ThemeModel::find()->where(['id' => $id])
                 ->with('customer')
+                ->with('material')
                 ->asArray()->one();
             return $this->render('edit-theme',['model' => $model]);
         }
