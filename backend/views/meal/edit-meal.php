@@ -3,7 +3,9 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
 $more = 1;
-if (ArrayHelper::getValue($model, 'id')) $more = '';
+if (ArrayHelper::getValue($model, 'id')){
+    $more = '';
+}
 ?>
 <h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
@@ -30,9 +32,8 @@ if (ArrayHelper::getValue($model, 'id')) $more = '';
                 <dt>图案：</dt>
                 <dd>
                     <input type="hidden" name="MealModel[customer_id]" data-name="theme.customer_id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                    <input type="hidden" name="MealModel[material_id]" data-name="theme.material_id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
                     <input type="hidden" name="MealModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name,customer_id,material_id" lookupgroup="theme" autocomplete="off">
+                    <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name,customer_id" lookupgroup="theme" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>

@@ -62,7 +62,7 @@ class MealService extends BackendService
         if(!$phoneIds or !$colorIds or !$themeIds) return false;
         $phoneIds = explode(',', $phoneIds); $themeIds = explode(',', $themeIds); $colorIds = explode(',', $colorIds);
         $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->asArray()->all();
-        $themeList = ThemeModel::find()->where(['id' => $themeIds])->asArray()->all();
+        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('material')->asArray()->all();
 
         $batchData = []; $now = time();
         $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
@@ -73,8 +73,11 @@ class MealService extends BackendService
                 foreach ($themeList as $theme){
                     $item['customer_id'] = $theme['customer_id'];
                     $item['theme_id'] = $theme['id'];
-                    $item['material_id'] = $theme['material_id'];
-                    $batchData[] = $item;
+                    $materials = ArrayHelper::getValue($theme, 'material', []);
+                    foreach ($materials as $material){
+                        $item['material_id'] = $material['material_id'];
+                        $batchData[] = $item;
+                    }
                 }
             }
         }
