@@ -64,10 +64,7 @@ class ThemeController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $ids = ArrayHelper::getValue($this->paramData,'theme_id');
-            $materialId = ArrayHelper::getValue($this->paramData,'material_id');
-
-            $return = ThemeService::getService()->relationMaterial($ids,$materialId);
+            $return = ThemeService::getService()->relationMaterial($this->paramData);
             if($return === true)
                 return $this->returnAjaxSuccess([
                     'message' => '成功',
