@@ -5,7 +5,6 @@ namespace common\helpers;
 
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
-use function GuzzleHttp\Psr7\build_query;
 
 class ClientHelper
 {
@@ -41,7 +40,7 @@ class ClientHelper
     }
 
     private function sCurl($param, $data){
-        $url = static::URL_API.'?'.build_query($param);
+        $url = static::URL_API.'?'.http_build_query($param);
         $res = (new Client())->createRequest()
             ->setMethod('post')
             ->setData($data)
