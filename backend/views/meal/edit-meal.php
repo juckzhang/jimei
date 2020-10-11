@@ -12,6 +12,14 @@ if (ArrayHelper::getValue($model, 'id')){
     <form method="post" action="<?=Url::to(['meal/edit-meal','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
+                <dt>品牌分类：</dt>
+                <dd>
+                    <input type="hidden" name="MealModel[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="brand.name" value="<?=ArrayHelper::getValue($model,'brand.name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1, 'more' => $more])?>" lookupgroup="brand">查找带回</a>
+                </dd>
+            </dl>
+            <dl>
                 <dt>机型：</dt>
                 <dd>
                     <input type="hidden" name="MealModel[brand_id]" data-name="phone.brand_id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
@@ -26,6 +34,22 @@ if (ArrayHelper::getValue($model, 'id')){
                     <input type="hidden" name="MealModel[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="color.name" value="<?=ArrayHelper::getValue($model,'color.name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1, 'more' => $more])?>" lookupgroup="color">查找带回</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>材质：</dt>
+                <dd>
+                    <input type="hidden" name="MealModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>客户：</dt>
+                <dd>
+                    <input type="hidden" name="MealModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>
             <dl>

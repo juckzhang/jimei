@@ -24,7 +24,9 @@ class ThemeController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $result = ThemeService::getService()->editTheme($this->paramData);
+            $id = ArrayHelper::getValue($this->paramData, 'id');
+            $result = ThemeService::getService()->editInfo($id, ThemeModel::className());
+//            $result = ThemeService::getService()->editTheme($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',

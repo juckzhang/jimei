@@ -2,17 +2,17 @@
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
-$params = \Yii::$app->request->getPost();
-$materialIds = $materialNames = [];
-if(!empty($model)){
-    $materials = ArrayHelper::getValue($model, 'material', []);
-    foreach ($materials as $material){
-        $materialIds[] = $material['material_id'];
-        $materialNames[] = ArrayHelper::getValue($material, 'material.name');
-    }
-}
-$materialNames = implode(',', $materialNames);
-$materialIds = implode(',', $materialIds);
+//$params = \Yii::$app->request->getPost();
+//$materialIds = $materialNames = [];
+//if(!empty($model)){
+//    $materials = ArrayHelper::getValue($model, 'material', []);
+//    foreach ($materials as $material){
+//        $materialIds[] = $material['material_id'];
+//        $materialNames[] = ArrayHelper::getValue($material, 'material.name');
+//    }
+//}
+//$materialNames = implode(',', $materialNames);
+//$materialIds = implode(',', $materialIds);
 ?>
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
@@ -39,14 +39,6 @@ $materialIds = implode(',', $materialIds);
                     <input type="hidden" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>材质：</dt>
-                <dd>
-                    <input type="hidden" name="ThemeMaterialModel[material_id]" data-name="material.id" value="<?=$materialIds?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=$materialNames?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => 1])?>" lookupgroup="material">查找带回</a>
                 </dd>
             </dl>
             <dl>
