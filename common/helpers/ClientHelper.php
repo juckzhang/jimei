@@ -41,13 +41,19 @@ class ClientHelper
 
     private function sCurl($param, $data){
         $url = static::URL_API.'?'.http_build_query($param);
-        $res = (new Client())->createRequest()
+        $response = (new Client(
+            [
+                'responseConfig' => [
+                    'format' => Client::FORMAT_JSON,
+                ],
+            ]
+        ))->createRequest()
             ->setMethod('post')
             ->setData($data)
             ->setUrl($url)
             ->send();
 
-        if($res->isOk) return $res->data;
+        if($response->isOk) return $response->data;
 
         return [];
     }
