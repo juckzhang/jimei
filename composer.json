@@ -17,12 +17,7 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6",
         "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-        "PHPOffice/PHPExcel": "^1.8",
-        "crazydb/yii2-ueditor": "*",
-        "google/cloud-translate": "^1.2",
-        "overtrue/pinyin": "~4.0",
-        "aliyuncs/oss-sdk-php": "~2.0"
+        "yiisoft/yii2-swiftmailer": "*"
     },
     "require-dev": {
     },
