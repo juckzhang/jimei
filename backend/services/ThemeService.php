@@ -79,7 +79,7 @@ class ThemeService extends BackendService
 
         if($customerIds){
             $theme = ThemeModel::find()->where(['customer_id' => $customerIds])->asArray()->all();
-            $ids = ArrayHelper::merge($ids, ArrayHelper::getColumn($theme, 'customer_id'));
+            $ids = ArrayHelper::merge($ids, ArrayHelper::getColumn($theme, 'id'));
             $ids = array_unique($ids);
         }
 
