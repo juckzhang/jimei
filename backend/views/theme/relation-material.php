@@ -9,7 +9,7 @@ use yii\helpers\Url;
                 <dt>客户：</dt>
                 <dd>
                     <input type="hidden" name="customer_id" data-name="customer.id" value="">
-                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <input type="text" class="textInput readonly" readonly="true" name="customer.name" value="" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1, 'more' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>
@@ -17,7 +17,7 @@ use yii\helpers\Url;
                 <dt>图案：</dt>
                 <dd>
                     <input type="hidden" name="theme_id" data-name="theme.id" value="">
-                    <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="" data-name="theme.name" suggestfields="name,customer_id" lookupgroup="theme" autocomplete="off">
+                    <input type="text" class="textInput readonly" readonly="true" name="theme.name" value="" data-name="theme.name" suggestfields="name,customer_id" lookupgroup="theme" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => 1])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>
