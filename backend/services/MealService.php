@@ -123,20 +123,20 @@ class MealService extends BackendService
             $param[] = [
                 'suitecode' => sprintf(
                     "%s%s%s%s%s%s",
-                    $data['brand']['barcode'],
-                    $data['phone']['barcode'],
-                    $data['material']['barcode'],
-                    $data['color']['barcode'],
-                    $data['customer']['barcode'],
-                    $data['theme']['barcode']
+                    $item['brand']['barcode'],
+                    $item['phone']['barcode'],
+                    $item['material']['barcode'],
+                    $item['color']['barcode'],
+                    $item['customer']['barcode'],
+                    $item['theme']['barcode']
                 ),
                 'suitename' => sprintf(
                     "%s%s%s (%s) %s",
-                    $data['brand']['name'],
-                    $data['phone']['modal'],
-                    $data['material']['name'],
-                    $data['color']['name'],
-                    $data['theme']['name']
+                    $item['brand']['name'],
+                    $item['phone']['modal'],
+                    $item['material']['name'],
+                    $item['color']['name'],
+                    $item['theme']['name']
                 ),
                 'printtype' => 0,
                 'remark' => '',
@@ -145,10 +145,10 @@ class MealService extends BackendService
                     [
                         'goodscode' => sprintf(
                             "%s%s%s%s",
-                            $data['brand']['barcode'],
-                            $data['phone']['barcode'],
-                            $data['material']['barcode'],
-                            $data['color']['barcode']
+                            $item['brand']['barcode'],
+                            $item['phone']['barcode'],
+                            $item['material']['barcode'],
+                            $item['color']['barcode']
                         ),
                         'qty' => 1,
                         'price' => 0,
