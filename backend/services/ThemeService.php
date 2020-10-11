@@ -73,9 +73,9 @@ class ThemeService extends BackendService
         $ids = ArrayHelper::getValue($data, 'theme_id', []);
         $materialIds = ArrayHelper::getValue($data, 'material_id', []);
         $customerIds = ArrayHelper::getValue($data, 'customer_id', []);
-        if(!is_array($ids)) $ids = explode(',', $ids);
-        if(!is_array($materialIds)) $materialIds = explode(',', $materialIds);
-        if(!is_array($customerIds)) $customerIds = explode(',', $customerIds);
+        if(!is_array($ids)) $ids = array_filter(explode(',', $ids));
+        if(!is_array($materialIds)) $materialIds = array_filter(explode(',', $materialIds));
+        if(!is_array($customerIds)) $customerIds = array_filter(explode(',', $customerIds));
 
         if($customerIds){
             $theme = ThemeModel::find()->where(['customer_id' => $customerIds])->asArray()->all();
