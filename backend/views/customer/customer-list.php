@@ -74,7 +74,7 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
                 <?php if(!$search or $more):?>
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}'}" : $data->id?>" type="checkbox"></td>
+                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
                 <?php elseif ($search):?>
                     <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a></td>
                 <?php endif;?>

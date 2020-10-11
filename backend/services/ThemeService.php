@@ -69,9 +69,19 @@ class ThemeService extends BackendService
         return true;
     }
 
-    public function relationMaterial($ids, $materialIds){
-        if(!is_array($ids)) $ids = explode(',', $ids);
-        if(!is_array($materialIds)) $materialIds = explode(',', $materialIds);
+    public function relationMaterial($data){
+        $ids = ArrayHelper::getValue($data, 'theme_id', []);
+        $materialIds = ArrayHelper::getValue($data, 'material_id', []);
+        $customerIds = ArrayHelper::getValue($data, 'customer_id', []);
+        if(!is_array($ids)) $ids = array_filter(explode(',', $ids));
+        if(!is_array($materialIds)) $materialIds = array_filter(explode(',', $materialIds));
+        if(!is_array($customerIds)) $customerIds = array_filter(explode(',', $customerIds));
+
+        if($customerIds){
+            $theme = ThemeModel::find()->where(['customer_id' => $customerIds])->asArray()->all();
+            $ids = ArrayHelper::merge($ids, ArrayHelper::getColumn($theme, 'id'));
+            $ids = array_unique($ids);
+        }
 
         $filed = ['theme_id', 'create_time','update_time', 'material_id'];
         $batchData = [];$now = time();
