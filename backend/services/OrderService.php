@@ -1,9 +1,17 @@
 <?php
 namespace backend\services;
 
+use common\helpers\ClientHelper;
+use common\models\mysql\BrandModel;
+use common\models\mysql\ColorModel;
+use common\models\mysql\CustomerModel;
 use common\models\mysql\DistributionModel;
+use common\models\mysql\MaterialModel;
 use common\models\mysql\OrderModel;
 use backend\services\base\BackendService;
+use common\models\mysql\PhoneModel;
+use common\models\mysql\ThemeMaterialModel;
+use common\models\mysql\ThemeModel;
 use yii\helpers\ArrayHelper;
 
 class OrderService extends BackendService
@@ -93,6 +101,95 @@ class OrderService extends BackendService
             $data['dataList'] = $models->orderBy($order)->limit($limit)->offset($offset)->all();
 
         return $data;
+    }
+
+    public function editDistribution($data){
+        $id = ArrayHelper::getValue($data, 'id');
+        $model = $this->editInfo($id, DistributionModel::className());
+        $batchData = [];
+        if($model){
+            //同步订单数据
+            $page = 1;
+            while (true){
+                $res = ClientHelper::rsyncOrder([
+                    'pageno' => $page,
+                    'pagesize' => 100,
+                    'distprintsno' => $model->sn,
+                ]);
+                $orders = ArrayHelper::getValue($res, 'orders', []);
+                $batchData = array_merge($batchData, $this->parseOrder($model->sn,$orders));
+                if(!$orders) return false;
+                $ordertotalcount = ArrayHelper::getValue($res, 'ordertotalcount', 0);
+                ++$page;
+                if($page > (ceil($ordertotalcount / 100))){
+                    break;
+                }
+            }
+        }
+
+        $filed = [
+            'order_id', 'base_id', 'print_flag', 'is_refund',
+            'barcode', 'mobile_id', 'brand_id','customer_id',
+            'theme_id', 'color_id', 'material_id', 'create_time',
+            'update_time', 'goodsname', 'lcmccode', 'mccode', 'num',
+
+        ];
+        if($batchData){
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                \Yii::$app->db->createCommand()->batchInsert(OrderModel::tableName(),$filed,$batchData)->execute();
+                $transaction->commit();
+                return true;
+            }catch (\Exception $e){
+                $transaction->rollBack();
+                return false;
+            }
+        }
+    }
+
+    private function parseOrder($sn, $orders){
+        $ret = [];
+        $now = time();
+        foreach ($orders as $order){
+            foreach($order['suites'] as $meal){
+                $mealCode = $meal['suitecode'];
+                $brandCode = substr($mealCode, 0, 2);
+                $phoneCode = substr($mealCode, 2, 3);
+                $materialCode = substr($mealCode, 5, 2);
+                $colorCode = substr($mealCode, 7, 2);
+                $customerCode = substr($mealCode, 9, 2);
+                $themeCode = substr($mealCode, 11, 4);
+
+                $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
+                $phone = PhoneModel::find()->where([
+                    'brand_id' => $brand['id'],
+                    'barcode' => $phoneCode,
+                ])->asArray()->one();
+                $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
+                $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
+                $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
+                $theme = ThemeModel::find()->where([
+                    'customer_id' => $customer['id'],
+                    'barcode' => $themeCode,
+                ])->asArray()->all();
+                $themeIds = ArrayHelper::getColumn($theme, 'id');
+                $orFilter = ['or'];
+                foreach ($themeIds as $themeId){
+                    $orFilter[] = ['theme_id' => $themeId];
+                }
+                $themeMaterial = ThemeMaterialModel::find()->where([
+                    'and','material_id' => $material['id'],$orFilter])->asArray()->one();
+
+                $ret[] = [
+                    'order_id' => $order['billcode'], 'base_id' => $sn,'print_flag' => (int)$order['isDISTConfirmPrint'], 'is_refund' => (int)$order['isRefund'],
+                    'barcode' => $mealCode,'mobile_id' => $phone['id'], 'brand_id' => $brand['id'], 'customer_id' => $customer['id'],
+                    'theme_id' => $themeMaterial['theme_id'], 'color_id' => $color['id'], 'material_id' => $themeMaterial['material_id'],'create_time' => $now,
+                    'update_time' => $now, 'goodsname' => $order['goodsname'], 'lcmccode' => $order['lcmccode'], 'mccode' => $order['mccode'], 'num' => $order['qty'],
+                ];
+            }
+        }
+
+        return $ret;
     }
 }
 

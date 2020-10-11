@@ -54,17 +54,25 @@ CREATE TABLE if NOT EXISTS jimei_order(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `order_id` VARCHAR(15) NOT NULL default '' comment'原始订单号',
   `base_id` int unsigned NOT NULL default  0 comment'打印单号',
+  print_flag tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未打印 1：已打印',
+  is_refund tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：已退款',
   barcode char(20) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
+  brand_id int unsigned NOT NULL default  0 comment'品牌id',
   mobile_id int unsigned NOT NULL default  0 comment'手机型号id',
   customer_id int unsigned NOT NULL default  0 comment'客户id',
   theme_id int unsigned NOT NULL default  0 comment'素材',
   color_id int unsigned NOT NULL default  0 comment'颜色',
   material_id int unsigned NOT NULL default  0 comment'材质',
   source varchar(125) not null default ''comment'订单来源',
+  goodsname varchar(255) not null default '' comment '本地商品名称',
+  lcmccode varchar(255) not null default '' comment '本地商家编码',
+  mccode varchar(255) not null default '' comment '网店商家编码',
+  num int unsigned NOT NULL DEFAULT 0 comment'数量',
+  suitecode varchar(255) not null default '' comment '套餐编码',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (order_id,base_id)
+  unique (order_id,base_id, suitecode)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
 -- 机型材质

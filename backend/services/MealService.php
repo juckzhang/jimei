@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\helpers\ClientHelper;
 use common\models\mysql\ColorModel;
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
@@ -117,9 +118,51 @@ class MealService extends BackendService
             ->with('customer')
             ->with('theme')
             ->all();
+        $param = [];
+        foreach ($data as $item){
+            $param[] = [
+                'suitecode' => sprintf(
+                    "%s%s%s%s%s%s",
+                    $data['brand']['barcode'],
+                    $data['phone']['barcode'],
+                    $data['material']['barcode'],
+                    $data['color']['barcode'],
+                    $data['customer']['barcode'],
+                    $data['theme']['barcode']
+                ),
+                'suitename' => sprintf(
+                    "%s%s%s (%s) %s",
+                    $data['brand']['name'],
+                    $data['phone']['modal'],
+                    $data['material']['name'],
+                    $data['color']['name'],
+                    $data['theme']['name']
+                ),
+                'printtype' => 0,
+                'remark' => '',
+                'unit' => '个',
+                'suiteitemdetail' => [
+                    [
+                        'goodscode' => sprintf(
+                            "%s%s%s%s",
+                            $data['brand']['barcode'],
+                            $data['phone']['barcode'],
+                            $data['material']['barcode'],
+                            $data['color']['barcode']
+                        ),
+                        'qty' => 1,
+                        'price' => 0,
+                    ],
+                ],
+            ];
+        }
+        $res = ClientHelper::rsyncMeal(['suiteitems' => $param]);
+        if($res){
+            $this->updateInfo($ids, MealModel::className(), ['sync_status' => 1]);
+            return true;
+        }
 
-        $this->updateInfo($ids, MealModel::className(), ['sync_status' => 1]);
-        return true;
+        return false;
     }
 }
 

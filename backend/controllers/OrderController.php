@@ -82,9 +82,8 @@ class OrderController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = OrderService::getService()->editInfo($id,DistributionModel::className());
-            if($result instanceof Model)
+            $result = OrderService::getService()->editDistribution($this->paramData);
+            if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'distribution-list',
