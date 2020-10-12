@@ -26,7 +26,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <table class="searchContent">
                 <tbody>
                 <tr>
-                    <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                    <td>名称/编码：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
                     <td>
                         客户:
                         <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
