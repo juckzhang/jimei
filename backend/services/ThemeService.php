@@ -16,6 +16,7 @@ class ThemeService extends BackendService
         $models = $cardModels = ThemeModel::find()
             ->where(['!=','status' , ThemeModel::STATUS_DELETED])
             ->andFilterWhere(['like','name',ArrayHelper::getValue($other, 'keyword')])
+            ->andFilterWhere(['like','barcode',ArrayHelper::getValue($other, 'keyword')])
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
             ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')])
             ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
