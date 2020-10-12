@@ -3,6 +3,7 @@ namespace backend\services;
 
 use common\helpers\ClientHelper;
 use common\models\mysql\ColorModel;
+use common\models\mysql\MaterialModel;
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
@@ -58,15 +59,27 @@ class MealService extends BackendService
         }
 
         //批量插入
+        $brandIds = ArrayHelper::getValue($data, 'MealModel.brand_id');
         $phoneIds = ArrayHelper::getValue($data, 'MealModel.mobile_id');
+        $materialIds = ArrayHelper::getValue($data, 'MealModel.material_id');
         $colorIds = ArrayHelper::getValue($data, 'MealModel.color_id');
+        $customerIds = ArrayHelper::getValue($data, 'MealModel.customer_id');
         $themeIds = ArrayHelper::getValue($data, 'MealModel.theme_id');
 
-        if(!$phoneIds or !$colorIds or !$themeIds) return false;
-        $phoneIds = explode(',', $phoneIds); $themeIds = explode(',', $themeIds); $colorIds = explode(',', $colorIds);
-        $phoneList = PhoneModel::find()->where(['id' => $phoneIds])->with('brand')->asArray()->all();
-        $themeList = ThemeModel::find()->where(['id' => $themeIds])->with('customer')->with('material')->asArray()->all();
+        if((!$phoneIds and !$brandIds) or !$colorIds or !$materialIds or (!$themeIds and !$customerIds)) return false;
+        $phoneIds = array_filter(array_unique(explode(',', $phoneIds)));
+        $themeIds = array_filter(array_unique(explode(',', $themeIds)));
+        $colorIds = array_filter(array_unique(explode(',', $colorIds)));
+        $brandIds = array_filter(array_unique(explode(',', $brandIds)));
+        $customerIds = array_filter(array_unique(explode(',', $customerIds)));
+        $phoneWhere = ['id' => $phoneIds];
+        if(empty($phoneIds)) $phoneWhere = ['brand_id' => $brandIds];
+        $themeWhere = ['id' => $themeIds];
+        if(empty($themeIds)) $themeWhere = ['customer_id' => $customerIds];
+        $phoneList = PhoneModel::find()->where($phoneWhere)->with('brand')->asArray()->all();
+        $themeList = ThemeModel::find()->where($themeWhere)->with('customer')->asArray()->all();
         $colorList = ColorModel::find()->where(['id' => $colorIds])->asArray()->all();
+        $materialList = MaterialModel::find()->where(['id' => $materialIds])->asArray()->all();
         $batchData = []; $now = time();
         $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
         foreach ($phoneList as $phone){
@@ -76,9 +89,8 @@ class MealService extends BackendService
                 foreach ($themeList as $theme){
                     $item['customer_id'] = $theme['customer_id'];
                     $item['theme_id'] = $theme['id'];
-                    $materials = ArrayHelper::getValue($theme, 'material', []);
-                    foreach ($materials as $material){
-                        $item['material_id'] = $material['material_id'];
+                    foreach ($materialList as $material){
+                        $item['material_id'] = $material['id'];
                         $batchData[] = $item;
                     }
                 }
