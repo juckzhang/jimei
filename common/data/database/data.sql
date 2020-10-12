@@ -12,7 +12,7 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (`barcode`,`customer_id`)
+  unique (`customer_id`,`barcode`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
 -- 图案材质关系列表
