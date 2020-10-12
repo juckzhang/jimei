@@ -92,7 +92,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('phone/phone-list')):?>
-                        <a title="机型列表" target="navTab" href="<?=Url::to(['phone/phone-list', 'other' => ['brand_id' => $data->id], 'brand-name' => $data->name])?>" class="btnInfo">编辑</a>
+                        <a title="机型列表" target="navTab" href="<?=Url::to(['phone/phone-list', 'other' => ['brand_id' => $data->id], 'brand-name' => urlencode($data->name)])?>" class="btnInfo">编辑</a>
                     <?php endif;?>
                 </td>
                 <?php endif;?>
