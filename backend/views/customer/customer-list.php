@@ -90,6 +90,10 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php if(\Yii::$app->user->can('customer/edit-customer')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['customer/edit-customer','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('theme/theme-list')):?>
+                        <a title="机型列表" target="navTab" href="<?=Url::to(['theme/theme-list', 'other' => ['customer_id' => $data->id],'customer-name' => urlencode($data->name)])?>" class="btnInfo">编辑</a>
+                    <?php endif;?>
                 </td>
                 <?php endif;?>
             </tr>

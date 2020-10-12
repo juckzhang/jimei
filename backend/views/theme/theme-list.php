@@ -31,7 +31,9 @@ $more = ArrayHelper::getValue($params, 'more');
                         客户:
                         <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
                         <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                        <?php if(!ArrayHelper::getValue($params,'notMore')):?>
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
+                        <?php endif;?>
                     </td>
                 </tr>
                 </tbody>
@@ -58,10 +60,6 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['theme/delete-theme'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
-
-            <?php if(\Yii::$app->user->can('theme/delete-theme')):?>
-                <li><a href="<?=Url::to(['theme/relation-material'])?>" target="navTab" class="delete"><span>批量关联材质</span></a></li>
-            <?php endif;?>
         </ul>
     </div>
     <table class="table" width="1200" layoutH="138">
@@ -73,7 +71,6 @@ $more = ArrayHelper::getValue($params, 'more');
                 <th width="22">操作</th>
             <?php endif;?>
             <th orderfield="name" width="80">名称</th>
-            <th width="160">材质</th>
             <th width="80">条码</th>
             <th orderfield="brand_id" width="80">客户</th>
             <th width="80">图案原图名称</th>
@@ -93,16 +90,6 @@ $more = ArrayHelper::getValue($params, 'more');
                     <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
                 <td><a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>"><?=$data['name']?></a></td>
-                <td><?php
-                    $materialNames = [];
-                    $materials = ArrayHelper::getValue($data, 'material', []);
-                    foreach ($materials as $material){
-                        $materialNames[] = ArrayHelper::getValue($material, 'material.name');
-                    }
-                    $materialNames = implode(',', $materialNames);
-                    echo $materialNames;
-                    ?>
-                </td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['source_pic_name']?></td>

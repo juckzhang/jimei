@@ -29,13 +29,7 @@ use common\models\mysql\AdModel;
                             <?php if(\Yii::$app->user->can('theme/theme-list')):?>
                                 <li><a href="<?=Url::to(['theme/theme-list'])?>" target="navTab" rel="theme-list">图案列表</a></li>
                             <?php endif;?>
-                        </ul>
-                    </li>
-                <?php endif;?>
-
-                <?php if(\Yii::$app->user->can('customer')):?>
-                    <li><a>客户信息管理</a>
-                        <ul>
+                            
                             <?php if(\Yii::$app->user->can('customer/customer-list')):?>
                                 <li><a href="<?=Url::to(['customer/customer-list'])?>" target="navTab" rel="customer-list">客户列表</a></li>
                             <?php endif;?>

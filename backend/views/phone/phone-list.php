@@ -34,7 +34,9 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                             品牌:
                             <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
                             <input type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                            <?php if(!ArrayHelper::getValue($params,'notMore')):?>
                             <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
+                            <?php endif;?>
                         </td>
                     </tr>
                     </tbody>

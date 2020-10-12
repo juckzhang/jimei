@@ -15,6 +15,8 @@ class ThemeController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $customerIds = ArrayHelper::getValue($_other, 'customer_id');
+        if($customerIds) $_other['customer_id'] = explode(',', $customerIds);
         $_order = $this->_sortOrder();
         $data = ThemeService::getService()->ThemeList($_page,$_prePage, $_order, $_other);
         return $this->render('theme-list',$data);
@@ -24,7 +26,9 @@ class ThemeController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $result = ThemeService::getService()->editTheme($this->paramData);
+            $id = ArrayHelper::getValue($this->paramData, 'id');
+            $result = ThemeService::getService()->editInfo($id, ThemeModel::className());
+//            $result = ThemeService::getService()->editTheme($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',

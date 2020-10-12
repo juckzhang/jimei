@@ -28,7 +28,7 @@ class ThemeService extends BackendService
                 ->limit($limit)
                 ->asArray()
                 ->with('customer')
-                ->with('material')
+//                ->with('material')
                 ->offset($offset)
                 ->all();
             foreach ($models as $key => $model){
