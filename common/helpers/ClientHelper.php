@@ -51,6 +51,8 @@ class ClientHelper
             ->setMethod('post')
             ->setData($data)
             ->setUrl($url)
+            ->setFormat(Client::FORMAT_JSON)
+            ->setHeaders(['Content-Type'=>'application/json'])
             ->send();
 
         if($response->isOk) return $response->data;
