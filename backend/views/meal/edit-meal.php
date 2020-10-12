@@ -48,7 +48,7 @@ if (ArrayHelper::getValue($model, 'id')){
                 <dd>
                     <input id="customer" type="hidden" name="MealModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1,'more' => 1])?>" lookupgroup="customer">查找带回</a>
+                    <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>
             <dl>
