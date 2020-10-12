@@ -59,7 +59,7 @@ class ClientHelper
     }
 
     public static function rsyncMeal($data){
-        $param = static::parseParam('erp.goodssutie.sync', $data);
+        $param = static::parseParam('erp.goodssuite.sync', $data);
         $result = static::sCurl($param, $data);
 
         if(ArrayHelper::getValue($result, 'code') == 0){
