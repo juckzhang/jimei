@@ -14,7 +14,7 @@ if (ArrayHelper::getValue($model, 'id')){
             <dl>
                 <dt>品牌分类：</dt>
                 <dd>
-                    <input type="hidden" name="MealModel[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
+                    <input id="brand" type="hidden" name="MealModel[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="brand.name" value="<?=ArrayHelper::getValue($model,'brand.name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1, 'more' => $more])?>" lookupgroup="brand">查找带回</a>
                 </dd>
@@ -22,10 +22,9 @@ if (ArrayHelper::getValue($model, 'id')){
             <dl>
                 <dt>机型：</dt>
                 <dd>
-                    <input type="hidden" name="MealModel[brand_id]" data-name="phone.brand_id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
-                    <input type="hidden" name="MealModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name,brand_id" lookupgroup="phone" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more])?>" lookupgroup="phone">查找带回</a>
+                    <input class="mobile" type="hidden" name="MealModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
+                    <input class="mobile" type="text" class="required textInput readonly" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
+                    <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
             <dl>
@@ -47,18 +46,17 @@ if (ArrayHelper::getValue($model, 'id')){
             <dl>
                 <dt>客户：</dt>
                 <dd>
-                    <input type="hidden" name="MealModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <input id="customer" type="hidden" name="MealModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>
             <dl>
                 <dt>图案：</dt>
                 <dd>
-                    <input type="hidden" name="MealModel[customer_id]" data-name="theme.customer_id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                    <input type="hidden" name="MealModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name,customer_id" lookupgroup="theme" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more])?>" lookupgroup="theme">查找带回</a>
+                    <input class="theme" type="hidden" name="MealModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
+                    <input class="theme" type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name" lookupgroup="theme" autocomplete="off">
+                    <a id="look-theme" class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>
         </div>
@@ -70,3 +68,25 @@ if (ArrayHelper::getValue($model, 'id')){
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    $(function(){
+        $("#brand").on('change', function() {
+            var lookMobile = $('#look-mobile'),
+                customer_name = $('input[name=brand-name]').val(),
+                customer_id = $(this).val(),
+                href = lookTheme.attr('href')+'&other[brand_id]='+customer_id+'&brand-name='+customer_name+'&notMore=1';
+            $('.mobile').val('')
+            lookMobile.attr('href',href)
+        });
+
+        $("#customer").on('change', function() {
+            var lookTheme = $('#look-theme'),
+                customer_name = $('input[name=customer-name]').val(),
+                customer_id = $(this).val(),
+                href = lookTheme.attr('href')+'&other[customer_id]='+customer_id+'&customer-name='+customer_name+'&notMore=1';
+
+            $('.theme').val('');
+            lookMobile.attr('href',href)
+        });
+    });
+</script>

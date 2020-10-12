@@ -72,6 +72,8 @@ class PhoneController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $brandIds = ArrayHelper::getValue($_other, 'brand_id');
+        if($brandIds) $_other['brand_id'] = explode(',', $brandIds);
         $_order = $this->_sortOrder();
         $data = PhoneService::getService()->BrandList($_page,$_prePage, $_order, $_other);
         return $this->render('brand-list',$data);
