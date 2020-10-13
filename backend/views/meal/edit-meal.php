@@ -74,6 +74,7 @@ if (ArrayHelper::getValue($model, 'id')){
             var brand_name = $('#brand-name').val(),
                 brand_id = $('#brand-id').val(),
                 _href = $(this).attr('href')+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
+            $(this).attr('href', _href);
             console.log(_href);
         });
         // $("#brand").on('change', function() {
