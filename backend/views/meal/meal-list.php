@@ -27,15 +27,15 @@ $more = ArrayHelper::getValue($params, 'more');
                 <tr>
                     <td>
                         品牌:
-                        <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
-                        <input type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                        <input id="brand-id" type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
+                        <input id="brand-name" type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
                     </td>
                     <td>
                         机型:
                         <input type="hidden" name="other[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($other, 'phone_id')?>">
                         <input type="text" class="textInput readonly" readonly="true" name="phone-name" value="<?=ArrayHelper::getValue($params,'phone-name')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
-                        <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
+                        <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
                     </td>
                     <td>
                         材质:
@@ -51,8 +51,8 @@ $more = ArrayHelper::getValue($params, 'more');
                     </td>
                     <td>
                         客户:
-                        <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
-                        <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                        <input id="customer-id" type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
+                        <input id="customer-name" type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@ $more = ArrayHelper::getValue($params, 'more');
                         图案:
                         <input type="hidden" name="other[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($other, 'theme_id')?>">
                         <input type="text" class="textInput readonly" readonly="true" name="theme-name" value="<?=ArrayHelper::getValue($params,'theme-name')?>" data-name="theme.name" suggestfields="name" lookupgroup="theme" autocomplete="off">
-                        <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1])?>" lookupgroup="theme">查找带回</a>
+                        <a id="look-theme" class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1])?>" lookupgroup="theme">查找带回</a>
                     </td>
                     <td>
                         状态:
@@ -176,3 +176,20 @@ $more = ArrayHelper::getValue($params, 'more');
     </div>
 </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        $('#look-mobile').on('click',function(){
+            var brand_name = $('#brand-name').val(),
+                brand_id = $('#brand-id').val(),
+                _href = $(this).attr('href')+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
+            $(this).attr('href', _href);
+        });
+
+        $('#look-theme').on('click',function(){
+            var brand_name = $('#customer-name').val(),
+                brand_id = $('#customer-id').val(),
+                _href = $(this).attr('href')+'&other[customer_id]='+brand_id+'&customer-name='+brand_name;
+            $(this).attr('href', _href);
+        });
+    });
+</script>
