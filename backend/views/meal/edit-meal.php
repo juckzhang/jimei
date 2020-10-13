@@ -56,7 +56,7 @@ if (ArrayHelper::getValue($model, 'id')){
                 <dd>
                     <input class="theme" type="hidden" name="MealModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
                     <input type="text" class="required textInput readonly theme" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name" lookupgroup="theme" autocomplete="off">
-                    <a id="look-theme" class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more])?>" lookupgroup="theme">查找带回</a>
+                    <a id="look-theme" class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>
         </div>
@@ -75,7 +75,13 @@ if (ArrayHelper::getValue($model, 'id')){
                 brand_id = $('#brand-id').val(),
                 _href = $(this).attr('href')+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
             $(this).attr('href', _href);
-            console.log(_href);
+        });
+
+        $('#look-theme').on('click',function(){
+            var brand_name = $('#customer-name').val(),
+                brand_id = $('#customer-id').val(),
+                _href = $(this).attr('href')+'&other[customer_id]='+brand_id+'&customer-name='+brand_name;
+            $(this).attr('href', _href);
         });
         // $("#brand").on('change', function() {
         //     var lookMobile = $('#look-mobile'),
