@@ -14,13 +14,15 @@ $more = ArrayHelper::getValue($params, 'more');
 <div class="" id="meal-list" rel="meal-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
+    <input type="hidden" name="more" value="<?=$more?>">
+    <input type="hidden" name="notMore" value="<?=ArrayHelper::getValue($params, 'notMore')?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['meal/meal-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['meal/meal-list'])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
