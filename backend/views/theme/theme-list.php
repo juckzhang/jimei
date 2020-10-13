@@ -83,13 +83,13 @@ $more = ArrayHelper::getValue($params, 'more');
         </thead>
         <tbody>
         <?php foreach($dataList as $key => $data):?>
-            <tr target="card-id" rel="<?=$data['id']?>">
+            <tr target="card-id" rel="<?=$data['id']?>" class="cnt">
                 <?php if(!$search or $more):?>
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['name']}',customer_id:{$data['customer_id']}}" : $data['id']?>" type="checkbox"></td>
                 <?php elseif ($search):?>
-                    <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a></td>
+                    <td><a class="btnSelect dblclick" href="javascript:$.bringBack({id:<?=$data['id']?>, name:'<?=$data['name']?>',customer_id:<?=$data['customer_id']?>})" title="查找带回">选择</a></td>
                 <?php endif;?>
-                <td><a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>"><?=$data['name']?></a></td>
+                <td><?=$data['name']?></td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['source_pic_name']?></td>
@@ -102,7 +102,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
-                    <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit dblclick">编辑</a>
                     <?php endif;?>
                 </td>
                 <?php endif;?>
@@ -125,3 +125,11 @@ $more = ArrayHelper::getValue($params, 'more');
     </div>
 </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        //行双击
+        $(".cnt").on('dblclick', function() {
+            $(this).find('.dblclick').click();
+        });
+    });
+</script>
