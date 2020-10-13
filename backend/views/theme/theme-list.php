@@ -129,6 +129,7 @@ $more = ArrayHelper::getValue($params, 'more');
     $(function(){
         //行双击
         $(".cnt").on('dblclick', function() {
+            console.log(12333);
             $(this).find('.dblclick').click();
         });
     });
