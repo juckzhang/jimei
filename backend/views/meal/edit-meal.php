@@ -73,7 +73,7 @@ if (ArrayHelper::getValue($model, 'id')){
         $('#look-mobile').on('click',function(){
             var brand_name = $('#brand-name').val(),
                 brand_id = $('#brand-id').val(),
-                _href = $(this).attr('href')+'&other[brand_id]='+customer_id+'&brand-name='+customer_name;
+                _href = $(this).attr('href')+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
             console.log(_href);
         });
         // $("#brand").on('change', function() {
