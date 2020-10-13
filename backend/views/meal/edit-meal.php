@@ -24,7 +24,7 @@ if (ArrayHelper::getValue($model, 'id')){
                 <dd>
                     <input class="mobile" type="hidden" name="MealModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
                     <input type="text" class="required textInput readonly mobile" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
-                    <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more])?>" lookupgroup="phone">查找带回</a>
+                    <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
             <dl>
@@ -71,7 +71,10 @@ if (ArrayHelper::getValue($model, 'id')){
 <script type="text/javascript">
     $(function(){
         $('#look-mobile').on('click',function(){
-            console.log($(this).attr('href'));
+            var brand_name = $('#brand-name').val(),
+                brand_id = $('#brand-id').val(),
+                _href = $(this).attr('href')+'&other[brand_id]='+customer_id+'&brand-name='+customer_name;
+            console.log(_href);
         });
         // $("#brand").on('change', function() {
         //     var lookMobile = $('#look-mobile'),
