@@ -72,7 +72,7 @@ class BaseController extends CommonController
     {
         $orderFiled = ArrayHelper::getValue($this->paramData,'orderField');
         $orderDesc  = ArrayHelper::getValue($this->paramData,'orderDirection','desc');
-        if(!$orderFiled) $orderFiled = 'update_time';
+        if(!$orderFiled) $orderFiled = 'create_time';
         $desc = SORT_DESC;
         if($orderDesc == 'asc')  $desc = SORT_ASC;
         return [$orderFiled => $desc];
