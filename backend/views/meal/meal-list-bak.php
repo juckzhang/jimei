@@ -14,8 +14,6 @@ $more = ArrayHelper::getValue($params, 'more');
 <div class="" id="meal-list" rel="meal-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
-    <input type="hidden" name="more" value="<?=$more?>">
-    <input type="hidden" name="notMore" value="<?=ArrayHelper::getValue($params, 'notMore')?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -92,7 +90,7 @@ $more = ArrayHelper::getValue($params, 'more');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('meal/edit-meal')):?>
-            <li><a class="add" href="<?=Url::to(['meal/edit-meal'])?>" target="dialog"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['meal/edit-meal'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
@@ -152,11 +150,11 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
-                        <a title="删除" target="ajaxTodo" href="<?=Url::to(['meal/delete-meal','ids' => $data['id']])?>" class="btnDel">删除</a>
+                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['meal/delete-meal','ids' => $data['id']])?>" class="btnDel">删除</a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('meal/edit-meal')):?>
-                        <a title="编辑" target="navTab" href="<?=Url::to(['meal/edit-meal','id' => $data['id']])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['meal/edit-meal','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>
@@ -178,7 +176,6 @@ $more = ArrayHelper::getValue($params, 'more');
     </div>
 </div>
 </div>
-
 <script type="text/javascript">
     $(function(){
         $('#_look-mobile').on('click',function(){
