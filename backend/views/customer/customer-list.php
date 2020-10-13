@@ -21,7 +21,7 @@ $more = ArrayHelper::getValue($params, 'more');
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['customer/customer-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['customer/customer-list','search' => $search, 'more' => $more, 'notMore' => ArrayHelper::getValue($params,'notMore')])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
