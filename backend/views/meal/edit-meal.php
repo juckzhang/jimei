@@ -83,23 +83,5 @@ if (ArrayHelper::getValue($model, 'id')){
                 _href = $(this).attr('href')+'&other[customer_id]='+brand_id+'&customer-name='+brand_name;
             $(this).attr('href', _href);
         });
-        // $("#brand").on('change', function() {
-        //     var lookMobile = $('#look-mobile'),
-        //         customer_name = $('input[name=brand-name]').val(),
-        //         customer_id = $(this).val(),
-        //         href = lookTheme.attr('href')+'&other[brand_id]='+customer_id+'&brand-name='+customer_name+'&notMore=1';
-        //     $('.mobile').val('')
-        //     lookMobile.attr('href',href)
-        // });
-        //
-        // $("#customer").on('change', function() {
-        //     var lookTheme = $('#look-theme'),
-        //         customer_name = $('input[name=customer-name]').val(),
-        //         customer_id = $(this).val(),
-        //         href = lookTheme.attr('href')+'&other[customer_id]='+customer_id+'&customer-name='+customer_name+'&notMore=1';
-        //
-        //     $('.theme').val('');
-        //     lookMobile.attr('href',href)
-        // });
     });
 </script>
