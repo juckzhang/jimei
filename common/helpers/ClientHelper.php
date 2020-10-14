@@ -12,6 +12,7 @@ class ClientHelper
     const APP_SECRET = '38ad607f57244f42ae303bfbf9b86463';
     const VERSION = '1.0';
     const URL_API = 'http://local.gjpqqd.com:5918/Service/ERPService.asmx/ERPApi';
+    const LOG_FILE = '/mnt/data/openresty/htdocs/jimei/backend/runtime/logs/tt.log';
 
     private static function sign($param, $data){
         $data = json_encode($data);
@@ -21,6 +22,7 @@ class ClientHelper
         }
         $sign .= $data.static::APP_SECRET;
 
+        file_put_contents(static::LOG_FILE, $sign.PHP_EOL);
         return strtoupper(md5($sign));
     }
 
@@ -55,6 +57,8 @@ class ClientHelper
             ->setHeaders(['Content-Type'=>'application/json'])
             ->send();
 
+        $msg = $url.PPH_EOL.json_encode($data).PHP_EOL.json_encode($response->data).PHP_EOL;
+        file_put_contents(static::LOG_FILE, $msg, FILE_APPEND);
         if($response->isOk) return $response->data;
 
         return [];
