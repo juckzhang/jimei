@@ -9,7 +9,7 @@ use yii\httpclient\Client;
 class ClientHelper
 {
     const APP_KEY = '200305112610017';
-    const APP_SECRET = '38ad607f57244f42ae303bfbf9b86463';
+    const APP_SECRET = '8348bac6ef3e4b3e8de26c83a5e75da3';
     const VERSION = '1.0';
     const URL_API = 'http://local.gjpqqd.com:5918/Service/ERPService.asmx/ERPApi';
     const LOG_FILE = '/mnt/data/openresty/htdocs/jimei/backend/runtime/logs/tt.log';

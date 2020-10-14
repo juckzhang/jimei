@@ -10,18 +10,20 @@ $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookie
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
+$notMore = ArrayHelper::getValue($params,'notMore');
 ?>
 <div class="" id="theme-list" rel="theme-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="more" value="<?=$more?>">
+    <input type="hidden" name="notMore" value="<?=$notMore?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['theme/theme-list','search' => $search, 'more' => $more, 'notMore' => ArrayHelper::getValue($params,'notMore')])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['theme/theme-list','search' => $search, 'more' => $more, 'notMore' => $notMore])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
