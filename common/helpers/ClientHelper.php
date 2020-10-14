@@ -16,11 +16,11 @@ class ClientHelper
 
     private static function sign($param, $data){
         $data = json_encode($data);
-        $sign = static::APP_SECRET;
+        $sign = \Yii::$app->params['appSecret'];//static::APP_SECRET;
         foreach ($param as $key => $value){
             $sign .= $key.$value;
         }
-        $sign .= $data.static::APP_SECRET;
+        $sign .= $data.\Yii::$app->params['appSecret'];//static::APP_SECRET;
 
         file_put_contents(static::LOG_FILE, $sign.PHP_EOL.PHP_EOL);
         return strtoupper(md5($sign));
@@ -31,7 +31,7 @@ class ClientHelper
             'method' => $method,
             'v' => static::VERSION,
             'format' => 'json',
-            'app_key' => static::APP_KEY,
+            'app_key' => \Yii::$app->params['appKey'],//static::APP_KEY,
             'timestamp' => date('Y-m-d H:i:s'),
             'sign_method' => 'md5',
         ];
