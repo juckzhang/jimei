@@ -57,7 +57,7 @@ class ClientHelper
             ->setHeaders(['Content-Type'=>'application/json'])
             ->send();
 
-        $msg = $url.PPH_EOL.json_encode($data).PHP_EOL.json_encode($response->data).PHP_EOL;
+        $msg = $url.PHP_EOL.json_encode($data).PHP_EOL.json_encode($response->data).PHP_EOL;
         file_put_contents(static::LOG_FILE, $msg, FILE_APPEND);
         if($response->isOk) return $response->data;
 
