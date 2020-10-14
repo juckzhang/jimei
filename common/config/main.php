@@ -5,6 +5,7 @@ return [
     'modules' => [
         'debug' => 'yii\debug\Module',
     ],
+    'timeZone' => 'Asia/Shanghai',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
