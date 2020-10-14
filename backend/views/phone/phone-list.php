@@ -12,6 +12,7 @@ $other = ArrayHelper::getValue($params, 'other', []);
 $brandId = ArrayHelper::getValue($other, 'brand_id');
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
+$notMore = ArrayHelper::getValue($params,'notMore');
 $canvasType = ['1' => '普通画布', '2' => '大画布'];
 ?>
 <div class="" id="phone-list" rel="phone-list">
@@ -25,7 +26,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
         <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
     </form>
     <div class="pageHeader">
-        <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list'])?>" method="post">
+        <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search, 'more' => $more, 'notMore' => $notMore])?>" method="post">
             <div class="searchBar">
                 <table class="searchContent">
                     <tbody>

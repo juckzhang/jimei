@@ -23,7 +23,7 @@ $more = ArrayHelper::getValue($params, 'more');
     <input type="hidden" name="base_id" value="<?=$baseId?>" id="base_id"/>
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list'])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search, 'more' => $more])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
