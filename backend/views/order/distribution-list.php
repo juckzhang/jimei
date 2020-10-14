@@ -9,18 +9,20 @@ $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
 $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
+$more = ArrayHelper::getValue($params, 'more');
 $status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
 ?>
 <div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
+    <input type="hidden" name="more" value="<?=$more?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/distribution-list','search' => $search])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/distribution-list'])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
