@@ -11,11 +11,11 @@ class MaterialPhoneModel extends ActiveRecord
 
     public function getPhone(){
         return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])
-            ->select(['id','modal']);
+            ->select(['id','modal','brand_id','barcode'])->with('brand');
     }
 
     public function getMaterial(){
         return $this->hasOne(MaterialModel::className(), ['id' => 'material_id'])
-            ->select(['id','name']);
+            ->select(['id','name','barcode']);
     }
 }

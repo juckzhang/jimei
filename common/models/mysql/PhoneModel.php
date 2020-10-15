@@ -11,6 +11,6 @@ class PhoneModel extends ActiveRecord
 
     public function getBrand(){
         return $this->hasOne(BrandModel::className(), ['id' => 'brand_id'])
-            ->select(['id','name']);
+            ->select(['id','name','barcode']);
     }
 }

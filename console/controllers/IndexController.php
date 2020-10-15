@@ -2,6 +2,9 @@
 namespace console\controllers;
 
 use common\models\mysql\AdminModel;
+use common\models\mysql\BrandModel;
+use common\models\mysql\ColorModel;
+use common\models\mysql\MaterialPhoneModel;
 
 class IndexController extends BaseController{
     // 注册用户
@@ -14,29 +17,41 @@ class IndexController extends BaseController{
         $model->add(['username' => $username, 'password' => $password]);
     }
 
-    public function actionParse()
-    {
-        $lines = explode("\n", file_get_contents(\Yii::getAlias('@runtime/zimu.srt')));
-        foreach ($lines as $key => $value){
-            $index = $key % 5;
-            if(!$index and !trim($value)) break;
+    // 导出商品信息
+    public function actionExportGoods($fileName){
+        $relationList = MaterialPhoneModel::find()
+            ->with('phone')
+            ->with('material')
+            ->asArray()
+            ->all();
+        $colorList = ColorModel::find()->select(['barcode','name'])->asArray()->all();
+        $data[] = ['商品名称', '商品编码'];
 
-            switch ($index){
-                case 0: $item['line_number'] = trim($value); break;
-                case 1:
-                    $time = explode('-->', $value);
-                    $item['start_time'] = trim($time[0]);
-                    $item['end_time'] = trim($time[1]);
-                    break;
-                case 2: //处理中文
-                case 3: //处理其他语言
-                    $item['lang_type'] = $index == 2 ? 'zh_CN' : 'en_US';
-                    $item['content'] = trim($value);
-                    var_dump($item);
-                    break;
-                default:
-                    break;
+        foreach ($relationList as $relation){
+            foreach ($colorList as $color){
+                $data[] = [
+                    sprintf(
+                        "%s%s%s (%s)",
+                        $relation['phone']['brand']['name'],
+                        $relation['phone']['modal'],
+                        $relation['material']['name'],
+                        $color['name']
+                    ),
+                    sprintf(
+                        "%s%s%s%s",
+                        $relation['phone']['brand']['barcode'],
+                        $relation['phone']['barcode'],
+                        $relation['material']['barcode'],
+                        $color['barcode']
+                    )
+                ];
             }
         }
+        $content = '';
+        foreach ($data as $item){
+            $content .= $item[0]."\t".$item[1].PHP_EOL;
+        }
+
+        file_put_contents($fileName, $content);
     }
 }
