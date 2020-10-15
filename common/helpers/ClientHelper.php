@@ -42,7 +42,7 @@ class ClientHelper
     }
 
     private function sCurl($param, $data){
-        $url = static::URL_API.'?'.http_build_query($param);
+        $url = \Yii::$app->params['apiUrl'].'?'.http_build_query($param);
         $response = (new Client(
             [
                 'responseConfig' => [
