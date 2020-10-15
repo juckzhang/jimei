@@ -132,7 +132,6 @@ class OrderService extends BackendService
             'barcode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
             'update_time', 'goodsname', 'lcmccode', 'mccode', 'num',
-
         ];
         if($batchData){
             $transaction = \Yii::$app->db->beginTransaction();
