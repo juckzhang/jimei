@@ -20,3 +20,14 @@ insert into jimei_order values (1, 'DO123021312-01',1,'mmaattaa0001', 1, 1,1,3,'
 
 
 insert into jimei_customer values (1, '淘宝', 'TB',1598704857, 1598704857, 0);
+
+
+
+
+select distinct barcode, na from (select concat(b.barcode,p.barcode,mt.barcode,co.barcode) as barcode, concat(b.name,p.modal,mt.name,' (',co.name,')') as na from jimei_meal as meal join jimei_brand as b on b.id=meal.brand_id join jimei_phone as p on p.id=meal.mobile_id join jimei_material as mt on mt.id=meal.material_id join jimei_color as co on co.id=meal.color_id ) as tm;
+
+
+
+select distinct barcode,na from (
+
+) mt;

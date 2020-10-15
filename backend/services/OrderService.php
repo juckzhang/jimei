@@ -151,7 +151,7 @@ class OrderService extends BackendService
         $now = time();
         foreach ($orders as $order){
             foreach($order['suites'] as $meal){
-                $mealCode = $meal['suitecode'];
+                $mealCode = $meal['SuiteCode'];
                 $brandCode = substr($mealCode, 0, 2);
                 $phoneCode = substr($mealCode, 2, 3);
                 $materialCode = substr($mealCode, 5, 2);
