@@ -180,7 +180,7 @@ class OrderService extends BackendService
                     'and','material_id' => $material['id'],$orFilter])->asArray()->one();
 
                 $ret[] = [
-                    'order_id' => $order['billcode'], 'base_id' => $sn,'print_flag' => (int)$order['isDISTConfirmPrint'], 'is_refund' => (int)$order['isRefund'],
+                    'order_id' => $order['billcode'], 'base_id' => $sn,'print_flag' => (int)$order['isdistconfirmprint'], 'is_refund' => (int)$order['isrefund'],
                     'barcode' => $mealCode,'mobile_id' => $phone['id'], 'brand_id' => $brand['id'], 'customer_id' => $customer['id'],
                     'theme_id' => $themeMaterial['theme_id'], 'color_id' => $color['id'], 'material_id' => $themeMaterial['material_id'],'create_time' => $now,
                     'update_time' => $now, 'goodsname' => $order['goodsname'], 'lcmccode' => $order['lcmccode'], 'mccode' => $order['mccode'], 'num' => $order['qty'],
