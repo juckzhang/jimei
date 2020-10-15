@@ -132,7 +132,6 @@ class OrderService extends BackendService
             'barcode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
             'update_time', 'goodsname', 'lcmccode', 'mccode', 'num',
-
         ];
         if($batchData){
             $transaction = \Yii::$app->db->beginTransaction();
@@ -152,7 +151,7 @@ class OrderService extends BackendService
         $now = time();
         foreach ($orders as $order){
             foreach($order['suites'] as $meal){
-                $mealCode = $meal['suitecode'];
+                $mealCode = $meal['SuiteCode'];
                 $brandCode = substr($mealCode, 0, 2);
                 $phoneCode = substr($mealCode, 2, 3);
                 $materialCode = substr($mealCode, 5, 2);

@@ -69,7 +69,7 @@ class ClientHelper
         $result = static::sCurl($param, $data);
 
         if(ArrayHelper::getValue($result, 'code') == 0){
-            return ArrayHelper::getValue($result, 'items');
+            return true;
         }
 
         return false;
