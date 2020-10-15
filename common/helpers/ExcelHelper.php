@@ -29,7 +29,7 @@ class ExcelHelper {
 
     public static function writeExcel($file, $data, $isBrowser = false){
         $obj = new \PHPExcel();
-        $writer = \PHPExcel_IOFactory::createWriter($obj, 'excel2007');
+        $writer = \PHPExcel_IOFactory::createWriter($obj, 'Excel2007');
         $obj->createSheet();
         $obj->setActiveSheetIndex(0);
         $curSheet = $obj->getActiveSheet();
@@ -43,13 +43,13 @@ class ExcelHelper {
 
         $file = iconv('utf-8', 'gb2312', $file);
         if(! $isBrowser){
-            $writer->save($file.'.xls');
+            $writer->save($file.'.xlsx');
             return;
         }
 
         ob_end_clean();
-        header('Content-Type: application/vnd.ms-execl;charset=utf-8;name="'.$file.'xls"');
-        header('Content-Disposition: attachment;filename="'.$file.'.xls"');
+        header('Content-Type: application/vnd.ms-execl;charset=utf-8;name="'.$file.'xlsx"');
+        header('Content-Disposition: attachment;filename="'.$file.'.xlsx"');
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
     }
