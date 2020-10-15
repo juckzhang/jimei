@@ -2,6 +2,13 @@
 namespace common\helpers;
 
 class ExcelHelper {
+    private static $cellKey = array(
+        'A','B','C','D','E','F','G','H','I','J','K','L','M',
+        'N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+        'AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM',
+        'AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ'
+    );
+
     public static function readExcel($fileName)
     {
         $_IOFactory = \PHPExcel_IOFactory::load($fileName);
@@ -18,5 +25,28 @@ class ExcelHelper {
         return array_filter($dataset,function($item){
             return trim( is_array($item) && ! empty($item[0]) &&$item[0]);
         });
+    }
+
+    public static function writeExcel($file, $data){
+        $obj = new \PHPExcel();
+        $writer = \PHPExcel_IOFactory::createWriter($obj, 'excel2007');
+        $obj->createSheet();
+        $obj->setActiveSheetIndex(0);
+        $curSheet = $obj->getActiveSheet();
+
+        foreach ($data as $row => $item){
+            foreach ($item as $cell => $value){
+                $index = sprintf("%s%d",static::$cellKey[$cell], $row);
+                $curSheet->setCellValue($index, $value);
+            }
+        }
+
+        $writer->save($file);
+
+//        ob_end_clean();
+//        header('Content-Type: application/vnd.ms-execl');
+//        header('Content-Disposition: attachment;filename="文件名.xls"');
+//        header('Cache-Control: max-age=0');
+//        $writer->save('php://output');
     }
 }
