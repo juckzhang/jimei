@@ -27,7 +27,7 @@ class ExcelHelper {
         });
     }
 
-    public static function writeExcel($file, $data){
+    public static function writeExcel($file, $data, $isBrowser = false){
         $obj = new \PHPExcel();
         $writer = \PHPExcel_IOFactory::createWriter($obj, 'excel2007');
         $obj->createSheet();
@@ -41,12 +41,16 @@ class ExcelHelper {
             }
         }
 
-        $writer->save($file);
+        $file = iconv('utf-8', 'gb2312', $file);
+        if(! $isBrowser){
+            $writer->save($file.'.xls');
+            return;
+        }
 
-//        ob_end_clean();
-//        header('Content-Type: application/vnd.ms-execl');
-//        header('Content-Disposition: attachment;filename="文件名.xls"');
-//        header('Cache-Control: max-age=0');
-//        $writer->save('php://output');
+        ob_end_clean();
+        header('Content-Type: application/vnd.ms-execl;charset=utf-8;name="'.$file.'xls"');
+        header('Content-Disposition: attachment;filename="'.$file.'.xls"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
     }
 }
