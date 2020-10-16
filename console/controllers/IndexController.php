@@ -1,6 +1,7 @@
 <?php
 namespace console\controllers;
 
+use common\helpers\ExcelHelper;
 use common\models\mysql\AdminModel;
 use common\models\mysql\ColorModel;
 use common\models\mysql\MaterialPhoneModel;
@@ -46,11 +47,7 @@ class IndexController extends BaseController{
                 ];
             }
         }
-        $content = '';
-        foreach ($data as $item){
-            $content .= $item[0]."\t".$item[1].PHP_EOL;
-        }
 
-        file_put_contents($fileName, $content);
+        ExcelHelper::writeExcel($fileName, $data);
     }
 }

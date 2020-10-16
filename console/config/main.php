@@ -26,11 +26,11 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=kung', // MySQL, MariaDB
+            'dsn' => 'mysql:host=127.0.0.1;dbname=jimei', // MySQL, MariaDB
             'username' => 'root',
-            'password' => 'admin123',
-            'charset' => 'utf8',
-            'tablePrefix' => 'kung_',
+            'password' => 'ZCP38N8H.Yjt',
+            'charset' => 'utf8mb4',
+            'tablePrefix' => 'jimei_',
         ],
     ],
     'params' => ['imageUrlPrefix' => 'zaizai'],
