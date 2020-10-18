@@ -25,7 +25,7 @@ class OrderModel extends ActiveRecord
     public function getPhone()
     {
         return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])
-            ->select(['id','width','height','modal'])
+            ->select(['id','width','height','modal','canvas_type'])
             ->asArray();
     }
 
