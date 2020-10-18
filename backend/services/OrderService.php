@@ -122,7 +122,16 @@ class OrderService extends BackendService
                     'distprintsno' => $model->sn,
                 ]);
                 $orders = ArrayHelper::getValue($res, 'orders', []);
-                $batchData = array_merge($batchData, $this->parseOrders($model->id,$orders));
+                foreach ($orders as $order){
+                    if($order['suites']){
+                        foreach($order['suites'] as $meal){
+                            $mealCode = $meal['SuiteCode'];
+                            $batchData[] = $this->parseOrder($order, $model->id, $mealCode);
+                        }
+                    }else{
+                        $batchData[] = $this->parseOrder($order, $model->id, $order['mccode'], true);
+                    }
+                }
                 if(!$orders) return false;
                 $ordertotalcount = ArrayHelper::getValue($res, 'ordertotalcount', 0);
                 ++$page;
@@ -139,6 +148,7 @@ class OrderService extends BackendService
             'update_time', 'goodsname', 'lcmccode', 'mccode', 'num', 'status'
         ];
         if($batchData){
+            $batchData = $this->sortOrder($batchData);
             $transaction = \Yii::$app->db->beginTransaction();
             try {
                 OrderModel::deleteAll(['base_id' => $model->id]);
@@ -150,22 +160,6 @@ class OrderService extends BackendService
                 return false;
             }
         }
-    }
-
-    private function parseOrders($sn, $orders){
-        $ret = [];
-        foreach ($orders as $order){
-            if($order['suites']){
-                foreach($order['suites'] as $meal){
-                    $mealCode = $meal['SuiteCode'];
-                    $ret[] = $this->parseOrder($order, $sn, $mealCode);
-                }
-            }else{
-                $ret[] = $this->parseOrder($order, $sn, $order['mccode'], true);
-            }
-        }
-
-        return $this->sortOrder($ret);
     }
 
     private function parseOrder($order, $sn, $mealCode, $except = false){
