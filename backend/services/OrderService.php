@@ -117,7 +117,7 @@ class OrderService extends BackendService
                     'distprintsno' => $model->sn,
                 ]);
                 $orders = ArrayHelper::getValue($res, 'orders', []);
-                $batchData = array_merge($batchData, $this->parseOrder($model->sn,$orders));
+                $batchData = array_merge($batchData, $this->parseOrder($model->id,$orders));
                 if(!$orders) return false;
                 $ordertotalcount = ArrayHelper::getValue($res, 'ordertotalcount', 0);
                 ++$page;

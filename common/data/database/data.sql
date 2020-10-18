@@ -52,7 +52,7 @@ CREATE TABLE if NOT EXISTS jimei_base_list(
 -- 订单列表
 CREATE TABLE if NOT EXISTS jimei_order(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
-  `order_id` VARCHAR(15) NOT NULL default '' comment'原始订单号',
+  `order_id` VARCHAR(255) NOT NULL default '' comment'原始订单号',
   `base_id` int unsigned NOT NULL default  0 comment'打印单号',
   print_flag tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未打印 1：已打印',
   is_refund tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：已退款',
