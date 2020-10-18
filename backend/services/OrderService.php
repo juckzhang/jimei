@@ -198,6 +198,26 @@ class OrderService extends BackendService
             }
         }
 
+        return $this->sortOrder($ret);
+    }
+
+    private function sortOrder($data){
+        ArrayHelper::multisort($ret, 'goodsname');
+
+        $res = $ret = [];
+        foreach ($data as $item){
+            $orderId = $item['order_id'];
+            if(isset($res[$orderId])){
+                $res[$orderId][] = $item;
+            }else{
+                $res[$orderId] = [$item];
+            }
+        }
+
+        foreach ($res as $item){
+            $ret = ArrayHelper::merge($ret, $item);
+        }
+
         return $ret;
     }
 }
