@@ -202,7 +202,7 @@ class OrderService extends BackendService
     }
 
     private function sortOrder($data){
-        ArrayHelper::multisort($ret, 'goodsname');
+        ArrayHelper::multisort($data, 'goodsname');
 
         $res = $ret = [];
         foreach ($data as $item){
