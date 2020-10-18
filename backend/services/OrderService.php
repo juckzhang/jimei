@@ -124,6 +124,7 @@ class OrderService extends BackendService
                 if($page > (ceil($ordertotalcount / 100))){
                     break;
                 }
+
             }
         }
 
@@ -131,11 +132,12 @@ class OrderService extends BackendService
             'order_id', 'base_id', 'print_flag', 'is_refund',
             'barcode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
-            'update_time', 'goodsname', 'lcmccode', 'mccode', 'num',
+            'update_time', 'goodsname', 'lcmccode', 'mccode', 'num', 'status'
         ];
         if($batchData){
             $transaction = \Yii::$app->db->beginTransaction();
             try {
+                OrderModel::deleteAll(['base_id' => $model->id]);
                 \Yii::$app->db->createCommand()->batchInsert(OrderModel::tableName(),$filed,$batchData)->execute();
                 $transaction->commit();
                 return true;
@@ -161,22 +163,37 @@ class OrderService extends BackendService
 
                 $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
                 $phone = PhoneModel::find()->where([
-                    'brand_id' => $brand['id'],
+                    'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
                     'barcode' => $phoneCode,
                 ])->asArray()->one();
                 $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
                 $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
                 $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
                 $theme = ThemeModel::find()->where([
-                    'customer_id' => $customer['id'],
+                    'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
                     'barcode' => $themeCode,
                 ])->asArray()->one();
-
+                $status = 0;
+                if(!$brand or !$phone or !$customer or !$color or !$material or !$theme) $status = 2;
                 $ret[] = [
-                    'order_id' => $order['billcode'], 'base_id' => $sn,'print_flag' => (int)$order['isdistconfirmprint'], 'is_refund' => (int)$order['isrefund'],
-                    'barcode' => $mealCode,'mobile_id' => $phone['id'], 'brand_id' => $brand['id'], 'customer_id' => $customer['id'],
-                    'theme_id' => $theme['id'], 'color_id' => $color['id'], 'material_id' => $material['id'],'create_time' => $now,
-                    'update_time' => $now, 'goodsname' => $order['goodsname'], 'lcmccode' => $order['lcmccode'], 'mccode' => $order['mccode'], 'num' => $order['qty'],
+                    'order_id' => $order['billcode'],
+                    'base_id' => $sn,
+                    'print_flag' => (int)$order['isdistconfirmprint'],
+                    'is_refund' => (int)$order['isrefund'],
+                    'barcode' => $mealCode,
+                    'mobile_id' => ArrayHelper::getValue($phone, 'id', 0),
+                    'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+                    'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+                    'theme_id' => ArrayHelper::getValue($theme, 'id', 0),
+                    'color_id' => ArrayHelper::getValue($color, 'id', 0),
+                    'material_id' => ArrayHelper::getValue($material, 'id', 0),
+                    'create_time' => $now,
+                    'update_time' => $now,
+                    'goodsname' => $order['goodsname'],
+                    'lcmccode' => $order['lcmccode'],
+                    'mccode' => $order['mccode'],
+                    'num' => $order['qty'],
+                    'status' => $status,
                 ];
             }
         }

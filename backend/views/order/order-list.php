@@ -61,6 +61,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <th width="80">材质</th>
             <th width="80">素材</th>
             <th width="80">颜色</th>
+            <th width="80">状态</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -70,10 +71,11 @@ $more = ArrayHelper::getValue($params, 'more');
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['barcode']?></td>
-                <td><?=$data['phone']['modal']?></td>
-                <td><?=$data['material']['name']?></td>
-                <td><?=$data['theme']['name']?></td>
-                <td><?=$data['color']['name']?></td>
+                <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
+                <td><?=ArrayHelper::getValue($data,'material.name')?></td>
+                <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
+                <td><?=ArrayHelper::getValue($data,'color.name')?></td>
+                <td><?=$data['status'] == 3 ? '异常' : '正常'?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
