@@ -157,7 +157,7 @@ class OrderService extends BackendService
                 $materialCode = substr($mealCode, 5, 2);
                 $colorCode = substr($mealCode, 7, 2);
                 $customerCode = substr($mealCode, 9, 2);
-                $themeCode = substr($mealCode, 11, 4);
+                $themeCode = substr($mealCode, 11);
 
                 $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
                 $phone = PhoneModel::find()->where([
@@ -170,19 +170,12 @@ class OrderService extends BackendService
                 $theme = ThemeModel::find()->where([
                     'customer_id' => $customer['id'],
                     'barcode' => $themeCode,
-                ])->asArray()->all();
-                $themeIds = ArrayHelper::getColumn($theme, 'id');
-                $orFilter = ['or'];
-                foreach ($themeIds as $themeId){
-                    $orFilter[] = ['theme_id' => $themeId];
-                }
-                $themeMaterial = ThemeMaterialModel::find()->where([
-                    'and','material_id' => $material['id'],$orFilter])->asArray()->one();
+                ])->asArray()->one();
 
                 $ret[] = [
                     'order_id' => $order['billcode'], 'base_id' => $sn,'print_flag' => (int)$order['isdistconfirmprint'], 'is_refund' => (int)$order['isrefund'],
                     'barcode' => $mealCode,'mobile_id' => $phone['id'], 'brand_id' => $brand['id'], 'customer_id' => $customer['id'],
-                    'theme_id' => $themeMaterial['theme_id'], 'color_id' => $color['id'], 'material_id' => $themeMaterial['material_id'],'create_time' => $now,
+                    'theme_id' => $theme['theme_id'], 'color_id' => $color['id'], 'material_id' => $material['material_id'],'create_time' => $now,
                     'update_time' => $now, 'goodsname' => $order['goodsname'], 'lcmccode' => $order['lcmccode'], 'mccode' => $order['mccode'], 'num' => $order['qty'],
                 ];
             }
