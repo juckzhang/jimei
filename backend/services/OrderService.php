@@ -24,7 +24,11 @@ class OrderService extends BackendService
         $models = OrderModel::find()
             ->where(['!=','status' , OrderModel::STATUS_DELETED])
             ->andFilterWhere(['base_id' => $basid])
-            ->andFilterWhere(['like', 'order_id',ArrayHelper::getValue($other, 'keyword')]);
+            ->andFilterWhere([
+                'and',
+                ['like', 'order_id',ArrayHelper::getValue($other, 'keyword')],
+                ['like', 'barcode',ArrayHelper::getValue($other, 'keyword')]
+            ]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
@@ -125,7 +129,6 @@ class OrderService extends BackendService
                 if($page > (ceil($ordertotalcount / 100))){
                     break;
                 }
-
             }
         }
 
@@ -158,14 +161,14 @@ class OrderService extends BackendService
                     $ret[] = $this->parseOrder($order, $sn, $mealCode);
                 }
             }else{
-                $ret[] = $this->parseOrder($order, $sn, $order['mccode']);
+                $ret[] = $this->parseOrder($order, $sn, $order['mccode'], true);
             }
         }
 
         return $this->sortOrder($ret);
     }
 
-    private function parseOrder($order, $sn, $mealCode){
+    private function parseOrder($order, $sn, $mealCode, $except = false){
         $brandCode = substr($mealCode, 0, 2);
         $phoneCode = substr($mealCode, 2, 3);
         $materialCode = substr($mealCode, 5, 2);
@@ -186,7 +189,7 @@ class OrderService extends BackendService
             'barcode' => $themeCode,
         ])->asArray()->one();
         $status = 0;
-        if(!$brand or !$phone or !$customer or !$color or !$material or !$theme) $status = 2;
+        if(!$brand or !$phone or !$customer or !$color or !$material or !$theme or $except) $status = 2;
         return [
             'order_id' => $order['billcode'],
             'base_id' => $sn,

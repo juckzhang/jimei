@@ -56,6 +56,7 @@ $more = ArrayHelper::getValue($params, 'more');
         <thead>
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <th width="80">订单号</th>
             <th width="80">条码</th>
             <th width="80">机型</th>
             <th width="80">材质</th>
@@ -70,6 +71,7 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
+                <th><?=$data['order_id']?></th>
                 <td><?=$data['barcode']?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
