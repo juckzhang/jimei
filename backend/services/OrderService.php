@@ -34,7 +34,7 @@ class OrderService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)
+            $data['dataList'] = $models->orderBy(['goodsname' => SORT_ASC])
                 ->limit($limit)
                 ->offset($offset)
                 ->with('phone')
@@ -59,6 +59,7 @@ class OrderService extends BackendService
             ->with('color')
             ->with('theme')
             ->with('relat')
+            ->orderBy(['goodsname' => SORT_ASC])
             ->asArray()
             ->all();
 
@@ -148,7 +149,7 @@ class OrderService extends BackendService
             'update_time', 'goodsname', 'lcmccode', 'mccode', 'num', 'status'
         ];
         if($batchData){
-            $batchData = $this->sortOrder($batchData);
+            //$batchData = $this->sortOrder($batchData);
             $transaction = \Yii::$app->db->beginTransaction();
             try {
                 OrderModel::deleteAll(['base_id' => $model->id]);
@@ -198,7 +199,7 @@ class OrderService extends BackendService
             'material_id' => ArrayHelper::getValue($material, 'id', 0),
             'create_time' => $now,
             'update_time' => $now,
-            'goodsname' => strtolower($order['goodsname']),
+            'goodsname' => $order['goodsname'],
             'lcmccode' => $order['lcmccode'],
             'mccode' => $order['mccode'],
             'num' => $order['qty'],
