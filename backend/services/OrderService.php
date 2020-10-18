@@ -118,7 +118,7 @@ class OrderService extends BackendService
                     'distprintsno' => $model->sn,
                 ]);
                 $orders = ArrayHelper::getValue($res, 'orders', []);
-                $batchData = array_merge($batchData, $this->parseOrder($model->id,$orders));
+                $batchData = array_merge($batchData, $this->parseOrders($model->id,$orders));
                 if(!$orders) return false;
                 $ordertotalcount = ArrayHelper::getValue($res, 'ordertotalcount', 0);
                 ++$page;
@@ -149,57 +149,64 @@ class OrderService extends BackendService
         }
     }
 
-    private function parseOrder($sn, $orders){
+    private function parseOrders($sn, $orders){
         $ret = [];
-        $now = time();
         foreach ($orders as $order){
-            foreach($order['suites'] as $meal){
-                $mealCode = $meal['SuiteCode'];
-                $brandCode = substr($mealCode, 0, 2);
-                $phoneCode = substr($mealCode, 2, 3);
-                $materialCode = substr($mealCode, 5, 2);
-                $colorCode = substr($mealCode, 7, 2);
-                $customerCode = substr($mealCode, 9, 2);
-                $themeCode = substr($mealCode, 11);
-
-                $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
-                $phone = PhoneModel::find()->where([
-                    'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
-                    'barcode' => $phoneCode,
-                ])->asArray()->one();
-                $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
-                $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
-                $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
-                $theme = ThemeModel::find()->where([
-                    'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
-                    'barcode' => $themeCode,
-                ])->asArray()->one();
-                $status = 0;
-                if(!$brand or !$phone or !$customer or !$color or !$material or !$theme) $status = 2;
-                $ret[] = [
-                    'order_id' => $order['billcode'],
-                    'base_id' => $sn,
-                    'print_flag' => (int)$order['isdistconfirmprint'],
-                    'is_refund' => (int)$order['isrefund'],
-                    'barcode' => $mealCode,
-                    'mobile_id' => ArrayHelper::getValue($phone, 'id', 0),
-                    'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
-                    'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
-                    'theme_id' => ArrayHelper::getValue($theme, 'id', 0),
-                    'color_id' => ArrayHelper::getValue($color, 'id', 0),
-                    'material_id' => ArrayHelper::getValue($material, 'id', 0),
-                    'create_time' => $now,
-                    'update_time' => $now,
-                    'goodsname' => $order['goodsname'],
-                    'lcmccode' => $order['lcmccode'],
-                    'mccode' => $order['mccode'],
-                    'num' => $order['qty'],
-                    'status' => $status,
-                ];
+            if($order['suites']){
+                foreach($order['suites'] as $meal){
+                    $mealCode = $meal['SuiteCode'];
+                    $ret[] = $this->parseOrder($order, $sn, $mealCode);
+                }
+            }else{
+                $ret[] = $this->parseOrder($order, $sn, $order['mccode']);
             }
         }
 
         return $this->sortOrder($ret);
+    }
+
+    private function parseOrder($order, $sn, $mealCode){
+        $brandCode = substr($mealCode, 0, 2);
+        $phoneCode = substr($mealCode, 2, 3);
+        $materialCode = substr($mealCode, 5, 2);
+        $colorCode = substr($mealCode, 7, 2);
+        $customerCode = substr($mealCode, 9, 2);
+        $themeCode = substr($mealCode, 11);
+        $now = time();
+        $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
+        $phone = PhoneModel::find()->where([
+            'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+            'barcode' => $phoneCode,
+        ])->asArray()->one();
+        $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
+        $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
+        $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
+        $theme = ThemeModel::find()->where([
+            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+            'barcode' => $themeCode,
+        ])->asArray()->one();
+        $status = 0;
+        if(!$brand or !$phone or !$customer or !$color or !$material or !$theme) $status = 2;
+        return [
+            'order_id' => $order['billcode'],
+            'base_id' => $sn,
+            'print_flag' => (int)$order['isdistconfirmprint'],
+            'is_refund' => (int)$order['isrefund'],
+            'barcode' => $mealCode,
+            'mobile_id' => ArrayHelper::getValue($phone, 'id', 0),
+            'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+            'theme_id' => ArrayHelper::getValue($theme, 'id', 0),
+            'color_id' => ArrayHelper::getValue($color, 'id', 0),
+            'material_id' => ArrayHelper::getValue($material, 'id', 0),
+            'create_time' => $now,
+            'update_time' => $now,
+            'goodsname' => $order['goodsname'],
+            'lcmccode' => $order['lcmccode'],
+            'mccode' => $order['mccode'],
+            'num' => $order['qty'],
+            'status' => $status,
+        ];
     }
 
     private function sortOrder($data){
