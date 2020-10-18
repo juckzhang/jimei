@@ -157,7 +157,7 @@ class OrderService extends BackendService
                 $materialCode = substr($mealCode, 5, 2);
                 $colorCode = substr($mealCode, 7, 2);
                 $customerCode = substr($mealCode, 9, 2);
-                $themeCode = substr($mealCode, 11, 4);
+                $themeCode = substr($mealCode, 11);
 
                 $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
                 $phone = PhoneModel::find()->where([
