@@ -71,8 +71,7 @@ CREATE TABLE if NOT EXISTS jimei_order(
   suitecode varchar(255) not null default '' comment '套餐编码',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (order_id,base_id, suitecode)
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
 -- 机型材质
