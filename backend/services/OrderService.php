@@ -198,7 +198,7 @@ class OrderService extends BackendService
             'material_id' => ArrayHelper::getValue($material, 'id', 0),
             'create_time' => $now,
             'update_time' => $now,
-            'goodsname' => $order['goodsname'],
+            'goodsname' => strtolower($order['goodsname']),
             'lcmccode' => $order['lcmccode'],
             'mccode' => $order['mccode'],
             'num' => $order['qty'],
