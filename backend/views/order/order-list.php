@@ -77,7 +77,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
-                <td><?=$data['status'] == 2 ? '异常' : '正常'?></td>
+                <td><?=$data['status'] == 2 ? '<span style="color: red;">异常</span>' : '正常'?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
