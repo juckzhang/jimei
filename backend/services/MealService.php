@@ -169,12 +169,11 @@ class MealService extends BackendService
             ];
         }
         $res = ClientHelper::rsyncMeal(['suiteitems' => $param]);
-        if($res){
+        if($res and $res['code'] == 0){
             $this->updateInfo($ids, MealModel::className(), ['sync_status' => 1]);
-            return true;
         }
 
-        return false;
+        return $res;
     }
 }
 
