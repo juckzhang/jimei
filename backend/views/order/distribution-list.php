@@ -10,7 +10,7 @@ $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookie
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
-$status = ['1' => '未打印','2'=>'打印中','3'=>'已完成'];
+$status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
 ?>
 <div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
