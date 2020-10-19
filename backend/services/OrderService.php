@@ -127,10 +127,10 @@ class OrderService extends BackendService
                     if($order['suites']){
                         foreach($order['suites'] as $meal){
                             $mealCode = $meal['SuiteCode'];
-                            $batchData[] = $this->parseOrder($order, $model->id, $mealCode);
+                            $batchData[] = $this->parseOrder($order, $model->id, $mealCode, $meal['SuiteName']);
                         }
                     }else{
-                        $batchData[] = $this->parseOrder($order, $model->id, $order['mccode'], true);
+                        $batchData[] = $this->parseOrder($order, $model->id, $order['mccode'], '', true);
                     }
                 }
                 if(!$orders) return false;
@@ -163,7 +163,7 @@ class OrderService extends BackendService
         }
     }
 
-    private function parseOrder($order, $sn, $mealCode, $except = false){
+    private function parseOrder($order, $sn, $mealCode, $name = '', $except = false){
         $brandCode = substr($mealCode, 0, 2);
         $phoneCode = substr($mealCode, 2, 3);
         $materialCode = substr($mealCode, 5, 2);
@@ -199,7 +199,7 @@ class OrderService extends BackendService
             'material_id' => ArrayHelper::getValue($material, 'id', 0),
             'create_time' => $now,
             'update_time' => $now,
-            'goodsname' => $order['goodsname'],
+            'goodsname' => $name,//$order['goodsname'],
             'lcmccode' => $order['lcmccode'],
             'mccode' => $order['mccode'],
             'num' => $order['qty'],
