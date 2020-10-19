@@ -24,13 +24,17 @@ class OrderService extends BackendService
         $models = OrderModel::find()
             ->where(['!=','status' , OrderModel::STATUS_DELETED])
             ->andFilterWhere(['base_id' => $basid])
-            ->andFilterWhere(['like', 'order_id',ArrayHelper::getValue($other, 'keyword')]);
+            ->andFilterWhere([
+                'and',
+                ['like', 'order_id',ArrayHelper::getValue($other, 'keyword')],
+                ['like', 'barcode',ArrayHelper::getValue($other, 'keyword')]
+            ]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)
+            $data['dataList'] = $models->orderBy(['goodsname' => SORT_ASC])
                 ->limit($limit)
                 ->offset($offset)
                 ->with('phone')
@@ -55,6 +59,7 @@ class OrderService extends BackendService
             ->with('color')
             ->with('theme')
             ->with('relat')
+            ->orderBy(['goodsname' => SORT_ASC])
             ->asArray()
             ->all();
 
@@ -79,6 +84,7 @@ class OrderService extends BackendService
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'border_url' => $borderUrl,
                 'color' => ArrayHelper::getValue($item, 'color.name'),
+                'status' => $item['status'],
             ];
         }
         return ['sn' => $baseList['sn'], 'items' => $dataList];
@@ -117,7 +123,16 @@ class OrderService extends BackendService
                     'distprintsno' => $model->sn,
                 ]);
                 $orders = ArrayHelper::getValue($res, 'orders', []);
-                $batchData = array_merge($batchData, $this->parseOrder($model->sn,$orders));
+                foreach ($orders as $order){
+                    if($order['suites']){
+                        foreach($order['suites'] as $meal){
+                            $mealCode = $meal['SuiteCode'];
+                            $batchData[] = $this->parseOrder($order, $model->id, $mealCode);
+                        }
+                    }else{
+                        $batchData[] = $this->parseOrder($order, $model->id, $order['mccode'], true);
+                    }
+                }
                 if(!$orders) return false;
                 $ordertotalcount = ArrayHelper::getValue($res, 'ordertotalcount', 0);
                 ++$page;
@@ -131,11 +146,13 @@ class OrderService extends BackendService
             'order_id', 'base_id', 'print_flag', 'is_refund',
             'barcode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
-            'update_time', 'goodsname', 'lcmccode', 'mccode', 'num',
+            'update_time', 'goodsname', 'lcmccode', 'mccode', 'num', 'status'
         ];
         if($batchData){
+            //$batchData = $this->sortOrder($batchData);
             $transaction = \Yii::$app->db->beginTransaction();
             try {
+                OrderModel::deleteAll(['base_id' => $model->id]);
                 \Yii::$app->db->createCommand()->batchInsert(OrderModel::tableName(),$filed,$batchData)->execute();
                 $transaction->commit();
                 return true;
@@ -146,46 +163,65 @@ class OrderService extends BackendService
         }
     }
 
-    private function parseOrder($sn, $orders){
-        $ret = [];
+    private function parseOrder($order, $sn, $mealCode, $except = false){
+        $brandCode = substr($mealCode, 0, 2);
+        $phoneCode = substr($mealCode, 2, 3);
+        $materialCode = substr($mealCode, 5, 2);
+        $colorCode = substr($mealCode, 7, 2);
+        $customerCode = substr($mealCode, 9, 2);
+        $themeCode = substr($mealCode, 11);
         $now = time();
-        foreach ($orders as $order){
-            foreach($order['suites'] as $meal){
-                $mealCode = $meal['SuiteCode'];
-                $brandCode = substr($mealCode, 0, 2);
-                $phoneCode = substr($mealCode, 2, 3);
-                $materialCode = substr($mealCode, 5, 2);
-                $colorCode = substr($mealCode, 7, 2);
-                $customerCode = substr($mealCode, 9, 2);
-                $themeCode = substr($mealCode, 11, 4);
+        $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
+        $phone = PhoneModel::find()->where([
+            'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+            'barcode' => $phoneCode,
+        ])->asArray()->one();
+        $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
+        $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
+        $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
+        $theme = ThemeModel::find()->where([
+            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+            'barcode' => $themeCode,
+        ])->asArray()->one();
+        $status = 0;
+        if(!$brand or !$phone or !$customer or !$color or !$material or !$theme or $except) $status = 2;
+        return [
+            'order_id' => $order['billcode'],
+            'base_id' => $sn,
+            'print_flag' => (int)$order['isdistconfirmprint'],
+            'is_refund' => (int)$order['isrefund'],
+            'barcode' => $mealCode,
+            'mobile_id' => ArrayHelper::getValue($phone, 'id', 0),
+            'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+            'theme_id' => ArrayHelper::getValue($theme, 'id', 0),
+            'color_id' => ArrayHelper::getValue($color, 'id', 0),
+            'material_id' => ArrayHelper::getValue($material, 'id', 0),
+            'create_time' => $now,
+            'update_time' => $now,
+            'goodsname' => $order['goodsname'],
+            'lcmccode' => $order['lcmccode'],
+            'mccode' => $order['mccode'],
+            'num' => $order['qty'],
+            'status' => $status,
+        ];
+    }
 
-                $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
-                $phone = PhoneModel::find()->where([
-                    'brand_id' => $brand['id'],
-                    'barcode' => $phoneCode,
-                ])->asArray()->one();
-                $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
-                $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
-                $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
-                $theme = ThemeModel::find()->where([
-                    'customer_id' => $customer['id'],
-                    'barcode' => $themeCode,
-                ])->asArray()->all();
-                $themeIds = ArrayHelper::getColumn($theme, 'id');
-                $orFilter = ['or'];
-                foreach ($themeIds as $themeId){
-                    $orFilter[] = ['theme_id' => $themeId];
-                }
-                $themeMaterial = ThemeMaterialModel::find()->where([
-                    'and','material_id' => $material['id'],$orFilter])->asArray()->one();
+    private function sortOrder($data){
+        ArrayHelper::multisort($data, 'goodsname');
 
-                $ret[] = [
-                    'order_id' => $order['billcode'], 'base_id' => $sn,'print_flag' => (int)$order['isdistconfirmprint'], 'is_refund' => (int)$order['isrefund'],
-                    'barcode' => $mealCode,'mobile_id' => $phone['id'], 'brand_id' => $brand['id'], 'customer_id' => $customer['id'],
-                    'theme_id' => $themeMaterial['theme_id'], 'color_id' => $color['id'], 'material_id' => $themeMaterial['material_id'],'create_time' => $now,
-                    'update_time' => $now, 'goodsname' => $order['goodsname'], 'lcmccode' => $order['lcmccode'], 'mccode' => $order['mccode'], 'num' => $order['qty'],
-                ];
+        $res = $ret = [];
+        foreach ($data as $item){
+            $orderId = $item['order_id'];
+            if(isset($res[$orderId])){
+                $res[$orderId][] = $item;
+            }else{
+                $res[$orderId] = [$item];
             }
+        }
+
+        foreach ($res as $item){
+            $ret = ArrayHelper::merge($ret, $item);
         }
 
         return $ret;

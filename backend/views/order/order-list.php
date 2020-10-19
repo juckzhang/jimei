@@ -47,10 +47,6 @@ $more = ArrayHelper::getValue($params, 'more');
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if(\Yii::$app->user->can('order/edit-order')):?>
-            <li><a class="add" href="<?=Url::to(['order/edit-order'])?>" target="navTab"><span>添加</span></a></li>
-            <?php endif;?>
-
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/delete-order'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
@@ -60,11 +56,14 @@ $more = ArrayHelper::getValue($params, 'more');
         <thead>
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+            <th width="80">订单号</th>
+            <th width="80">商品名称</th>
             <th width="80">条码</th>
             <th width="80">机型</th>
             <th width="80">材质</th>
             <th width="80">素材</th>
             <th width="80">颜色</th>
+            <th width="80">状态</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -73,19 +72,18 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
+                <td><?=$data['order_id']?></td>
+                <td><?=$data['goodsname']?></td>
                 <td><?=$data['barcode']?></td>
-                <td><?=$data['phone']['modal']?></td>
-                <td><?=$data['material']['name']?></td>
-                <td><?=$data['theme']['name']?></td>
-                <td><?=$data['color']['name']?></td>
+                <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
+                <td><?=ArrayHelper::getValue($data,'material.name')?></td>
+                <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
+                <td><?=ArrayHelper::getValue($data,'color.name')?></td>
+                <td><?=$data['status'] == 2 ? '<span style="color: red;">异常</span>' : '正常'?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
-                    <?php endif;?>
-
-                    <?php if(\Yii::$app->user->can('order/edit-order')):?>
-                    <a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>

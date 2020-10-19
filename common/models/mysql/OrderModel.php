@@ -8,6 +8,12 @@ class OrderModel extends ActiveRecord
         return "{{%order}}";
     }
 
+    public function getBrand(){
+        return $this->hasOne(BrandModel::className(), ['id' => 'brand_id'])
+            ->select(['id','name', 'barcode'])
+            ->asArray();
+    }
+
     public function getTheme()
     {
         return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
@@ -19,7 +25,7 @@ class OrderModel extends ActiveRecord
     public function getPhone()
     {
         return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])
-            ->select(['id','width','height','modal'])
+            ->select(['id','width','height','modal','canvas_type'])
             ->asArray();
     }
 
