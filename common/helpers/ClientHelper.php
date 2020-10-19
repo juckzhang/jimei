@@ -67,7 +67,7 @@ class ClientHelper
     public static function rsyncMeal($data){
         $param = static::parseParam('erp.goodssuite.sync', $data);
         $result = static::sCurl($param, $data);
-        $ret = ['code' => 0, 'message' => '同步成功'];
+        $ret = ['code' => 0, 'message' => '同步成功', 'mealCode' => []];
 
         if(ArrayHelper::getValue($result, 'code') == 0){
             return $ret;
@@ -80,6 +80,8 @@ class ClientHelper
             $_message = ArrayHelper::getValue($item, 'message', '');
             if($_message and $_message != '商品套餐保存失败：套餐编号已经存在'){
                 $message[] = $_message;
+                $code = ArrayHelper::getValue($item, 'suitecode');
+                if($code) $ret['mealCode'][] = $code;
             }
         }
 
