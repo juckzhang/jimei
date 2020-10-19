@@ -10,7 +10,7 @@ if (ArrayHelper::getValue($model, 'id')){
 <h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['meal/edit-meal','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <input id="brand-id" type="hidden" name="MealModel[sync_status]" value="0">
+        <input type="hidden" name="MealModel[sync_status]" value="0">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>品牌分类：</dt>
@@ -79,9 +79,9 @@ if (ArrayHelper::getValue($model, 'id')){
         });
 
         $('#look-theme').on('click',function(){
-            var brand_name = $('#customer-name').val(),
-                brand_id = $('#customer-id').val(),
-                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+brand_id+'&customer-name='+brand_name;
+            var customer_name = $('#customer-name').val(),
+                customer_id = $('#customer-id').val(),
+                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+customer_name;
             $(this).attr('href', _href);
         });
     });
