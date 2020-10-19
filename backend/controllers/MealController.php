@@ -24,7 +24,7 @@ class MealController extends BaseController
     {
         if(\Yii::$app->request->getIsPost())
         {
-            $result = MealService::editMeal($this->paramData);
+            $result = MealService::getService()->editMeal($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
