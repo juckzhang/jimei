@@ -71,9 +71,9 @@ class MealController extends BaseController
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
         $return = MealService::getService()->syncMeal($ids);
-        if($return === true)
+        if(is_array($return) and $return['message'])
             return $this->returnAjaxSuccess([
-                'message' => '同步成功',
+                'message' => $return['message'],
                 'navTabId' => 'meal-list',
                 'callbackType' => 'forward',
                 'forwardUrl'  => Url::to(['meal/meal-list'])
