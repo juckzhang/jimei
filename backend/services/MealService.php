@@ -130,18 +130,20 @@ class MealService extends BackendService
             ->with('customer')
             ->with('theme')
             ->all();
-        $param = [];
+        $param = $meal = [];
         foreach ($data as $item){
+            $suitecode = sprintf(
+                "%s%s%s%s%s%s",
+                $item['brand']['barcode'],
+                $item['phone']['barcode'],
+                $item['material']['barcode'],
+                $item['color']['barcode'],
+                $item['customer']['barcode'],
+                $item['theme']['barcode']
+            );
+            $meal[$suitecode] = $item['id'];
             $param[] = [
-                'suitecode' => sprintf(
-                    "%s%s%s%s%s%s",
-                    $item['brand']['barcode'],
-                    $item['phone']['barcode'],
-                    $item['material']['barcode'],
-                    $item['color']['barcode'],
-                    $item['customer']['barcode'],
-                    $item['theme']['barcode']
-                ),
+                'suitecode' => $suitecode,
                 'suitename' => sprintf(
                     "%s%s%s (%s) %s",
                     $item['brand']['name'],
@@ -169,7 +171,12 @@ class MealService extends BackendService
             ];
         }
         $res = ClientHelper::rsyncMeal(['suiteitems' => $param]);
-        if($res and $res['code'] == 0){
+        //查出同步失败的套餐
+        foreach ($res['mealCode'] as $code){
+            if($meal[$code]) unset($meal[$code]);
+        }
+        if($meal){
+            $ids = array_values($meal);
             $this->updateInfo($ids, MealModel::className(), ['sync_status' => 1]);
         }
 
