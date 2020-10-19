@@ -3,7 +3,6 @@ namespace console\controllers;
 
 use common\helpers\ExcelHelper;
 use common\models\mysql\AdminModel;
-use common\models\mysql\BrandModel;
 use common\models\mysql\ColorModel;
 use common\models\mysql\MaterialPhoneModel;
 
