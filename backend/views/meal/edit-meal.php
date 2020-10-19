@@ -10,6 +10,7 @@ if (ArrayHelper::getValue($model, 'id')){
 <h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['meal/edit-meal','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+        <input id="brand-id" type="hidden" name="MealModel[sync_status]" value="0">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>品牌分类：</dt>
