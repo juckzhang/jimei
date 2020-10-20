@@ -67,11 +67,12 @@ class MealService extends BackendService
         $themeIds = ArrayHelper::getValue($data, 'MealModel.theme_id');
 
         if((!$phoneIds and !$brandIds) or !$colorIds or !$materialIds or (!$themeIds and !$customerIds)) return false;
-        $phoneIds = array_filter(array_unique(explode(',', $phoneIds)));
-        $themeIds = array_filter(array_unique(explode(',', $themeIds)));
-        $colorIds = array_filter(array_unique(explode(',', $colorIds)));
         $brandIds = array_filter(array_unique(explode(',', $brandIds)));
+        $phoneIds = array_filter(array_unique(explode(',', $phoneIds)));
+        $materialIds = array_filter(array_unique(explode(',', $materialIds)));
+        $colorIds = array_filter(array_unique(explode(',', $colorIds)));
         $customerIds = array_filter(array_unique(explode(',', $customerIds)));
+        $themeIds = array_filter(array_unique(explode(',', $themeIds)));
         $phoneWhere = ['id' => $phoneIds];
         if(empty($phoneIds)) $phoneWhere = ['brand_id' => $brandIds];
         $themeWhere = ['id' => $themeIds];

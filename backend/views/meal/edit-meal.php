@@ -24,7 +24,7 @@ if (ArrayHelper::getValue($model, 'id')){
                 <dt>机型：</dt>
                 <dd>
                     <input class="mobile" type="hidden" name="MealModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
-                    <input type="text" class="required textInput readonly mobile" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
+                    <input type="text" class="textInput readonly mobile" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
                     <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
