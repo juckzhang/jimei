@@ -87,7 +87,8 @@ class ClientHelper
 
         if($message) {
             $message = array_unique($message);
-            return ['message' => implode('|', $message), 'code' => -1];
+            $ret['code'] = -1;
+            $ret['message'] = implode('|', $message);
         }
 
         return $ret;
