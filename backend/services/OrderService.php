@@ -98,6 +98,43 @@ class OrderService extends BackendService
         return $data;
     }
 
+    public function reparseOrder($id){
+        $orders = OrderModel::find()->where(['id' => $id])->all();
+        foreach ($orders as $order){
+            $mealCode = $order['barcode'];
+            $brandCode = substr($mealCode, 0, 2);
+            $phoneCode = substr($mealCode, 2, 3);
+            $materialCode = substr($mealCode, 5, 2);
+            $colorCode = substr($mealCode, 7, 2);
+            $customerCode = substr($mealCode, 9, 2);
+            $themeCode = substr($mealCode, 11);
+            $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
+            $phone = PhoneModel::find()->where([
+                'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+                'barcode' => $phoneCode,
+            ])->asArray()->one();
+            $customer = CustomerModel::find()->where(['barcode' => $customerCode])->asArray()->one();
+            $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
+            $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
+            $theme = ThemeModel::find()->where([
+                'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+                'barcode' => $themeCode,
+            ])->asArray()->one();
+            $status = 0;
+            if(!$brand or !$phone or !$customer or !$color or !$material or !$theme) $status = 2;
+            $order->mobile_id = ArrayHelper::getValue($phone, 'id', 0);
+            $order->brand_id = ArrayHelper::getValue($brand, 'id', 0);
+            $order->customer_id = ArrayHelper::getValue($customer, 'id', 0);
+            $order->theme_id = ArrayHelper::getValue($theme, 'id', 0);
+            $order->color_id = ArrayHelper::getValue($color, 'id', 0);
+            $order->material_id = ArrayHelper::getValue($material, 'id', 0);
+            $order->status = $status;
+            $order->save();
+        }
+
+        return true;
+    }
+
     public function DistributionList($page,$prePage,$order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);

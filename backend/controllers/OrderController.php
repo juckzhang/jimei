@@ -115,4 +115,20 @@ class OrderController extends BaseController
             ]);
         return $this->returnAjaxError($return);
     }
+
+    public function actionParseOrder(){
+        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+
+        $return = OrderService::getService()->reparseOrder($ids);
+        if($return === true)
+            return $this->returnAjaxSuccess([
+                'message' => '更新成功',
+                'navTabId' => 'distribution-list',
+                'callbackType' => 'forward',
+                'forwardUrl'  => Url::to(['order/distribution-list'])
+            ]);
+        return $this->returnAjaxError($return);
+    }
 }
