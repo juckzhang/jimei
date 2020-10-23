@@ -50,6 +50,10 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/delete-order'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
+
+            <?php if(\Yii::$app->user->can('order/delete-order')):?>
+                <li><a title="确实要重新解析这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/parse-order'])?>" class="add"><span>批量删除</span></a></li>
+            <?php endif;?>
         </ul>
     </div>
     <table class="table" width="1200" layoutH="138">
@@ -84,6 +88,14 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
+                        <li><a title="解析" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAssign"><span>解析</span></a></li>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
+                        <li><a title="编辑" target="ajaxTodo" href="<?=Url::to(['order/edit-order','ids' => $data['id']])?>" class="btnEdit"><span>解析</span></a></li>
                     <?php endif;?>
                 </td>
             </tr>
