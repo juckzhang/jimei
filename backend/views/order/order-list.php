@@ -29,6 +29,13 @@ $more = ArrayHelper::getValue($params, 'more');
                 <tbody>
                 <tr>
                     <td>关键词：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                    <td>异常订单:
+                    <select name="other[status]" value="<?=ArrayHelper::getValue($other,'status')?>">
+                        <option value="">--选择--</option>
+                        <option value="0" <?=ArrayHelper::getValue($other,'status') === '0' ? 'selected' : ''?>>正常订单</option>
+                        <option value="2" <?=ArrayHelper::getValue($other,'status') === '2' ? 'selected' : ''?>>异常订单</option>
+                    </select>
+                    </td>
                 </tr>
                 </tbody>
             </table>

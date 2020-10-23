@@ -22,8 +22,8 @@ class OrderService extends BackendService
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = OrderModel::find()
-            ->where(['!=','status' , OrderModel::STATUS_DELETED])
-            ->andFilterWhere(['base_id' => $basid])
+            ->where(['base_id' => $basid])
+            ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
             ->andFilterWhere([
                 'and',
                 ['like', 'order_id',ArrayHelper::getValue($other, 'keyword')],
