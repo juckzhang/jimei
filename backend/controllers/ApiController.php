@@ -20,7 +20,9 @@ class ApiController extends BaseController
 
     public function actionListBase(){
         $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
-        $data = OrderService::getService()->BaseOrderList($baseId);
+        $page    = ArrayHelper::getValue($this->paramData, 'page');
+        $count   = ArrayHelper::getValue($this->paramData, 'count');
+        $data = OrderService::getService()->BaseOrderList($baseId, $page, $count);
 
         return $this->returnAjaxSuccess($data);
     }
