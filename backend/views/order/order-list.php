@@ -52,7 +52,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                <li><a title="确实要重新解析这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/parse-order'])?>" class="add"><span>批量删除</span></a></li>
+                <li><a title="确实要重新解析这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/parse-order'])?>" class="add"><span>批量解析</span></a></li>
             <?php endif;?>
         </ul>
     </div>
