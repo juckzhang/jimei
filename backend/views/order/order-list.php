@@ -10,12 +10,10 @@ $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookie
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $baseId = ArrayHelper::getValue($params,'base_id');
-$more = ArrayHelper::getValue($params, 'more');
 ?>
 <div class="" id="order-list" rel="order-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
-    <input type="hidden" name="more" value="<?=$more?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
@@ -23,7 +21,7 @@ $more = ArrayHelper::getValue($params, 'more');
     <input type="hidden" name="base_id" value="<?=$baseId?>" id="base_id"/>
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search, 'more' => $more])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search, 'base_id' => $baseId])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
