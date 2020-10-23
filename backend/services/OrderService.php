@@ -52,7 +52,7 @@ class OrderService extends BackendService
         // 获取base订单
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
-        $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0, 'sn' => $baseList['sn']];
+        $data = ['pageCount' => 0,'items' => [],'dataCount' => 0, 'sn' => $baseList['sn']];
         $models = OrderModel::find()->where([
                 'status' => OrderModel::STATUS_ACTIVE,
                 'base_id' => $baseId,
@@ -93,7 +93,7 @@ class OrderService extends BackendService
                 'status' => $item['status'],
             ];
         }
-        $data['dataList'] = $dataList;
+        $data['items'] = $dataList;
 
         return $data;
     }
