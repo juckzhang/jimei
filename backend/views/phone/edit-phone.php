@@ -43,6 +43,15 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
+                <dt>信息是否完整：</dt>
+                <dd>
+                    <select name="PhoneModel[status]" valign="<?=ArrayHelper::getValue($model,'status','0')?>">
+                        <option value="2" <?=ArrayHelper::getValue($model,'status') === '2' ? 'selected' : ''?>>否</option>
+                        <option value="2" <?=ArrayHelper::getValue($model,'status') === '0' ? 'selected' : ''?>>是</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
                 <dt>画布类型：</dt>
                 <dd>
                     <select name="PhoneModel[canvas_type]" value="<?=ArrayHelper::getValue($model, 'canvas_type')?>">
