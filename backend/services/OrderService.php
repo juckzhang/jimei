@@ -34,7 +34,7 @@ class OrderService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy(['goodsname' => SORT_ASC])
+            $data['dataList'] = $models->orderBy(['barcode' => SORT_ASC])
                 ->limit($limit)
                 ->offset($offset)
                 ->with('phone')
@@ -48,18 +48,24 @@ class OrderService extends BackendService
         return $data;
     }
 
-    public function BaseOrderList($baseId){
+    public function BaseOrderList($baseId,$page, $prePage){
         // 获取base订单
+        list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
-        $items = OrderModel::find()->where([
+        $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0, 'sn' => $baseList['sn']];
+        $models = OrderModel::find()->where([
                 'status' => OrderModel::STATUS_ACTIVE,
                 'base_id' => $baseId,
             ])->with('phone')
             ->with('material')
             ->with('color')
             ->with('theme')
-            ->with('relat')
-            ->orderBy(['goodsname' => SORT_ASC])
+            ->with('relat');
+        $data['dataCount'] = $models->count();
+        $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
+        $items = $models->orderBy(['barcode' => SORT_ASC])
+            ->limit($limit)
+            ->offset($offset)
             ->asArray()
             ->all();
 
@@ -76,7 +82,7 @@ class OrderService extends BackendService
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
                 'template_url' => $templateUrl,
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
-                'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type') ,
+                'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type'),
                 'width' => ArrayHelper::getValue($item, 'phone.width'),
                 'height' => ArrayHelper::getValue($item, 'phone.height'),
                 'material' => ArrayHelper::getValue($item, 'material.name'),
@@ -87,7 +93,9 @@ class OrderService extends BackendService
                 'status' => $item['status'],
             ];
         }
-        return ['sn' => $baseList['sn'], 'items' => $dataList];
+        $data['dataList'] = $dataList;
+
+        return $data;
     }
 
     public function DistributionList($page,$prePage,$order = [], $other = [])
