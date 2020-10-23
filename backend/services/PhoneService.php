@@ -89,7 +89,7 @@ class PhoneService extends BackendService
     }
 
     public function relationInfo($phoneId, $materialId){
-        $model = MaterialPhoneModel::find()->where(['status' => MaterialPhoneModel::STATUS_ACTIVE])
+        $model = MaterialPhoneModel::find()->where(['!=','status',MaterialPhoneModel::STATUS_DELETED])
             ->andWhere(['mobile_id' => $phoneId])
             ->andWhere(['material_id' => $materialId])
             ->asArray()
