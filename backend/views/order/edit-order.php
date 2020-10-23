@@ -19,7 +19,7 @@ use yii\helpers\Url;
                 <dd>
                     <input id="-brand-id" type="hidden" name="orderModel[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
                     <input id="-brand-name" type="text" class="required textInput readonly" readonly="true" name="brand.name" value="<?=ArrayHelper::getValue($model,'brand.name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1, 'more' => $more])?>" lookupgroup="brand">查找带回</a>
+                    <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
                 </dd>
             </dl>
             <dl>
