@@ -125,7 +125,7 @@ class OrderController extends BaseController
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '更新成功',
-                'navTabId' => 'distribution-list',
+                'navTabId' => 'order-list',
                 'callbackType' => 'forward',
                 'forwardUrl'  => Url::to(['order/distribution-list'])
             ]);
