@@ -42,7 +42,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                         </td>
                         <td>
                             信息是否完整:
-                            <select name="PhoneModel[status]" valign="<?=ArrayHelper::getValue($other,'status')?>">
+                            <select name="other[status]" valign="<?=ArrayHelper::getValue($other,'status')?>">
                                 <option value="">--选择--</option>
                                 <option value="2" <?=ArrayHelper::getValue($other,'status') === '2' ? 'selected' : ''?>>否</option>
                                 <option value="0" <?=ArrayHelper::getValue($other,'status') === '0' ? 'selected' : ''?>>是</option>

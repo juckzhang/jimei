@@ -40,7 +40,7 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>信息是否完整：</dt>
                 <dd>
-                    <select name="PhoneModel[status]" valign="<?=ArrayHelper::getValue($model,'status','0')?>">
+                    <select name="MaterialPhoneModel[status]" valign="<?=ArrayHelper::getValue($model,'status','0')?>">
                         <option value="2" <?=ArrayHelper::getValue($model,'status') === '2' ? 'selected' : ''?>>否</option>
                         <option value="0" <?=ArrayHelper::getValue($model,'status') === '0' ? 'selected' : ''?>>是</option>
                     </select>
