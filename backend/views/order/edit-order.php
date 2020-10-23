@@ -76,14 +76,14 @@ use yii\helpers\Url;
         $('#-look-mobile').on('click',function(){
             var brand_name = $('#-brand-name').val(),
                 brand_id = $('#-brand-id').val(),
-                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
+                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'notMore' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
             $(this).attr('href', _href);
         });
 
         $('#-look-theme').on('click',function(){
             var customer_name = $('#-customer-name').val(),
                 customer_id = $('#-customer-id').val(),
-                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+customer_name;
+                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+customer_name;
             $(this).attr('href', _href);
         });
     });
