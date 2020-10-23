@@ -27,7 +27,7 @@ use yii\helpers\Url;
                 <dd>
                     <input type="hidden" name="orderModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'notMore' => 1])?>" lookupgroup="phone">查找带回</a>
+                    <a id="-look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'notMore' => 1])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
             <dl>
@@ -59,7 +59,7 @@ use yii\helpers\Url;
                 <dd>
                     <input type="hidden" name="orderModel[theme_id]" data-name="theme.id" value="<?=ArrayHelper::getValue($model, 'theme_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="theme.name" value="<?=ArrayHelper::getValue($model,'theme.name')?>" data-name="theme.name" suggestfields="name" lookupgroup="theme" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1])?>" lookupgroup="theme">查找带回</a>
+                    <a id="-look-theme" class="btnLook" href="<?=Url::to(['theme/theme-list', 'search' => 1])?>" lookupgroup="theme">查找带回</a>
                 </dd>
             </dl>
         </div>
@@ -71,3 +71,20 @@ use yii\helpers\Url;
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    $(function(){
+        $('#-look-mobile').on('click',function(){
+            var brand_name = $('#-brand-name').val(),
+                brand_id = $('#-brand-id').val(),
+                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
+            $(this).attr('href', _href);
+        });
+
+        $('#-look-theme').on('click',function(){
+            var customer_name = $('#-customer-name').val(),
+                customer_id = $('#-customer-id').val(),
+                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+customer_name;
+            $(this).attr('href', _href);
+        });
+    });
+</script>
