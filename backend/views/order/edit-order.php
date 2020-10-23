@@ -33,7 +33,7 @@ use yii\helpers\Url;
             <dl>
                 <dt>材质分类：</dt>
                 <dd>
-                    <input type="hidden" name="orderModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'mmaterial_id')?>">
+                    <input type="hidden" name="orderModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1])?>" lookupgroup="material">查找带回</a>
                 </dd>
