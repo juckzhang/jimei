@@ -52,7 +52,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                <li><a title="确实要重新解析这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/parse-order'])?>" class="add"><span>批量解析</span></a></li>
+                <li><a title="确实要重新解析这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/parse-order'])?>" class="edit"><span>批量解析</span></a></li>
             <?php endif;?>
         </ul>
     </div>
@@ -91,7 +91,7 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <li><a title="解析" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAssign"><span>解析</span></a></li>
+                        <li><a title="解析" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析</span></a></li>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
