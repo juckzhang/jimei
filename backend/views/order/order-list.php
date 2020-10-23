@@ -98,11 +98,11 @@ $more = ArrayHelper::getValue($params, 'more');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <li><a title="解析" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析</span></a></li>
+                        <li><a title="解析套餐码" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析套餐码</span></a></li>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <li><a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','ids' => $data['id']])?>" class="btnEdit"><span>解析</span></a></li>
+                        <li><a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit"><span>编辑</span></a></li>
                     <?php endif;?>
                 </td>
             </tr>
