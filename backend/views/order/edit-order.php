@@ -5,7 +5,7 @@ use yii\helpers\Url;
 <h2 class="contentTitle">编辑订单</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['order/edit-order','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
-        <input type="hidden" name="orderModel[status]" value="0">
+        <input type="hidden" name="OrderModel[status]" value="0">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>订单号：</dt>
