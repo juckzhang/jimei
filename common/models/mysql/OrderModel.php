@@ -14,6 +14,12 @@ class OrderModel extends ActiveRecord
             ->asArray();
     }
 
+    public function getCustomer(){
+        return $this->hasOne(CustomerModel::className(), ['id' => 'customer_id'])
+            ->select(['id','name', 'barcode'])
+            ->asArray();
+    }
+
     public function getTheme()
     {
         return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
