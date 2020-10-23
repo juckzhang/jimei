@@ -31,3 +31,7 @@
 ### 白板图片链接列表
 - url: /api/relation-list
 - 请求参数:page: 当前页面 count: 每页返回数量 update_time: 更新时间 >= 参数时间 默认0
+
+### 订单列表
+- url: /api/list-base
+- 请求参数: page: 当前页面 count: 每页返回数量 base_id: 配货单id
