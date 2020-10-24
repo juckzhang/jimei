@@ -99,7 +99,11 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
-                <td><?=$data['status'] == 2 or ArrayHelper::getValue($data,'relat.status') == 2 or ArrayHelper::getValue($data, 'phone.status') == 2 ? '<span style="color: red;">异常</span>' : '正常'?></td>
+                <td><?php if($data['status'] == 2 or ArrayHelper::getValue($data,'relat.status') == 2 or ArrayHelper::getValue($data, 'phone.status') == 2)
+                    echo '<span style="color: red;">异常</span>';
+                else
+                    echo '正常';
+                ?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
