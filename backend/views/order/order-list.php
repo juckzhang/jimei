@@ -94,7 +94,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=ArrayHelper::getValue($data,'phone.width')?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.height')?></td>
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
-                <td><?=ArrayHelper::getValue($data,'material.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.left')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.top')?></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
