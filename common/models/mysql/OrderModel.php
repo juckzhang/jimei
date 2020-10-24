@@ -24,14 +24,14 @@ class OrderModel extends ActiveRecord
     {
         return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
             ->where(['status' => ThemeModel::STATUS_ACTIVE])
-            ->select(['id','name','template_url'])
+            ->select(['id','name','template_url','status'])
             ->asArray();
     }
 
     public function getPhone()
     {
         return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])
-            ->select(['id','width','height','modal','canvas_type'])
+            ->select(['id','width','height','modal','canvas_type','status'])
             ->asArray();
     }
 
