@@ -69,8 +69,14 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">商品名称</th>
             <th width="80">条码</th>
             <th width="80">机型</th>
+            <th width="80">机型宽</th>
+            <th width="80">机型高</th>
             <th width="80">材质</th>
+            <th width="80">左边距</th>
+            <th width="80">上边距</th>
+            <th width="80">边框图</th>
             <th width="80">素材</th>
+            <th width="80">图片</th>
             <th width="80">颜色</th>
             <th width="80">状态</th>
             <th orderfield="update_time" width="80">修改时间</th>
@@ -85,10 +91,17 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=$data['goodsname']?></td>
                 <td><?=$data['barcode']?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
+                <td><?=ArrayHelper::getValue($data,'phone.width')?></td>
+                <td><?=ArrayHelper::getValue($data,'phone.height')?></td>
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
+                <td><?=ArrayHelper::getValue($data,'material.name')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.left')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.top')?></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
-                <td><?=$data['status'] == 2 ? '<span style="color: red;">异常</span>' : '正常'?></td>
+                <td><?=$data['status'] == 2 or ArrayHelper::getValue($data,'relat.status') == 2 or ArrayHelper::getValue($data, 'phone.status') == 2 ? '<span style="color: red;">异常</span>' : '正常'?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
