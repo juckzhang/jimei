@@ -68,18 +68,17 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">订单号</th>
             <th width="80">商品名称</th>
             <th width="80">条码</th>
-            <th width="80">机型</th>
-            <th width="80">机型宽</th>
-            <th width="80">机型高</th>
+            <th width="40">机型</th>
+            <th width="40">机型宽</th>
+            <th width="40">机型高</th>
             <th width="80">材质</th>
-            <th width="80">左边距</th>
-            <th width="80">上边距</th>
+            <th width="40">左边距</th>
+            <th width="40">上边距</th>
             <th width="80">边框图</th>
             <th width="80">素材</th>
             <th width="80">图片</th>
-            <th width="80">颜色</th>
-            <th width="80">状态</th>
-            <th orderfield="update_time" width="80">修改时间</th>
+            <th width="40">颜色</th>
+            <th width="40">状态</th>
             <th width="70">操作</th>
         </tr>
         </thead>
@@ -101,7 +100,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
                 <td><?=$data['status'] == 2 or ArrayHelper::getValue($data,'relat.status') == 2 or ArrayHelper::getValue($data, 'phone.status') == 2 ? '<span style="color: red;">异常</span>' : '正常'?></td>
-                <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
                     <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
