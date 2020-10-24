@@ -77,7 +77,12 @@ class OrderService extends BackendService
 
             $borderUrl = ArrayHelper::getValue($item, 'relat.border_url');
             if($borderUrl) $borderUrl = \Yii::$app->params['picUrlPrefix'] . $borderUrl;
-
+            $status = 0;
+            if($item['status'] == 2
+                or ArrayHelper::getValue($item,'relat.status') == 2
+                or ArrayHelper::getValue($item, 'phone.status') == 2
+            )
+                $status = 1;
             $dataList[] = [
                 'barcode' => $item['barcode'],
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
@@ -91,7 +96,7 @@ class OrderService extends BackendService
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'border_url' => $borderUrl,
                 'color' => ArrayHelper::getValue($item, 'color.name'),
-                'status' => $item['status'],
+                'status' => $status,
             ];
         }
         $data['items'] = $dataList;
