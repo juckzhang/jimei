@@ -14,7 +14,7 @@ class ThemeService extends BackendService
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = $cardModels = ThemeModel::find()
-            ->where(['!=','status' , ThemeModel::STATUS_DELETED])
+            ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
             ->andFilterWhere([
                 'or',
                 ['like','name',ArrayHelper::getValue($other, 'keyword')],
