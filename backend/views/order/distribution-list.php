@@ -92,7 +92,7 @@ $status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/order-list')):?>
-                        <a title="订单" target="navTab" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnInfo">订单</a>
+                        <a title="订单" target="navTab" rel="order-list" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnInfo">订单</a>
                     <?php endif;?>
 
                     <?php if($search):?>
