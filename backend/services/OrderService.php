@@ -54,10 +54,8 @@ class OrderService extends BackendService
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
         $data = ['pageCount' => 0,'items' => [],'dataCount' => 0, 'sn' => $baseList['sn']];
-        $models = OrderModel::find()->where([
-                'status' => OrderModel::STATUS_ACTIVE,
-                'base_id' => $baseId,
-            ])->with('phone')
+        $models = OrderModel::find()->where(['base_id' => $baseId,])
+            ->with('phone')
             ->with('material')
             ->with('color')
             ->with('theme')
@@ -84,6 +82,7 @@ class OrderService extends BackendService
             )
                 $status = 1;
             $dataList[] = [
+                'id' => $item['id'],
                 'barcode' => $item['barcode'],
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
                 'template_url' => $templateUrl,

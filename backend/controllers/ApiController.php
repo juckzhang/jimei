@@ -6,6 +6,7 @@ use backend\services\CustomerService;
 use backend\services\MaterialService;
 use backend\services\PhoneService;
 use backend\services\ThemeService;
+use common\models\mysql\OrderModel;
 use Yii;
 use backend\services\OrderService;
 use yii\helpers\ArrayHelper;
@@ -25,6 +26,15 @@ class ApiController extends BaseController
         $data = OrderService::getService()->BaseOrderList($baseId, $page, $count);
 
         return $this->returnAjaxSuccess($data);
+    }
+
+    public function actionUpdateOrder(){
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+        $status = ArrayHelper::getValue($this->paramData, 'status');
+
+        OrderModel::updateAll(['id' => $ids], ['status' => $status]);
+
+        return $this->returnAjaxSuccess();
     }
 
     //品牌列表
