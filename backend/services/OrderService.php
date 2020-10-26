@@ -34,7 +34,7 @@ class OrderService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy(['barcode' => SORT_ASC])
+            $data['dataList'] = $models->orderBy(['suitecode' => SORT_ASC])
                 ->limit($limit)
                 ->offset($offset)
                 ->with('phone')
@@ -62,7 +62,7 @@ class OrderService extends BackendService
             ->with('relat');
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
-        $items = $models->orderBy(['barcode' => SORT_ASC])
+        $items = $models->orderBy(['suitecode' => SORT_ASC])
             ->limit($limit)
             ->offset($offset)
             ->asArray()
@@ -194,9 +194,10 @@ class OrderService extends BackendService
 
         $filed = [
             'order_id', 'base_id', 'print_flag', 'is_refund',
-            'barcode', 'mobile_id', 'brand_id','customer_id',
+            'suitecode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
-            'update_time', 'goodsname', 'lcmccode', 'mccode', 'num', 'status'
+            'update_time', 'goodsname', 'lcmccode', 'mccode',
+            'eshopskuname','checkcode', 'num', 'status',
         ];
         if($batchData){
             //$batchData = $this->sortOrder($batchData);
@@ -240,7 +241,7 @@ class OrderService extends BackendService
             'base_id' => $sn,
             'print_flag' => (int)$order['isdistconfirmprint'],
             'is_refund' => (int)$order['isrefund'],
-            'barcode' => $mealCode,
+            'suitecode' => $mealCode,
             'mobile_id' => ArrayHelper::getValue($phone, 'id', 0),
             'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
             'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
@@ -252,6 +253,8 @@ class OrderService extends BackendService
             'goodsname' => $order['goodsname'],
             'lcmccode' => $order['lcmccode'],
             'mccode' => $order['mccode'],
+            'eshopskuname' => $order['eshopskuname'],
+            'checkcode' => $order['checkcode'],
             'num' => $order['qty'],
             'status' => $status,
         ];

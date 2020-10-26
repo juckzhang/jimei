@@ -67,6 +67,8 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="80">订单号</th>
             <th width="80">商品名称</th>
+            <th width="80">网店规格型号</th>
+            <th width="80">校验码</th>
             <th width="80">条码</th>
             <th width="40">机型</th>
             <th width="40">机型宽</th>
@@ -88,7 +90,17 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['order_id']?></td>
                 <td><?=$data['goodsname']?></td>
-                <td><?=$data['barcode']?></td>
+                <td><?=$data['eshopskuname']?></td>
+                <td><?=$data['checkcode']?></td>
+                <td><?=sprintf(
+                        "%s%s%s%s%s%s",
+                        ArrayHelper::getValue($data, 'brand.barcode'),
+                        ArrayHelper::getValue($data, 'phone.barcode'),
+                        ArrayHelper::getValue($data, 'material.barcode'),
+                        ArrayHelper::getValue($data, 'color.barcode'),
+                        ArrayHelper::getValue($data, 'customer.barcode'),
+                        ArrayHelper::getValue($data, 'theme.barcode')
+                    )?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.width')?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.height')?></td>
@@ -102,7 +114,9 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?php if($data['status'] == 2
                         or ArrayHelper::getValue($data,'relat.status') == 2
                         or ArrayHelper::getValue($data, 'phone.status') == 2
-                    or ArrayHelper::getValue($data, 'theme.status') == 2)
+                    or ArrayHelper::getValue($data, 'theme.status') == 2
+                        or ! ArrayHelper::getValue($data, 'theme')
+                    )
                     echo '<span style="color: red;">异常</span>';
                 else
                     echo '正常';
