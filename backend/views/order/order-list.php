@@ -115,8 +115,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                         or ArrayHelper::getValue($data,'relat.status') == 2
                         or ArrayHelper::getValue($data, 'phone.status') == 2
                     or ArrayHelper::getValue($data, 'theme.status') == 2
-                        or ! ArrayHelper::getValue($data, 'theme')
-                    )
+                    or !ArrayHelper::getValue($data,'relat'))
                     echo '<span style="color: red;">异常</span>';
                 else
                     echo '正常';
