@@ -56,7 +56,6 @@ CREATE TABLE if NOT EXISTS jimei_order(
   `base_id` int unsigned NOT NULL default  0 comment'打印单号',
   print_flag tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：未打印 1：已打印',
   is_refund tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：已退款',
-  barcode char(20) NOT NULL default  '' comment '完整二维码识别号 example: HW0010101MW0001',
   brand_id int unsigned NOT NULL default  0 comment'品牌id',
   mobile_id int unsigned NOT NULL default  0 comment'手机型号id',
   customer_id int unsigned NOT NULL default  0 comment'客户id',
@@ -69,6 +68,8 @@ CREATE TABLE if NOT EXISTS jimei_order(
   mccode varchar(255) not null default '' comment '网店商家编码',
   num int unsigned NOT NULL DEFAULT 0 comment'数量',
   suitecode varchar(255) not null default '' comment '套餐编码',
+  eshopskuname varchar(255) not null default '' comment'网点规格型号',
+  checkcode varchar(255) not null default '' comment'校验码',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
