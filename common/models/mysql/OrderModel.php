@@ -24,28 +24,28 @@ class OrderModel extends ActiveRecord
     {
         return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
             ->where(['status' => ThemeModel::STATUS_ACTIVE])
-            ->select(['id','name','template_url','status'])
+            ->select(['id','name','template_url','status','barcode'])
             ->asArray();
     }
 
     public function getPhone()
     {
         return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])
-            ->select(['id','width','height','modal','canvas_type','status'])
+            ->select(['id','width','height','modal','canvas_type','status', 'barcode'])
             ->asArray();
     }
 
     public function getMaterial()
     {
         return $this->hasOne(MaterialModel::className(), ['id' => 'material_id'])
-            ->select(['id','name'])
+            ->select(['id','name','barcode'])
             ->asArray();
     }
 
     public function getColor()
     {
         return $this->hasOne(ColorModel::className(), ['id' => 'color_id'])
-            ->select(['id','name'])
+            ->select(['id','name','barcode'])
             ->asArray();
     }
 
