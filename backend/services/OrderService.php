@@ -81,6 +81,7 @@ class OrderService extends BackendService
             if($item['status'] == 2
                 or ArrayHelper::getValue($item,'relat.status') == 2
                 or ArrayHelper::getValue($item, 'phone.status') == 2
+                or !ArrayHelper::getValue($item, 'relat')
             )
                 $status = 1;
             $dataList[] = [
@@ -97,7 +98,7 @@ class OrderService extends BackendService
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'border_url' => $borderUrl,
                 'color' => ArrayHelper::getValue($item, 'color.name'),
-                'status' => $status,
+                'status' => $item['status'] ?: $status,
             ];
         }
         $data['items'] = $dataList;
