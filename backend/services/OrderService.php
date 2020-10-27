@@ -86,7 +86,15 @@ class OrderService extends BackendService
                 $status = 1;
             $dataList[] = [
                 'id' => $item['id'],
-                'barcode' => $item['barcode'],
+                'barcode' => sprintf(
+                    "%s%s%s%s%s%s",
+                    ArrayHelper::getValue($item, 'brand.barcode'),
+                    ArrayHelper::getValue($item, 'phone.barcode'),
+                    ArrayHelper::getValue($item, 'material.barcode'),
+                    ArrayHelper::getValue($item, 'color.barcode'),
+                    ArrayHelper::getValue($item, 'customer.barcode'),
+                    ArrayHelper::getValue($item, 'theme.barcode')
+                ),
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
                 'template_url' => $templateUrl,
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
