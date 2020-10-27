@@ -25,9 +25,13 @@ class OrderService extends BackendService
             ->where(['base_id' => $basid])
             ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
             ->andFilterWhere([
-                'and',
+                'or',
                 ['like', 'order_id',ArrayHelper::getValue($other, 'keyword')],
-                ['like', 'barcode',ArrayHelper::getValue($other, 'keyword')]
+                ['like', 'suitecode',ArrayHelper::getValue($other, 'keyword')],
+                ['like', 'goodsname',ArrayHelper::getValue($other, 'keyword')],
+                ['like', 'eshopskuname',ArrayHelper::getValue($other, 'keyword')],
+                ['like', 'checkcode',ArrayHelper::getValue($other, 'keyword')],
+                ['like', 'shopname',ArrayHelper::getValue($other, 'keyword')],
             ]);
 
         $data['dataCount'] = $models->count();
