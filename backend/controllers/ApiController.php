@@ -39,7 +39,7 @@ class ApiController extends BaseController
         $ids = ArrayHelper::getValue($this->paramData,'ids');
         $status = ArrayHelper::getValue($this->paramData, 'status');
 
-        OrderModel::updateAll(['id' => $ids], ['status' => $status]);
+        OrderModel::updateAll(['status' => $status], ['id' => $ids]);
 
         return $this->returnAjaxSuccess();
     }
