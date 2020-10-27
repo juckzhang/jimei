@@ -13,11 +13,13 @@ $brandId = ArrayHelper::getValue($other, 'brand_id');
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
 $notMore = ArrayHelper::getValue($params,'notMore');
+$select = ArrayHelper::getValue($params,'select');
 $canvasType = ['1' => '普通画布', '2' => '大画布'];
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
         <input type="hidden" name="search" value="<?=$search?>">
+        <input type="hidden" name="select" value="<?=$select?>">
         <input type="hidden" name="more" value="<?=$more?>">
         <input type="hidden" name="notMore" value="<?=ArrayHelper::getValue($params,'notMore')?>">
         <input type="hidden" name="pageNum" value="<?=$page?>" />
@@ -26,20 +28,32 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
         <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
     </form>
     <div class="pageHeader">
-        <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search, 'more' => $more, 'notMore' => $notMore])?>" method="post">
+        <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search, 'more' => $more, 'notMore' => $notMore, 'select' => $select])?>" method="post">
             <div class="searchBar">
                 <table class="searchContent">
                     <tbody>
                     <tr>
                         <td>名称：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
+                        <?php if(!ArrayHelper::getValue($params, 'select')):?>
+                            <td>
+                                品牌:
+                                <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
+                                <input type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                                <?php if(!ArrayHelper::getValue($params,'notMore')):?>
+                                    <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
+                                <?php endif;?>
+                            </td>
+                        <?php else:?>
                         <td>
                             品牌:
-                            <input type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
-                            <input type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
-                            <?php if(!ArrayHelper::getValue($params,'notMore')):?>
-                            <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
-                            <?php endif;?>
+                            <select name="other[brand_id]" value="<?=ArrayHelper::getValue($other,'brand_id')?>">
+                                <option value="">--选择品牌--</option>
+                                <?php foreach ($brandList as $brand):?>
+                                    <option value="<?=$brand['id']?>" <?=$brand['id'] == ArrayHelper::getValue($other,'brand_id') ? 'selected' : ''?>><?=$brand['name']?></option>
+                                <?php endforeach;?>
+                            </select>
                         </td>
+                        <?php endif;?>
                         <td>
                             信息是否完整:
                             <select name="other[status]" valign="<?=ArrayHelper::getValue($other,'status')?>">
