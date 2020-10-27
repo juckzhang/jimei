@@ -70,6 +70,7 @@ CREATE TABLE if NOT EXISTS jimei_order(
   suitecode varchar(255) not null default '' comment '套餐编码',
   eshopskuname varchar(255) not null default '' comment'网点规格型号',
   checkcode varchar(255) not null default '' comment'校验码',
+  shopname varchar(255) not null default '' comment'网店名称',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
