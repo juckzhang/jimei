@@ -71,6 +71,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">网店规格型号</th>
             <th width="80">校验码</th>
             <th width="80">条码</th>
+            <th width="80">套餐编码(全渠道)</th>
             <th width="40">机型</th>
             <th width="40">机型宽</th>
             <th width="40">机型高</th>
@@ -103,6 +104,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                         ArrayHelper::getValue($data, 'customer.barcode'),
                         ArrayHelper::getValue($data, 'theme.barcode')
                     )?></td>
+                <td><?=$data['suitecode']?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.width')?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.height')?></td>
