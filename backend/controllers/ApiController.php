@@ -15,6 +15,13 @@ class ApiController extends BaseController
 {
     public function beforeAction($action){
         $this->paramData = Yii::$app->getRequest()->postGet();
+        $body = Yii::$app->getRequest()->getRawBody();
+        if($body){
+            $body = json_decode($body, true);
+            if(is_array($body)){
+                $this->paramData = ArrayHelper::merge($this->paramData, $body);
+            }
+        }
 
         return true;
     }
