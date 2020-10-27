@@ -32,6 +32,8 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                         <option value="">--选择--</option>
                         <option value="0" <?=ArrayHelper::getValue($other,'status') === '0' ? 'selected' : ''?>>正常订单</option>
                         <option value="2" <?=ArrayHelper::getValue($other,'status') === '2' ? 'selected' : ''?>>异常订单</option>
+                        <option value="3" <?=ArrayHelper::getValue($other,'status') === '3' ? 'selected' : ''?>>制图失败</option>
+                        <option value="4" <?=ArrayHelper::getValue($other,'status') === '4' ? 'selected' : ''?>>制图成功</option>
                     </select>
                     </td>
                 </tr>
