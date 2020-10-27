@@ -199,7 +199,7 @@ class OrderService extends BackendService
             'suitecode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
             'update_time', 'goodsname', 'lcmccode', 'mccode',
-            'eshopskuname','checkcode', 'num', 'status',
+            'eshopskuname','checkcode', 'shopname','num', 'status',
         ];
         if($batchData){
             //$batchData = $this->sortOrder($batchData);
@@ -257,6 +257,7 @@ class OrderService extends BackendService
             'mccode' => $order['mccode'],
             'eshopskuname' => ArrayHelper::getValue($order,'eshopskuname',''),
             'checkcode' => ArrayHelper::getValue($order,'checkcode',''),
+            'shopname' => ArrayHelper::getValue($order,'shopname',''),
             'num' => $order['qty'],
             'status' => $status,
         ];

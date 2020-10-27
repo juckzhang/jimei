@@ -66,6 +66,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="80">订单号</th>
+            <th width="80">网店名称</th>
             <th width="80">商品名称</th>
             <th width="80">网店规格型号</th>
             <th width="80">校验码</th>
@@ -89,6 +90,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=$data['order_id']?></td>
+                <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
                 <td><?=$data['eshopskuname']?></td>
                 <td><?=$data['checkcode']?></td>
