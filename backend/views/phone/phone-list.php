@@ -44,12 +44,15 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
                                 <?php endif;?>
                             </td>
                         <?php else:?>
-                        <select name="other[brand_id]" value="<?=ArrayHelper::getValue($other,'brand_id')?>">
-                            <option value="">--选择品牌--</option>
-                            <?php foreach ($brandList as $brand):?>
-                            <option value="<?=$brand['id']?>" <?=$brand['id'] == ArrayHelper::getValue($other,'brand_id') ? 'selected' : ''?>><?=$brand['name']?></option>
-                            <?php endforeach;?>
-                        </select>
+                        <td>
+                            品牌:
+                            <select name="other[brand_id]" value="<?=ArrayHelper::getValue($other,'brand_id')?>">
+                                <option value="">--选择品牌--</option>
+                                <?php foreach ($brandList as $brand):?>
+                                    <option value="<?=$brand['id']?>" <?=$brand['id'] == ArrayHelper::getValue($other,'brand_id') ? 'selected' : ''?>><?=$brand['name']?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </td>
                         <?php endif;?>
                         <td>
                             信息是否完整:
