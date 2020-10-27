@@ -57,9 +57,11 @@ class OrderService extends BackendService
         $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
         $data = ['pageCount' => 0,'items' => [],'dataCount' => 0, 'sn' => $baseList['sn']];
         $models = OrderModel::find()->where(['base_id' => $baseId,])
+            ->with('brand')
             ->with('phone')
             ->with('material')
             ->with('color')
+            ->with('customer')
             ->with('theme')
             ->with('relat');
         $data['dataCount'] = $models->count();
