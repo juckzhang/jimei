@@ -23,7 +23,6 @@ class OrderModel extends ActiveRecord
     public function getTheme()
     {
         return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
-            ->where(['status' => ThemeModel::STATUS_ACTIVE])
             ->select(['id','name','template_url','status','barcode'])
             ->asArray();
     }
