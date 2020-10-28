@@ -22,7 +22,7 @@ class ClientHelper
         }
         $sign .= $data.\Yii::$app->params['appSecret'];//static::APP_SECRET;
 
-        file_put_contents(static::LOG_FILE, $sign.PHP_EOL.PHP_EOL);
+        file_put_contents(static::LOG_FILE, $sign.PHP_EOL.PHP_EOL, FILE_APPEND);
         return strtoupper(md5($sign));
     }
 
