@@ -67,22 +67,22 @@ $baseId = ArrayHelper::getValue($params,'base_id');
         <thead>
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
-            <th width="100">订单号</th>
-            <th width="120">网店名称</th>
-            <th width="120">商品名称</th>
-            <th width="140">网店规格型号</th>
-            <th width="60">校验码</th>
-            <th width="100">条码</th>
-            <th width="100">套餐编码(全渠道)</th>
-            <th width="60">机型</th>
-            <th width="50">机型宽</th>
-            <th width="50">机型高</th>
-            <th width="60">材质</th>
+            <th width="80">订单号</th>
+            <th width="80">网店名称</th>
+            <th width="80">商品名称</th>
+            <th width="80">网店规格型号</th>
+            <th width="80">校验码</th>
+            <th width="80">条码</th>
+            <th width="80">套餐编码(全渠道)</th>
+            <th width="40">机型</th>
+            <th width="40">机型宽</th>
+            <th width="40">机型高</th>
+            <th width="80">材质</th>
             <th width="40">左边距</th>
             <th width="40">上边距</th>
-            <th width="500">边框图</th>
+            <th width="80">边框图</th>
             <th width="80">素材</th>
-            <th width="50">图片</th>
+            <th width="80">图片</th>
             <th width="40">颜色</th>
             <th width="40">状态</th>
             <th width="70">操作</th>
