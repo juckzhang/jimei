@@ -63,7 +63,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <?php endif;?>
         </ul>
     </div>
-    <table class="table" width="1200" layoutH="138">
+    <table class="table" width="200%" layoutH="138">
         <thead>
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
@@ -132,11 +132,11 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <li><a title="解析套餐码" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析套餐码</span></a></li>
+                        <a title="解析套餐码" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析套餐码</span></a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <li><a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit"><span>编辑</span></a></li>
+                        <a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit"><span>编辑</span></a>
                     <?php endif;?>
                 </td>
             </tr>
