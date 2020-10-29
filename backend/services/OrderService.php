@@ -123,7 +123,7 @@ class OrderService extends BackendService
     public function reparseOrder($id){
         $orders = OrderModel::find()->where(['id' => $id])->all();
         foreach ($orders as $order){
-            $mealCode = $order['barcode'];
+            $mealCode = $order['suitecode'];
             $brandCode = substr($mealCode, 0, 2);
             $phoneCode = substr($mealCode, 2, 3);
             $materialCode = substr($mealCode, 5, 2);
