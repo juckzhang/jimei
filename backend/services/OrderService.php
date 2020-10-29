@@ -191,13 +191,17 @@ class OrderService extends BackendService
                 ]);
                 $orders = ArrayHelper::getValue($res, 'orders', []);
                 foreach ($orders as $order){
-                    if($order['suites']){
-                        foreach($order['suites'] as $meal){
-                            $mealCode = $meal['SuiteCode'];
-                            $batchData[] = $this->parseOrder($order, $model->id, $mealCode);
-                        }
-                    }else{
+                    $num = ArrayHelper::getValue($order,'qty', 1);
+                    $suites = ArrayHelper::getValue($order, 'suites', []);
+                    foreach($suites as $meal){
+                        --$num;
+                        $mealCode = $meal['SuiteCode'];
+                        $batchData[] = $this->parseOrder($order, $model->id, $mealCode);
+                    }
+
+                    while ($num > 0){
                         $batchData[] = $this->parseOrder($order, $model->id, $order['lcmccode'], true);
+                        --$num;
                     }
                 }
                 if(!$orders) return false;
