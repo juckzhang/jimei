@@ -26,16 +26,10 @@ $more = ArrayHelper::getValue($params, 'more');
                 <tbody>
                 <tr>
                     <td>
-                        品牌:
-                        <input id="bid" type="hidden" name="brand-id" data-name="brand.id" value="<?=ArrayHelper::getValue($params, 'brand-id')?>">
-                        <input id="bname" type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
-                        <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
-                    </td>
-                    <td>
                         机型:
                         <input type="hidden" name="other[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($other, 'phone_id')?>">
                         <input type="text" class="textInput readonly" readonly="true" name="phone-name" value="<?=ArrayHelper::getValue($params,'phone-name')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
-                        <a id="lookup-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
+                        <a class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'select' => 1])?>" lookupgroup="phone">查找带回</a>
                     </td>
                     <td>
                         材质:
@@ -131,17 +125,3 @@ $more = ArrayHelper::getValue($params, 'more');
     </div>
 </div>
 </div>
-<script type="text/javascript">
-    $(function(){
-        $('#lookup-mobile').on('click',function(){
-            var brand_name = $('#bname').val(),
-                brand_id = $('#bid').val(),
-                notMore = 1;
-                if(brand_id == ''){
-                    notMore = 0;
-                }
-                var _href = '<?=Url::to(['phone/phone-list', 'search' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name+'&notMore='+notMore;
-            $(this).attr('href', _href);
-        });
-    });
-</script>
