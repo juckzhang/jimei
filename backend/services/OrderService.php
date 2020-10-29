@@ -38,7 +38,7 @@ class OrderService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy(['suitecode' => SORT_ASC])
+            $data['dataList'] = $models->orderBy(['suitecode' => SORT_ASC, 'order_id' => SORT_DESC])
                 ->limit($limit)
                 ->offset($offset)
                 ->with('brand')
@@ -70,7 +70,7 @@ class OrderService extends BackendService
             ->with('relat');
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
-        $items = $models->orderBy(['suitecode' => SORT_ASC])
+        $items = $models->orderBy(['suitecode' => SORT_ASC,'order_id' => SORT_DESC])
             ->limit($limit)
             ->offset($offset)
             ->asArray()
@@ -191,13 +191,17 @@ class OrderService extends BackendService
                 ]);
                 $orders = ArrayHelper::getValue($res, 'orders', []);
                 foreach ($orders as $order){
-                    if($order['suites']){
-                        foreach($order['suites'] as $meal){
-                            $mealCode = $meal['SuiteCode'];
-                            $batchData[] = $this->parseOrder($order, $model->id, $mealCode);
-                        }
-                    }else{
-                        $batchData[] = $this->parseOrder($order, $model->id, $order['lcmccode'], true);
+                    $num = ArrayHelper::getValue($order,'qty', 1);
+                    $meal = ArrayHelper::getValue($order, 'suites.0', []);
+                    $mealCode = $order['lcmccode'];
+                    $except = true;
+                    if($meal and $meal['SuiteCode']){
+                        $mealCode = $meal['SuiteCode'];
+                        $except = false;
+                    }
+                    while ($num > 0){
+                        $batchData[] = $this->parseOrder($order, $model->id, $mealCode, $except);
+                        --$num;
                     }
                 }
                 if(!$orders) return false;
