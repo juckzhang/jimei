@@ -127,7 +127,7 @@ class OrderController extends BaseController
                 'message' => '更新成功',
                 'navTabId' => 'order-list',
                 'callbackType' => 'forward',
-                'forwardUrl'  => Url::to(['order/distribution-list'])
+                'forwardUrl'  => Url::to(['order/order-list'])
             ]);
         return $this->returnAjaxError($return);
     }
