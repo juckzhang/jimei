@@ -37,6 +37,15 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                         <?php endif;?>
                     </td>
+                    <td>
+                        颜色:
+                        <select name="other[color]" value="<?=ArrayHelper::getValue($other,'color')?>">
+                            <option value="">--选择颜色--</option>
+                            <?php foreach ($colorList as $item):?>
+                            <option value="<?=$item['name']?>" <?=ArrayHelper::getValue($other,'color') == $item['name'] ? 'selected' : ''?>><?=$item['name']?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </td>
                     <td>信息是否完整:
                         <select name="other[status]" value="<?=ArrayHelper::getValue($other,'status')?>">
                             <option value="">--选择--</option>
@@ -84,6 +93,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
             <th orderfield="brand_id" width="80">客户</th>
             <th width="80">图案原图名称</th>
             <th width="80">图案</th>
+            <th width="80">颜色</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
             <th width="70">操作</th>
@@ -103,6 +113,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['source_pic_name']?></td>
                 <td><img width="50" src="<?=rtrim($data['template_url'],'.tif').'.jpg'?>" /></td>
+                <td><?=$data['color']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <?php if(!$search):?>
                 <td>

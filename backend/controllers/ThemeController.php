@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
+use common\models\mysql\ColorModel;
 use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\ThemeService;
@@ -18,7 +19,10 @@ class ThemeController extends BaseController
         $customerIds = ArrayHelper::getValue($_other, 'customer_id');
         if($customerIds) $_other['customer_id'] = explode(',', $customerIds);
         $_order = $this->_sortOrder();
+
         $data = ThemeService::getService()->ThemeList($_page,$_prePage, $_order, $_other);
+        $data['colorList'] = ColorModel::find()->asArray()->all();
+
         return $this->render('theme-list',$data);
     }
 
