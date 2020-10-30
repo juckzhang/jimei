@@ -37,6 +37,15 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                         <?php endif;?>
                     </td>
+                    <td>
+                        颜色:
+                        <select name="other[color]" value="<?=ArrayHelper::getValue($other,'color')?>">
+                            <option>--选择颜色--</option>
+                            <?php foreach ($colorList as $item):?>
+                            <option value="<?=$item['name']?>"><?=$item['name']?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </td>
                     <td>信息是否完整:
                         <select name="other[status]" value="<?=ArrayHelper::getValue($other,'status')?>">
                             <option value="">--选择--</option>

@@ -20,8 +20,9 @@ class ThemeService extends BackendService
                 ['like','name',ArrayHelper::getValue($other, 'keyword')],
                 ['like','barcode',ArrayHelper::getValue($other, 'keyword')]
             ])
+
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
-            ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')])
+            ->andFilterWhere(['like','color',ArrayHelper::getValue($other, 'color')])
             ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
 
         $data['dataCount'] = $models->count();
