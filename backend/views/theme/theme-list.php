@@ -40,7 +40,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                     <td>
                         颜色:
                         <select name="other[color]" value="<?=ArrayHelper::getValue($other,'color')?>">
-                            <option>--选择颜色--</option>
+                            <option value="">--选择颜色--</option>
                             <?php foreach ($colorList as $item):?>
                             <option value="<?=$item['name']?>" <?=ArrayHelper::getValue($other,'color') == $item['name'] ? 'selected' : ''?>><?=$item['name']?></option>
                             <?php endforeach;?>
