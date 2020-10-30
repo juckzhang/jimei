@@ -36,8 +36,8 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>颜色：</dt>
                 <dd>
-                    <input type="text" class="required textInput readonly" readonly="true" name="ThemeModel[color]" value="<?=ArrayHelper::getValue($model,'color')?>" data-name="color" suggestfields="name" lookupgroup="color" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1])?>" lookupgroup="color">查找带回</a>
+                    <input type="text" class="required textInput readonly" readonly="true" name="ThemeModel[color]" value="<?=ArrayHelper::getValue($model,'color')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1, 'more' => 1])?>" lookupgroup="color">查找带回</a>
                 </dd>
             </dl>
             <dl>
