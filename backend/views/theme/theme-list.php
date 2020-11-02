@@ -90,7 +90,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
             <?php endif;?>
             <th orderfield="name" width="80">名称</th>
             <th width="80">条码</th>
-            <th orderfield="brand_id" width="80">客户</th>
+            <th orderfield="customer_id" width="80">客户</th>
             <th width="80">图案原图名称</th>
             <th width="80">图案</th>
             <th width="80">颜色</th>
