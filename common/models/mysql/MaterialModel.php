@@ -14,6 +14,6 @@ class MaterialModel extends ActiveRecord
     }
 
     public function getPhone(){
-        return $this->hasMany(MaterialPhoneModel::className(), ['material_id' => 'id'])->with('brand');
+        return $this->hasMany(MaterialPhoneModel::className(), ['material_id' => 'id']);
     }
 }
