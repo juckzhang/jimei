@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
+use common\models\mysql\ColorMaterialModel;
 use common\models\mysql\ColorModel;
 use Yii;
 use backend\services\ColorService;
@@ -15,9 +16,17 @@ class ColorController extends BaseController
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
+        $materialId = ArrayHelper::getValue($this->paramData, 'material_id');
+        if($materialId) $materialId = array_unique(explode(',', $materialId));
         $_order = $this->_sortOrder();
         $_other  = ArrayHelper::getValue($this->paramData,'other');
         $data = ColorService::getService()->ColorList($_page,$_prePage, $_order, $_other);
+        $data['colorIds'] = [];
+        if($materialId){
+            $colors = ColorMaterialModel::find()->select(['color_id'])->where(['material_id' => $materialId])->asArray()->all();
+            $data['colorIds'] = ArrayHelper::getColumn($colors, 'color_id', []);
+        }
+
         return $this->render('color-list',$data);
     }
 

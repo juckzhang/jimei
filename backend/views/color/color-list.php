@@ -78,9 +78,17 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
                 <?php if(!$search or $more):?>
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
+                <td>
+                    <?php if(!$check or in_array($data->id, $colorIds)):?>
+                    <input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox">
+                    <?php endif;?>
+                </td>
                 <?php elseif ($search):?>
-                <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a></td>
+                <td>
+                    <?php if(!$check or in_array($data->id, $colorIds)):?>
+                    <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a>
+                    <?php endif;?>
+                </td>
                 <?php endif;?>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>

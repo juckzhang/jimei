@@ -28,7 +28,7 @@ class PhoneController extends BaseController
         $data['mobileIds'] = [];
         if($materialId){
             $mobiles = MaterialPhoneModel::find()->select(['mobile_id'])->where(['material_id' => $materialId])->asArray()->all();
-            $data['mobileIds'] = ArrayHelper::getValue($mobiles, 'mobile_id', []);
+            $data['mobileIds'] = ArrayHelper::getColumn($mobiles, 'mobile_id', []);
         }
 
         return $this->render('phone-list',$data);
