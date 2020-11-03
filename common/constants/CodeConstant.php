@@ -39,4 +39,8 @@ class CodeConstant
     const DISTRIBUTION = -200;
     const DISTRIBUTION_RSYNC_FAILED        = self::DISTRIBUTION - 1;//配货单同步失败
     const DISTRIBUTION_NOT_ORDER        = self::DISTRIBUTION - 2; //收藏失败
+
+    const MEAL = -300;
+    const EDIT_MEAL_FAILED = self::MEAL - 1; //套餐生成失败
+    const NO_MEAL_RESULT = self::MEAL - 2; //无匹配结果
 }

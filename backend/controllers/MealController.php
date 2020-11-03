@@ -25,7 +25,7 @@ class MealController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $result = MealService::getService()->editMeal($this->paramData);
-            if($result)
+            if($result == 200)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'meal-list',

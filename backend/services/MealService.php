@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\constants\CodeConstant;
 use common\helpers\ClientHelper;
 use common\models\mysql\ColorModel;
 use common\models\mysql\MaterialModel;
@@ -145,14 +146,14 @@ class MealService extends BackendService
                 \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
                 $transaction->commit();
 
-                return true;
+                return 200;
             }catch (\Exception $e){
                 $transaction->rollBack();
-                return false;
+                return CodeConstant::EDIT_MEAL_FAILED;
             }
         }
 
-        return false;
+        return CodeConstant::NO_MEAL_RESULT;
     }
 
     public function syncMeal($ids){
