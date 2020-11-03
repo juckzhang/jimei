@@ -44,7 +44,7 @@ class MaterialService extends BackendService
         foreach ($colorIds as $colorId){
             $batchData[] = [
                 'color_id' => $colorId,
-                'material_id' => $model->material_id,
+                'material_id' => $model->id,
                 'create_time' => $now,
                 'update_time' => $now,
             ];

@@ -10,10 +10,10 @@ class MaterialModel extends ActiveRecord
     }
 
     public function getColor(){
-        return $this->hasMany(ColorMaterialModel::className(),['id' => 'material_id'])->with('color');
+        return $this->hasMany(ColorMaterialModel::className(),['material_id' => 'id'])->with('color');
     }
 
     public function getPhone(){
-        return $this->hasMany(MaterialPhoneModel::className(), ['id' => 'material_id'])->with('brand');
+        return $this->hasMany(MaterialPhoneModel::className(), ['material_id' => 'id'])->with('brand');
     }
 }
