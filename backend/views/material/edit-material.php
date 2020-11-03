@@ -25,7 +25,7 @@ use yii\helpers\ArrayHelper;
                 <dd>
                     <input type="hidden" name="MaterialModel[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="MaterialModel[color_name]" value="<?=ArrayHelper::getValue($model,'color_name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1, 'more' => $more,])?>" lookupgroup="color">查找带回</a>
+                    <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1, 'more' => 1,])?>" lookupgroup="color">查找带回</a>
                 </dd>
             </dl>
         </div>
