@@ -72,7 +72,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
-            <li><a class="add" href="<?=Url::to(['theme/edit-theme'])?>" target="navTab"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['theme/edit-theme', 'customer_id' => ArrayHelper::getValue($other, 'customer_id'), 'customer_name' => ArrayHelper::getValue($params, 'customer-name')])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('theme/delete-theme')):?>

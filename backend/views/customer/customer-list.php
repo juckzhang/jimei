@@ -94,7 +94,7 @@ $notMore = ArrayHelper::getValue($params, 'notMore');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('theme/theme-list')):?>
-                        <a title="机型列表" target="navTab" rel="theme-list" href="<?=Url::to(['theme/theme-list', 'other' => ['customer_id' => $data->id],'customer-name' => urlencode($data->name)])?>" class="btnInfo">编辑</a>
+                        <a title="机型列表" target="navTab" rel="theme-list" href="<?=Url::to(['theme/theme-list', 'notMore' => 1, 'other' => ['customer_id' => $data->id],'customer-name' => urlencode($data->name)])?>" class="btnInfo">编辑</a>
                     <?php endif;?>
                 </td>
                 <?php endif;?>
