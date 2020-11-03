@@ -83,7 +83,7 @@ class OrderController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $result = OrderService::getService()->editDistribution($this->paramData);
-            if($result)
+            if($result != 200)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'distribution-list',
