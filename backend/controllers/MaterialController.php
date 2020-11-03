@@ -26,7 +26,7 @@ class MaterialController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = MaterialService::getService()->editInfo($id, MaterialModel::className());
+            $result = MaterialService::getService()->editMaterial($this->paramData);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',

@@ -20,9 +20,18 @@ class MaterialService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)->limit($limit)->offset($offset)->all();
+            $data['dataList'] = $models->orderBy($order)
+                ->limit($limit)
+                ->with('color')
+                ->offset($offset)
+                ->all();
 
         return $data;
+    }
+
+    public function editMaterial($data){
+        $id = ArrayHelper::getValue($data, 'id');
+
     }
 }
 

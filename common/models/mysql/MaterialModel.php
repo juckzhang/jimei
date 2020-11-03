@@ -8,4 +8,8 @@ class MaterialModel extends ActiveRecord
     {
         return "{{%material}}";
     }
+
+    public function getColor(){
+        return $this->hasMany(ColorMaterialModel::className(),['id' => 'color_id'])->with('color');
+    }
 }

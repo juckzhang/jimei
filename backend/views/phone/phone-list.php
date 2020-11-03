@@ -15,12 +15,16 @@ $more = ArrayHelper::getValue($params, 'more');
 $notMore = ArrayHelper::getValue($params,'notMore');
 $select = ArrayHelper::getValue($params,'select');
 $canvasType = ['1' => '普通画布', '2' => '大画布'];
+$check = ArrayHelper::getValue($params, 'check');
+$material_id = ArrayHelper::getValue($params, 'material_id', '');
 ?>
 <div class="" id="phone-list" rel="phone-list">
     <form id="pagerForm" method="post" action="#rel#">
         <input type="hidden" name="search" value="<?=$search?>">
         <input type="hidden" name="select" value="<?=$select?>">
         <input type="hidden" name="more" value="<?=$more?>">
+        <input type="hidden" name="check" value="<?=$check?>">
+        <input type="hidden" name="material_id" value="<?=$material_id?>">
         <input type="hidden" name="notMore" value="<?=ArrayHelper::getValue($params,'notMore')?>">
         <input type="hidden" name="pageNum" value="<?=$page?>" />
         <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
@@ -28,7 +32,7 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
         <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
     </form>
     <div class="pageHeader">
-        <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search, 'more' => $more, 'notMore' => $notMore, 'select' => $select])?>" method="post">
+        <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['phone/phone-list','search' => $search, 'more' => $more, 'notMore' => $notMore, 'select' => $select,'check' => $check, 'material_id' => $material_id])?>" method="post">
             <div class="searchBar">
                 <table class="searchContent">
                     <tbody>
@@ -112,9 +116,17 @@ $canvasType = ['1' => '普通画布', '2' => '大画布'];
             <?php foreach($dataList as $key => $data):?>
                 <tr target="card-id" rel="<?=$data->id?>">
                     <?php if(!$search or $more):?>
-                    <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}',brand_id:$data->brand_id}" : $data->id?>" type="checkbox"></td>
+                    <td>
+                        <?php if(!$check or in_array($data->id, $mobileIds)):?>
+                        <input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->modal}',brand_id:$data->brand_id}" : $data->id?>" type="checkbox">
+                        <?php endif;?>
+                    </td>
                     <?php elseif ($search):?>
-                        <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a></td>
+                        <td>
+                            <?php if(!$check or in_array($data->id, $mobileIds)):?>
+                            <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->modal?>',brand_id:<?=$data->brand_id?>})" title="查找带回">选择</a>
+                            <?php endif;?>
+                        </td>
                     <?php endif;?>
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>

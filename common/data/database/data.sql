@@ -32,6 +32,8 @@ CREATE TABLE if NOT EXISTS jimei_material(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
   `name` VARCHAR(15) NOT NULL default '' comment '材质名称',
   barcode char(5) NOT NULL default  '' comment '条码识别字符',
+  `color_id` varchar(255) default  '' comment'颜色id',
+  `color_name` varchar(255) default  '' comment'颜色名称',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
@@ -129,6 +131,17 @@ CREATE TABLE if NOT EXISTS jimei_color(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
   unique (barcode)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'颜色';
+
+-- 颜色材质关系列表
+CREATE TABLE if NOT EXISTS jimei_color_material(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `color_id` int unsigned NOT NULL default 0 comment'颜色id',
+  `material_id` int unsigned NOT NULL default 0 comment'材质id',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`material_id`,`color_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
 -- 客户
 CREATE TABLE if NOT EXISTS jimei_customer(
