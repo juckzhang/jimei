@@ -139,7 +139,7 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
                     <?php if(!$search):?>
                     <td>
                         <?php if(\Yii::$app->user->can('phone/delete-phone')):?>
-                        <a title="删除" target="ajaxTodo" href="<?=Url::to(['media/delete-material','ids' => $data->id])?>" class="btnDel">删除</a>
+                        <a title="删除" target="ajaxTodo" href="<?=Url::to(['phone/delete-phone','ids' => $data->id])?>" class="btnDel">删除</a>
                         <?php endif;?>
 
                         <?php if(\Yii::$app->user->can('phone/edit-phone')):?>

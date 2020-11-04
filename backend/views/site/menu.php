@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Url;
 use common\models\mysql\AdModel;
+use common\helpers\CommonHelper;
+
+$user = CommonHelper::customer();
 ?>
 <div id="sidebar">
     <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
@@ -26,8 +29,14 @@ use common\models\mysql\AdModel;
                 <?php if(\Yii::$app->user->can('theme')):?>
                     <li><a>素材管理</a>
                         <ul>
-                            <?php if(\Yii::$app->user->can('theme/theme-list')):?>
-                                <li><a href="<?=Url::to(['theme/theme-list'])?>" target="navTab" rel="theme-list">图案列表</a></li>
+                            <?php if($user['related'] and !$user['multi']):?>
+                                <?php if(\Yii::$app->user->can('theme/theme-list')):?>
+                                    <li><a href="<?=Url::to(['theme/theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => $user['customer_name'],'notMore' => 1])?>" target="navTab" rel="theme-list">图案列表</a></li>
+                                <?php endif;?>
+                            <?php else:?>
+                                <?php if(\Yii::$app->user->can('customer/customer-list')):?>
+                                    <li><a href="<?=Url::to(['customer/customer-list'])?>" target="navTab" rel="customer-list">客户列表</a></li>
+                                <?php endif;?>
                             <?php endif;?>
                         </ul>
                     </li>
