@@ -36,6 +36,14 @@ $roleId   = ArrayHelper::getValue($model,'role_id');
                     </select>
                 </dd>
             </dl>
+            <dl>
+                <dt>关联客户：</dt>
+                <dd>
+                    <input type="hidden" name="AdminModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="AdminModel[customer_name]" value="<?=ArrayHelper::getValue($model,'customer_name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1, 'more' => 1])?>" lookupgroup="customer">查找带回</a>
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>
