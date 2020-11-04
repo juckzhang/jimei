@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
+use common\helpers\CommonHelper;
 use common\models\mysql\MealModel;
 use Yii;
 use backend\services\MealService;
@@ -12,9 +13,11 @@ class MealController extends BaseController
 {
     public function actionMealList()
     {
+        $user = CommonHelper::customer();
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $_other['customer_id'] = ArrayHelper::getValue($_other,'customer_id', $user['customer_id']);
         $_order = $this->_sortOrder();
         $data = MealService::getService()->mealList($_page,$_prePage, $_order, $_other);
         return $this->render('meal-list',$data);
