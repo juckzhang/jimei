@@ -1,12 +1,13 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use common\constants\Constant;
 
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
 $orderFiled = ArrayHelper::getValue($params,'orderField','');
 $orderDirection = ArrayHelper::getValue($params,'orderDirection','asc');
-$prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookies->getValue('prePage', 100));
+$prePage = ArrayHelper::getValue($params,'numPerPage',Constant::DEFAULT_PRE_PAGE);
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
@@ -108,6 +109,8 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                 <option value="50" <?=$prePage == 50 ?   'selected' : ''?>>50</option>
                 <option value="100" <?=$prePage == 100 ? 'selected' : ''?>>100</option>
                 <option value="200" <?=$prePage == 200 ? 'selected' : ''?>>200</option>
+                <option value="500" <?=$prePage == 500 ? 'selected' : ''?>>500</option>
+                <option value="1000" <?=$prePage == 1000 ? 'selected' : ''?>>1000</option>
             </select>
             <span>条，共<?=$dataCount?>条</span>
         </div>

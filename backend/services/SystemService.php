@@ -4,6 +4,7 @@ namespace backend\services;
 use common\constants\CodeConstant;
 use common\helpers\DateHelper;
 use common\helpers\TreeHelper;
+use common\models\mysql\AdminCustomerModel;
 use common\models\mysql\AdminModel;
 use common\models\mysql\RoleModel;
 use common\models\mysql\RoleSourceModel;
@@ -171,7 +172,32 @@ class SystemService extends BackendService
 
     public function editUser($id)
     {
-        return $this->editInfo($id,AdminModel::className());
+        $model = $this->editInfo($id,AdminModel::className());
+
+        $customerIds = array_filter(array_unique(explode(',', $model->customer_id)));
+        if($customerIds){
+            $filed = ['customer_id', 'user_id', 'create_time','update_time'];
+            $batchData = [];
+            $now = time();
+            foreach ($customerIds as $customerId){
+                $batchData[] = [
+                    'customer_id' => $customerId,
+                    'user_id' => $model->id,
+                    'create_time' => $now,
+                    'update_time' => $now,
+                ];
+            }
+            $transaction = \Yii::$app->db->beginTransaction();
+            try{
+                AdminCustomerModel::deleteAll(['user_id' => $model->id]);
+                \Yii::$app->db->createCommand()->batchInsert(AdminCustomerModel::tableName(),$filed,$batchData)->execute();
+                $transaction->commit();
+            }catch (\Exception $e){
+                $transaction->rollBack();
+            }
+        }
+
+        return $model;
     }
 
     public function deleteUser($ids)

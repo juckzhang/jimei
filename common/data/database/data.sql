@@ -186,6 +186,8 @@ create TABLE IF NOT EXISTS jimei_admin(
   role_id int unsigned NOT null default 0 comment'角色',
   `username` char(32) NOT NULL COMMENT '昵称，允许修改',
   `password` char(255) NOT NULL DEFAULT '',
+  customer_id varchar(255) not null default '' comment'客户id列表',
+  customer_name varchar(255) not null default '' comment'客户名称列表',
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
@@ -212,6 +214,17 @@ CREATE TABLE IF NOT EXISTS jimei_role_source(
   create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源角色关系表';
+
+CREATE TABLE IF NOT EXISTS jimei_user_customer(
+  `id` int unsigned NOT NULL PRIMARY  key AUTO_INCREMENT COMMENT '自增ID，主键',
+  user_id int  unsigned NOT NULL comment'角色id',
+  customer_id int unsigned NOT NULL comment'资源id',
+  sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
+  create_time bigint unsigned  NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned  NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
+  unique (user_id, customer_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'资源角色关系表';
 
 CREATE TABLE IF NOT EXISTS jimei_admin_operation(
