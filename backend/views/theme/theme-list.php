@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use common\constants\Constant;
+use common\helpers\CommonHelper;
 
 $params = \Yii::$app->request->getPost();
 $page   = ArrayHelper::getValue($params,'pageNum','1');
@@ -12,6 +13,7 @@ $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
 $notMore = ArrayHelper::getValue($params,'notMore');
+$user = CommonHelper::customer();
 ?>
 <div class="" id="theme-list" rel="theme-list">
 <form id="pagerForm" method="post" action="#rel#">
@@ -32,8 +34,8 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                     <td>名称/编码：<input name="other[keyword]" class="textInput" type="text" alt="" value="<?=ArrayHelper::getValue($other,'keyword')?>"></td>
                     <td>
                         客户:
-                        <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id')?>">
-                        <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                        <input type="hidden" name="other[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($other, 'customer_id',$user['customer_id'])?>">
+                        <input type="text" class="textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($params,'customer-name',$user['customer_name'])?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                         <?php if(!ArrayHelper::getValue($params,'notMore')):?>
                         <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                         <?php endif;?>

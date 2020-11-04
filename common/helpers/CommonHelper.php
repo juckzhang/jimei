@@ -65,4 +65,25 @@ class CommonHelper {
 
         return $message;
     }
+
+    public static function customer(){
+        $user = \Yii::$app->user->identity;
+        $customerIds = $user->customer_id;
+        $customerName = $user->customer_name;
+        $customerIdArr = null;
+        $multi = false;
+        $related = false;
+        if(strpos($customerIds,',')) $multi = true;
+        if($customerIds){
+            $customerIdArr = array_filter(explode(',', $customerIds));
+            $related = true;
+        }
+        return [
+            'customer_id' => $customerIds,
+            'customer_name' => $customerName,
+            'multi' => $multi,
+            'customer_id_arr' => $customerIdArr,
+            'related' => $related,
+        ];
+    }
 }

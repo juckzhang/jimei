@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
+use common\helpers\CommonHelper;
 use common\models\mysql\CustomerModel;
 use Yii;
 use backend\services\CustomerService;
@@ -16,6 +17,7 @@ class CustomerController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $_other['customer_id'] = CommonHelper::customer()['customer_id_arr'];
         $_order  = $this->_sortOrder();
         $data = CustomerService::getService()->CustomerList($_page,$_prePage, $_order, $_other);
         return $this->render('customer-list',$data);
