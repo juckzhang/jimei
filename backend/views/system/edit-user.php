@@ -6,7 +6,7 @@ $parentId = ArrayHelper::getValue($model,'parent_id');
 $id       = ArrayHelper::getValue($model,'id');
 $roleId   = ArrayHelper::getValue($model,'role_id');
 ?>
-<h2 class="contentTitle">文章编辑</h2>
+<h2 class="contentTitle">编辑用户</h2>
 <div class="pageContent">
 
     <form method="post" action="<?=Url::to(['system/edit-user','id' => $id])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">

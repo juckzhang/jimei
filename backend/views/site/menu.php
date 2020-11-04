@@ -114,7 +114,7 @@ $user = CommonHelper::customer();
                     <ul>
                         <li><a href="<?=Url::to(['system/role-list'])?>" target="navTab" rel="role-list">角色列表</a></li>
                         <?php if(\Yii::$app->user->can('system/edit-role')):?>
-                        <li><a href="<?=Url::to(['system/edit-role'])?>" target="navTab" rel="edit-role">添加角色 </a></li>
+                        <li><a href="<?=Url::to(['system/edit-role'])?>" target="dialog" rel="edit-role">添加角色 </a></li>
                         <?php endif;?>
                     </ul>
                 </li>

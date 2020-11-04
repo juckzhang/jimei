@@ -27,7 +27,7 @@ $roles = SystemService::getService()->roleAll();
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('system/edit-user')):?>
-            <li><a class="add" href="<?=Url::to(['system/edit-user'])?>" target="navTab"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['system/edit-user'])?>" target="dialog"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('system/delete-user')):?>
@@ -67,7 +67,7 @@ $roles = SystemService::getService()->roleAll();
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('system/edit-user')):?>
-                    <a title="编辑" target="navTab" href="<?=Url::to(['system/edit-user','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="dialog" href="<?=Url::to(['system/edit-user','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>
