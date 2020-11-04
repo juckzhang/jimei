@@ -43,11 +43,20 @@ class ThemeController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
+            $customer_id = ArrayHelper::getValue($this->paramData, 'customer_id');
             $model = ThemeModel::find()->where(['id' => $id])
                 ->with('customer')
                 ->with('material')
                 ->asArray()->one();
-            return $this->render('edit-theme',['model' => $model]);
+            $barcode = '';
+            if($customer_id){
+                $barcode = ThemeModel::find()->where(['customer_id' => $customer_id])->max('barcode');
+                if($barcode){
+                    $barcode = $barcode + 1;
+                    $barcode = str_pad("$barcode", 4, "0", STR_PAD_LEFT);
+                }
+            }
+            return $this->render('edit-theme',['model' => $model, 'barcode' => $barcode]);
         }
     }
 

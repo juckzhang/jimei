@@ -2,17 +2,9 @@
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
-//$params = \Yii::$app->request->getPost();
-//$materialIds = $materialNames = [];
-//if(!empty($model)){
-//    $materials = ArrayHelper::getValue($model, 'material', []);
-//    foreach ($materials as $material){
-//        $materialIds[] = $material['material_id'];
-//        $materialNames[] = ArrayHelper::getValue($material, 'material.name');
-//    }
-//}
-//$materialNames = implode(',', $materialNames);
-//$materialIds = implode(',', $materialIds);
+$params = \Yii::$app->request->getPost();
+$customer_id = ArrayHelper::getValue($params, 'customer_id');
+$customer_name = ArrayHelper::getValue($params, 'customer_name');
 ?>
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
@@ -29,7 +21,7 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>条码：</dt>
                 <dd>
-                    <input type="text" name="ThemeModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
+                    <input type="text" name="ThemeModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode',$barcode)?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>
@@ -43,8 +35,8 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>客户：</dt>
                 <dd>
-                    <input type="hidden" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <input type="hidden" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id',$customer_id)?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name', $customer_name)?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>

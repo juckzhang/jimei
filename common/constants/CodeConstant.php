@@ -36,11 +36,11 @@ class CodeConstant
     const UPLOAD_FILE_TOO_MANY        = self::UPLOAD_FILE_BASE - 6; //上传文件数量过多
     const UPLOAD_FILE_FAILED          = self::UPLOAD_FILE_BASE -7;  //文件上传失败
 
-    const MEDIA_BASE = -200;
-    const MEDIA_COMMENT_FAILED        = self::MEDIA_BASE - 1;//评论失败
-    const COLLECT_MEDIA_FAILED        = self::MEDIA_BASE - 2; //收藏失败
-    const CANCEL_COLLECT_MEDIA_FAILED = self::MEDIA_BASE - 3;//取消收藏失败
-    const DOWNLOAD_MEDIA_FAILED      = self::MEDIA_BASE - 4;//订阅失败
-    const EDIT_MEDIA_FAILED           = self::MEDIA_BASE  - 5;//编辑视频失败
-    const FEED_BACK_FAILED              = self::MEDIA_BASE - 6; //反馈失败
+    const DISTRIBUTION = -200;
+    const DISTRIBUTION_RSYNC_FAILED        = self::DISTRIBUTION - 1;//配货单同步失败
+    const DISTRIBUTION_NOT_ORDER        = self::DISTRIBUTION - 2; //收藏失败
+
+    const MEAL = -300;
+    const EDIT_MEAL_FAILED = self::MEAL - 1; //套餐生成失败
+    const NO_MEAL_RESULT = self::MEAL - 2; //无匹配结果
 }

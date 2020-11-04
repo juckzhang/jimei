@@ -48,7 +48,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('material/edit-material')):?>
-            <li><a class="add" href="<?=Url::to(['material/edit-material'])?>" target="dialog"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['material/edit-material'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('material/delete-material')):?>
@@ -66,6 +66,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
             <?php endif;?>
             <th width="80">名称</th>
             <th width="80">条码</th>
+            <th width="80">颜色</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
             <th width="70">操作</th>
@@ -82,6 +83,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                 <?php endif;?>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
+                <td><?=$data->color_name?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <?php if(!$search):?>
                 <td>
@@ -90,7 +92,7 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('material/edit-material')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['material/edit-material','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['material/edit-material','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
                 <?php endif;?>

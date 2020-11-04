@@ -29,9 +29,11 @@ return [
     CodeConstant::UPLOAD_FILE_FAILED          => '文件上传失败',
 
     //video
-    CodeConstant::MEDIA_COMMENT_FAILED        => '专辑评论失败',
-    CodeConstant::COLLECT_MEDIA_FAILED        => '收藏失败',
-    CodeConstant::CANCEL_COLLECT_MEDIA_FAILED => '取消收藏失败',
+    CodeConstant::DISTRIBUTION_RSYNC_FAILED        => '配货单同步失败',
+    CodeConstant::DISTRIBUTION_NOT_ORDER        => '无效配货单',
 
     CodeConstant::USER_LOGIN_FAILED           => '用户名或密码错误!',
+
+    CodeConstant::EDIT_MEAL_FAILED => '套餐生成失败',
+    CodeConstant::NO_MEAL_RESULT => '无法匹配关联套餐!',
 ];

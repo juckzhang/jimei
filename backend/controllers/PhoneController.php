@@ -19,10 +19,18 @@ class PhoneController extends BaseController
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
         $brandIds = ArrayHelper::getValue($_other, 'brand_id');
+        $materialId = ArrayHelper::getValue($this->paramData, 'material_id');
+        if($materialId) $materialId = array_unique(explode(',', $materialId));
         if($brandIds) $_other['brand_id'] = explode(',', $brandIds);
         $_order = $this->_sortOrder();
         $data = PhoneService::getService()->PhoneList($_page,$_prePage,$_order, $_other);
         $data['brandList'] = BrandModel::find()->asArray()->all();
+        $data['mobileIds'] = [];
+        if($materialId){
+            $mobiles = MaterialPhoneModel::find()->select(['mobile_id'])->where(['material_id' => $materialId])->asArray()->all();
+            $data['mobileIds'] = ArrayHelper::getColumn($mobiles, 'mobile_id', []);
+        }
+
         return $this->render('phone-list',$data);
     }
 

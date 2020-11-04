@@ -1,6 +1,7 @@
 <?php
 namespace backend\services;
 
+use common\constants\CodeConstant;
 use common\helpers\ClientHelper;
 use common\models\mysql\BrandModel;
 use common\models\mysql\ColorModel;
@@ -10,7 +11,6 @@ use common\models\mysql\MaterialModel;
 use common\models\mysql\OrderModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
-use common\models\mysql\ThemeMaterialModel;
 use common\models\mysql\ThemeModel;
 use yii\helpers\ArrayHelper;
 
@@ -228,12 +228,14 @@ class OrderService extends BackendService
                 OrderModel::deleteAll(['base_id' => $model->id]);
                 \Yii::$app->db->createCommand()->batchInsert(OrderModel::tableName(),$filed,$batchData)->execute();
                 $transaction->commit();
-                return true;
+                return 200;
             }catch (\Exception $e){
                 $transaction->rollBack();
-                return false;
+                return CodeConstant::DISTRIBUTION_RSYNC_FAILED;
             }
         }
+
+        return CodeConstant::DISTRIBUTION_NOT_ORDER;
     }
 
     private function parseOrder($order, $sn, $mealCode, $except = false){

@@ -10,18 +10,22 @@ $prePage = ArrayHelper::getValue($params,'numPerPage',Yii::$app->request->cookie
 $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
+$check = ArrayHelper::getValue($params, 'check');
+$material_id = ArrayHelper::getValue($params, 'material_id', '');
 ?>
 <div class="" id="color-list" rel="color-list">
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="more" value="<?=$more?>">
+    <input type="hidden" name="check" value="<?=$check?>">
+    <input type="hidden" name="material_id" value="<?=$material_id?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['color/color-list','search' => $search, 'more' => $more])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['color/color-list','search' => $search, 'more' => $more,'check' => $check, 'material_id' => $material_id])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
@@ -74,9 +78,17 @@ $more = ArrayHelper::getValue($params, 'more');
         <?php foreach($dataList as $key => $data):?>
             <tr target="card-id" rel="<?=$data->id?>">
                 <?php if(!$search or $more):?>
-                <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox"></td>
+                <td>
+                    <?php if(!$check or in_array($data->id, $colorIds)):?>
+                    <input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->name}'}" : $data->id?>" type="checkbox">
+                    <?php endif;?>
+                </td>
                 <?php elseif ($search):?>
-                <td><a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a></td>
+                <td>
+                    <?php if(!$check or in_array($data->id, $colorIds)):?>
+                    <a class="btnSelect" href="javascript:$.bringBack({id:<?=$data->id?>, name:'<?=$data->name?>'})" title="查找带回">选择</a>
+                    <?php endif;?>
+                </td>
                 <?php endif;?>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>

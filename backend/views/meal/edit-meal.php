@@ -13,6 +13,22 @@ if (ArrayHelper::getValue($model, 'id')){
         <input type="hidden" name="MealModel[sync_status]" value="0">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
+                <dt>材质：</dt>
+                <dd>
+                    <input id="material-id" type="hidden" name="MealModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
+                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>颜色：</dt>
+                <dd>
+                    <input type="hidden" name="MealModel[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
+                    <input type="text" class="required textInput readonly" readonly="true" name="color.name" value="<?=ArrayHelper::getValue($model,'color.name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
+                    <a id="look-color" class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1, 'more' => $more, 'check' => 1])?>" lookupgroup="color">查找带回</a>
+                </dd>
+            </dl>
+            <dl>
                 <dt>品牌分类：</dt>
                 <dd>
                     <input id="brand-id" type="hidden" name="MealModel[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($model, 'brand_id')?>">
@@ -25,23 +41,7 @@ if (ArrayHelper::getValue($model, 'id')){
                 <dd>
                     <input class="mobile" type="hidden" name="MealModel[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($model, 'mobile_id')?>">
                     <input type="text" class="textInput readonly mobile" readonly="true" name="phone.name" value="<?=ArrayHelper::getValue($model,'phone.modal')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
-                    <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="phone">查找带回</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>颜色：</dt>
-                <dd>
-                    <input type="hidden" name="MealModel[color_id]" data-name="color.id" value="<?=ArrayHelper::getValue($model, 'color_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="color.name" value="<?=ArrayHelper::getValue($model,'color.name')?>" data-name="color.name" suggestfields="name" lookupgroup="color" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['color/color-list', 'search' => 1, 'more' => $more])?>" lookupgroup="color">查找带回</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>材质：</dt>
-                <dd>
-                    <input type="hidden" name="MealModel[material_id]" data-name="material.id" value="<?=ArrayHelper::getValue($model, 'material_id')?>">
-                    <input type="text" class="required textInput readonly" readonly="true" name="material.name" value="<?=ArrayHelper::getValue($model,'material.name')?>" data-name="material.name" suggestfields="name" lookupgroup="material" autocomplete="off">
-                    <a class="btnLook" href="<?=Url::to(['material/material-list', 'search' => 1, 'more' => $more])?>" lookupgroup="material">查找带回</a>
+                    <a id="look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1, 'check' => 1])?>" lookupgroup="phone">查找带回</a>
                 </dd>
             </dl>
             <dl>
@@ -71,17 +71,28 @@ if (ArrayHelper::getValue($model, 'id')){
 </div>
 <script type="text/javascript">
     $(function(){
+        //机型选择
         $('#look-mobile').on('click',function(){
             var brand_name = $('#brand-name').val(),
                 brand_id = $('#brand-id').val(),
-                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
+                material_id = $('#material-id').val(),
+                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1, 'check' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name+'&material_id='+material_id;
             $(this).attr('href', _href);
         });
 
+        //图案选择
         $('#look-theme').on('click',function(){
             var customer_name = $('#customer-name').val(),
                 customer_id = $('#customer-id').val(),
                 _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+customer_name;
+            $(this).attr('href', _href);
+        });
+
+        //颜色选择
+        //图案选择
+        $('#look-color').on('click',function(){
+            var material_id = $('#material-id').val(),
+                _href = '<?=Url::to(['color/color-list', 'search' => 1, 'more' => $more, 'notMore' => 1, 'check' => 1])?>'+'&material_id='+material_id;
             $(this).attr('href', _href);
         });
     });
