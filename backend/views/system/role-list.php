@@ -23,7 +23,7 @@ $prePage = ArrayHelper::getValue($params,'numPerPage','20');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('system/edit-role')):?>
-            <li><a class="add" href="<?=Url::to(['system/edit-role'])?>" target="dialog"><span>添加</span></a></li>
+            <li><a class="add" href="<?=Url::to(['system/edit-role'])?>" target="navTab"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('system/delete-role')):?>
@@ -59,7 +59,7 @@ $prePage = ArrayHelper::getValue($params,'numPerPage','20');
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('system/edit-role')):?>
-                    <a title="编辑" target="dialog" href="<?=Url::to(['system/edit-role','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <a title="编辑" target="navTab" href="<?=Url::to(['system/edit-role','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
                 </td>
             </tr>
