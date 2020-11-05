@@ -27,7 +27,7 @@ $sources = SystemService::getService()->sourceAll();
                 </label>
                 <?php foreach($source['child'] as $child):?>
                     <div style="float: left;">
-                        <label><input name="sources[]" value="<?=$child['id']?>"  <?=in_array($source['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><?=$child['name']?></label>
+                        <label><input name="sources[]" value="<?=$child['id']?>"  <?=in_array($child['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><?=$child['name']?></label>
                     </div>
                 <?php endforeach;?>
             <?php endforeach;?>
