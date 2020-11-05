@@ -62,12 +62,14 @@ class IndexController extends BaseController{
                 ->offset($offset)
                 ->asArray()
                 ->limit(100)
+                ->orderBy(['id' => SORT_ASC])
                 ->all();
             $ids = ArrayHelper::getColumn($mealList, 'id');
             if(count($ids) > 0){
                 $offset += 100;
                 $res = MealService::getService()->syncMeal($ids);
-                file_put_contents('/mnt/data/openresty/jimei/backend/runtime/logs/rsync_meal.log',json_encode($res).PHP_EOL, FILE_APPEND);
+                file_put_contents('/mnt/data/openresty/htdocs/jimei/backend/runtime/logs/rsync_meal.log',json_encode($res).PHP_EOL, FILE_APPEND);
+                sleep(2);
             }
 
             if(count($ids) < 100)
