@@ -1,10 +1,13 @@
 <?php
 namespace console\controllers;
 
+use backend\services\MealService;
 use common\helpers\ExcelHelper;
 use common\models\mysql\AdminModel;
 use common\models\mysql\ColorModel;
 use common\models\mysql\MaterialPhoneModel;
+use common\models\mysql\MealModel;
+use yii\helpers\ArrayHelper;
 
 class IndexController extends BaseController{
     // 注册用户
@@ -49,5 +52,26 @@ class IndexController extends BaseController{
         }
 
         ExcelHelper::writeExcel($fileName, $data);
+    }
+
+    public function actionSyncMeal(){
+        $offset = 0;
+        while (true){
+            $mealList = MealModel::find()->select(['id'])
+                ->where(['customer_id' => [4,16,21,6]])
+                ->offset($offset)
+                ->asArray()
+                ->limit(100)
+                ->all();
+            $ids = ArrayHelper::getColumn($mealList, 'id');
+            if(count($ids) > 0){
+                $offset += 100;
+                $res = MealService::getService()->syncMeal($ids);
+                file_put_contents('/mnt/data/openresty/jimei/backend/runtime/logs/rsync_meal.log',json_encode($res).PHP_EOL, FILE_APPEND);
+            }
+
+            if(count($ids) < 100)
+                break;
+        }
     }
 }

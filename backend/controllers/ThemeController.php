@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
+use common\helpers\CommonHelper;
 use common\models\mysql\ColorModel;
 use common\models\mysql\ThemeModel;
 use Yii;
@@ -13,10 +14,12 @@ class ThemeController extends BaseController
 {
     public function actionThemeList()
     {
+        $user = CommonHelper::customer();
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
         $customerIds = ArrayHelper::getValue($_other, 'customer_id');
+        if(!$customerIds) $customerIds = $user['customer_id'];
         if($customerIds) $_other['customer_id'] = explode(',', $customerIds);
         $_order = $this->_sortOrder();
 

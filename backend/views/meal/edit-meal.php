@@ -1,10 +1,17 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use common\helpers\CommonHelper;
 
 $more = 1;
 if (ArrayHelper::getValue($model, 'id')){
     $more = '';
+}
+$user = CommonHelper::customer();
+$customerId = $customerName = 0;
+if($user['related'] and !$user['multi']){
+    $customerId = $user['customer_id'];
+    $customerName = $user['customer_name'];
 }
 ?>
 <h2 class="contentTitle">编辑机型</h2>
@@ -47,8 +54,8 @@ if (ArrayHelper::getValue($model, 'id')){
             <dl>
                 <dt>客户：</dt>
                 <dd>
-                    <input id="customer-id" type="hidden" name="MealModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id')?>">
-                    <input id="customer-name" type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($model,'customer.name')?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
+                    <input id="customer-id" type="hidden" name="MealModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id',$customerId)?>">
+                    <input id="customer-name" type="text" class="required textInput readonly" readonly="true" name="customer-name" value="<?=ArrayHelper::getValue($model,'customer.name',$customerName)?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
             </dl>

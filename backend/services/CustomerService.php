@@ -15,6 +15,7 @@ class CustomerService extends BackendService
 
         $models = CustomerModel::find()
             ->where(['!=','status' , CustomerModel::STATUS_DELETED])
+            ->andFilterWhere(['id' => ArrayHelper::getValue($other, 'customer_id')])
             ->andFilterWhere(['like','name',ArrayHelper::getValue($other, 'keyword')]);
 
         $data['dataCount'] = $models->count();

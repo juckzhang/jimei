@@ -47,6 +47,7 @@ $roles = SystemService::getService()->roleAll();
             <th width="22">用户ID</th>
             <th width="20">用户名</th>
             <th width="60">所属角色</th>
+            <th width="80">关联客户</th>
             <th class="<?=$orderDirection?>" style="cursor: pointer;" orderfield="update_time" width="40">建档日期</th>
             <th width="25">操作</th>
         </tr>
@@ -58,6 +59,7 @@ $roles = SystemService::getService()->roleAll();
                 <td><?=$data->id?></td>
                 <td><?=$data->username?></td>
                 <td><?=$data->role_id?></td>
+                <td><?=$data->customer_name?></td>
                 <td><?=date('Y-m-d H:i:s',$data->create_time)?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('system/delete-user')):?>
