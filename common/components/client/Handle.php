@@ -1,5 +1,5 @@
 <?php
-namespace common\component\client;
+namespace common\components\client;
 abstract class Handle {
     const CURL_BASE_VERSION    = 0x71B00;
 

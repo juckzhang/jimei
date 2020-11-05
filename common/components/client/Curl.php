@@ -1,5 +1,5 @@
 <?php
-namespace common\component\client;
+namespace common\components\client;
 
 class Curl extends Handle{
     //单请求

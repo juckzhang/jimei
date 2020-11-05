@@ -4,7 +4,7 @@
 namespace common\helpers;
 
 use yii\helpers\ArrayHelper;
-use common\component\client\Curl;
+use common\components\client\Curl;
 use yii\httpclient\Client;
 
 class ClientHelper
