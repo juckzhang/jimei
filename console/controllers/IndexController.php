@@ -69,6 +69,7 @@ class IndexController extends BaseController{
                 $offset += 100;
                 $res = MealService::getService()->syncMeal($ids);
                 file_put_contents('/mnt/data/openresty/htdocs/jimei/backend/runtime/logs/rsync_meal.log',json_encode($res).PHP_EOL, FILE_APPEND);
+                sleep(2);
             }
 
             if(count($ids) < 100)
