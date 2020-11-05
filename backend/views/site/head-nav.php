@@ -4,7 +4,7 @@ use yii\helpers\Url;
 <div id="header">
     <div class="headerNav">
         <ul class="nav">
-            <li><?=\Yii::$app->user->identity->username?></li>
+            <li><a href="<?=Url::to(['site/change-password'])?>" target="dialog" width="600"><?=\Yii::$app->user->identity->username?></a></li>
             <li><a href="<?=Url::to(['site/change-password'])?>" target="dialog" width="600">修改密码</a></li>
             <li><a href="<?=Url::to(['site/logout'])?>">退出</a></li>
         </ul>
