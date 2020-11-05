@@ -62,7 +62,7 @@ class IndexController extends BaseController{
                 ->offset($offset)
                 ->asArray()
                 ->limit(100)
-                ->orderBy(['id' => SORT_ASC])
+                ->orderBy(['id' => SORT_DESC])
                 ->all();
             $ids = ArrayHelper::getColumn($mealList, 'id');
             if(count($ids) > 0){
