@@ -210,6 +210,7 @@ class MealService extends BackendService
         foreach ($res['mealCode'] as $code){
             if($meal[$code]) unset($meal[$code]);
         }
+        if($res['code'] !== 0 and !$res['mealCode']) $meal = [];
         if($meal){
             $ids = array_values($meal);
             $this->updateInfo($ids, MealModel::className(), ['sync_status' => 1]);

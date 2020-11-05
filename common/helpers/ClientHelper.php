@@ -4,6 +4,7 @@
 namespace common\helpers;
 
 use yii\helpers\ArrayHelper;
+use common\component\client\Curl;
 use yii\httpclient\Client;
 
 class ClientHelper
@@ -40,7 +41,7 @@ class ClientHelper
         return $param;
     }
 
-    private function sCurl($param, $data){
+    private function sCurl_bak($param, $data){
         $url = \Yii::$app->params['apiUrl'].'?'.http_build_query($param);
         $response = (new Client(
             [
@@ -67,12 +68,37 @@ class ClientHelper
         return [];
     }
 
+    private function sCurl($param, $data){
+        $url = \Yii::$app->params['apiUrl'].'?'.http_build_query($param);
+        $option = [
+            'url' => $url,
+            'method' => 'POST',
+            'contentJson' => true,
+            'args' => $data,
+        ];
+
+        $res = Curl::sCurl($option);
+        if($res) {
+            $res = json_decode($res, true);
+        }
+
+        $msg = json_encode([
+                'url' => $url,
+                'body' => $data,
+                'result' => $res,
+            ]).PHP_EOL;
+        file_put_contents(static::LOG_FILE, $msg, FILE_APPEND);
+        if(is_array($res)) return $res;
+
+        return [];
+    }
+
     public static function rsyncMeal($data){
         $param = static::parseParam('erp.goodssuite.sync', $data);
         $result = static::sCurl($param, $data);
         $ret = ['code' => 0, 'message' => '同步成功', 'mealCode' => []];
 
-        if(ArrayHelper::getValue($result, 'code') == 0){
+        if(ArrayHelper::getValue($result, 'code') === 0){
             return $ret;
         }
 
@@ -87,12 +113,15 @@ class ClientHelper
                 if($code) $ret['mealCode'][] = $code;
             }
         }
+        if(isset($result['Message'])) $message[] = $result['Message'];
 
         if($message) {
             $message = array_unique($message);
             $ret['code'] = -1;
             $ret['message'] = implode('|', $message);
         }
+
+        if(!isset($result['code'])) $ret['code'] = -200;
 
         return $ret;
     }
