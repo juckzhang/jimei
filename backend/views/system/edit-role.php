@@ -7,7 +7,6 @@ $sources = SystemService::getService()->sourceAll();
 ?>
 <h2 class="contentTitle">角色编辑</h2>
 <div class="pageContent">
-
     <form method="post" action="<?=Url::to(['system/edit-role','id' => $id])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,submitCallBack)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
@@ -19,18 +18,21 @@ $sources = SystemService::getService()->sourceAll();
             </dl>
             <div class="divider"></div>
             <h3>权限分配:</h3>
-            <?php foreach($sources as $source):?>
-                <br/><br/>
-                <label>
-                    <input name="sources[]" value="<?=$source['id']?>" <?=in_array($source['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><span style="font-weight:bold;margin-right: 20px;">
+            <table class="table" width="1200" layoutH="138">
+                <?php foreach($sources as $source):?>
+                <tr>
+                    <td width="20">
+                        <input name="sources[]" value="<?=$source['id']?>" <?=in_array($source['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><span style="font-weight:bold;margin-right: 20px;">
                         <strong><?=$source['name']?>：</strong></span>
-                </label>
-                <?php foreach($source['child'] as $child):?>
-                    <div style="float: left;">
-                        <label><input name="sources[]" value="<?=$child['id']?>"  <?=in_array($source['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><?=$child['name']?></label>
-                    </div>
+                    </td>
+                    <?php foreach($source['child'] as $child):?>
+                    <td width="20">
+                        <input name="sources[]" value="<?=$child['id']?>"  <?=in_array($child['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><?=$child['name']?>
+                    </td>
+                    <?php endforeach;?>
+                </tr>
                 <?php endforeach;?>
-            <?php endforeach;?>
+            </table>
         </div>
         <div class="formBar">
             <ul>
