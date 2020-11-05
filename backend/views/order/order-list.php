@@ -156,8 +156,8 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <option value="50" <?=$prePage == 50 ?   'selected' : ''?>>50</option>
                 <option value="100" <?=$prePage == 100 ? 'selected' : ''?>>100</option>
                 <option value="200" <?=$prePage == 200 ? 'selected' : ''?>>200</option>
-                <option value="200" <?=$prePage == 500 ? 'selected' : ''?>>500</option>
-                <option value="200" <?=$prePage == 1000 ? 'selected' : ''?>>1000</option>
+                <option value="500" <?=$prePage == 500 ? 'selected' : ''?>>500</option>
+                <option value="1000" <?=$prePage == 1000 ? 'selected' : ''?>>1000</option>
             </select>
             <span>条，共<?=$dataCount?>条</span>
         </div>
