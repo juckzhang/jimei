@@ -22,4 +22,8 @@ class AdminModel extends ActiveRecord
         if($attribute == 'password')
             $this->password = \Yii::$app->security->generatePasswordHash($this->password);
     }
+
+    public function getRole(){
+        return $this->hasOne(RoleModel::className(), ['id' => 'role_id']);
+    }
 }
