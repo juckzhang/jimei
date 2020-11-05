@@ -165,7 +165,12 @@ class SystemService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy($order)->limit($limit)->offset($offset)->all();
+            $data['dataList'] = $models
+                ->orderBy($order)
+                ->limit($limit)
+                ->with('role')
+                ->offset($offset)
+                ->all();
 
         return $data;
     }

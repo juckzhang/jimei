@@ -58,7 +58,7 @@ $roles = SystemService::getService()->roleAll();
                 <td><input name="ids[]" value="<?=$data->id?>" type="checkbox"></td>
                 <td><?=$data->id?></td>
                 <td><?=$data->username?></td>
-                <td><?=$data->role_id?></td>
+                <td><?=ArrayHelper::getValue($data, 'role.name', '超级管理员')?></td>
                 <td><?=$data->customer_name?></td>
                 <td><?=date('Y-m-d H:i:s',$data->create_time)?></td>
                 <td>
