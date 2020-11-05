@@ -21,12 +21,12 @@ $sources = SystemService::getService()->sourceAll();
             <table class="table" width="100%" layoutH="138">
                 <?php foreach($sources as $source):?>
                 <tr>
-                    <td width="100">
+                    <td width="120">
                         <input name="sources[]" value="<?=$source['id']?>" <?=in_array($source['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><span style="font-weight:bold;margin-right: 20px;">
                         <strong><?=$source['name']?>：</strong></span>
                     </td>
                     <?php foreach($source['child'] as $child):?>
-                    <td width="100">
+                    <td width="120">
                         <input name="sources[]" value="<?=$child['id']?>"  <?=in_array($child['id'],$selected) ? 'checked="checked"' : ''?> type="checkbox"><?=$child['name']?>
                     </td>
                     <?php endforeach;?>
