@@ -24,8 +24,9 @@ class Curl extends Handle{
             $err        = curl_error($ch);
             $logInfo['errMessage'] = $err;
 //            Log::error($logInfo, 'task-collector');
-        }else
+        }else{
 //            Log::debug($logInfo, 'task-collector');
+        }
 
         curl_close($ch);
 
@@ -90,8 +91,9 @@ class Curl extends Handle{
             $errInfo            = empty($errorMsg) ? '' : serialize($errorMsg);
             $loginfo            = count($options) . '|' . sprintf("%.4f", microtime(true) - $start) . '|' . $errInfo;
 //            Log::error('mCurl:'.$loginfo, 'task-collector');
-        }else
+        }else{
 //            Log::debug(['options' => $options, 'result' => $result]);
+        }
 
         return $result;
     }
