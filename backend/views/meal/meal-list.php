@@ -115,7 +115,7 @@ $user = CommonHelper::customer();
                 <th orderfield="material_id" width="80">材质</th>
                 <th orderfield="color_id" width="80">颜色</th>
                 <th orderfield="customer_id" width="80">客户</th>
-                <th orderfield="theme_id" width="80">素材</th>
+                <th orderfield="theme_id" width="80">图案</th>
                 <th width="80">同步状态</th>
                 <th width="80">套餐编号</th>
                 <th width="80">套餐名称</th>
