@@ -7,6 +7,7 @@ use common\models\mysql\AdminModel;
 use common\models\mysql\ColorModel;
 use common\models\mysql\MaterialPhoneModel;
 use common\models\mysql\MealModel;
+use common\models\mysql\SyncMealModel;
 use yii\helpers\ArrayHelper;
 
 class IndexController extends BaseController{
@@ -54,26 +55,30 @@ class IndexController extends BaseController{
         ExcelHelper::writeExcel($fileName, $data);
     }
 
-    public function actionSyncMeal(){
-        $offset = 0;
+    public function actionSyncMeal($customerId, $taskId = 0){
+        $id = 0;
         while (true){
             $mealList = MealModel::find()->select(['id'])
-                ->where(['customer_id' => [4,16,21,6]])
-                ->offset($offset)
+                ->where(['>', 'id', $id])
+                ->andwhere(['customer_id' => $customerId, 'sync_status' => 0])
                 ->asArray()
                 ->limit(100)
-                ->orderBy(['id' => SORT_DESC])
+                ->orderBy(['id' => SORT_ASC])
                 ->all();
             $ids = ArrayHelper::getColumn($mealList, 'id');
             if(count($ids) > 0){
-                $offset += 100;
                 $res = MealService::getService()->syncMeal($ids);
                 \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
                 sleep(1);
+                $id = end($ids);
             }
 
-            if(count($ids) < 100)
+            if(count($ids) < 100){
+                if($taskId) {
+                    SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
+                }
                 break;
+            }
         }
     }
 }

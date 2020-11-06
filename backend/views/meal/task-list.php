@@ -77,7 +77,7 @@ $user = CommonHelper::customer();
             <?php foreach($dataList as $key => $data):?>
                 <tr target="card-id" rel="<?=$data['id']?>">
                     <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
-                    <td><?=($page - 1)*$prePage + $key?></td>
+                    <td><?=($page - 1)*$prePage+$key+1?></td>
                     <td><?=$data['customer']['name']?></td>
                     <td><?=$data['desc']?></td>
                     <td><?=$data['sync_status'] == 0 ? '同步中' : '已同步'?></td>
