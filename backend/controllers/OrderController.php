@@ -29,6 +29,7 @@ class OrderController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = OrderService::getService()->editInfo($id,OrderModel::className());
+            $this->log($result);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -58,6 +59,7 @@ class OrderController extends BaseController
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
         $return = OrderService::getService()->deleteInfo($ids,OrderModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -83,6 +85,7 @@ class OrderController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $result = OrderService::getService()->editDistribution($this->paramData);
+            $this->log($result);
             if($result == 200)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -102,10 +105,9 @@ class OrderController extends BaseController
     public function actionDeleteDistribution()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = OrderService::getService()->deleteInfo($ids, DistributionModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -118,10 +120,9 @@ class OrderController extends BaseController
 
     public function actionParseOrder(){
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = OrderService::getService()->reparseOrder($ids);
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '更新成功',

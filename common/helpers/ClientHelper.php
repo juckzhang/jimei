@@ -118,6 +118,7 @@ class ClientHelper
             $ret['code'] = -1;
             $ret['message'] = implode('|', $message);
         }
+        \Yii::$app->bizLog->log($ret, 'req', 'Info');
 
         return $ret;
     }

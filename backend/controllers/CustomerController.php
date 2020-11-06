@@ -29,6 +29,7 @@ class CustomerController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = CustomerService::getService()->editInfo($id, CustomerModel::className());
+            $this->log($result);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -52,6 +53,7 @@ class CustomerController extends BaseController
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
         $return = CustomerService::getService()->deleteInfo($ids, CustomerModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

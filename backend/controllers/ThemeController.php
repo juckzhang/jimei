@@ -34,6 +34,7 @@ class ThemeController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData, 'id');
             $result = ThemeService::getService()->editInfo($id, ThemeModel::className());
+            $this->log($result);
 //            $result = ThemeService::getService()->editTheme($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
@@ -65,10 +66,9 @@ class ThemeController extends BaseController
     public function actionDeleteTheme()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = ThemeService::getService()->deleteInfo($ids,ThemeModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

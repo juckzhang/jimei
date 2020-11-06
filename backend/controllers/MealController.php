@@ -32,6 +32,7 @@ class MealController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $result = MealService::getService()->editMeal($this->paramData);
+            $this->log($result);
             if($result == 200)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -58,10 +59,9 @@ class MealController extends BaseController
     public function actionDeleteMeal()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = MealService::getService()->deleteInfo($ids, MealModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -74,10 +74,9 @@ class MealController extends BaseController
 
     public function actionSyncMeal(){
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = MealService::getService()->syncMeal($ids);
+        $this->log($return);
         if(is_array($return) and $return['message'])
             return $this->returnAjaxSuccess([
                 'message' => $return['message'],
@@ -94,6 +93,7 @@ class MealController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = MealService::getService()->editInfo($id, SyncMealModel::className());
+            $this->log($result);
             if($result instanceof Model)
                 // 生成任务名称
                 $customerId = $result->customer_id;

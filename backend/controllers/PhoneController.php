@@ -40,6 +40,7 @@ class PhoneController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = PhoneService::getService()->editInfo($id, PhoneModel::className());
+            $this->log($result);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -61,10 +62,9 @@ class PhoneController extends BaseController
     public function actionDeletePhone()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = PhoneService::getService()->deleteInfo($ids, PhoneModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -93,6 +93,7 @@ class PhoneController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = PhoneService::getService()->editInfo($id, BrandModel::className());
+            $this->log($result);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -112,10 +113,9 @@ class PhoneController extends BaseController
     public function actionDeleteBrand()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = PhoneService::getService()->deleteInfo($ids, BrandModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -141,6 +141,7 @@ class PhoneController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = PhoneService::getService()->editInfo($id, MaterialPhoneModel::className());
+            $this->log($result);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -164,10 +165,9 @@ class PhoneController extends BaseController
     public function actionDeleteRelation()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = PhoneService::getService()->deleteInfo($ids, MaterialPhoneModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',

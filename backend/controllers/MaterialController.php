@@ -27,6 +27,7 @@ class MaterialController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = MaterialService::getService()->editMaterial($this->paramData);
+            $this->log($result);
             if($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -50,6 +51,7 @@ class MaterialController extends BaseController
         $ids = ArrayHelper::getValue($this->paramData,'ids');
 
         $return = MaterialService::getService()->deleteInfo($ids,MaterialModel::className());
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
