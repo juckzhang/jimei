@@ -114,9 +114,9 @@ class BaseController extends CommonController
         $res = is_object($result) ? ArrayHelper::toArray($result) : $result;
         \Yii::$app->bizLog->log([
             'action' => Yii::$app->controller->id . '|' . Yii::$app->controller->action->id,
+            'user' => \Yii::$app->user->identity->username,
             'params' => $this->paramData,
             'result' => $res,
-            'user' => \Yii::$app->user->identity->username,
         ],'req','Info');
     }
 }
