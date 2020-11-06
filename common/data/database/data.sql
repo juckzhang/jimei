@@ -76,7 +76,8 @@ CREATE TABLE if NOT EXISTS jimei_order(
   shopname varchar(255) not null default '' comment'网店名称',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  key base_id(base_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
 -- 机型材质
@@ -168,7 +169,10 @@ CREATE TABLE if NOT EXISTS jimei_meal(
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (brand_id, mobile_id,customer_id,theme_id,color_id,material_id)
+  unique (brand_id, mobile_id,customer_id,theme_id,color_id,material_id),
+  key cutomer_id(customer_id),
+  key color_id(color_id),
+  key material_id(material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'套餐';
 
 -- 管理平台相关记录表
