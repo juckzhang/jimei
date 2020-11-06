@@ -111,11 +111,12 @@ class BaseController extends CommonController
     }
 
     protected function log($result = null){
+        $res = is_object($result) ? ArrayHelper::toArray($result) : $result;
         \Yii::$app->bizLog->log([
             'action' => Yii::$app->controller->id . '|' . Yii::$app->controller->action->id,
-            'params' => $this->paramData,
-            'result' => $result,
             'user' => \Yii::$app->user->identity->username,
+            'params' => $this->paramData,
+            'result' => $res,
         ],'req','Info');
     }
 }
