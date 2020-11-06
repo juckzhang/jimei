@@ -18,8 +18,7 @@ class ThemeController extends BaseController
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
         $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
         $_other  = ArrayHelper::getValue($this->paramData,'other');
-        $customerIds = ArrayHelper::getValue($_other, 'customer_id');
-        if(!$customerIds) $customerIds = $user['customer_id'];
+        $customerIds = ArrayHelper::getValue($_other, 'customer_id',$user['customer_id']);
         if($customerIds) $_other['customer_id'] = explode(',', $customerIds);
         $_order = $this->_sortOrder();
 
