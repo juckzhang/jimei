@@ -102,7 +102,7 @@ class MealController extends BaseController
                 $cmd = "cd $path && nohup php yii.php index/sync-meal $customerId $taskId &";
                 exec($cmd);
                 return $this->returnAjaxSuccess([
-                    'message' => '编辑成功'.$cmd,
+                    'message' => '编辑成功',
                     'navTabId' => 'task-list',
                     'callbackType' => 'forward',
                     'forwardUrl' => Url::to(['meal/task-list'])
