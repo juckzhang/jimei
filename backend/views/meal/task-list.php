@@ -64,7 +64,7 @@ $user = CommonHelper::customer();
         <table class="table" width="1200" layoutH="138">
             <thead>
             <tr>
-                <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+<!--                <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>-->
                 <th orderfield="brand_id" width="80">序号</th>
                 <th orderfield="brand_id" width="80">客户</th>
                 <th orderfield="mobile_id" width="80">备注</th>
@@ -76,7 +76,7 @@ $user = CommonHelper::customer();
             <tbody>
             <?php foreach($dataList as $key => $data):?>
                 <tr target="card-id" rel="<?=$data['id']?>">
-                    <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
+<!--                    <td><input name="ids[]" value="<=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>-->
                     <td><?=($page - 1)*$prePage+$key+1?></td>
                     <td><?=$data['customer']['name']?></td>
                     <td><?=$data['desc']?></td>

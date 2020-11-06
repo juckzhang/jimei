@@ -57,28 +57,34 @@ class IndexController extends BaseController{
 
     public function actionSyncMeal($customerId, $taskId = 0){
         $id = 0;
-        while (true){
-            $mealList = MealModel::find()->select(['id'])
-                ->where(['>', 'id', $id])
-                ->andwhere(['customer_id' => $customerId, 'sync_status' => 0])
-                ->asArray()
-                ->limit(100)
-                ->orderBy(['id' => SORT_ASC])
-                ->all();
-            $ids = ArrayHelper::getColumn($mealList, 'id');
-            $cnt = count($ids);
-            if($cnt > 0){
-                $res = MealService::getService()->syncMeal($ids);
-                \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
-                sleep(1);
-                $id = $ids[$cnt - 1];
-            }
-
-            if($cnt < 100){
-                if($taskId) {
-                    SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
+        try {
+            while (true){
+                $mealList = MealModel::find()->select(['id'])
+                    ->where(['>', 'id', $id])
+                    ->andwhere(['customer_id' => $customerId, 'sync_status' => 0])
+                    ->asArray()
+                    ->limit(100)
+                    ->orderBy(['id' => SORT_ASC])
+                    ->all();
+                $ids = ArrayHelper::getColumn($mealList, 'id');
+                $cnt = count($ids);
+                if($cnt > 0){
+                    $res = MealService::getService()->syncMeal($ids);
+                    \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
+                    sleep(1);
+                    $id = $ids[$cnt - 1];
                 }
-                break;
+
+                if($cnt < 100){
+                    if($taskId) {
+                        SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
+                    }
+                    break;
+                }
+            }
+        }catch (\Exception $e){
+            if($taskId) {
+                SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
             }
         }
     }
