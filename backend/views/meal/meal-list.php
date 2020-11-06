@@ -28,7 +28,7 @@ $user = CommonHelper::customer();
     <div class="pageHeader">
         <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['meal/meal-list','search' => $search, 'more' => $more, 'notMore' => $notMore])?>" method="post">
             <div class="searchBar">
-                <table class="searchContent" width="150%">
+                <table class="searchContent">
                     <tbody>
                     <tr>
                         <td>
