@@ -95,8 +95,13 @@ class MealController extends BaseController
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = MealService::getService()->editInfo($id, SyncMealModel::className());
             if($result instanceof Model)
+                // 生成任务名称
+                $customerId = $result->customer_id;
+                $taskId =  $result->id;
+                $path = \Yii::getAlias('@app/../console');
+                $cmd = "cd $path && nohup php yii.php index/sync-meal $customerId $taskId &";
                 return $this->returnAjaxSuccess([
-                    'message' => '编辑成功',
+                    'message' => '编辑成功'.$cmd,
                     'navTabId' => 'task-list',
                     'callbackType' => 'forward',
                     'forwardUrl' => Url::to(['meal/task-list'])
