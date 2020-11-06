@@ -232,7 +232,7 @@ class MealService extends BackendService
         $res = ClientHelper::rsyncMeal(['suiteitems' => $param]);
         //查出同步失败的套餐
         foreach ($res['mealCode'] as $code){
-            if($meal[$code]) unset($meal[$code]);
+            if(isset($meal[$code])) unset($meal[$code]);
         }
         if($res['code'] !== 0 and !$res['mealCode']) $meal = [];
         if($meal){
