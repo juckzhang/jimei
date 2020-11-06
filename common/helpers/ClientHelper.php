@@ -13,7 +13,6 @@ class ClientHelper
     const APP_SECRET = '8348bac6ef3e4b3e8de26c83a5e75da3';
     const VERSION = '1.0';
     const URL_API = 'http://local.gjpqqd.com:5918/Service/ERPService.asmx/ERPApi';
-    const LOG_FILE = '/mnt/data/openresty/htdocs/jimei/backend/runtime/logs/tt.log';
 
     private static function sign($param, $data){
         $data = json_encode($data);
@@ -57,12 +56,11 @@ class ClientHelper
             ->setHeaders(['Content-Type'=>'application/json'])
             ->send();
 
-        $msg = json_encode([
+        \Yii::$app->bizLog->log([
             'url' => $url,
             'body' => $data,
             'result' => $response->data,
-        ]).PHP_EOL;
-        file_put_contents(static::LOG_FILE, $msg, FILE_APPEND);
+        ], 'curl', 'Info');
         if($response->isOk) return $response->data;
 
         return [];
@@ -97,6 +95,7 @@ class ClientHelper
         }
 
         $items = ArrayHelper::getValue($result, 'items', []);
+        $_message = ArrayHelper::getValue($result, 'message');
         $message = [];
 
         foreach ($items as $item){
@@ -108,14 +107,16 @@ class ClientHelper
             }
         }
         if(isset($result['Message'])) $message[] = $result['Message'];
-
+        if($_message and $_message != '商品套餐信息同步') $message[] = $_message;
+        if(!isset($result['code'])){
+            $ret['code'] = -1;
+            if(!$message) $message[] = '同步失败!';
+        }
         if($message) {
             $message = array_unique($message);
             $ret['code'] = -1;
             $ret['message'] = implode('|', $message);
         }
-
-        if(!isset($result['code'])) $ret['code'] = -200;
 
         return $ret;
     }
