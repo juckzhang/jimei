@@ -187,14 +187,14 @@ $user = CommonHelper::customer();
         $('#_look-mobile').on('click',function(){
             var brand_name = $('#_brand-name').val(),
                 brand_id = $('#_brand-id').val(),
-                _href = '<?=Url::to(['phone/phone-list', 'search' => 1,'notMore' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name;
+                _href = '<?=Url::to(['phone/phone-list', 'search' => 1,'notMore' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+encodeURI(brand_name);
             $(this).attr('href', _href);
         });
 
         $('#_look-theme').on('click',function(){
             var brand_name = $('#_customer-name').val(),
                 brand_id = $('#_customer-id').val(),
-                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'notMore' => 1])?>'+'&other[customer_id]='+brand_id+'&customer-name='+brand_name;
+                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'notMore' => 1])?>'+'&other[customer_id]='+brand_id+'&customer-name='+encodeURI(brand_name);
             $(this).attr('href', _href);
         });
     });

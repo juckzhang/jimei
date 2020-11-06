@@ -31,7 +31,7 @@ $user = CommonHelper::customer();
                         <ul>
                             <?php if($user['related'] and !$user['multi']):?>
                                 <?php if(\Yii::$app->user->can('theme/theme-list')):?>
-                                    <li><a href="<?=Url::to(['theme/theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => $user['customer_name'],'notMore' => 1])?>" target="navTab" rel="theme-list">图案列表</a></li>
+                                    <li><a href="<?=Url::to(['theme/theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => urlencode($user['customer_name']),'notMore' => 1])?>" target="navTab" rel="theme-list">图案列表</a></li>
                                 <?php endif;?>
                             <?php else:?>
                                 <?php if(\Yii::$app->user->can('customer/customer-list')):?>

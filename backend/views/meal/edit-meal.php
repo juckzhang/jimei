@@ -8,7 +8,7 @@ if (ArrayHelper::getValue($model, 'id')){
     $more = '';
 }
 $user = CommonHelper::customer();
-$customerId = $customerName = 0;
+$customerId = $customerName = '';
 if($user['related'] and !$user['multi']){
     $customerId = $user['customer_id'];
     $customerName = $user['customer_name'];
@@ -83,7 +83,7 @@ if($user['related'] and !$user['multi']){
             var brand_name = $('#brand-name').val(),
                 brand_id = $('#brand-id').val(),
                 material_id = $('#material-id').val(),
-                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1, 'check' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+brand_name+'&material_id='+material_id;
+                _href = '<?=Url::to(['phone/phone-list', 'search' => 1, 'more' => $more, 'notMore' => 1, 'check' => 1])?>'+'&other[brand_id]='+brand_id+'&brand-name='+encodeURI(brand_name)+'&material_id='+material_id;
             $(this).attr('href', _href);
         });
 
@@ -91,7 +91,7 @@ if($user['related'] and !$user['multi']){
         $('#look-theme').on('click',function(){
             var customer_name = $('#customer-name').val(),
                 customer_id = $('#customer-id').val(),
-                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+customer_name;
+                _href = '<?=Url::to(['theme/theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>'+'&other[customer_id]='+customer_id+'&customer-name='+encodeURI(customer_name);
             $(this).attr('href', _href);
         });
 
