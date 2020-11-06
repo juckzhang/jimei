@@ -66,14 +66,15 @@ class IndexController extends BaseController{
                 ->orderBy(['id' => SORT_ASC])
                 ->all();
             $ids = ArrayHelper::getColumn($mealList, 'id');
-            if(count($ids) > 0){
+            $cnt = count($ids);
+            if($cnt > 0){
                 $res = MealService::getService()->syncMeal($ids);
                 \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
                 sleep(1);
-                $id = end($ids);
+                $id = $ids[$cnt - 1];
             }
 
-            if(count($ids) < 100){
+            if($cnt < 100){
                 if($taskId) {
                     SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
                 }
