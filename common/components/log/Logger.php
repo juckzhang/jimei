@@ -30,11 +30,11 @@ class Logger extends Component {
             register_shutdown_function([$this, 'flush']);
         });
 
-        $this->seqId = sprintf("%d-%d", time(), mt_rand(1000000, 999999));
+        $this->seqId = sprintf("%d-%d", time(), mt_rand(1000000, 9999999));
     }
 
     public function updateSeqId(){
-        $this->seqId = sprintf("%d-%d", time(), mt_rand(1000000, 999999));
+        $this->seqId = sprintf("%d-%d", time(), mt_rand(1000000, 9999999));
     }
 
     public function log($message, $tag, $level)
