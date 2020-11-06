@@ -112,7 +112,7 @@ class BaseController extends CommonController
 
     protected function log($result = null){
         \Yii::$app->bizLog->log([
-            'action' => Yii::$app->controller->id . '/' . Yii::$app->controller->action->id,
+            'action' => Yii::$app->controller->id . '|' . Yii::$app->controller->action->id,
             'params' => $this->paramData,
             'result' => $result,
             'user' => \Yii::$app->user->identity->username,
