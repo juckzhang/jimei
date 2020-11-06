@@ -109,4 +109,13 @@ class BaseController extends CommonController
         $return = ['statusCode' => '300','message' => $this->getErrorMessage($code)];
         return $return;
     }
+
+    protected function log($result = null){
+        \Yii::$app->bizLog->log([
+            'action' => Yii::$app->controller->id . '/' . Yii::$app->controller->action->id,
+            'params' => $this->paramData,
+            'result' => $result,
+            'user' => \Yii::$app->user->identity->username,
+        ],'req','Info');
+    }
 }
