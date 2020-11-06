@@ -73,6 +73,7 @@ class ClientHelper
             'method' => 'POST',
             'contentJson' => true,
             'args' => $data,
+            'timeout' => 10,
         ];
 
         $res = Curl::sCurl($option);
