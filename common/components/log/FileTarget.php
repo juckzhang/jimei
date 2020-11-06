@@ -34,8 +34,7 @@ class FileTarget extends Target {
 
     private function getFileName($tag)
     {
-        $tag2File = ArrayHelper::getValue($this->tag2File, $tag, '');
-        $tag2File and $tag2File .= $this->delimiter;
+        $tag2File = ArrayHelper::getValue($this->tag2File, $tag, $tag).$this->delimiter;
         $fileName = $this->commonPrefix . $this->delimiter . $tag2File . date($this->postFix) . '.log';
         return \Yii::getAlias($this->filePath . static::DS . $fileName);
     }
