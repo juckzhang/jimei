@@ -31,17 +31,17 @@ $user = CommonHelper::customer();
                 <table class="searchContent">
                     <tbody>
                     <tr>
-<!--                        <td>-->
-<!--                            品牌:-->
-<!--                            <input id="_brand-id" type="hidden" name="other[brand_id]" data-name="brand.id" value="<=ArrayHelper::getValue($other, 'brand_id')?>">-->
-<!--                            <input id="_brand-name" type="text" class="textInput readonly" readonly="true" name="brand-name" value="<=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">-->
-<!--                            <a class="btnLook" href="<=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>-->
-<!--                        </td>-->
+                        <td>
+                            品牌:
+                            <input id="_brand-id" type="hidden" name="other[brand_id]" data-name="brand.id" value="<?=ArrayHelper::getValue($other, 'brand_id')?>">
+                            <input id="_brand-name" type="text" class="textInput readonly" readonly="true" name="brand-name" value="<?=ArrayHelper::getValue($params,'brand-name')?>" data-name="brand.name" suggestfields="name" lookupgroup="brand" autocomplete="off">
+                            <a class="btnLook" href="<?=Url::to(['phone/brand-list', 'search' => 1])?>" lookupgroup="brand">查找带回</a>
+                        </td>
                         <td>
                             机型:
                             <input type="hidden" name="other[mobile_id]" data-name="phone.id" value="<?=ArrayHelper::getValue($other, 'mobile_id')?>">
                             <input type="text" class="textInput readonly" readonly="true" name="phone-name" value="<?=ArrayHelper::getValue($params,'phone-name')?>" data-name="phone.name" suggestfields="name" lookupgroup="phone" autocomplete="off">
-                            <a id="_look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1, 'select' => 1])?>" lookupgroup="phone">查找带回</a>
+                            <a id="_look-mobile" class="btnLook" href="<?=Url::to(['phone/phone-list', 'search' => 1])?>" lookupgroup="phone">查找带回</a>
                         </td>
                         <td>
                             材质:
