@@ -100,6 +100,7 @@ class MealController extends BaseController
                 $taskId =  $result->id;
                 $path = \Yii::getAlias('@app/../console');
                 $cmd = "cd $path && nohup php yii.php index/sync-meal $customerId $taskId &";
+                exec($cmd);
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功'.$cmd,
                     'navTabId' => 'task-list',
