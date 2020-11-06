@@ -16,17 +16,16 @@ class Curl extends Handle{
             'option' => $option,
             'time' => sprintf("%.3f" ,($endtime - $starttime)),
             'errMessage' => '',
-            'result' => $result,
+            'result' => json_decode($result, true),
         ];
 
         if (\curl_errno($ch)) {
             $result     = false;
             $err        = \curl_error($ch);
             $logInfo['errMessage'] = $err;
-//            Log::error($logInfo, 'task-collector');
-        }else{
-//            Log::debug($logInfo, 'task-collector');
-        }
+            \Yii::$app->bizLog->log($logInfo, 'curl', 'Error');
+        }else
+            \Yii::$app->bizLog->log($logInfo, 'curl', 'Info');
 
         \curl_close($ch);
 
@@ -90,12 +89,10 @@ class Curl extends Handle{
         if(!empty($errorMsg)){
             $errInfo            = empty($errorMsg) ? '' : serialize($errorMsg);
             $loginfo            = count($options) . '|' . sprintf("%.4f", microtime(true) - $start) . '|' . $errInfo;
-//            Log::error('mCurl:'.$loginfo, 'task-collector');
-        }else{
-//            Log::debug(['options' => $options, 'result' => $result]);
-        }
+            \Yii::$app->bizLog->log($loginfo, 'curl', 'Error');
+        }else
+            \Yii::$app->bizLog->log(['options' => $options, 'result' => json_decode($result, true)], 'curl', 'Error');
 
         return $result;
     }
-
 }

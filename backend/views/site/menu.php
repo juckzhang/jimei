@@ -48,6 +48,10 @@ $user = CommonHelper::customer();
                             <?php if(\Yii::$app->user->can('meal/meal-list')):?>
                                 <li><a href="<?=Url::to(['meal/meal-list'])?>" target="navTab" rel="meal-list">套餐列表</a></li>
                             <?php endif;?>
+
+                            <?php if(\Yii::$app->user->can('meal/task-list')):?>
+                                <li><a href="<?=Url::to(['meal/task-list'])?>" target="navTab" rel="task-list">离线同步列表</a></li>
+                            <?php endif;?>
                         </ul>
                     </li>
                 <?php endif;?>

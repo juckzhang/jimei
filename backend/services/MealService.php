@@ -8,12 +8,36 @@ use common\models\mysql\MaterialModel;
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
+use common\models\mysql\SyncMealModel;
 use common\models\mysql\ThemeModel;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
 class MealService extends BackendService
 {
+    public function taskList($page,$prePage,array $order = [], $other = [])
+    {
+        list($offset,$limit) = $this->parsePageParam($page,$prePage);
+        $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
+
+        $models = SyncMealModel::find()
+            ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
+            ->andFilterWhere(['sync_status' => ArrayHelper::getValue($other, 'sync_status')]);
+
+        $data['dataCount'] = $models->count();
+        $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
+
+        if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
+            $data['dataList'] = $models->orderBy($order)
+                ->limit($limit)
+                ->with('customer')
+                ->offset($offset)
+                ->asArray()
+                ->all();
+
+        return $data;
+    }
+
     // 机型
     public function mealList($page,$prePage,array $order = [], $other = [])
     {

@@ -175,6 +175,19 @@ CREATE TABLE if NOT EXISTS jimei_meal(
   key material_id(material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'套餐';
 
+-- 离线套餐同步任务
+CREATE TABLE if NOT EXISTS jimei_sync_meal(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  customer_id int unsigned NOT NULL default  0 comment'客户id',
+  sync_status tinyint unsigned NOT NULL DEFAULT 0 comment'同步状态 0：同步中 1 同步完成 2 同步失败!',
+  `desc` varchar(255) not null default '' comment '任务备注',
+  `result` varchar(255) not null default '' comment '任务结果',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  key cutomer_id(customer_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'离线套餐同步';
+
 -- 管理平台相关记录表
 CREATE TABLE IF NOT EXISTS jimei_role(
   `id` int unsigned NOT NULL PRIMARY  key AUTO_INCREMENT COMMENT '自增ID，主键',
