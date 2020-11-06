@@ -82,12 +82,6 @@ class ClientHelper
             $res = json_decode($res, true);
         }
 
-        $msg = json_encode([
-                'url' => $url,
-                'body' => $data,
-                'result' => $res,
-            ]).PHP_EOL;
-        file_put_contents(static::LOG_FILE, $msg, FILE_APPEND);
         if(is_array($res)) return $res;
 
         return [];

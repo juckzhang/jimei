@@ -41,7 +41,7 @@ return [
                 'targets' => [
                     'file' => [
                         'class' => 'common\components\log\FileTarget',
-                        'filePath' => '/data1/apache2/phplogs',
+                        'filePath' => '/mnt/data/openresty/htdocs/jimei/console/runtime/logs',
                         'commonPrefix' => 'jimei',
                         'tags' => ['req', 'curl',], //配置需要记录的tag
                         'levels' => YII_DEBUG ? ['Error', 'Debug', 'Info'] : ['Error', 'Info'], //关注的日志等级
