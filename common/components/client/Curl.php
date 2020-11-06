@@ -16,7 +16,7 @@ class Curl extends Handle{
             'option' => $option,
             'time' => sprintf("%.3f" ,($endtime - $starttime)),
             'errMessage' => '',
-            'result' => $result,
+            'result' => json_decode($result, true),
         ];
 
         if (\curl_errno($ch)) {
@@ -91,7 +91,7 @@ class Curl extends Handle{
             $loginfo            = count($options) . '|' . sprintf("%.4f", microtime(true) - $start) . '|' . $errInfo;
             \Yii::$app->bizLog->log($loginfo, 'curl', 'Error');
         }else
-            \Yii::$app->bizLog->log(['options' => $options, 'result' => $result], 'curl', 'Error');
+            \Yii::$app->bizLog->log(['options' => $options, 'result' => json_decode($result, true)], 'curl', 'Error');
 
         return $result;
     }
