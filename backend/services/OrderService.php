@@ -205,7 +205,6 @@ class OrderService extends BackendService
                         --$num;
                     }
                 }
-                if(!$orders) return false;
                 $ordertotalcount = ArrayHelper::getValue($res, 'ordertotalcount', 0);
                 ++$page;
                 if($page > (ceil($ordertotalcount / 100))){
