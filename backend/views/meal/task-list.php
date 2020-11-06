@@ -61,17 +61,6 @@ $user = CommonHelper::customer();
         </form>
     </div>
     <div class="pageContent">
-        <div class="panelBar">
-            <ul class="toolBar">
-                <?php if(\Yii::$app->user->can('meal/edit-meal')):?>
-                    <li><a class="add" href="<?=Url::to(['meal/edit-meal'])?>" target="navTab"><span>添加</span></a></li>
-                <?php endif;?>
-
-                <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
-                    <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['meal/delete-meal'])?>" class="delete"><span>批量删除</span></a></li>
-                <?php endif;?>
-            </ul>
-        </div>
         <table class="table" width="1200" layoutH="138">
             <thead>
             <tr>

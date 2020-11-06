@@ -104,6 +104,10 @@ $user = CommonHelper::customer();
                 <?php if(\Yii::$app->user->can('meal/sync-meal')):?>
                     <li><a title="确实要同步这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['meal/sync-meal'])?>" class="add"><span>批量同步</span></a></li>
                 <?php endif;?>
+
+                <?php if(\Yii::$app->user->can('meal/edit-task')):?>
+                    <li><a target="navTab" href="<?=Url::to(['meal/edit-task'])?>" class="add"><span>离线同步</span></a></li>
+                <?php endif;?>
             </ul>
         </div>
         <table class="table" width="1200" layoutH="138">
