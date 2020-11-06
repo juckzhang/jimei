@@ -4,6 +4,7 @@ return [
     'basePath' => dirname(__DIR__ ),
     'controllerNamespace' => 'console\controllers',
     'bootstrap' => ['log'],
+    'timeZone' => 'Asia/Shanghai',
     'components' => [
         'log' => [
             'targets' => [
@@ -31,6 +32,22 @@ return [
             'password' => 'ZCP38N8H.Yjt',
             'charset' => 'utf8mb4',
             'tablePrefix' => 'jimei_',
+        ],
+
+        //日志
+        'bizLog' => [//日志组件
+            'class' => 'common\components\log\Logger',
+            'dispatcher' => [
+                'targets' => [
+                    'file' => [
+                        'class' => 'common\components\log\FileTarget',
+                        'filePath' => '/data1/apache2/phplogs',
+                        'commonPrefix' => 'jimei',
+                        'tags' => ['req', 'curl',], //配置需要记录的tag
+                        'levels' => YII_DEBUG ? ['Error', 'Debug', 'Info'] : ['Error', 'Info'], //关注的日志等级
+                    ],
+                ],
+            ],
         ],
     ],
     'params' => [
