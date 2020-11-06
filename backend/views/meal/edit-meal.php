@@ -8,7 +8,7 @@ if (ArrayHelper::getValue($model, 'id')){
     $more = '';
 }
 $user = CommonHelper::customer();
-$customerId = $customerName = 0;
+$customerId = $customerName = '';
 if($user['related'] and !$user['multi']){
     $customerId = $user['customer_id'];
     $customerName = $user['customer_name'];
