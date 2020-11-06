@@ -96,7 +96,6 @@ class ClientHelper
         }
 
         $items = ArrayHelper::getValue($result, 'items', []);
-        $_message = ArrayHelper::getValue($result, 'message');
         $message = [];
 
         foreach ($items as $item){
@@ -108,6 +107,7 @@ class ClientHelper
             }
         }
         if(isset($result['Message'])) $message[] = $result['Message'];
+        $_message = ArrayHelper::getValue($result, 'message');
         if($_message and $_message != '商品套餐信息同步') $message[] = $_message;
         if(!isset($result['code'])){
             $ret['code'] = -1;
