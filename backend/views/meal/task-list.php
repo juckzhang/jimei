@@ -61,28 +61,45 @@ $user = CommonHelper::customer();
         </form>
     </div>
     <div class="pageContent">
+        <div class="panelBar">
+            <ul class="toolBar">
+                <?php if(\Yii::$app->user->can('meal/edit-task')):?>
+                    <li><a class="add" href="<?=Url::to(['meal/task-meal'])?>" target="navTab"><span>添加</span></a></li>
+                <?php endif;?>
+
+                <?php if(\Yii::$app->user->can('meal/delete-task')):?>
+                    <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['meal/delete-task'])?>" class="delete"><span>批量删除</span></a></li>
+                <?php endif;?>
+            </ul>
+        </div>
         <table class="table" width="1200" layoutH="138">
             <thead>
             <tr>
-<!--                <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>-->
+                <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
                 <th orderfield="brand_id" width="80">序号</th>
                 <th orderfield="brand_id" width="80">客户</th>
                 <th orderfield="mobile_id" width="80">备注</th>
                 <th orderfield="material_id" width="80">任务状态</th>
                 <th orderfield="color_id" width="80">同步结果</th>
                 <th orderfield="update_time" width="80">修改时间</th>
+                <th width="70">操作</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach($dataList as $key => $data):?>
                 <tr target="card-id" rel="<?=$data['id']?>">
-<!--                    <td><input name="ids[]" value="<=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>-->
+                    <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                     <td><?=($page - 1)*$prePage+$key+1?></td>
                     <td><?=$data['customer']['name']?></td>
                     <td><?=$data['desc']?></td>
                     <td><?=$data['sync_status'] == 0 ? '同步中' : '已同步'?></td>
                     <td><?=$data['result']?></td>
                     <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
+                    <td>
+                        <?php if(\Yii::$app->user->can('meal/delete-meal')):?>
+                            <a title="删除" target="ajaxTodo" href="<?=Url::to(['meal/delete-task','ids' => $data['id']])?>" class="btnDel">删除</a>
+                        <?php endif;?>
+                    </td>
                 </tr>
             <?php endforeach;?>
             </tbody>
