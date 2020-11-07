@@ -126,4 +126,20 @@ class MealController extends BaseController
         $data = MealService::getService()->taskList($_page,$_prePage, $_order, $_other);
         return $this->render('task-list',$data);
     }
+
+    public function actionDeleteTask()
+    {
+        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+        $return = SyncMealModel::getService()->deleteInfo($ids, SyncMealModel::className());
+        $this->log($return);
+        if($return === true)
+            return $this->returnAjaxSuccess([
+                'message' => '删除成功',
+                'navTabId' => 'task-list',
+                'callbackType' => 'forward',
+                'forwardUrl'  => Url::to(['meal/task-list'])
+            ]);
+        return $this->returnAjaxError($return);
+    }
 }
