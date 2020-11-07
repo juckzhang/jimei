@@ -16,6 +16,8 @@ class BaseController extends CommonController
     public $layout = false;
     public $enableCsrfValidation = false;
 
+    private $startTime;
+
     public function actions()
     {
         return [
@@ -27,6 +29,7 @@ class BaseController extends CommonController
 
     public function beforeAction($action)
     {
+        $this->startTime = microtime(true);
         $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
         $action=  strtolower($action);//转成小写
         if($action == 'site/login') return true;
@@ -139,6 +142,7 @@ class BaseController extends CommonController
             'user' => \Yii::$app->user->identity->username,
             'params' => $this->paramData,
             'result' => $res,
+            'time' => sprintf('%.3f',microtime(true) - $this->startTime),
         ],'req','Info');
     }
 }
