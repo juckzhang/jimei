@@ -6,6 +6,7 @@ use common\constants\CodeConstant;
 use common\controllers\CommonController;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
@@ -119,9 +120,9 @@ class BaseController extends CommonController
         if ($isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             Yii::$app->response->data = array(
-                'status' => -1,
+                'status' => -300,
                 'message' => $message,
-                'url' => Yii::$app->getHomeUrl()
+                'url' => Url::to('site/login'),
             );
         } else {
             $this->redirect(['site/login']);
