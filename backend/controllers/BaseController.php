@@ -110,6 +110,7 @@ class BaseController extends CommonController
 
         if($user->auth_key !== $authKey){
             $this->noticeLogin($isAjax, '您的账号在其他设备上已登录!');
+            Yii::$app->user->logout();
             return false;
         }
 
