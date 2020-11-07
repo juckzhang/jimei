@@ -92,7 +92,7 @@ $user = CommonHelper::customer();
                     </li>
                 <?php endif;?>
 
-                <li><a href="<?=Url::to(['site/logout'])?>" target="navTab" rel="logout">退出</a></li>
+<!--                <li><a href="<=Url::to(['site/logout'])?>" target="navTab" rel="logout">退出</a></li>-->
             </ul>
         </div>
 
