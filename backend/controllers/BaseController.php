@@ -107,9 +107,8 @@ class BaseController extends CommonController
         $session = Yii::$app->getSession();
         $authKey = $session->get('identify_auth_key');
 
-        if($user->auth_key !== '$authKey'){
+        if($user->auth_key !== $authKey){
             $this->noticeLogin($isAjax, '您的账号在其他设备上已登录!');
-
             return false;
         }
 
