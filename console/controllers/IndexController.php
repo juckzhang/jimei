@@ -57,6 +57,7 @@ class IndexController extends BaseController{
 
     public function actionSyncMeal($customerId, $taskId = 0){
         $id = 0;
+        $message = [];
         try {
             while (true){
                 $mealList = MealModel::find()->select(['id'])
@@ -71,21 +72,26 @@ class IndexController extends BaseController{
                 if($cnt > 0){
                     $res = MealService::getService()->syncMeal($ids);
                     \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
-                    sleep(1);
                     $id = $ids[$cnt - 1];
+                    if(isset($res['message'])) {
+                        $message[] = $res['message'];
+                    }
+                    sleep(1);
                 }
 
                 if($cnt < 100){
-                    if($taskId) {
-                        SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
-                    }
                     break;
                 }
             }
         }catch (\Exception $e){
             if($taskId) {
-                SyncMealModel::updateAll(['sync_status' => 1], ['id' => $taskId]);
+                $message[] = '同步失败!';
             }
+        }
+
+        if($taskId) {
+            $message = implode('|',array_unique($message));
+            SyncMealModel::updateAll(['sync_status' => 1,'result' => $message], ['id' => $taskId]);
         }
     }
 }
