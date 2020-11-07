@@ -120,9 +120,10 @@ class BaseController extends CommonController
         if ($isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             Yii::$app->response->data = array(
-                'status' => -300,
                 'message' => $message,
-                'url' => Url::to('site/login'),
+                'navTabId' => 'logout',
+                'callbackType' => 'forward',
+                'forwardUrl' => Url::to(['site/logout']),
             );
         } else {
             $this->redirect(['site/login']);
