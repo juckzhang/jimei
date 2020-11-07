@@ -6,6 +6,7 @@ use common\constants\CodeConstant;
 use common\controllers\CommonController;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
@@ -33,20 +34,7 @@ class BaseController extends CommonController
         $auth=  Yii::$app->authManager;
         $isAjax = Yii::$app->request->getIsAjax();
         //未登录
-        if (\Yii::$app->user->isGuest) {
-            if ($isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                Yii::$app->response->data = array(
-                    'status' => -1,
-                    'message' => '请先登录',
-                    'url' => Yii::$app->getHomeUrl()
-                );
-                return false ;
-            } else {
-                $this->redirect(['site/login']);
-                return false;
-            }
-        }
+        if(!$this->checkLogin($isAjax)) return false;
         $this->paramData = $this->parseParam();
         //超级管理员
         if(Yii::$app->user->identity->role_id == 0){
@@ -108,6 +96,40 @@ class BaseController extends CommonController
         Yii::$app->getResponse()->format = Response::FORMAT_JSON;
         $return = ['statusCode' => '300','message' => $this->getErrorMessage($code)];
         return $return;
+    }
+
+    private function checkLogin($isAjax){
+        if (\Yii::$app->user->isGuest) {
+            $this->noticeLogin($isAjax);
+            return false;
+        }
+
+        $user = \Yii::$app->user->identity;
+        $session = Yii::$app->getSession();
+        $authKey = $session->get('identify_auth_key');
+
+        if($user->auth_key !== $authKey){
+            $this->noticeLogin($isAjax, '您的账号在其他设备上已登录!');
+            Yii::$app->user->logout();
+            return false;
+        }
+
+        return true;
+    }
+
+    private function noticeLogin($isAjax, $message = '请先登录'){
+        if ($isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$app->response->data = array(
+                'statusCode' => 301,
+                'message' => $message,
+                'navTabId' => 'logout',
+                'callbackType' => 'forward',
+                'forwardUrl' => Url::to(['site/login']),
+            );
+        } else {
+            $this->redirect(['site/login']);
+        }
     }
 
     protected function log($result = null){

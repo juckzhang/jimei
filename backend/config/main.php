@@ -16,10 +16,14 @@ return [
         'user' => [
             'class'    => '\yii\web\User',
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
             'idParam' => 'zuiying_backend_id',
             'identityCookie' => ['name' => 'zuiying_backend_identity', 'httpOnly' => true],
             'loginUrl' => ['site/login'],
+            'on afterLogin' => function($event){
+                $user = $event->identity;
+                if($user) $user->updateAuthKey();
+            },
         ],
 
         'log' => [

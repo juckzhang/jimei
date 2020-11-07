@@ -50,7 +50,7 @@ $sources = SystemService::getService()->sourceAll();
         <?php if($id === \Yii::$app->user->identity->role_id):?>
         location.href = '<?=Url::to(['site/logout'])?>';
         <?php endif;?>
-        dialogAjaxDone(json);
+        navTabAjaxDone(json);
     }
 </script>
 

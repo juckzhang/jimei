@@ -9,7 +9,7 @@ $roleId   = ArrayHelper::getValue($model,'role_id');
 <h2 class="contentTitle">编辑用户</h2>
 <div class="pageContent">
 
-    <form method="post" action="<?=Url::to(['system/edit-user','id' => $id])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+    <form method="post" action="<?=Url::to(['system/edit-user','id' => $id])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>用户名：</dt>

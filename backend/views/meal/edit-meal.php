@@ -16,7 +16,7 @@ if($user['related'] and !$user['multi']){
 ?>
 <h2 class="contentTitle">编辑机型</h2>
 <div class="pageContent">
-    <form method="post" action="<?=Url::to(['meal/edit-meal','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+    <form method="post" action="<?=Url::to(['meal/edit-meal','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
         <input type="hidden" name="MealModel[sync_status]" value="0">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>

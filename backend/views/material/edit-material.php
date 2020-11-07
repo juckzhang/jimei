@@ -4,7 +4,7 @@ use yii\helpers\ArrayHelper;
 ?>
 <h2 class="contentTitle">编辑材质</h2>
 <div class="pageContent">
-    <form method="post" action="<?=Url::to(['material/edit-material','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+    <form method="post" action="<?=Url::to(['material/edit-material','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>名称：</dt>
