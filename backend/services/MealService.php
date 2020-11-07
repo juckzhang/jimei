@@ -191,6 +191,9 @@ class MealService extends BackendService
             ->all();
         $param = $meal = [];
         foreach ($data as $item){
+            if(!$item['brand'] or !$item['phone'] or !$item['material'] or !$item['color']
+                or !$item['customer'] or !$item['theme']
+            ) continue;
             $suitecode = sprintf(
                 "%s%s%s%s%s%s",
                 $item['brand']['barcode'],
@@ -229,6 +232,7 @@ class MealService extends BackendService
                 ],
             ];
         }
+        if(!$meal) return ['code' => -1,'message' => '无有效的套餐信息!'];
         $res = ClientHelper::rsyncMeal(['suiteitems' => $param]);
         //查出同步失败的套餐
         foreach ($res['mealCode'] as $code){
