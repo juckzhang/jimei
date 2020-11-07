@@ -131,7 +131,7 @@ class MealController extends BaseController
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-        $return = SyncMealModel::getService()->deleteInfo($ids, SyncMealModel::className());
+        $return = MealService::getService()->deleteInfo($ids, SyncMealModel::className());
         $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
