@@ -8,13 +8,13 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
 ?>
 <h2 class="contentTitle">编辑素材</h2>
 <div class="pageContent">
-    <form method="post" action="<?=Url::to(['theme/edit-theme','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+    <form method="post" action="<?=Url::to(['theme/edit-theme','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return commitForm(this,navTabAjaxDone)">
         <input type="hidden" id="source_pic_name" name="ThemeModel[source_pic_name]" value="<?=ArrayHelper::getValue($model,'source_pic_name','')?>"/>
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>名称：</dt>
                 <dd>
-                    <input type="text" name="ThemeModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'name','')?>"/>
+                    <input type="text" id="theme-name" name="ThemeModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'name','')?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>
@@ -35,7 +35,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
             <dl>
                 <dt>客户：</dt>
                 <dd>
-                    <input type="hidden" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id',$customer_id)?>">
+                    <input type="hidden" id="theme-customer" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id',$customer_id)?>">
                     <input type="text" class="required textInput readonly" readonly="true" name="customer.name" value="<?=ArrayHelper::getValue($model,'customer.name', $customer_name)?>" data-name="customer.name" suggestfields="name" lookupgroup="customer" autocomplete="off">
                     <a class="btnLook" href="<?=Url::to(['customer/customer-list', 'search' => 1])?>" lookupgroup="customer">查找带回</a>
                 </dd>
@@ -63,6 +63,37 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
 
 <script src="/js/ajaxfileupload.js"></script>
 <script type="text/javascript">
+    //表单校验
+    function commitForm(form, callback){
+        var customer_id = $('#theme-customer').val(),
+            id = <?=ArrayHelper::getValue($model,'id','')?>,
+            $form = form,
+            name = $('#theme-name').val();
+
+        if (!$form.valid()) {
+            return false;
+        }
+        var confirmMsg = '',
+            eq = false
+        $.ajax({
+            type: form.method || 'GET',
+            url:'<?=Url::to(['theme/theme-check'])?>',
+            data: {ch:{customer_id: customer_id, name: name}},
+            dataType:"json",
+            cache: false,
+            success: function (json) {
+                eq = json['eq'];
+                if(json['like']) confirmMsg = '已存在类似图案,是否继续提交?';
+            }
+        });
+
+        if(eq){
+            alertMsg.error()
+            return false
+        }
+
+        return validateCallback(form, callback, confirmMsg)
+    }
     $(function(){
         $(".upload-btn").on('click', function() {
             $(this).parent().find('input[type=file]').click();
