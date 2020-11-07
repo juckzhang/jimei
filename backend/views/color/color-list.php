@@ -59,7 +59,7 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('meal/meal-list')):?>
-                <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['color_id' => $data->id],'color-name' => urlencode($data->name)])?>" class="btnInfo">套餐列表</a>
+                <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['color_id' => $data->id],'color-name' => urlencode($data->name)])?>" class="btnView">套餐列表</a>
             <?php endif;?>
         </ul>
     </div>

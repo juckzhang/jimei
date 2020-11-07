@@ -129,7 +129,7 @@ $user = CommonHelper::customer();
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('meal/meal-list')):?>
-                        <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['theme_id' => $data['id'],'customer_id' => $data['customer']['id']],'theme-name' => urlencode($data['name']),'customer-name' => urlencode($data['customer']['name'])])?>" class="btnInfo">套餐列表</a>
+                        <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['theme_id' => $data['id'],'customer_id' => $data['customer']['id']],'theme-name' => urlencode($data['name']),'customer-name' => urlencode($data['customer']['name'])])?>" class="btnView">套餐列表</a>
                     <?php endif;?>
                 </td>
                 <?php endif;?>

@@ -147,7 +147,7 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
                         <?php endif;?>
 
                         <?php if(\Yii::$app->user->can('meal/meal-list')):?>
-                            <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['mobile_id' => $data->id,'brand_id' => $data->brand->id],'mobile-name' => urlencode($data->modal),'brand-name' => urlencode($data->brand->name)])?>" class="btnInfo">套餐列表</a>
+                            <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['mobile_id' => $data->id,'brand_id' => $data->brand->id],'mobile-name' => urlencode($data->modal),'brand-name' => urlencode($data->brand->name)])?>" class="btnView">套餐列表</a>
                         <?php endif;?>
 
                         <?php if(\Yii::$app->user->can('phone/relation-list')):?>
