@@ -110,20 +110,6 @@ class MealService extends BackendService
         $materialList = MaterialModel::find()->where(['id' => $materialIds])->with('phone')->with('color')->asArray()->all();
         $batchData = []; $now = time();
         $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
-//        foreach ($phoneList as $phone){
-//            $item = ['brand_id' => $phone['brand_id'], 'mobile_id' => $phone['id'],'create_time' => $now,'update_time' => $now];
-//            foreach ($colorList as $color){
-//                $item['color_id'] = $color['id'];
-//                foreach ($themeList as $theme){
-//                    $item['customer_id'] = $theme['customer_id'];
-//                    $item['theme_id'] = $theme['id'];
-//                    foreach ($materialList as $material){
-//                        $item['material_id'] = $material['id'];
-//                        $batchData[] = $item;
-//                    }
-//                }
-//            }
-//        }
 
         foreach ($materialList as $material){
             $phones = ArrayHelper::getValue($material, 'phone', []);
@@ -163,6 +149,10 @@ class MealService extends BackendService
                 'material_id' => $data['material_id'],
             ];
         }
+
+        $ret = CodeConstant::NO_MEAL_RESULT;
+        $starttime = microtime(true);
+        $errorMessage = '';
         if($batchData){
             $transaction = \Yii::$app->db->beginTransaction();
             try{
@@ -170,14 +160,21 @@ class MealService extends BackendService
                 \Yii::$app->db->createCommand()->batchInsert(MealModel::tableName(),$filed,$batchData)->execute();
                 $transaction->commit();
 
-                return 200;
+                $ret = 200;
             }catch (\Exception $e){
                 $transaction->rollBack();
-                return CodeConstant::EDIT_MEAL_FAILED;
+                $ret = CodeConstant::EDIT_MEAL_FAILED;
+                $errorMessage = $e->getMessage();
             }
         }
+        $endtime = microtime(true);
+        \Yii::$app->bizLog->log([
+            'batchData' => $batchData,
+            'time' => sprintf("%.3f" ,($endtime - $starttime)) ,
+            'errorMessage' => $errorMessage,
+        ], 'mysql', 'Info');
 
-        return CodeConstant::NO_MEAL_RESULT;
+        return $ret;
     }
 
     public function syncMeal($ids){

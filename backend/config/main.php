@@ -45,7 +45,7 @@ return [
                         'class' => 'common\components\log\FileTarget',
                         'filePath' => '@runtime/logs',
                         'commonPrefix' => 'jimei',
-                        'tags' => ['req', 'curl',], //配置需要记录的tag
+                        'tags' => ['req', 'curl', 'mysql'], //配置需要记录的tag
                         'levels' => YII_DEBUG ? ['Error', 'Debug', 'Info'] : ['Error', 'Info'], //关注的日志等级
                     ],
                 ],
