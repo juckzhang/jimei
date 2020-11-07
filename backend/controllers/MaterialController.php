@@ -47,9 +47,7 @@ class MaterialController extends BaseController
     public function actionDeleteMaterial()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = MaterialService::getService()->deleteInfo($ids,MaterialModel::className());
         $this->log($return);
         if($return === true)

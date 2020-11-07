@@ -94,10 +94,10 @@ class MealController extends BaseController
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = MealService::getService()->editInfo($id, SyncMealModel::className());
             $this->log($result);
-            if($result instanceof Model)
+            if($result instanceof Model) {
                 // 生成任务名称
                 $customerId = $result->customer_id;
-                $taskId =  $result->id;
+                $taskId = $result->id;
                 $path = \Yii::getAlias('@app/../console');
                 $cmd = "cd $path && nohup php yii.php index/sync-meal $customerId $taskId &";
                 exec($cmd);
@@ -107,6 +107,7 @@ class MealController extends BaseController
                     'callbackType' => 'forward',
                     'forwardUrl' => Url::to(['meal/task-list'])
                 ]);
+            }
             return $this->returnAjaxError($result);
         }else{
             return $this->render('edit-task');

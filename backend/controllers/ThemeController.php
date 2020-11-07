@@ -35,7 +35,6 @@ class ThemeController extends BaseController
             $id = ArrayHelper::getValue($this->paramData, 'id');
             $result = ThemeService::getService()->editInfo($id, ThemeModel::className());
             $this->log($result);
-//            $result = ThemeService::getService()->editTheme($this->paramData);
             if($result)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',

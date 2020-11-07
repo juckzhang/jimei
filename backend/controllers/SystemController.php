@@ -32,7 +32,7 @@ class SystemController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = SystemService::getService()->editSource($id);
-
+            $this->log($result);
             if($result instanceof ActiveRecord)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -52,10 +52,9 @@ class SystemController extends BaseController
     public function actionDeleteSource()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = SystemService::getService()->deleteSource($ids);
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -85,7 +84,7 @@ class SystemController extends BaseController
             $id = ArrayHelper::getValue($this->paramData,'id');
             $sources = ArrayHelper::getValue($this->paramData,'sources');
             $result = SystemService::getService()->editRole($id,$sources);
-
+            $this->log($result);
             if($result instanceof ActiveRecord)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -107,10 +106,9 @@ class SystemController extends BaseController
     public function actionDeleteRole()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = SystemService::getService()->deleteRole($ids);
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
@@ -128,7 +126,7 @@ class SystemController extends BaseController
             $id = ArrayHelper::getValue($this->paramData,'id');
             $sources = ArrayHelper::getValue($this->paramData,'sources');
             $result = SystemService::getService()->assignPrivilegee($id,$sources);
-
+            $this->log($result);
             if($result === true)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -168,7 +166,7 @@ class SystemController extends BaseController
         {
             $id = ArrayHelper::getValue($this->paramData,'id');
             $result = SystemService::getService()->editUser($id);
-
+            $this->log($result);
             if($result instanceof ActiveRecord)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
@@ -189,10 +187,9 @@ class SystemController extends BaseController
     public function actionDeleteUser()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = SystemService::getService()->deleteUser($ids);
+        $this->log($return);
         if($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
