@@ -106,7 +106,7 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
                 <th orderfield="brand_id" width="80">品牌</th>
                 <th width="80">宽</th>
                 <th width="80">高</th>
-                <th>画布类型</th>
+                <th width="80">画布类型</th>
                 <th orderfield="update_time" width="80">修改时间</th>
                 <?php if(!$search):?>
                     <th width="70">操作</th>
