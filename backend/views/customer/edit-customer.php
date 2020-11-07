@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>条码：</dt>
                 <dd>
-                    <input type="text" name="CustomerModel[barcode]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
+                    <input type="text" name="CustomerModel[barcode]" maxlength="2" minlength="2" class="required lettersonly" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
                     <span class="info">条码</span>
                 </dd>
             </dl>

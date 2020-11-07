@@ -24,7 +24,7 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>条码：</dt>
                 <dd>
-                    <input type="text" name="PhoneModel[barcode]" maxlength="20" class="required number" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
+                    <input type="text" name="PhoneModel[barcode]" maxlength="3" minlength="3" class="required number" value="<?=ArrayHelper::getValue($model,'barcode','')?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>
