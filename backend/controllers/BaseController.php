@@ -120,6 +120,7 @@ class BaseController extends CommonController
         if ($isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             Yii::$app->response->data = array(
+                'statusCode' => 300,
                 'message' => $message,
                 'navTabId' => 'logout',
                 'callbackType' => 'forward',
