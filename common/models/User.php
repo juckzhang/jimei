@@ -21,7 +21,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             STATIC::SCENARIO_DEFAULT =>
-                ['id','username','password','status'],
+                ['id','username','password','auth_key','status'],
         ];
     }
 
@@ -85,6 +85,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
+    }
+
+    public function updateAuthKey(){
+        $this->auth_key = sprintf("%d-%d-%d", $this->id, time(), mt_rand(1, 10000));
+        $this->save();
+
+        //保存session
+        $session = Yii::$app->getSession();
+        $session->set('identify_auth_key', $this->auth_key);
     }
 
     public function validatePassword($password)

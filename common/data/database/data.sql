@@ -205,10 +205,12 @@ create TABLE IF NOT EXISTS jimei_admin(
   `password` char(255) NOT NULL DEFAULT '',
   customer_id varchar(255) not null default '' comment'客户id列表',
   customer_name varchar(255) not null default '' comment'客户名称列表',
+  auth_key char(32) not null default '' comment'用户登录凭证',
   sort_order int unsigned  NOT NULL DEFAULT 500 comment'排序字段',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
-  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除'
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
+  key index auth_key(auth_key)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员列表';
 
 CREATE TABLE IF NOT EXISTS jimei_source(
