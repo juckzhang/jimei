@@ -47,7 +47,7 @@ $sources = SystemService::getService()->sourceAll();
     {
         DWZ.ajaxDone(json);
         //判断修改的角色是否是当前用户
-        <?php if($id == \Yii::$app->user->identity->role_id):?>
+        <?php if($id === \Yii::$app->user->identity->role_id):?>
         location.href = '<?=Url::to(['site/logout'])?>';
         <?php endif;?>
         dialogAjaxDone(json);
