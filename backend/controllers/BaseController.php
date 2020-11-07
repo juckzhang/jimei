@@ -125,7 +125,7 @@ class BaseController extends CommonController
                 'message' => $message,
                 'navTabId' => 'logout',
                 'callbackType' => 'forward',
-                'forwardUrl' => Url::to(['site/logout']),
+                'forwardUrl' => Url::to(['site/login']),
             );
         } else {
             $this->redirect(['site/login']);
