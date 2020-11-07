@@ -49,9 +49,7 @@ class CustomerController extends BaseController
     public function actionDeleteCustomer()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = CustomerService::getService()->deleteInfo($ids, CustomerModel::className());
         $this->log($return);
         if($return === true)

@@ -56,9 +56,7 @@ class ColorController extends BaseController
     public function actionDeleteColor()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = ColorService::getService()->deleteInfo($ids, ColorModel::className());
         $this->log($return);
         if($return === true)

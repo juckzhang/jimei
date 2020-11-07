@@ -55,9 +55,7 @@ class OrderController extends BaseController
     public function actionDeleteOrder()
     {
         if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-
         $ids = ArrayHelper::getValue($this->paramData,'ids');
-
         $return = OrderService::getService()->deleteInfo($ids,OrderModel::className());
         $this->log($return);
         if($return === true)
