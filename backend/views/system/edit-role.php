@@ -7,7 +7,7 @@ $sources = SystemService::getService()->sourceAll();
 ?>
 <h2 class="contentTitle">角色编辑</h2>
 <div class="pageContent">
-    <form method="post" action="<?=Url::to(['system/edit-role','id' => $id])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
+    <form method="post" action="<?=Url::to(['system/edit-role','id' => $id])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,submitCallBack)">
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>角色名称：</dt>
