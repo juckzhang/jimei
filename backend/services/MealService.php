@@ -170,6 +170,7 @@ class MealService extends BackendService
         $endtime = microtime(true);
         \Yii::$app->bizLog->log([
             'batchData' => $batchData,
+            'total' => count($batchData),
             'time' => sprintf("%.3f" ,($endtime - $starttime)) ,
             'errorMessage' => $errorMessage,
         ], 'mysql', 'Info');
