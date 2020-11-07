@@ -145,6 +145,14 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
                         <?php if(\Yii::$app->user->can('phone/edit-phone')):?>
                         <a title="编辑" target="navTab" href="<?=Url::to(['phone/edit-phone','id' => $data->id])?>" class="btnEdit">编辑</a>
                         <?php endif;?>
+
+                        <?php if(\Yii::$app->user->can('meal/meal-list')):?>
+                            <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['mobile_id' => $data->id,'brand_id' => $data->brand->id],'mobile-name' => urlencode($data->modal),'brand-name' => urlencode($data->brand->name)])?>" class="btnInfo">套餐列表</a>
+                        <?php endif;?>
+
+                        <?php if(\Yii::$app->user->can('phone/relation-list')):?>
+                            <a title="机型材质关系列表" target="navTab" rel="relation-list" href="<?=Url::to(['phone/relation-list', 'notMore' => 1, 'other' => ['mobile_id' => $data->id],'mobile-name' => urlencode($data->modal)])?>" class="btnInfo">机型材质关系</a>
+                        <?php endif;?>
                     </td>
                     <?php endif;?>
                 </tr>

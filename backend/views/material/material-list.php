@@ -95,6 +95,14 @@ $notMore = ArrayHelper::getValue($params,'notMore');
                     <?php if(\Yii::$app->user->can('material/edit-material')):?>
                     <a title="编辑" target="navTab" href="<?=Url::to(['material/edit-material','id' => $data->id])?>" class="btnEdit">编辑</a>
                     <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('meal/meal-list')):?>
+                        <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['material_id' => $data->id],'material-name' => urlencode($data->name)])?>" class="btnInfo">套餐列表</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('phone/relation-list')):?>
+                        <a title="机型材质关系列表" target="navTab" rel="relation-list" href="<?=Url::to(['phone/relation-list', 'notMore' => 1, 'other' => ['material_id' => $data->id],'material-name' => urlencode($data->name)])?>" class="btnInfo">机型材质关系</a>
+                    <?php endif;?>
                 </td>
                 <?php endif;?>
             </tr>
