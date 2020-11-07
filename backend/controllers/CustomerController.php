@@ -34,7 +34,7 @@ class CustomerController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'customer-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['customer/customer-list'])
                 ]);
             return $this->returnAjaxError($result);

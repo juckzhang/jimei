@@ -41,7 +41,7 @@ class ColorController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'color-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['color/color-list'])
                 ]);
             return $this->returnAjaxError($result);
