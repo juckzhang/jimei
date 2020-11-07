@@ -220,6 +220,9 @@ class OrderService extends BackendService
             'update_time', 'goodsname', 'lcmccode', 'mccode',
             'eshopskuname','checkcode', 'shopname','num', 'status',
         ];
+        $ret = CodeConstant::DISTRIBUTION_NOT_ORDER;
+        $starttime = microtime(true);
+        $errorMessage = '';
         if($batchData){
             //$batchData = $this->sortOrder($batchData);
             $transaction = \Yii::$app->db->beginTransaction();
@@ -227,14 +230,22 @@ class OrderService extends BackendService
                 OrderModel::deleteAll(['base_id' => $model->id]);
                 \Yii::$app->db->createCommand()->batchInsert(OrderModel::tableName(),$filed,$batchData)->execute();
                 $transaction->commit();
-                return 200;
+                $ret = 200;
             }catch (\Exception $e){
                 $transaction->rollBack();
-                return CodeConstant::DISTRIBUTION_RSYNC_FAILED;
+                $ret = CodeConstant::DISTRIBUTION_RSYNC_FAILED;
+                $errorMessage = $e->getMessage();
             }
         }
+        $endtime = microtime(true);
+        \Yii::$app->bizLog->log([
+            'batchData' => $batchData,
+            'total' => count($batchData),
+            'time' => sprintf("%.3f" ,($endtime - $starttime)) ,
+            'errorMessage' => $errorMessage,
+        ], 'mysql', 'Info');
 
-        return CodeConstant::DISTRIBUTION_NOT_ORDER;
+        return $ret;
     }
 
     private function parseOrder($order, $sn, $mealCode, $except = false){
