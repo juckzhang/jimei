@@ -57,10 +57,6 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
             <?php if(\Yii::$app->user->can('color/delete-color')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['color/delete-color'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
-
-            <?php if(\Yii::$app->user->can('meal/meal-list')):?>
-                <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['color_id' => $data->id],'color-name' => urlencode($data->name)])?>" class="btnView">套餐列表</a>
-            <?php endif;?>
         </ul>
     </div>
     <table class="table" width="1200" layoutH="138">
@@ -106,6 +102,10 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
 
                     <?php if(\Yii::$app->user->can('color/edit-color')):?>
                     <a title="编辑" target="dialog" href="<?=Url::to(['color/edit-color','id' => $data->id])?>" class="btnEdit">编辑</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('meal/meal-list')):?>
+                        <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['color_id' => $data->id],'color-name' => urlencode($data->name)])?>" class="btnView">套餐列表</a>
                     <?php endif;?>
                 </td>
                 <?php endif;?>
