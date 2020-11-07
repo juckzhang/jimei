@@ -66,7 +66,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
     //表单校验
     function commitForm(form, callback){
         var customer_id = $('#theme-customer').val(),
-            id = <?=ArrayHelper::getValue($model,'id','')?>,
+            id = '<?=ArrayHelper::getValue($model,'id','')?>',
             $form = form,
             name = $('#theme-name').val();
 
@@ -87,7 +87,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
             }
         });
 
-        if(eq){
+        if(eq && eq == id){
             alertMsg.error()
             return false
         }
