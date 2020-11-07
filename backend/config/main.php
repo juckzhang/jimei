@@ -16,7 +16,7 @@ return [
         'user' => [
             'class'    => '\yii\web\User',
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => false,
+            'enableAutoLogin' => true,
             'idParam' => 'zuiying_backend_id',
             'identityCookie' => ['name' => 'zuiying_backend_identity', 'httpOnly' => true],
             'loginUrl' => ['site/login'],
