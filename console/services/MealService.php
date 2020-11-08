@@ -6,17 +6,12 @@ use common\models\mysql\SyncMealModel;
 use console\services\base\ConsoleService;
 use yii\helpers\ArrayHelper;
 
-/**
- * Class CreditsService
- * 处理加积分的任务
- * 根据不同的任务生产场景处理积分问题
- * @package common\services
- */
 class MealService extends ConsoleService
 {
     public function syncMeal($customerId, $taskId = 0){
         $id = 0;
-        $message = [];
+        $counts = 0;
+        $this->updateTask(['sync_status' => 3], $taskId);
         try {
             while (true){
                 $mealList = MealModel::find()->select(['id'])
@@ -28,6 +23,7 @@ class MealService extends ConsoleService
                     ->all();
                 $ids = ArrayHelper::getColumn($mealList, 'id');
                 $cnt = count($ids);
+                $counts += $cnt;
                 if($cnt > 0){
                     $res = \backend\services\MealService::getService()->syncMeal($ids);
                     \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
@@ -35,22 +31,25 @@ class MealService extends ConsoleService
                     if(isset($res['message'])) {
                         $message[] = $res['message'];
                     }
-                    sleep(1);
-                }
 
+                    $this->updateTask(['result' => "已处理 {$counts} 个套餐"], $taskId);
+                }
                 if($cnt < 100){
                     break;
                 }
             }
         }catch (\Exception $e){
-            if($taskId) {
-                $message[] = '同步失败!';
-            }
+            $message[] = '同步失败!';
         }
 
-        if($taskId) {
-            $message = implode('|',array_unique($message));
-            SyncMealModel::updateAll(['sync_status' => 1,'result' => $message], ['id' => $taskId]);
-        }
+        $message = implode('|',array_unique($message));
+        $this->updateTask(['sync_status' => 1,'result' => $message], $taskId);
+    }
+
+    // 更新任务信息
+    private function updateTask($column, $taskId){
+        if($taskId <= 0) return ;
+
+        SyncMealModel::updateAll($column, ['id' => $taskId]);
     }
 }
