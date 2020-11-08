@@ -27,10 +27,10 @@ class MealService extends ConsoleService
                 $counts += $cnt;
                 if($cnt > 0){
                     $res = \backend\services\MealService::getService()->syncMeal($ids);
-                    \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
+                    \Yii::$app->bizLog->log(['ids' => $ids, 'taskId' => $taskId,'result' => $res], 'req', 'Info');
                     $id = $ids[$cnt - 1];
                     if(isset($res['message'])) {
-                        $message[] = $res['message'];
+                        $message = array_merge($message,explode('|',$res['message']));
                     }
 
                     $this->updateTask(['result' => "已处理 {$counts} 个套餐"], $taskId);
@@ -51,6 +51,10 @@ class MealService extends ConsoleService
     private function updateTask($column, $taskId){
         if($taskId <= 0) return ;
 
+        \Yii::$app->bizLog->log([
+            'column' => $column,
+            'taskId' => $taskId,
+        ], 'req', 'Info');
         SyncMealModel::updateAll($column, ['id' => $taskId]);
     }
 }
