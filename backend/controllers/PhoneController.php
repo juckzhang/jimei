@@ -45,7 +45,7 @@ class PhoneController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'phone-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['phone/phone-list'])
                 ]);
             return $this->returnAjaxError($result);
@@ -146,7 +146,7 @@ class PhoneController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'relation-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['phone/relation-list'])
                 ]);
             return $this->returnAjaxError($result);

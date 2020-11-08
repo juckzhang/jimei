@@ -88,7 +88,7 @@ class OrderController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'distribution-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['order/distribution-list'])
                 ]);
             return $this->returnAjaxError($result);

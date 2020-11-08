@@ -89,7 +89,7 @@ class SystemController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'role-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['system/role-list'])
                 ]);
             return $this->returnAjaxError($result);

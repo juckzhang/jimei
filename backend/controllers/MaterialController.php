@@ -32,7 +32,7 @@ class MaterialController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'material-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['material/material-list'])
                 ]);
             return $this->returnAjaxError($result);

@@ -55,7 +55,7 @@ class ThemeController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'theme-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['theme/theme-list'])
                 ]);
             return $this->returnAjaxError($result);
