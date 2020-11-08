@@ -99,7 +99,7 @@ $user = CommonHelper::customer();
                         <?php elseif ($data['sync_status'] == 3):?>
                             执行中
                         <?php elseif ($data['sync_status'] == 1):?>
-                            已完整
+                            已完成
                         <?php else:?>
                             失败
                         <?php endif;?>
