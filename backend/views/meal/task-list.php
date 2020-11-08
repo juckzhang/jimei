@@ -65,7 +65,7 @@ $user = CommonHelper::customer();
         <div class="panelBar">
             <ul class="toolBar">
                 <?php if(\Yii::$app->user->can('meal/edit-task')):?>
-                    <li><a class="add" href="<?=Url::to(['meal/task-meal'])?>" target="navTab"><span>添加</span></a></li>
+                    <li><a class="add" href="<?=Url::to(['meal/edit-task'])?>" target="navTab"><span>添加</span></a></li>
                 <?php endif;?>
 
                 <?php if(\Yii::$app->user->can('meal/delete-task')):?>
