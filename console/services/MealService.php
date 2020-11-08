@@ -12,6 +12,7 @@ class MealService extends ConsoleService
         $id = 0;
         $counts = 0;
         $this->updateTask(['sync_status' => 3], $taskId);
+        $message = [];
         try {
             while (true){
                 $mealList = MealModel::find()->select(['id'])
