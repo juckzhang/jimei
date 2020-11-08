@@ -54,44 +54,4 @@ class IndexController extends BaseController{
 
         ExcelHelper::writeExcel($fileName, $data);
     }
-
-    public function actionSyncMeal($customerId, $taskId = 0){
-        $id = 0;
-        $message = [];
-        try {
-            while (true){
-                $mealList = MealModel::find()->select(['id'])
-                    ->where(['>', 'id', $id])
-                    ->andwhere(['customer_id' => $customerId, 'sync_status' => 0])
-                    ->asArray()
-                    ->limit(100)
-                    ->orderBy(['id' => SORT_ASC])
-                    ->all();
-                $ids = ArrayHelper::getColumn($mealList, 'id');
-                $cnt = count($ids);
-                if($cnt > 0){
-                    $res = MealService::getService()->syncMeal($ids);
-                    \Yii::$app->bizLog->log(['ids' => $ids, 'result' => $res], 'req', 'Info');
-                    $id = $ids[$cnt - 1];
-                    if(isset($res['message'])) {
-                        $message[] = $res['message'];
-                    }
-                    sleep(1);
-                }
-
-                if($cnt < 100){
-                    break;
-                }
-            }
-        }catch (\Exception $e){
-            if($taskId) {
-                $message[] = '同步失败!';
-            }
-        }
-
-        if($taskId) {
-            $message = implode('|',array_unique($message));
-            SyncMealModel::updateAll(['sync_status' => 1,'result' => $message], ['id' => $taskId]);
-        }
-    }
 }

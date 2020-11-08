@@ -28,6 +28,22 @@ class ThemeController extends BaseController
         return $this->render('theme-list',$data);
     }
 
+    public function actionThemeCheck(){
+        $customerId = ArrayHelper::getValue($this->paramData,'ck.customer_id');
+        $name = ArrayHelper::getValue($this->paramData,'ch.pageNum');
+
+        $dataList = ThemeModel::find()->where(['customer_id' => $customerId])
+            ->andWhere(['like','name', $name])->all();
+
+        $ret = ['like' => false, 'eq' => 0];
+        foreach ($dataList as $data){
+            if($name == $data->name) $ret['eq'] = $data->id;
+            else $ret['like'] = true;
+        }
+
+        $this->returnAjaxSuccess($ret);
+    }
+
     public function actionEditTheme()
     {
         if(\Yii::$app->request->getIsPost())

@@ -96,11 +96,11 @@ class MealController extends BaseController
             $this->log($result);
             if($result instanceof Model) {
                 // 生成任务名称
-                $customerId = $result->customer_id;
-                $taskId = $result->id;
-                $path = \Yii::getAlias('@app/../console');
-                $cmd = "cd $path && nohup php yii.php index/sync-meal $customerId $taskId &";
-                exec($cmd);
+//                $customerId = $result->customer_id;
+//                $taskId = $result->id;
+//                $path = \Yii::getAlias('@app/../console');
+//                $cmd = "cd $path && nohup php yii.php index/sync-meal $customerId $taskId &";
+//                exec($cmd);
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'task-list',

@@ -41,8 +41,9 @@ $user = CommonHelper::customer();
                             状态:
                             <select name="other[sync_status]" value="<?=ArrayHelper::getValue($other, 'sync_status')?>">
                                 <option value="">--选择同步状态--</option>
-                                <option value="0" <?=ArrayHelper::getValue($other, 'sync_status') === '0' ? 'selected' : ''?>>未同步</option>
-                                <option value="1" <?=ArrayHelper::getValue($other, 'sync_status') === '1' ? 'selected' : ''?>>已同步</option>
+                                <option value="0" <?=ArrayHelper::getValue($other, 'sync_status') === '0' ? 'selected' : ''?>>等待执行</option>
+                                <option value="3" <?=ArrayHelper::getValue($other, 'sync_status') === '0' ? 'selected' : ''?>>执行中</option>
+                                <option value="1" <?=ArrayHelper::getValue($other, 'sync_status') === '1' ? 'selected' : ''?>>已完成</option>
                             </select>
                         </td>
                     </tr>
@@ -92,7 +93,17 @@ $user = CommonHelper::customer();
                     <td><?=($page - 1)*$prePage+$key+1?></td>
                     <td><?=$data['customer']['name']?></td>
                     <td><?=$data['desc']?></td>
-                    <td><?=$data['sync_status'] == 0 ? '同步中' : '已同步'?></td>
+                    <td>
+                        <?php if($data['sync_status'] == 0):?>
+                            等待执行
+                        <?php elseif ($data['sync_status'] == 3):?>
+                            执行中
+                        <?php elseif ($data['sync_status'] == 1):?>
+                            已完整
+                        <?php else:?>
+                            失败
+                        <?php endif;?>
+                    </td>
                     <td><?=$data['result']?></td>
                     <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                     <td>
