@@ -37,7 +37,7 @@ class MealController extends BaseController
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'meal-list',
-                    'callbackType' => 'forward',
+                    'callbackType' => 'closeCurrent',
                     'forwardUrl' => Url::to(['meal/meal-list'])
                 ]);
             return $this->returnAjaxError($result);
