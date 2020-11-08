@@ -65,7 +65,7 @@ $user = CommonHelper::customer();
         <div class="panelBar">
             <ul class="toolBar">
                 <?php if(\Yii::$app->user->can('meal/edit-task')):?>
-                    <li><a class="add" href="<?=Url::to(['meal/task-meal'])?>" target="navTab"><span>添加</span></a></li>
+                    <li><a class="add" href="<?=Url::to(['meal/edit-task'])?>" target="navTab"><span>添加</span></a></li>
                 <?php endif;?>
 
                 <?php if(\Yii::$app->user->can('meal/delete-task')):?>
@@ -99,7 +99,7 @@ $user = CommonHelper::customer();
                         <?php elseif ($data['sync_status'] == 3):?>
                             执行中
                         <?php elseif ($data['sync_status'] == 1):?>
-                            已完整
+                            已完成
                         <?php else:?>
                             失败
                         <?php endif;?>
