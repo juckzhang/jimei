@@ -30,7 +30,7 @@ class MealService extends ConsoleService
                     \Yii::$app->bizLog->log(['ids' => $ids, 'taskId' => $taskId,'result' => $res], 'req', 'Info');
                     $id = $ids[$cnt - 1];
                     if(isset($res['message'])) {
-                        $message[] = $res['message'];
+                        $message = array_merge($message,explode('|',$res['message']));
                     }
 
                     $this->updateTask(['result' => "已处理 {$counts} 个套餐"], $taskId);
