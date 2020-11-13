@@ -289,7 +289,7 @@ class OrderService extends BackendService
             'mccode' => $order['mccode'],
             'eshopskuname' => ArrayHelper::getValue($order,'eshopskuname',''),
             'checkcode' => ArrayHelper::getValue($order,'checkcode',''),
-            'shopname' => ArrayHelper::getValue($order,'shopname',''),
+            'shopname' => ArrayHelper::getValue($order,'eshopname',''),
             'num' => $order['qty'],
             'status' => $status,
         ];
