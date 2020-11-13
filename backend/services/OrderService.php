@@ -113,6 +113,7 @@ class OrderService extends BackendService
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'border_url' => $borderUrl,
                 'color' => ArrayHelper::getValue($item, 'color.name'),
+                'customer_name' => ArrayHelper::getValue($item,'customer.name'),
                 'status' => $item['status'] ?: $status,
             ];
         }
