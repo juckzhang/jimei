@@ -113,6 +113,7 @@ class OrderService extends BackendService
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'border_url' => $borderUrl,
                 'color' => ArrayHelper::getValue($item, 'color.name'),
+                'customer_name' => ArrayHelper::getValue($item,'customer.name'),
                 'status' => $item['status'] ?: $status,
             ];
         }
@@ -289,7 +290,7 @@ class OrderService extends BackendService
             'mccode' => $order['mccode'],
             'eshopskuname' => ArrayHelper::getValue($order,'eshopskuname',''),
             'checkcode' => ArrayHelper::getValue($order,'checkcode',''),
-            'shopname' => ArrayHelper::getValue($order,'shopname',''),
+            'shopname' => ArrayHelper::getValue($order,'eshopname',''),
             'num' => $order['qty'],
             'status' => $status,
         ];
