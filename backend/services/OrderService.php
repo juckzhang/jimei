@@ -20,10 +20,10 @@ class OrderService extends BackendService
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
-
+        $status = ArrayHelper::getValue($other, 'status');
         $models = OrderModel::find()
             ->where(['base_id' => $basid])
-            ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
+//            ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
             ->andFilterWhere([
                 'or',
                 ['like', 'order_id',ArrayHelper::getValue($other, 'keyword')],
@@ -33,7 +33,20 @@ class OrderService extends BackendService
                 ['like', 'checkcode',ArrayHelper::getValue($other, 'keyword')],
                 ['like', 'shopname',ArrayHelper::getValue($other, 'keyword')],
             ]);
-
+        if($status === '0' or $status == 2){
+            $filter = 'or';
+            if($status === '0') $filter = 'and';
+            $models = $models->join('left join','jimei_theme','jimei_order.theme_id=jimei_theme.id')
+                ->join('left join','jimei_phone_material_relation', 'jimei_order.mobile_id=jimei_phone_material_relation.mobile_id and jimei_order.material_id=jimei_phone_material_relation.material_id')
+                ->andWhere([
+                    $filter,
+                    ['jimei_order.status' => $status],
+                    ['jimei_theme.status' => $status],
+                    ['jimei_phone_material_relation.status' => $status],
+                ]);
+        }else{
+            $models = $models->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')]);
+        }
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
