@@ -33,7 +33,7 @@ class MealService extends ConsoleService
                         $message = array_merge($message,explode('|',$res['message']));
                     }
 
-                    $this->updateTask(['result' => "已处理 {$counts} 个套餐"], $taskId);
+                    $this->updateTask(['num' => $counts], $taskId);
                 }
                 if($cnt < 100){
                     break;

@@ -182,6 +182,7 @@ CREATE TABLE if NOT EXISTS jimei_sync_meal(
   sync_status tinyint unsigned NOT NULL DEFAULT 0 comment'同步状态 0：同步中 1 同步完成 2 同步失败!',
   `desc` varchar(255) not null default '' comment '任务备注',
   `result` varchar(255) not null default '' comment '任务结果',
+  `num` int unsigned NOT NULL default  0 comment'已处理的套餐数量',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
