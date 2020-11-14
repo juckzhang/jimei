@@ -77,12 +77,13 @@ $user = CommonHelper::customer();
             <thead>
             <tr>
                 <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
-                <th orderfield="brand_id" width="80">序号</th>
-                <th orderfield="brand_id" width="80">客户</th>
-                <th orderfield="mobile_id" width="80">备注</th>
-                <th orderfield="material_id" width="80">任务状态</th>
-                <th orderfield="color_id" width="80">同步结果</th>
-                <th orderfield="update_time" width="80">修改时间</th>
+                <th width="80">序号</th>
+                <th width="80">客户</th>
+                <th width="80">备注</th>
+                <th width="80">任务状态</th>
+                <th width="80">已处理数</th>
+                <th width="80">同步结果</th>
+                <th width="80">修改时间</th>
                 <th width="70">操作</th>
             </tr>
             </thead>
@@ -104,6 +105,7 @@ $user = CommonHelper::customer();
                             失败
                         <?php endif;?>
                     </td>
+                    <td>已处理 <span style="color: green;font-weight:bold;"><?=$data['num']?></span> 个套餐</td>
                     <td><?=$data['result']?></td>
                     <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                     <td>
