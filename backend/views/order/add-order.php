@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 $params = \Yii::$app->request->getPost();
 ?>
 <h2 class="contentTitle">添加订单</h2>
-<div class="pageContent">
+<div class="pageContent nowrap">
     <form method="post" action="<?=Url::to(['order/add-order'])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <input type="hidden" name="base_id" value="<?=ArrayHelper::getValue($params,'base_id')?>"/>
         <div class="pageFormContent" layoutH="97">
