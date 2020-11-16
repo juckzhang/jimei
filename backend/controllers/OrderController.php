@@ -23,6 +23,28 @@ class OrderController extends BaseController
         return $this->render('order-list',$data);
     }
 
+    public function actionAddOrder()
+    {
+        if(\Yii::$app->request->getIsPost())
+        {
+            $base_id = ArrayHelper::getValue($this->paramData,'base_id');
+            $keyWord = ArrayHelper::getValue($this->paramData,'keyWord');
+            $result = OrderService::getService()->addOrder($base_id,$keyWord);
+            $this->log($result);
+            if($result == 200)
+                return $this->returnAjaxSuccess([
+                    'message' => '编辑成功',
+                    'navTabId' => 'order-list',
+                    'callbackType' => 'closeCurrent',
+                    'forwardUrl' => Url::to(['order/order-list'])
+                ]);
+            return $this->returnAjaxError($result);
+        }else{
+
+            return $this->render('edit-order');
+        }
+    }
+
     public function actionEditOrder()
     {
         if(\Yii::$app->request->getIsPost())

@@ -180,6 +180,7 @@ class OrderService extends BackendService
         $models = DistributionModel::find()
             ->where(['!=','status' , DistributionModel::STATUS_DELETED])
             ->andFilterWhere(['like','sn',ArrayHelper::getValue($other, 'keyword')])
+            ->andFilterWhere(['add_type' => ArrayHelper::getValue($other,'add_type')])
             ->andFilterWhere(['task_status' => ArrayHelper::getValue($other, 'task_status')]);
 
         $data['dataCount'] = $models->count();
@@ -194,6 +195,7 @@ class OrderService extends BackendService
     public function editDistribution($data){
         $id = ArrayHelper::getValue($data, 'id');
         $model = $this->editInfo($id, DistributionModel::className());
+        if($model->add_type != '1') return 200;
         $batchData = [];
         if($model){
             //同步订单数据
@@ -232,7 +234,7 @@ class OrderService extends BackendService
             'suitecode', 'mobile_id', 'brand_id','customer_id',
             'theme_id', 'color_id', 'material_id', 'create_time',
             'update_time', 'goodsname', 'lcmccode', 'mccode',
-            'eshopskuname','checkcode', 'shopname','num', 'status',
+            'eshopskuname','checkcode', 'shopname','num','wuliu_no', 'eshopbillcode', 'status',
         ];
         $ret = CodeConstant::DISTRIBUTION_NOT_ORDER;
         $starttime = microtime(true);
@@ -256,6 +258,46 @@ class OrderService extends BackendService
             'batchData' => $batchData,
             'total' => count($batchData),
             'time' => sprintf("%.3f" ,($endtime - $starttime)) ,
+            'errorMessage' => $errorMessage,
+        ], 'mysql', 'Info');
+
+        return $ret;
+    }
+
+    public function addOrder($baseId, $keyWord){
+        if(!$baseId or !$keyWord){
+            return CodeConstant::PARAM_ERROR;
+        }
+        $starttime = microtime(true);
+        $orderList = OrderModel::find()->where([
+            'or',
+            ['wuliu_no' => $keyWord],
+            ['eshopbillcode' => $keyWord],
+        ])->all();
+        if(!$orderList) return CodeConstant::ORDER_NOT_FOUND;
+
+        $ret = 200;
+        $errorMessage = '';
+        $transaction = \Yii::$app->db->beginTransaction();
+        try{
+            foreach ($orderList as $order){
+                $order->id = null;
+                $order->base_id = $baseId;
+                $order->setIsNewRecord(true);
+                $order->save();
+            }
+            $transaction->commit();
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            $ret = CodeConstant::ORDER_ADD_FAILED;
+            $errorMessage = $e->getMessage();
+        }
+
+        \Yii::$app->bizLog->log([
+            'data' => $orderList,
+            'params' => ['base_id' => $baseId,'keyWord' => $keyWord],
+            'total' => count($orderList),
+            'time' => sprintf("%.3f" ,(microtime(true) - $starttime)) ,
             'errorMessage' => $errorMessage,
         ], 'mysql', 'Info');
 
@@ -305,6 +347,8 @@ class OrderService extends BackendService
             'checkcode' => ArrayHelper::getValue($order,'checkcode',''),
             'shopname' => ArrayHelper::getValue($order,'eshopname',''),
             'num' => $order['qty'],
+            'wuliu_no' => ArrayHelper::getValue($order,'wuliu_no',''),
+            'eshopbillcode' => ArrayHelper::getValue($order,'eshopbillcode',''),
             'status' => $status,
         ];
     }

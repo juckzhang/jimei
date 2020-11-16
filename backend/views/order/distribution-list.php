@@ -12,6 +12,7 @@ $other = ArrayHelper::getValue($params, 'other', []);
 $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
 $status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
+$addType = ['1' => '全渠道','2'=>'手动'];
 ?>
 <div class="" id="distribution-list" rel="distribution-list">
 <form id="pagerForm" method="post" action="#rel#">
@@ -34,6 +35,14 @@ $status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
                             <option value="" selected>--打印状态--</option>
                             <?php foreach ($status as $key => $item):?>
                                 <option value="<?=$key?>" <?=ArrayHelper::getValue($other,'task_status')==$key ? 'selected' : ''?>><?=$item?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td>添加方式:
+                        <select name="other[add_type]">
+                            <option value="" selected>--添加方式--</option>
+                            <?php foreach ($addType as $key => $item):?>
+                                <option value="<?=$key?>" <?=ArrayHelper::getValue($other,'add_type')==$key ? 'selected' : ''?>><?=$item?></option>
                             <?php endforeach;?>
                         </select>
                     </td>
@@ -69,6 +78,7 @@ $status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="80">配货分组号</th>
+            <th width="80">添加方式</th>
             <th width="80">数量</th>
             <th width="80">状态</th>
             <th orderfield="update_time" width="80">修改时间</th>
@@ -80,6 +90,7 @@ $status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
             <tr target="card-id" rel="<?=$data->id?>">
                 <td><input name="ids[]" value="<?=$search? "{id:$data->id,name:'{$data->sn}'}" : $data->id?>" type="checkbox"></td>
                 <td><?=$data->sn?></td>
+                <td><?=$data->add_type == 2 ? '手动' : '全渠道'?></td>
                 <td><?=$data->num?></td>
                 <td><?=ArrayHelper::getValue($status, $data->task_status,'未打印')?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
@@ -93,7 +104,7 @@ $status = ['0' => '未打印','1'=>'打印中','2'=>'已完成'];
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('order/order-list')):?>
-                        <a title="订单" target="navTab" rel="order-list" href="<?=Url::to(['order/order-list','base_id' => $data['id']])?>" class="btnInfo">订单</a>
+                        <a title="订单" target="navTab" rel="order-list" href="<?=Url::to(['order/order-list','base_id' => $data['id'],'add_type' => $data['add_type']])?>" class="btnInfo">订单</a>
                     <?php endif;?>
 
                     <?php if($search):?>
