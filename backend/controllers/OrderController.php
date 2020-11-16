@@ -28,7 +28,7 @@ class OrderController extends BaseController
         if(\Yii::$app->request->getIsPost())
         {
             $base_id = ArrayHelper::getValue($this->paramData,'base_id');
-            $keyWord = ArrayHelper::getValue($this->paramData,'keyWord');
+            $keyWord = trim(ArrayHelper::getValue($this->paramData,'keyWord',''));
             $result = OrderService::getService()->addOrder($base_id,$keyWord);
             $this->log($result);
             if($result == 200)
