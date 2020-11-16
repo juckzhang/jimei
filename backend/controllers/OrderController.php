@@ -41,7 +41,7 @@ class OrderController extends BaseController
             return $this->returnAjaxError($result);
         }else{
 
-            return $this->render('edit-order');
+            return $this->render('add-order');
         }
     }
 
