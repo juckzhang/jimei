@@ -57,7 +57,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('order/add-order') and ArrayHelper::getValue($params,'add_type') == '2'):?>
-                <li><a class="add" href="<?=Url::to(['order/add-order'])?>" target="dialog"><span>添加</span></a></li>
+                <li><a class="add" href="<?=Url::to(['order/add-order','base_id' => ArrayHelper::getValue($params,'base_id')])?>" target="dialog"><span>添加</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
