@@ -36,4 +36,7 @@ return [
 
     CodeConstant::EDIT_MEAL_FAILED => '套餐生成失败',
     CodeConstant::NO_MEAL_RESULT => '无法匹配关联套餐!',
+
+    CodeConstant::ORDER_NOT_FOUND => '订单不存在!',
+    CodeConstant::ORDER_ADD_FAILED => '订单添加失败!',
 ];

@@ -43,4 +43,8 @@ class CodeConstant
     const MEAL = -300;
     const EDIT_MEAL_FAILED = self::MEAL - 1; //套餐生成失败
     const NO_MEAL_RESULT = self::MEAL - 2; //无匹配结果
+
+    const ORDER = -400;
+    const ORDER_NOT_FOUND = self::ORDER - 1; //订单不存在
+    const ORDER_ADD_FAILED = self::ORDER - 2; //订单添加失败
 }

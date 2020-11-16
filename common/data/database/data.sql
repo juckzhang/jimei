@@ -48,8 +48,10 @@ CREATE TABLE if NOT EXISTS jimei_base_list(
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   task_status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 1：未完成 2：任务处理锁定中 3: 已完成',
+  add_type tinyint unsigned NOT NULL DEFAULT 0 comment'添加类型 1: 全渠道 2：手动添加',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  unique (sn)
+  unique (sn),
+  key add_type(add_type)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'配货单列表';
 
 -- 订单列表
@@ -74,10 +76,14 @@ CREATE TABLE if NOT EXISTS jimei_order(
   eshopskuname varchar(255) not null default '' comment'网点规格型号',
   checkcode varchar(255) not null default '' comment'校验码',
   shopname varchar(255) not null default '' comment'网店名称',
+  wuliu_no varchar(255) not null default '' comment'物流单号',
+  eshopbillcode varchar(255) not null default '' comment'网店订单编号',
   create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
   update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
-  key base_id(base_id)
+  key base_id(base_id),
+  key wuliu_no(wuliu_no),
+  key eshopbillcode(eshopbillcode)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
 -- 机型材质

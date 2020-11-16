@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+$addType = ['1' => '全渠道','2'=>'手动'];
 ?>
 <h2 class="contentTitle">编辑配货单</h2>
 <div class="pageContent">
@@ -18,6 +19,16 @@ use yii\helpers\ArrayHelper;
                 <dd>
                     <input type="text" name="DistributionModel[num]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'num',0)?>"/>
                     <span class="info">数量</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>添加方式：</dt>
+                <dd>
+                    <select name="DistributionModel[add_type]">
+                        <?php foreach ($addType as $key => $item):?>
+                            <option value="<?=$key?>" <?=ArrayHelper::getValue($model,'add_type')==$key ? 'selected' : ''?>><?=$item?></option>
+                        <?php endforeach;?>
+                    </select>
                 </dd>
             </dl>
         </div>

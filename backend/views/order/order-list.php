@@ -16,13 +16,14 @@ $baseId = ArrayHelper::getValue($params,'base_id');
 <form id="pagerForm" method="post" action="#rel#">
     <input type="hidden" name="search" value="<?=$search?>">
     <input type="hidden" name="pageNum" value="<?=$page?>" />
+    <input type="hidden" name="add_type" value="<?=ArrayHelper::getValue($params,'add_type')?>"/>
     <input type="hidden" name="numPerPage" value="<?=$prePage?>" />
     <input type="hidden" name="orderField" value="<?=$orderFiled?>" />
     <input type="hidden" name="orderDirection" value="<?=$orderDirection?>" />
     <input type="hidden" name="base_id" value="<?=$baseId?>" id="base_id"/>
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search, 'base_id' => $baseId])?>" method="post">
+    <form rel="pagerForm" onsubmit="return <?=$search ? 'dialogSearch' : 'navTabSearch'?>(this);" action="<?=Url::to(['order/order-list','search' => $search, 'base_id' => $baseId,'add_type' => ArrayHelper::getValue($params,'add_type')])?>" method="post">
         <div class="searchBar">
             <table class="searchContent">
                 <tbody>
@@ -55,6 +56,10 @@ $baseId = ArrayHelper::getValue($params,'base_id');
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
+            <?php if(\Yii::$app->user->can('order/add-order') and ArrayHelper::getValue($params,'add_type') == '2'):?>
+                <li><a class="add" href="<?=Url::to(['order/add-order','base_id' => ArrayHelper::getValue($params,'base_id')])?>" target="dialog"><span>添加</span></a></li>
+            <?php endif;?>
+
             <?php if(\Yii::$app->user->can('order/delete-order')):?>
             <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?=Url::to(['order/delete-order'])?>" class="delete"><span>批量删除</span></a></li>
             <?php endif;?>
