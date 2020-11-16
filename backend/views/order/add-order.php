@@ -8,9 +8,9 @@ $params = \Yii::$app->request->getPost();
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['order/add-order'])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
         <input type="hidden" name="base_id" value="<?=ArrayHelper::getValue($params,'base_id')?>"/>
-        <div class="pageFormContent nowrap" layoutH="97">
+        <div class="pageFormContent" layoutH="97">
             <dl>
-                <dt>物流单号/网店订单号：</dt>
+                <dt>物流/网店单号：</dt>
                 <dd>
                     <input type="text" name="keyWord" maxlength="50" class="required" value=""/>
                     <span class="info">单号不能为空</span>
