@@ -76,6 +76,9 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="22">序号</th>
             <th width="80">订单号</th>
             <th width="80">网店名称</th>
+            <th width="80">图片</th>
+            <th width="40">状态</th>
+            <th width="70">操作</th>
             <th width="80">商品名称</th>
             <th width="80">网店规格型号</th>
             <th width="80">校验码</th>
@@ -89,10 +92,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="40">上边距</th>
             <th width="80">边框图</th>
             <th width="80">图案名称</th>
-            <th width="80">图片</th>
             <th width="40">颜色</th>
-            <th width="40">状态</th>
-            <th width="70">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -103,6 +103,32 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=$data['order_id']?></td>
                 <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><?php if($data['status'] == 2
+                        or ArrayHelper::getValue($data,'relat.status') == 2
+                        or ArrayHelper::getValue($data, 'phone.status') == 2
+                        or ArrayHelper::getValue($data, 'theme.status') == 2
+                        or !ArrayHelper::getValue($data,'relat')
+                        or !ArrayHelper::getValue($data, 'theme.template_url')
+                    )
+                        echo '<span style="color: red;">异常</span>';
+                    else
+                        echo '正常';
+                    ?>
+                </td>
+                <td>
+                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
+                        <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
+                        <a title="解析套餐码" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析套餐码</span></a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
+                        <a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit"><span>编辑</span></a>
+                    <?php endif;?>
+                </td>
                 <td><?=$data['eshopskuname']?></td>
                 <td><?=$data['checkcode']?></td>
                 <td><?=sprintf(
@@ -123,32 +149,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=ArrayHelper::getValue($data,'relat.top')?></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
-                <td><?php if($data['status'] == 2
-                        or ArrayHelper::getValue($data,'relat.status') == 2
-                        or ArrayHelper::getValue($data, 'phone.status') == 2
-                    or ArrayHelper::getValue($data, 'theme.status') == 2
-                    or !ArrayHelper::getValue($data,'relat')
-                        or !ArrayHelper::getValue($data, 'theme.template_url')
-                    )
-                    echo '<span style="color: red;">异常</span>';
-                else
-                    echo '正常';
-                ?></td>
-                <td>
-                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                    <a title="删除" target="ajaxTodo" href="<?=Url::to(['order/delete-order','ids' => $data['id']])?>" class="btnDel">删除</a>
-                    <?php endif;?>
-
-                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <a title="解析套餐码" target="ajaxTodo" href="<?=Url::to(['order/parse-order','ids' => $data['id']])?>" class="btnAttach"><span>解析套餐码</span></a>
-                    <?php endif;?>
-
-                    <?php if(\Yii::$app->user->can('order/delete-order')):?>
-                        <a title="编辑" target="navTab" href="<?=Url::to(['order/edit-order','id' => $data['id']])?>" class="btnEdit"><span>编辑</span></a>
-                    <?php endif;?>
-                </td>
             </tr>
         <?php endforeach;?>
         </tbody>
