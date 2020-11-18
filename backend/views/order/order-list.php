@@ -74,7 +74,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="22">序号</th>
-            <th width="80">订单号</th>
+            <th width="80">订单号/网店订单号/物流单号</th>
             <th width="80">网店名称</th>
             <th width="80">商品名称</th>
             <th width="80">图片</th>
