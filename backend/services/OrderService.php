@@ -19,6 +19,8 @@ class OrderService extends BackendService
     public function OrderList($basid,$page,$prePage,array $order = [], $other = [])
     {
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
+        $order = ['suitecode' => SORT_ASC, 'order_id' => SORT_DESC];
+        if(ArrayHelper::getValue($other,'add_type') == '2') $order = ['jimei_order.id' => SORT_ASC];
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
         $status = ArrayHelper::getValue($other, 'status');
         $models = OrderModel::find()
@@ -51,7 +53,7 @@ class OrderService extends BackendService
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
 
         if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
-            $data['dataList'] = $models->orderBy(['suitecode' => SORT_ASC, 'order_id' => SORT_DESC])
+            $data['dataList'] = $models->orderBy($order)
                 ->limit($limit)
                 ->offset($offset)
                 ->with('brand')
