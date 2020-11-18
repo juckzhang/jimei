@@ -74,7 +74,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="22">序号</th>
-            <th width="80">订单号</th>
+            <th width="80">订单号/网店订单号/物流单号</th>
             <th width="80">网店名称</th>
             <th width="80">商品名称</th>
             <th width="80">图片</th>
@@ -100,7 +100,12 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=($page-1)*$prePage+$key+1?></td>
-                <td><?=$data['order_id']?></td>
+                <td><?=$data['order_id']?>
+                    <br/>
+                    <?=$data['eshopbillcode']?>
+                    <br/>
+                    <?=$data['wuliu_no']?>
+                </td>
                 <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
