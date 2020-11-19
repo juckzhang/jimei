@@ -272,7 +272,7 @@ class OrderService extends BackendService
         }
         $starttime = microtime(true);
         $orderList = OrderModel::find()->select('jimei_order.*')
-            ->join('left join','jimei_order_list', 'jimei_order.base_id=jimei_base_list.base_id')
+            ->join('left join','jimei_base_list', 'jimei_order.base_id=jimei_base_list.id')
             ->where([
             'or',
             ['wuliu_no' => $keyWord],
