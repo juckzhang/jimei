@@ -130,7 +130,7 @@ class OrderController extends BaseController
                 $maxSn .= $next;
             }
 
-            return $this->render('edit-distribution',['model' => $model, $maxSn]);
+            return $this->render('edit-distribution',['model' => $model, 'maxSn' => $maxSn]);
         }
     }
 
