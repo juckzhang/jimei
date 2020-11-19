@@ -126,7 +126,7 @@ class OrderController extends BaseController
                 $next = DistributionModel::find()
                     ->where(['like', 'sn', $maxSn])
                     ->count() + 1;
-                $next = str_pad("$next", 4, "0", STR_PAD_LEFT);
+                $next = str_pad("$next", 3, "0", STR_PAD_LEFT);
                 $maxSn .= $next;
             }
 
