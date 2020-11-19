@@ -271,11 +271,13 @@ class OrderService extends BackendService
             return CodeConstant::PARAM_ERROR;
         }
         $starttime = microtime(true);
-        $orderList = OrderModel::find()->where([
+        $orderList = OrderModel::find()->select('jimei_order.*')
+            ->join('left join','jimei_order_list', 'jimei_order.base_id=jimei_base_list.base_id')
+            ->where([
             'or',
             ['wuliu_no' => $keyWord],
             ['eshopbillcode' => $keyWord],
-        ])->all();
+        ])->andWhere(['add_type' => 1])->all();
         if(!$orderList) return CodeConstant::ORDER_NOT_FOUND;
 
         $ret = 200;
