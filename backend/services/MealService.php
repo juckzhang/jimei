@@ -212,7 +212,7 @@ class MealService extends BackendService
                     $item['color']['name'],
                     $item['theme']['name']
                 ),
-                'printtype' => 0,
+                'printtype' => 1,
                 'remark' => '',
                 'unit' => '个',
                 'suiteitemdetail' => [
