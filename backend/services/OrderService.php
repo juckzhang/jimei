@@ -349,7 +349,7 @@ class OrderService extends BackendService
             'checkcode' => ArrayHelper::getValue($order,'checkcode',''),
             'shopname' => ArrayHelper::getValue($order,'eshopname',''),
             'num' => $order['qty'],
-            'wuliu_no' => ArrayHelper::getValue($order,'wuliu_no',''),
+            'wuliu_no' => ArrayHelper::getValue($order,'logistbillcode',''),
             'eshopbillcode' => ArrayHelper::getValue($order,'eshopbillcode',''),
             'status' => $status,
         ];
