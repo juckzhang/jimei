@@ -119,8 +119,18 @@ class OrderController extends BaseController
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
             $model = DistributionModel::find()->where(['id' => $id])->asArray()->one();
+            $addType = ArrayHelper::getValue($this->paramData, 'add_type');
+            $maxSn = '';
+            if(!$id and $addType == 2){
+                $maxSn = 'S'.date('ymd-');
+                $next = DistributionModel::find()
+                    ->where(['like', 'sn', $maxSn])
+                    ->count() + 1;
+                $next = str_pad("$next", 4, "0", STR_PAD_LEFT);
+                $maxSn .= $next;
+            }
 
-            return $this->render('edit-distribution',['model' => $model]);
+            return $this->render('edit-distribution',['model' => $model, $maxSn]);
         }
     }
 
