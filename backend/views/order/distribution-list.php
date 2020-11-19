@@ -65,8 +65,8 @@ $addType = ['1' => '全渠道','2'=>'手动'];
     <div class="panelBar">
         <ul class="toolBar">
             <?php if(\Yii::$app->user->can('order/edit-distribution')):?>
-            <li><a class="add" href="<?=Url::to(['order/edit-distribution'])?>" target="dialog"><span>同步配货单</span></a></li>
-                <li><a class="edit" href="<?=Url::to(['order/edit-distribution','add_type' => 2])?>" target="dialog"><span>创建配货单</span></a></li>
+            <li><a class="add" href="<?=Url::to(['order/edit-distribution'])?>" target="dialog"><span>全渠道配货单</span></a></li>
+                <li><a class="edit" href="<?=Url::to(['order/edit-distribution','add_type' => 2])?>" target="dialog"><span>手工配货单</span></a></li>
             <?php endif;?>
 
             <?php if(\Yii::$app->user->can('order/delete-distribution')):?>
