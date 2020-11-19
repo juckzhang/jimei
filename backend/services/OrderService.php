@@ -74,6 +74,8 @@ class OrderService extends BackendService
         // 获取base订单
         list($offset,$limit) = $this->parsePageParam($page,$prePage);
         $baseList = DistributionModel::find()->where(['id' => $baseId])->asArray()->one();
+        $order = ['suitecode' => SORT_ASC,'order_id' => SORT_DESC];
+        if($baseList['add_type'] == 2) $order = ['id' => SORT_ASC];
         $data = ['pageCount' => 0,'items' => [],'dataCount' => 0, 'sn' => $baseList['sn']];
         $models = OrderModel::find()->where(['base_id' => $baseId,])
             ->with('brand')
@@ -85,7 +87,7 @@ class OrderService extends BackendService
             ->with('relat');
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
-        $items = $models->orderBy(['suitecode' => SORT_ASC,'order_id' => SORT_DESC])
+        $items = $models->orderBy($order)
             ->limit($limit)
             ->offset($offset)
             ->asArray()
