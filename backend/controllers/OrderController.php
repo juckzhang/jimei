@@ -141,6 +141,8 @@ class OrderController extends BaseController
         $return = OrderService::getService()->deleteInfo($ids, DistributionModel::className());
         $this->log($return);
         if($return === true)
+            //删除对应的订单数据
+            OrderModel::deleteAll(['base_id' => $ids]);
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
                 'navTabId' => 'distribution-list',
