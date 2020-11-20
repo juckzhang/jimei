@@ -279,7 +279,10 @@ class OrderService extends BackendService
             'or',
             ['wuliu_no' => $keyWord],
             ['eshopbillcode' => $keyWord],
-        ])->andWhere(['add_type' => 1])->all();
+        ])
+            ->andWhere(['add_type' => 1])
+            ->orderBy(['suitecode' => SORT_ASC, 'order_id' => SORT_DESC])
+            ->all();
         if(!$orderList) return CodeConstant::ORDER_NOT_FOUND;
 
         $ret = 200;
