@@ -31,6 +31,6 @@ $params = \Yii::$app->request->getPost();
         DWZ.ajaxDone(json);
         dialogAjaxDone(json);
         //滚动到最后一条数据
-        $(window).scrollTop($(".pageContent").val());
+        $('.gridThead').scrollTop($('.gridThead').height());
     }
 </script>
