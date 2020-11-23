@@ -82,6 +82,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="40">状态</th>
             <th width="70">操作</th>
             <th width="80">网店规格型号</th>
+            <th width="80">图案名称</th>
             <th width="80">校验码</th>
             <th width="80">条码</th>
             <th width="80">套餐编码(全渠道)</th>
@@ -91,7 +92,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">材质</th>
             <th width="40">左边距</th>
             <th width="40">上边距</th>
-            <th width="80">图案名称</th>
             <th width="40">颜色</th>
         </tr>
         </thead>
@@ -136,6 +136,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                     <?php endif;?>
                 </td>
                 <td><?=$data['eshopskuname']?></td>
+                <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
                 <td><?=$data['checkcode']?></td>
                 <td><?=sprintf(
                         "%s%s%s%s%s%s",
@@ -153,7 +154,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.left')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.top')?></td>
-                <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
             </tr>
         <?php endforeach;?>
