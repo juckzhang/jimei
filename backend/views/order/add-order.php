@@ -6,7 +6,7 @@ $params = \Yii::$app->request->getPost();
 ?>
 <h2 class="contentTitle">添加订单</h2>
 <div class="pageContent nowrap">
-    <form method="post" action="<?=Url::to(['order/add-order'])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,submitCallBack)">
+    <form id="add-order-form" method="post" action="<?=Url::to(['order/add-order'])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,submitCallBack)">
         <input type="hidden" name="base_id" value="<?=ArrayHelper::getValue($params,'base_id')?>"/>
         <div class="pageFormContent" layoutH="97">
             <dl>
@@ -32,6 +32,16 @@ $params = \Yii::$app->request->getPost();
         dialogAjaxDone(json);
         //滚动到最后一条数据
         $('input[name=keyWord]').val('');
-        $("input[name=keyWord]").focus();
+        // $("input[name=keyWord]").focus();
     }
+
+    $(function(){
+        $('input[name=keyWord]').on('input propertychange',function(){
+            var val = $(this).val(),
+                len = val.length;
+            if((val.indexOf("EO-") == 0 && len == 17) || (val.indexOf("YT") == 0 && len == 15)){
+                $('#add-order-form').submit();
+            }
+        });
+    });
 </script>
