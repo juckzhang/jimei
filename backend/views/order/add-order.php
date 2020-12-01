@@ -42,7 +42,10 @@ $params = \Yii::$app->request->getPost();
         $('input[name=keyWord]').on('input propertychange',function(){
             var val = $(this).val(),
                 len = val.length;
-            if((val.indexOf("EO-") == 0 && len == 17) || (val.indexOf("YT") == 0 && len == 15)){
+            if((val.indexOf("EO-") == 0 && len == 17)
+                || (val.indexOf("YT") == 0 && len == 15)
+                || (len == 19 && !isNaN(val))
+            ){
                 $('#add-order-form').submit();
             }
         });
