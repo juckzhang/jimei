@@ -36,7 +36,7 @@ $params = \Yii::$app->request->getPost();
     }
 
     $(function(){
-        $('input[name=keyWord]').on('change',function(){
+        $('input[name=keyWord]').on('input propertychange',function(){
             var val = $(this).val(),
                 len = val.length;
             if((val.indexOf("EO-") == 0 && len == 17) || (val.indexOf("YT") == 0 && len == 15)){
