@@ -32,7 +32,7 @@ $params = \Yii::$app->request->getPost();
         dialogAjaxDone(json);
         //滚动到最后一条数据
         $('input[name=keyWord]').val('');
-        $("input[name=keyWord]").focus();
+        // $("input[name=keyWord]").focus();
     }
 
     $(function(){
