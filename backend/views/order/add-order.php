@@ -28,11 +28,14 @@ $params = \Yii::$app->request->getPost();
 <script>
     function submitCallBack(json)
     {
-        DWZ.ajaxDone(json);
+        // DWZ.ajaxDone(json);
         dialogAjaxDone(json);
-        //滚动到最后一条数据
-        $('input[name=keyWord]').val('');
-        // $("input[name=keyWord]").focus();
+        if(json[DWZ.keys.statusCode] == DWZ.statusCode.ok){
+            $('input[name=keyWord]').val('');
+            //关闭弹框
+            alertMsg.close();
+            $("input[name=keyWord]").focus();
+        }
     }
 
     $(function(){
