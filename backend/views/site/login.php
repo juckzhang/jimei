@@ -66,7 +66,7 @@ use yii\helpers\Url;
         </div>
     </div>
     <div id="login_footer">
-        Copyright &copy; 2020 Jimei Inc. All Rights Reserved. 备案号: 粤ICP备2020086282
+        Copyright &copy; 2021 Jimei 粤ICP备<span><a href="https://beian.miit.gov.cn">2020086282号</a></span>
     </div>
 </div>
 </body>
