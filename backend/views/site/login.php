@@ -66,7 +66,7 @@ use yii\helpers\Url;
         </div>
     </div>
     <div id="login_footer">
-        Copyright &copy; 2021 Jimei 粤ICP备<span><a href="https://beian.miit.gov.cn">2020086282号</a></span>
+        Copyright &copy; 2021 Jimei 粤ICP备<span><a href="https://beian.miit.gov.cn">2020086282</a>号</span>
     </div>
 </div>
 </body>
