@@ -16,6 +16,36 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   unique (`customer_id`,`barcode`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
+-- 左侧图片原始素材表
+CREATE TABLE if NOT EXISTS jimei_left_theme(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
+  template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
+  barcode char(5) NOT NULL default  '' comment '条码识别字符',
+  `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `color` varchar(255) not null default '' comment'颜色:备注信息',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`customer_id`,`barcode`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
+
+-- 右侧图片原始素材表
+CREATE TABLE if NOT EXISTS jimei_right_theme(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
+  template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
+  barcode char(5) NOT NULL default  '' comment '条码识别字符',
+  `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `color` varchar(255) not null default '' comment'颜色:备注信息',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`customer_id`,`barcode`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
+
 -- 图案材质关系列表
 CREATE TABLE if NOT EXISTS jimei_theme_material(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
