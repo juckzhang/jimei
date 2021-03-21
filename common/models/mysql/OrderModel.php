@@ -34,7 +34,7 @@ class OrderModel extends ActiveRecord
             ->asArray();
     }
 
-    public function getRightTheme()
+    public function getRighttheme()
     {
         return $this->hasOne(RightThemeModel::className(),['id' => 'right_theme_id'])
             ->select(['id','name','template_url','status','barcode'])
