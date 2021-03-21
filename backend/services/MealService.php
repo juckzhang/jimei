@@ -238,20 +238,26 @@ class MealService extends BackendService
             ->with('color')
             ->with('customer')
             ->with('theme')
+            ->with('lefttheme')
+            ->with('righttheme')
             ->all();
         $param = $meal = [];
         foreach ($data as $item){
             if(!$item['brand'] or !$item['phone'] or !$item['material'] or !$item['color']
                 or !$item['customer'] or !$item['theme']
             ) continue;
+            $leftTheme = ArrayHelper::getValue($item, 'lefttheme.barcode', '00');
+            $rightTheme = ArrayHelper::getValue($item, 'righttheme.barcode', '00');
             $suitecode = sprintf(
-                "%s%s%s%s%s%s",
+                "%s%s%s%s%s%s%s%s",
                 $item['brand']['barcode'],
                 $item['phone']['barcode'],
                 $item['material']['barcode'],
                 $item['color']['barcode'],
                 $item['customer']['barcode'],
-                $item['theme']['barcode']
+                $item['theme']['barcode'],
+                $leftTheme,
+                $rightTheme
             );
             $meal[$suitecode] = $item['id'];
             $param[] = [

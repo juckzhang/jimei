@@ -62,6 +62,8 @@ class OrderService extends BackendService
                 ->with('color')
                 ->with('customer')
                 ->with('theme')
+                ->with('lefttheme')
+                ->with('righttheme')
                 ->with('sn')
                 ->with('relat')
                 ->asArray()
@@ -84,6 +86,8 @@ class OrderService extends BackendService
             ->with('color')
             ->with('customer')
             ->with('theme')
+            ->with('lefttheme')
+            ->with('righttheme')
             ->with('relat');
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
@@ -239,6 +243,7 @@ class OrderService extends BackendService
             'theme_id', 'color_id', 'material_id', 'create_time',
             'update_time', 'goodsname', 'lcmccode', 'mccode',
             'eshopskuname','checkcode', 'shopname','num','wuliu_no', 'eshopbillcode', 'status',
+            'left_theme_id','right_theme_id',
         ];
         $ret = CodeConstant::DISTRIBUTION_NOT_ORDER;
         $starttime = microtime(true);
@@ -319,7 +324,9 @@ class OrderService extends BackendService
         $materialCode = substr($mealCode, 5, 2);
         $colorCode = substr($mealCode, 7, 2);
         $customerCode = substr($mealCode, 9, 2);
-        $themeCode = substr($mealCode, 11);
+        $themeCode = substr($mealCode, 11, 4);
+        $leftthemeCode = substr($mealCode, 15,2);
+        $rightthemeCode = substr($mealCode, 17,2);
         $now = time();
         $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
         $phone = PhoneModel::find()->where([
@@ -332,6 +339,14 @@ class OrderService extends BackendService
         $theme = ThemeModel::find()->where([
             'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
             'barcode' => $themeCode,
+        ])->asArray()->one();
+        $lefttheme = ThemeModel::find()->where([
+            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+            'barcode' => $leftthemeCode,
+        ])->asArray()->one();
+        $righttheme = ThemeModel::find()->where([
+            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+            'barcode' => $rightthemeCode,
         ])->asArray()->one();
         $status = 0;
         if(!$brand or !$phone or !$customer or !$color or !$material or !$theme or $except) $status = 2;
@@ -359,6 +374,8 @@ class OrderService extends BackendService
             'wuliu_no' => ArrayHelper::getValue($order,'logistbillcode',''),
             'eshopbillcode' => ArrayHelper::getValue($order,'eshopbillcode',''),
             'status' => $status,
+            'left_theme_id' => ArrayHelper::getValue($lefttheme, 'id', 0),
+            'right_theme_id' => ArrayHelper::getValue($righttheme, 'id', 0),
         ];
     }
 

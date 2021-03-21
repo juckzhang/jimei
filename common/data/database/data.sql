@@ -116,6 +116,10 @@ CREATE TABLE if NOT EXISTS jimei_order(
   key eshopbillcode(eshopbillcode)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
+alter table jimei_order add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_order add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+
+
 -- 机型材质
 CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
@@ -217,6 +221,9 @@ CREATE TABLE if NOT EXISTS jimei_meal(
   key material_id(material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'套餐';
 
+alter table jimei_meal add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_meal add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+
 -- 离线套餐同步任务
 CREATE TABLE if NOT EXISTS jimei_sync_meal(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
@@ -299,3 +306,13 @@ CREATE TABLE IF NOT EXISTS jimei_admin_operation(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
   key user_id(user_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员操作记录表';
+
+
+
+
+alter table jimei_meal add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_meal add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+
+alter table jimei_order add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_order add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+
