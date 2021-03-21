@@ -72,7 +72,7 @@ if($user['related'] and !$user['multi']){
                 <dd>
                     <input class="left-theme" type="hidden" name="MealModel[left_theme_id]" data-name="lefttheme.id" value="<?=ArrayHelper::getValue($model, 'left_theme_id')?>">
                     <input type="text" class="required textInput readonly lefttheme" readonly="true" name="lefttheme.name" value="<?=ArrayHelper::getValue($model,'lefttheme.name')?>" data-name="lefttheme.name" suggestfields="name" lookupgroup="lefttheme" autocomplete="off">
-                    <a id="look-left-theme" class="btnLook" href="<?=Url::to(['theme/left-theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="theme">查找带回</a>
+                    <a id="look-left-theme" class="btnLook" href="<?=Url::to(['theme/left-theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="lefttheme">查找带回</a>
                 </dd>
             </dl>
             <dl>
@@ -80,7 +80,7 @@ if($user['related'] and !$user['multi']){
                 <dd>
                     <input class="right-theme" type="hidden" name="MealModel[right_theme_id]" data-name="righttheme.id" value="<?=ArrayHelper::getValue($model, 'right_theme_id')?>">
                     <input type="text" class="required textInput readonly righttheme" readonly="true" name="righttheme.name" value="<?=ArrayHelper::getValue($model,'righttheme.name')?>" data-name="righttheme.name" suggestfields="name" lookupgroup="righttheme" autocomplete="off">
-                    <a id="look-right-theme" class="btnLook" href="<?=Url::to(['theme/right-theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="theme">查找带回</a>
+                    <a id="look-right-theme" class="btnLook" href="<?=Url::to(['theme/right-theme-list', 'search' => 1, 'more' => $more, 'notMore' => 1])?>" lookupgroup="righttheme">查找带回</a>
                 </dd>
             </dl>
         </div>

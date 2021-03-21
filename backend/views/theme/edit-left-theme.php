@@ -14,7 +14,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
             <dl>
                 <dt>名称：</dt>
                 <dd>
-                    <input type="text" id="theme-name" name="LeftThemeModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'name','')?>"/>
+                    <input type="text" id="left-theme-name" name="LeftThemeModel[name]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'name','')?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>
