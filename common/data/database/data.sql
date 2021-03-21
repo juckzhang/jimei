@@ -101,6 +101,12 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   unique (mobile_id,material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'机型材质关系表';
 
+alter table jimei_phone_material_relation add `width` decimal(5,2) NOT NULL default  0 comment'手宽度' after source_pic_name;
+alter table jimei_phone_material_relation add `height` decimal(5,2) NOT NULL default  0 comment'高度' after `width`;
+alter table jimei_phone_material_relation add `fat` decimal(5,2) NOT NULL default  0 comment'厚度' after `height`;
+alter table jimei_phone_material_relation add `side_left` decimal(5,2) NOT NULL default  0 comment'侧边-左右边距' after fat;
+alter table jimei_phone_material_relation add `side_top` decimal(5,2) NOT NULL default  0 comment'手机厚度' after side_left;
+
 -- 手机品牌
 CREATE TABLE if NOT EXISTS jimei_brand(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',

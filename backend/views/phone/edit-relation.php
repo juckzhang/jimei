@@ -24,6 +24,27 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
+                <dt>宽：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[width]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'width',0)?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>高：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[height]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'height',0)?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>厚：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[fat]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'fat',0)?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
                 <dt>左边距：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[left]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'left',0)?>"/>
@@ -34,6 +55,20 @@ use yii\helpers\ArrayHelper;
                 <dt>上边距：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[top]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'top',0)?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>侧边左边距：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[side_left]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'side_left',0)?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>侧边上边距：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[side_top]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'side_top',0)?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>
