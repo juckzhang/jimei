@@ -48,6 +48,8 @@ class MealController extends BaseController
                 ->with('color')
                 ->with('material')
                 ->with('theme')
+                ->with('lefttheme')
+                ->with('righttheme')
                 ->with('customer')
                 ->with('phone')
                 ->asArray()->one();
