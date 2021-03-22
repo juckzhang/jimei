@@ -41,7 +41,7 @@ class OrderModel extends ActiveRecord
             ->asArray();
     }
 
-    public function getSidettheme()
+    public function getSidetheme()
     {
         return $this->hasOne(SideThemeModel::className(),['id' => 'side_theme_id'])
             ->select(['id','name','left_template_url','left_template_url','status','barcode'])
