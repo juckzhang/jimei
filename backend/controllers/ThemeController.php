@@ -135,11 +135,11 @@ class ThemeController extends BaseController
                 ->with('material')
                 ->asArray()->one();
             $barcode = '';
-            if($customer_id){
-                $barcode = LeftThemeModel::find()->where(['customer_id' => $customer_id])->max('barcode');
-                if($barcode){
-                    $barcode = $barcode + 1;
-                    $barcode = str_pad("$barcode", 4, "0", STR_PAD_LEFT);
+            if(!$model){
+                while (true){
+                    $barcode = CommonHelper::randString(2);
+                    $exists = RightThemeModel::find()->where(['barcode' => $barcode])->andFilterWhere(['customer_id' => $customer_id])->exists();
+                    if(!$exists) break;
                 }
             }
             return $this->render('edit-left-theme',['model' => $model, 'barcode' => $barcode]);
@@ -169,11 +169,11 @@ class ThemeController extends BaseController
                 ->with('material')
                 ->asArray()->one();
             $barcode = '';
-            if($customer_id){
-                $barcode = RightThemeModel::find()->where(['customer_id' => $customer_id])->max('barcode');
-                if($barcode){
-                    $barcode = $barcode + 1;
-                    $barcode = str_pad("$barcode", 4, "0", STR_PAD_LEFT);
+            if(!$model){
+                while (true){
+                    $barcode = CommonHelper::randString(2);
+                    $exists = RightThemeModel::find()->where(['barcode' => $barcode])->andFilterWhere(['customer_id' => $customer_id])->exists();
+                    if(!$exists) break;
                 }
             }
             return $this->render('edit-right-theme',['model' => $model, 'barcode' => $barcode]);

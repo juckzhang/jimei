@@ -40,7 +40,7 @@ class CommonHelper {
     public static function randString($length = 6,$source = '')
     {
         $source = is_string($source) && $source !== '' ?
-            $source : 'QWERTYUIPASDFGHJKLZXCVBNM123456789qwertyuipasdfghjklzxcvbnm';
+            $source : 'OQWERTYUIPASDFGHJKLZXCVBNM123456789';
 
         $_strLength = strlen($source);
 

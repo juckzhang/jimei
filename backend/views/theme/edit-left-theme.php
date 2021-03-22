@@ -21,7 +21,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
             <dl>
                 <dt>条码：</dt>
                 <dd>
-                    <input type="text" name="LeftThemeModel[barcode]" minlength="4" class="required number" value="<?=ArrayHelper::getValue($model,'barcode',$barcode)?>"/>
+                    <input type="text" name="LeftThemeModel[barcode]" maxlength="2" minlength="2" class="required alphanumeric" value="<?=ArrayHelper::getValue($model,'barcode',$barcode)?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>
