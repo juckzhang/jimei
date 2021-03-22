@@ -33,11 +33,8 @@ $user = CommonHelper::customer();
                                 <?php if(\Yii::$app->user->can('theme/theme-list')):?>
                                     <li><a href="<?=Url::to(['theme/theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => urlencode($user['customer_name']),'notMore' => 1])?>" target="navTab" rel="theme-list">客户图案列表</a></li>
                                 <?php endif;?>
-                                <?php if(\Yii::$app->user->can('theme/left-theme-list')):?>
-                                    <li><a href="<?=Url::to(['theme/left-theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => urlencode($user['customer_name']),'notMore' => 1])?>" target="navTab" rel="theme-list">左侧边图案列表</a></li>
-                                <?php endif;?>
-                                <?php if(\Yii::$app->user->can('theme/right-theme-list')):?>
-                                    <li><a href="<?=Url::to(['theme/right-theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => urlencode($user['customer_name']),'notMore' => 1])?>" target="navTab" rel="theme-list">右侧边图案列表</a></li>
+                                <?php if(\Yii::$app->user->can('theme/side-theme-list')):?>
+                                    <li><a href="<?=Url::to(['theme/side-theme-list','other' => ['customer_id' => $user['customer_id']],'customer-name' => urlencode($user['customer_name']),'notMore' => 1])?>" target="navTab" rel="theme-list">左侧边图案列表</a></li>
                                 <?php endif;?>
                             <?php else:?>
                                 <?php if(\Yii::$app->user->can('customer/customer-list')):?>
