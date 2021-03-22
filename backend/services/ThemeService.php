@@ -3,6 +3,7 @@ namespace backend\services;
 
 use common\models\mysql\LeftThemeModel;
 use common\models\mysql\RightThemeModel;
+use common\models\mysql\SideThemeModel;
 use common\models\mysql\ThemeMaterialModel;
 use common\models\mysql\ThemeModel;
 use backend\services\base\BackendService;
@@ -16,6 +17,45 @@ class ThemeService extends BackendService
         $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
 
         $models = $cardModels = ThemeModel::find()
+            ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
+            ->andFilterWhere([
+                'or',
+                ['like','name',ArrayHelper::getValue($other, 'keyword')],
+                ['like','barcode',ArrayHelper::getValue($other, 'keyword')]
+            ])
+
+            ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
+            ->andFilterWhere(['like','color',ArrayHelper::getValue($other, 'color')])
+            ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
+
+        $data['dataCount'] = $models->count();
+        $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
+
+        if($data['pageCount'] > 0 AND $page <= $data['pageCount']){
+            $models = $models->orderBy($order)
+                ->limit($limit)
+                ->asArray()
+                ->with('customer')
+//                ->with('material')
+                ->offset($offset)
+                ->all();
+            foreach ($models as $key => $model){
+                $borderUrl = $model['template_url'];
+                if(!empty($borderUrl)) $models[$key]['template_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+            }
+            $data['dataList'] = $models;
+        }
+
+
+        return $data;
+    }
+
+    public function sideThemeList($page,$prePage,$order = [], $other = [])
+    {
+        list($offset,$limit) = $this->parsePageParam($page,$prePage);
+        $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
+
+        $models = $cardModels = SideThemeModel::find()
             ->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')])
             ->andFilterWhere([
                 'or',
@@ -152,6 +192,14 @@ class ThemeService extends BackendService
         }
 
         return true;
+    }
+
+    public function editSideTheme($data){
+        $id = ArrayHelper::getValue($data, 'id');
+        $model = $this->editInfo($id, SideThemeModel::className());
+        if($model) return true;
+
+        return false;
     }
 
     public function editLeftTheme($data){

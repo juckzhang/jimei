@@ -71,8 +71,9 @@ class OrderController extends BaseController
                 ->with('color')
                 ->with('customer')
                 ->with('theme')
-                ->with('lefttheme')
-                ->with('righttheme')
+                ->with('sidetheme')
+//                ->with('lefttheme')
+//                ->with('righttheme')
                 ->asArray()->one();
             return $this->render('edit-order',['model' => $model,]);
         }

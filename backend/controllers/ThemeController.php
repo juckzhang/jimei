@@ -6,6 +6,7 @@ use common\helpers\CommonHelper;
 use common\models\mysql\ColorModel;
 use common\models\mysql\LeftThemeModel;
 use common\models\mysql\RightThemeModel;
+use common\models\mysql\SideThemeModel;
 use common\models\mysql\ThemeModel;
 use Yii;
 use backend\services\ThemeService;
@@ -28,6 +29,22 @@ class ThemeController extends BaseController
         $data['colorList'] = ColorModel::find()->asArray()->all();
 
         return $this->render('theme-list',$data);
+    }
+
+    public function actionSideThemeList()
+    {
+        $user = CommonHelper::customer();
+        $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
+        $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
+        $_other  = ArrayHelper::getValue($this->paramData,'other');
+        $customerIds = ArrayHelper::getValue($_other, 'customer_id',$user['customer_id']);
+        if($customerIds) $_other['customer_id'] = explode(',', $customerIds);
+        $_order = $this->_sortOrder();
+
+        $data = ThemeService::getService()->sideThemeList($_page,$_prePage, $_order, $_other);
+        $data['colorList'] = ColorModel::find()->asArray()->all();
+
+        return $this->render('side-theme-list',$data);
     }
 
     public function actionLeftThemeList()
@@ -112,6 +129,40 @@ class ThemeController extends BaseController
         }
     }
 
+    public function actionEditSideTheme()
+    {
+        if(\Yii::$app->request->getIsPost())
+        {
+            $id = ArrayHelper::getValue($this->paramData, 'id');
+            $result = ThemeService::getService()->editInfo($id, SideThemeModel::className());
+            $this->log($result);
+            if($result)
+                return $this->returnAjaxSuccess([
+                    'message' => '编辑成功',
+                    'navTabId' => 'side-theme-list',
+                    'callbackType' => 'closeCurrent',
+                    'forwardUrl' => Url::to(['theme/side-theme-list'])
+                ]);
+            return $this->returnAjaxError($result);
+        }else{
+            $id = ArrayHelper::getValue($this->paramData,'id');
+            $customer_id = ArrayHelper::getValue($this->paramData, 'customer_id');
+            $model = SideThemeModel::find()->where(['id' => $id])
+                ->with('customer')
+                ->with('material')
+                ->asArray()->one();
+            $barcode = '';
+            if(!$model){
+                while (true){
+                    $barcode = CommonHelper::randString(4);
+                    $exists = SideThemeModel::find()->where(['barcode' => $barcode])->andFilterWhere(['customer_id' => $customer_id])->exists();
+                    if(!$exists) break;
+                }
+            }
+            return $this->render('edit-side-theme',['model' => $model, 'barcode' => $barcode]);
+        }
+    }
+
     public function actionEditLeftTheme()
     {
         if(\Yii::$app->request->getIsPost())
@@ -138,7 +189,7 @@ class ThemeController extends BaseController
             if(!$model){
                 while (true){
                     $barcode = CommonHelper::randString(2);
-                    $exists = RightThemeModel::find()->where(['barcode' => $barcode])->andFilterWhere(['customer_id' => $customer_id])->exists();
+                    $exists = LeftThemeModel::find()->where(['barcode' => $barcode])->andFilterWhere(['customer_id' => $customer_id])->exists();
                     if(!$exists) break;
                 }
             }
@@ -208,6 +259,22 @@ class ThemeController extends BaseController
                 'navTabId' => 'left-theme-list',
                 'callbackType' => 'forward',
                 'forwardUrl'  => Url::to(['theme/left-theme-list'])
+            ]);
+        return $this->returnAjaxError($return);
+    }
+
+    public function actionDeleteSideTheme()
+    {
+        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+        $ids = ArrayHelper::getValue($this->paramData,'ids');
+        $return = ThemeService::getService()->deleteInfo($ids,SideThemeModel::className());
+        $this->log($return);
+        if($return === true)
+            return $this->returnAjaxSuccess([
+                'message' => '删除成功',
+                'navTabId' => 'side-theme-list',
+                'callbackType' => 'forward',
+                'forwardUrl'  => Url::to(['theme/side-theme-list'])
             ]);
         return $this->returnAjaxError($return);
     }

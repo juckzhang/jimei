@@ -11,6 +11,7 @@ use common\models\mysql\MaterialModel;
 use common\models\mysql\OrderModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
+use common\models\mysql\SideThemeModel;
 use common\models\mysql\ThemeModel;
 use yii\helpers\ArrayHelper;
 
@@ -62,8 +63,9 @@ class OrderService extends BackendService
                 ->with('color')
                 ->with('customer')
                 ->with('theme')
-                ->with('lefttheme')
-                ->with('righttheme')
+                ->with('sidetheme')
+//                ->with('lefttheme')
+//                ->with('righttheme')
                 ->with('sn')
                 ->with('relat')
                 ->asArray()
@@ -86,8 +88,9 @@ class OrderService extends BackendService
             ->with('color')
             ->with('customer')
             ->with('theme')
-            ->with('lefttheme')
-            ->with('righttheme')
+            ->with('sidetheme')
+//            ->with('lefttheme')
+//            ->with('righttheme')
             ->with('relat');
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
@@ -100,7 +103,11 @@ class OrderService extends BackendService
         $dataList = [];
         foreach ($items as $item){
             $templateUrl = ArrayHelper::getValue($item, 'theme.template_url');
+            $lefttemplateUrl = ArrayHelper::getValue($item, 'sidetheme.left_template_url');
+            $righttemplateUrl = ArrayHelper::getValue($item, 'sidetheme.right_template_url');
             if($templateUrl) $templateUrl = \Yii::$app->params['picUrlPrefix'] . $templateUrl;
+            if($lefttemplateUrl) $lefttemplateUrl = \Yii::$app->params['picUrlPrefix'] . $lefttemplateUrl;
+            if($righttemplateUrl) $righttemplateUrl = \Yii::$app->params['picUrlPrefix'] . $righttemplateUrl;
 
             $borderUrl = ArrayHelper::getValue($item, 'relat.border_url');
             if($borderUrl) $borderUrl = \Yii::$app->params['picUrlPrefix'] . $borderUrl;
@@ -114,16 +121,19 @@ class OrderService extends BackendService
             $dataList[] = [
                 'id' => $item['id'],
                 'barcode' => sprintf(
-                    "%s%s%s%s%s%s",
+                    "%s%s%s%s%s%s%s",
                     ArrayHelper::getValue($item, 'brand.barcode'),
                     ArrayHelper::getValue($item, 'phone.barcode'),
                     ArrayHelper::getValue($item, 'material.barcode'),
                     ArrayHelper::getValue($item, 'color.barcode'),
                     ArrayHelper::getValue($item, 'customer.barcode'),
-                    ArrayHelper::getValue($item, 'theme.barcode')
+                    ArrayHelper::getValue($item, 'theme.barcode'),
+                    ArrayHelper::getValue($item, 'sidetheme.barcode','')
                 ),
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
                 'template_url' => $templateUrl,
+                'left_template_url' => $lefttemplateUrl,
+                'right_template_url' => $righttemplateUrl,
                 'brand' => ArrayHelper::getValue($item, 'brand.name'),
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
                 'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type'),
@@ -155,7 +165,8 @@ class OrderService extends BackendService
             $materialCode = substr($mealCode, 5, 2);
             $colorCode = substr($mealCode, 7, 2);
             $customerCode = substr($mealCode, 9, 2);
-            $themeCode = substr($mealCode, 11);
+            $themeCode = substr($mealCode, 11, 4);
+            $sidethemeCode = substr($mealCode, 15,4);
             $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
             $phone = PhoneModel::find()->where([
                 'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
@@ -168,6 +179,10 @@ class OrderService extends BackendService
                 'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
                 'barcode' => $themeCode,
             ])->asArray()->one();
+            $sidetheme = SideThemeModel::find()->where([
+                'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+                'barcode' => $sidethemeCode,
+            ])->asArray()->one();
             $status = 0;
             if(!$brand or !$phone or !$customer or !$color or !$material or !$theme) $status = 2;
             $order->mobile_id = ArrayHelper::getValue($phone, 'id', 0);
@@ -176,6 +191,7 @@ class OrderService extends BackendService
             $order->theme_id = ArrayHelper::getValue($theme, 'id', 0);
             $order->color_id = ArrayHelper::getValue($color, 'id', 0);
             $order->material_id = ArrayHelper::getValue($material, 'id', 0);
+            $order->side_theme_id = ArrayHelper::getValue($sidetheme, 'id', 0);
             $order->status = $status;
             $order->save();
         }
@@ -246,7 +262,8 @@ class OrderService extends BackendService
             'theme_id', 'color_id', 'material_id', 'create_time',
             'update_time', 'goodsname', 'lcmccode', 'mccode',
             'eshopskuname','checkcode', 'shopname','num','wuliu_no', 'eshopbillcode', 'status',
-            'left_theme_id','right_theme_id',
+            'side_theme_id',
+//            'left_theme_id','right_theme_id',
         ];
         $ret = CodeConstant::DISTRIBUTION_NOT_ORDER;
         $starttime = microtime(true);
@@ -328,8 +345,9 @@ class OrderService extends BackendService
         $colorCode = substr($mealCode, 7, 2);
         $customerCode = substr($mealCode, 9, 2);
         $themeCode = substr($mealCode, 11, 4);
-        $leftthemeCode = substr($mealCode, 15,2);
-        $rightthemeCode = substr($mealCode, 17,2);
+        $sidethemeCode = substr($mealCode, 15,4);
+//        $leftthemeCode = substr($mealCode, 15,2);
+//        $rightthemeCode = substr($mealCode, 17,2);
         $now = time();
         $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
         $phone = PhoneModel::find()->where([
@@ -343,14 +361,18 @@ class OrderService extends BackendService
             'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
             'barcode' => $themeCode,
         ])->asArray()->one();
-        $lefttheme = ThemeModel::find()->where([
+        $sidetheme = SideThemeModel::find()->where([
             'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
-            'barcode' => $leftthemeCode,
+            'barcode' => $sidethemeCode,
         ])->asArray()->one();
-        $righttheme = ThemeModel::find()->where([
-            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
-            'barcode' => $rightthemeCode,
-        ])->asArray()->one();
+//        $lefttheme = ThemeModel::find()->where([
+//            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+//            'barcode' => $leftthemeCode,
+//        ])->asArray()->one();
+//        $righttheme = ThemeModel::find()->where([
+//            'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
+//            'barcode' => $rightthemeCode,
+//        ])->asArray()->one();
         $status = 0;
         if(!$brand or !$phone or !$customer or !$color or !$material or !$theme or $except) $status = 2;
         return [
@@ -377,8 +399,9 @@ class OrderService extends BackendService
             'wuliu_no' => ArrayHelper::getValue($order,'logistbillcode',''),
             'eshopbillcode' => ArrayHelper::getValue($order,'eshopbillcode',''),
             'status' => $status,
-            'left_theme_id' => ArrayHelper::getValue($lefttheme, 'id', 0),
-            'right_theme_id' => ArrayHelper::getValue($righttheme, 'id', 0),
+            'side_theme_id' => ArrayHelper::getValue($sidetheme, 'id', 0),
+//            'left_theme_id' => ArrayHelper::getValue($lefttheme, 'id', 0),
+//            'right_theme_id' => ArrayHelper::getValue($righttheme, 'id', 0),
         ];
     }
 

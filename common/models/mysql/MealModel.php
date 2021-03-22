@@ -48,4 +48,11 @@ class MealModel extends ActiveRecord
         return $this->hasOne(RightThemeModel::className(), ['id' => 'right_theme_id'])
             ->select(['id','name','barcode']);
     }
+
+    public function getSidettheme()
+    {
+        return $this->hasOne(SideThemeModel::className(),['id' => 'side_theme_id'])
+            ->select(['id','name','left_template_url','left_template_url','status','barcode'])
+            ->asArray();
+    }
 }
