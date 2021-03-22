@@ -50,7 +50,7 @@ class CommonHelper {
         $_str = '';
         for($i = 0; $i <$length; ++$i )
         {
-            srand(time());
+//            srand(time());
             $_random = mt_rand(0,$_strLength - 1);
             $_str .= $source[$_random];
         }
