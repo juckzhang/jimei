@@ -88,6 +88,8 @@ $more = ArrayHelper::getValue($params, 'more');
             <th width="80">侧边左边距</th>
             <th width="80">侧边上边距</th>
             <th width="80">上框图</th>
+            <th width="80">左框图</th>
+            <th width="80">右框图</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
@@ -107,6 +109,8 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['side_left']?></td>
                 <td><?=$data['side_top']?></td>
                 <td><img width="50" src="<?=rtrim($data['border_url'],'.tif').'.jpg'?>" /></td>
+                <td><img width="50" src="<?=rtrim($data['left_border_url'],'.tif').'.jpg'?>" /></td>
+                <td><img width="50" src="<?=rtrim($data['right_border_url'],'.tif').'.jpg'?>" /></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('phone/delete-relation')):?>

@@ -6,6 +6,8 @@ use yii\helpers\ArrayHelper;
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-relation','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
         <input type="hidden" id="source_pic_name" name="MaterialPhoneModel[source_pic_name]" value="<?=ArrayHelper::getValue($model,'source_pic_name','')?>"/>
+        <input type="hidden" id="left_source_pic_name" name="MaterialPhoneModel[left_source_pic_name]" value="<?=ArrayHelper::getValue($model,'left_source_pic_name','')?>"/>
+        <input type="hidden" id="right_source_pic_name" name="MaterialPhoneModel[right_source_pic_name]" value="<?=ArrayHelper::getValue($model,'right_source_pic_name','')?>"/>
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>机型：</dt>
@@ -84,14 +86,42 @@ use yii\helpers\ArrayHelper;
             <dl>
                 <dt>上框图：</dt>
                 <dd>
-                    <input type="text" readonly="true" name="MaterialPhoneModel[border_url]" class='template-url readonly' value="<?=ArrayHelper::getValue($model,'border_url','')?>"/>
-                    <input id="template-url" size="60" class="upload-input" data-name="template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
+                    <input type="text" readonly="true" name="MaterialPhoneModel[border_url]" class='source_pic_name readonly' value="<?=ArrayHelper::getValue($model,'border_url','')?>"/>
+                    <input id="source_pic_name" size="60" class="upload-input" data-name="source_pic_name" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
                     <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
                 </dd>
             </dl>
-            <p>
-                <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'border_url', ''),'.tif').'.jpg'?>" id="upload-pic"/>
-            </p>
+            <dl>
+                <dd>
+                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'border_url', ''),'.tif').'.jpg'?>" id="source_pic_name-upload-pic"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>左上框图：</dt>
+                <dd>
+                    <input type="text" readonly="true" name="MaterialPhoneModel[left_border_url]" class='left_source_pic_name readonly' value="<?=ArrayHelper::getValue($model,'left_border_url','')?>"/>
+                    <input id="left_source_pic_name" size="60" class="upload-input" data-name="left_source_pic_name" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
+                    <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
+                </dd>
+            </dl>
+            <dl>
+                <dd>
+                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'left_border_url', ''),'.tif').'.jpg'?>" id="left_source_pic_name-upload-pic"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>右上框图：</dt>
+                <dd>
+                    <input type="text" readonly="true" name="MaterialPhoneModel[right_border_url]" class='right_source_pic_name readonly' value="<?=ArrayHelper::getValue($model,'right_border_url','')?>"/>
+                    <input id="right_source_pic_name" size="60" class="upload-input" data-name="right_source_pic_name" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
+                    <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
+                </dd>
+            </dl>
+            <dl>
+                <dd>
+                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'right_border_url', ''),'.tif').'.jpg'?>" id="right_source_pic_name-upload-pic"/>
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>
@@ -127,9 +157,9 @@ use yii\helpers\ArrayHelper;
                     if(result.code == 200){
                         var posterUrl = $.trim(result.data.url);
                         // imgObj.attr("src", posterUrl);
-                        $('#upload-pic').attr("src", posterUrl);
+                        $('#'+id+'-upload-pic').attr("src", posterUrl);
                         $('.'+name).val(result.data.fullFileName);
-                        $('#source_pic_name').val(result.data.source_pic_name);
+                        $('#'+id).val(result.data.source_pic_name);
                     }else {
                         alert(result.resultDesc);
                     }

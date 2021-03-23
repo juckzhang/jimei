@@ -81,6 +81,8 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">左侧边图片</th>
             <th width="80">右侧边图片</th>
             <th width="80">边框图</th>
+            <th width="80">左边框图</th>
+            <th width="80">右边框图</th>
             <th width="40">状态</th>
             <th width="70">操作</th>
             <th width="80">网店规格型号</th>
@@ -118,6 +120,8 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'sidetheme.left_template_url') ? rtrim(ArrayHelper::getValue($data,'sidetheme.left_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'sidettheme.right_template_url') ? rtrim(ArrayHelper::getValue($data,'sidetheme.right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.left_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.left_border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.right_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.right_border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?php if($data['status'] == 2
                         or ArrayHelper::getValue($data,'relat.status') == 2
                         or ArrayHelper::getValue($data, 'phone.status') == 2

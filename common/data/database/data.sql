@@ -157,6 +157,10 @@ alter table jimei_phone_material_relation add `height` decimal(5,2) NOT NULL def
 alter table jimei_phone_material_relation add `fat` decimal(5,2) NOT NULL default  0 comment'厚度' after `height`;
 alter table jimei_phone_material_relation add `side_left` decimal(5,2) NOT NULL default  0 comment'侧边-左右边距' after fat;
 alter table jimei_phone_material_relation add `side_top` decimal(5,2) NOT NULL default  0 comment'手机厚度' after side_left;
+alter table jimei_phone_material_relation add `left_border_url` varchar(255) NOT NULL default '' comment'圆角素材链接' after border_url;
+alter table jimei_phone_material_relation add `right_border_url` varchar(255) NOT NULL default '' comment'圆角素材链接' after left_border_url;
+alter table jimei_phone_material_relation add `left_source_pic_name` VARCHAR(255) NOT NULL default '' comment '原图片名称' after source_pic_name;
+alter table jimei_phone_material_relation add `right_source_pic_name` VARCHAR(255) NOT NULL default '' comment '原图片名称' after left_source_pic_name;
 
 -- 手机品牌
 CREATE TABLE if NOT EXISTS jimei_brand(
