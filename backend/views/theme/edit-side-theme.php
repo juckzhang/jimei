@@ -49,9 +49,11 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
                     <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
                 </dd>
             </dl>
-            <p>
-                <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'left_template_url',''),'.tif').'.jpg'?>" id="left-upload-pic"/>
-            </p>
+            <dl>
+                <dd>
+                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'left_template_url',''),'.tif').'.jpg'?>" id="left-upload-pic"/>
+                </dd>
+            </dl>
             <dl>
                 <dt>右侧图案：</dt>
                 <dd>
@@ -60,9 +62,11 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
                     <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
                 </dd>
             </dl>
-            <p>
-                <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'right_template_url',''),'.tif').'.jpg'?>" id="right-upload-pic"/>
-            </p>
+            <dl>
+                <dd>
+                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'right_template_url',''),'.tif').'.jpg'?>" id="right-upload-pic"/>
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>
