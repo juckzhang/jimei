@@ -111,6 +111,10 @@ class OrderService extends BackendService
 
             $borderUrl = ArrayHelper::getValue($item, 'relat.border_url');
             if($borderUrl) $borderUrl = \Yii::$app->params['picUrlPrefix'] . $borderUrl;
+            $leftborderUrl = ArrayHelper::getValue($item, 'relat.left_border_url');
+            if($leftborderUrl) $leftborderUrl = \Yii::$app->params['picUrlPrefix'] . $leftborderUrl;
+            $rborderUrl = ArrayHelper::getValue($item, 'relat.right_border_url');
+            if($rborderUrl) $rborderUrl = \Yii::$app->params['picUrlPrefix'] . $rborderUrl;
             $status = 0;
             if($item['status'] == 2
                 or ArrayHelper::getValue($item,'relat.status') == 2
@@ -146,6 +150,8 @@ class OrderService extends BackendService
                 'side_left' => ArrayHelper::getValue($item, 'relat.side_left', 0),
                 'side_top' => ArrayHelper::getValue($item, 'relat.side_top', 0),
                 'border_url' => $borderUrl,
+                'left_border_url' => $leftborderUrl,
+                'right_border_url' => $rborderUrl,
                 'color' => ArrayHelper::getValue($item, 'color.name'),
                 'customer_name' => ArrayHelper::getValue($item,'customer.name'),
                 'status' => $item['status'] ?: $status,
