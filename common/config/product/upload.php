@@ -3,7 +3,7 @@ return [
     'picture' => [
         'extensions' => null,
         'path'  => 'upload/picture/'.date('Ymd'),
-        'url'   => 'http://www.wolongtech.com/',
+        'url'   => '/',
         'remoteUpload' => false,
         'recursive' => true,
     ],

@@ -1,6 +1,6 @@
 <?php
 return [
-    'imageUrlPrefix' => 'http://www.wolongtech.com/',
+    'imageUrlPrefix' => '/',
     'domain'       => 'http://api.kungchinese.com/',
     'appKey'       => '200428181312266',
     'appSecret'    => 'c8eb893fdf764709a863bab7e8cbf4fb',
