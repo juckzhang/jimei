@@ -5,9 +5,9 @@ use yii\helpers\ArrayHelper;
 <h2 class="contentTitle">编辑机型材质关系</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['phone/edit-relation','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
-        <input type="hidden" id="source_pic_name" name="MaterialPhoneModel[source_pic_name]" value="<?=ArrayHelper::getValue($model,'source_pic_name','')?>"/>
-        <input type="hidden" id="left_source_pic_name" name="MaterialPhoneModel[left_source_pic_name]" value="<?=ArrayHelper::getValue($model,'left_source_pic_name','')?>"/>
-        <input type="hidden" id="right_source_pic_name" name="MaterialPhoneModel[right_source_pic_name]" value="<?=ArrayHelper::getValue($model,'right_source_pic_name','')?>"/>
+        <input type="hidden" id="pic_source_pic_name" name="MaterialPhoneModel[source_pic_name]" value="<?=ArrayHelper::getValue($model,'source_pic_name','')?>"/>
+        <input type="hidden" id="pic_left_source_pic_name" name="MaterialPhoneModel[left_source_pic_name]" value="<?=ArrayHelper::getValue($model,'left_source_pic_name','')?>"/>
+        <input type="hidden" id="pic_right_source_pic_name" name="MaterialPhoneModel[right_source_pic_name]" value="<?=ArrayHelper::getValue($model,'right_source_pic_name','')?>"/>
         <div class="pageFormContent nowrap" layoutH="97">
             <dl>
                 <dt>机型：</dt>
@@ -159,7 +159,7 @@ use yii\helpers\ArrayHelper;
                         // imgObj.attr("src", posterUrl);
                         $('#'+id+'-upload-pic').attr("src", posterUrl);
                         $('.'+name).val(result.data.fullFileName);
-                        $('#'+id).val(result.data.source_pic_name);
+                        $('#pic_'+id).val(result.data.source_pic_name);
                     }else {
                         alert(result.resultDesc);
                     }
