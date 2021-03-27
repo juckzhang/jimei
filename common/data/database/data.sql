@@ -161,6 +161,7 @@ alter table jimei_phone_material_relation add `left_border_url` varchar(255) NOT
 alter table jimei_phone_material_relation add `right_border_url` varchar(255) NOT NULL default '' comment'圆角素材链接' after left_border_url;
 alter table jimei_phone_material_relation add `left_source_pic_name` VARCHAR(255) NOT NULL default '' comment '原图片名称' after source_pic_name;
 alter table jimei_phone_material_relation add `right_source_pic_name` VARCHAR(255) NOT NULL default '' comment '原图片名称' after left_source_pic_name;
+alter table jimei_phone_material_relation add `side_radian` decimal(5,2) NOT NULL default  0 comment'侧边弧度' after `top`;
 
 -- 手机品牌
 CREATE TABLE if NOT EXISTS jimei_brand(

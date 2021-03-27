@@ -85,8 +85,7 @@ $more = ArrayHelper::getValue($params, 'more');
             <th width="80">厚</th>
             <th width="80">左边距</th>
             <th width="80">上边距</th>
-            <th width="80">侧边左边距</th>
-            <th width="80">侧边上边距</th>
+            <th width="80">侧边弧度</th>
             <th width="80">上框图</th>
             <th width="80">左框图</th>
             <th width="80">右框图</th>
@@ -106,8 +105,7 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['fat']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
-                <td><?=$data['side_left']?></td>
-                <td><?=$data['side_top']?></td>
+                <td><?=$data['side_radian']?></td>
                 <td><img width="50" src="<?=rtrim($data['border_url'],'.tif').'.jpg'?>" /></td>
                 <td><img width="50" src="<?=rtrim($data['left_border_url'],'.tif').'.jpg'?>" /></td>
                 <td><img width="50" src="<?=rtrim($data['right_border_url'],'.tif').'.jpg'?>" /></td>

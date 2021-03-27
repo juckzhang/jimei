@@ -61,16 +61,9 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
-                <dt>侧边左边距：</dt>
+                <dt>侧边弧度：</dt>
                 <dd>
-                    <input type="text" name="MaterialPhoneModel[side_left]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'side_left',0)?>"/>
-                    <span class="info"></span>
-                </dd>
-            </dl>
-            <dl>
-                <dt>侧边上边距：</dt>
-                <dd>
-                    <input type="text" name="MaterialPhoneModel[side_top]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'side_top',0)?>"/>
+                    <input type="text" name="MaterialPhoneModel[side_radian]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'side_radian',0)?>"/>
                     <span class="info"></span>
                 </dd>
             </dl>

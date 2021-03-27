@@ -98,8 +98,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">材质</th>
             <th width="40">左边距</th>
             <th width="40">上边距</th>
-            <th width="40">侧边-左边距</th>
-            <th width="40">侧边上边距</th>
+            <th width="40">侧边弧度</th>
             <th width="40">颜色</th>
         </tr>
         </thead>
@@ -168,8 +167,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.left')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.top')?></td>
-                <td><?=ArrayHelper::getValue($data,'relat.side_left')?></td>
-                <td><?=ArrayHelper::getValue($data,'relat.side_top')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.side_radian')?></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
             </tr>
         <?php endforeach;?>
