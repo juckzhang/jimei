@@ -44,7 +44,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
             <dl>
                 <dt>左侧图案：</dt>
                 <dd>
-                    <input type="text" readonly="true" name="SideThemeModel[template_url]" class='left-template-url readonly' value="<?=ArrayHelper::getValue($model,'left_template_url','')?>"/>
+                    <input type="text" readonly="true" name="SideThemeModel[left_template_url]" class='left-template-url readonly' value="<?=ArrayHelper::getValue($model,'left_template_url','')?>"/>
                     <input id="left" size="60" class="upload-input" data-name="left-template-url" style="display: none" type="file" data-type="picture" name="UploadForm[file]">
                     <a id="upload" class="btnAdd upload-btn" href="javascript:viod();">上传</a>
                 </dd>
