@@ -101,6 +101,16 @@ class ApiController extends BaseController
         return $this->returnAjaxSuccess($data);
     }
 
+    public function actionSideThemeList(){
+        $customterId = ArrayHelper::getValue($this->paramData,'customer_id');
+        $updateTime = ArrayHelper::getValue($this->paramData, 'update_time', 0);
+        $page  = ArrayHelper::getValue($this->paramData,'page');
+        $count  = ArrayHelper::getValue($this->paramData,'count');
+        $data = ThemeService::getService()->sideThemeList($page, $count, [], ['customer_id' => $customterId,'update_time' => $updateTime]);
+
+        return $this->returnAjaxSuccess($data);
+    }
+
     //机型材质关系数据
     public function actionRelation(){
         $phoneId  = ArrayHelper::getValue($this->paramData,'mobile_id');
