@@ -100,6 +100,10 @@ class PhoneService extends BackendService
             ->one();
         $borderUrl = $model['border_url'];
         if(!empty($borderUrl)) $model['border_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+        $lborderUrl = $model['left_border_url'];
+        if(!empty($lborderUrl)) $model['left_border_url'] = \Yii::$app->params['picUrlPrefix'].$lborderUrl;
+        $rborderUrl = $model['right_border_url'];
+        if(!empty($rborderUrl)) $model['right_border_url'] = \Yii::$app->params['picUrlPrefix'].$rborderUrl;
 
         return ['data' => $model];
     }
