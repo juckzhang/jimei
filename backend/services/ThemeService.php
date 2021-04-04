@@ -80,7 +80,7 @@ class ThemeService extends BackendService
                 ->all();
             foreach ($models as $key => $model){
                 $lborderUrl = $model['left_template_url'];
-                if(!empty($borderUrl)) $models[$key]['left_template_url'] = \Yii::$app->params['picUrlPrefix'].$lborderUrl;
+                if(!empty($lborderUrl)) $models[$key]['left_template_url'] = \Yii::$app->params['picUrlPrefix'].$lborderUrl;
                 $rborderUrl = $model['right_template_url'];
                 if(!empty($rborderUrl)) $models[$key]['right_template_url'] = \Yii::$app->params['picUrlPrefix'].$rborderUrl;
             }
