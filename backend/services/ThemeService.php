@@ -26,6 +26,7 @@ class ThemeService extends BackendService
 
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
             ->andFilterWhere(['like','color',ArrayHelper::getValue($other, 'color')])
+            ->andFilterWhere(['like','type',ArrayHelper::getValue($other, 'type')])
             ->andFilterWhere(['>=', 'update_time', ArrayHelper::getValue($other, 'update_time')]);
 
         $data['dataCount'] = $models->count();
