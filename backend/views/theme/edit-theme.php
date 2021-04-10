@@ -21,6 +21,17 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
                 </dd>
             </dl>
             <dl>
+                <dt>素材类型：</dt>
+                <dd>
+                    <select name="ThemeModel[type]" valign="<?=ArrayHelper::getValue($model,'type', '0')?>">
+                        <option value="0" <?=ArrayHelper::getValue($model,'type') === '0' ? 'selected' : ''?>>无侧边</option>
+                        <option value="1" <?=ArrayHelper::getValue($model,'type') === '1' ? 'selected' : ''?>>左侧边</option>
+                        <option value="2" <?=ArrayHelper::getValue($model,'type') === '2' ? 'selected' : ''?>>右侧边</option>
+                        <option value="3" <?=ArrayHelper::getValue($model,'type') === '3' ? 'selected' : ''?>>双侧边</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
                 <dt>条码：</dt>
                 <dd>
                     <input type="text" name="ThemeModel[barcode]" minlength="4" class="required number" value="<?=ArrayHelper::getValue($model,'barcode',$barcode)?>"/>
