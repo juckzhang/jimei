@@ -153,6 +153,10 @@ $typeList = [
                     <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit dblclick">编辑</a>
                     <?php endif;?>
 
+                    <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
+                        <a title="拷贝" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id'], 'copy' => 1])?>" class="btnEdit dblclick">拷贝</a>
+                    <?php endif;?>
+
                     <?php if(\Yii::$app->user->can('meal/meal-list')):?>
                         <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['theme_id' => $data['id'],'customer_id' => $data['customer']['id']],'theme-name' => urlencode($data['name']),'customer-name' => urlencode($data['customer']['name'])])?>" class="btnView">套餐列表</a>
                     <?php endif;?>

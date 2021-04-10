@@ -64,6 +64,7 @@ class ThemeController extends BaseController
             return $this->returnAjaxError($result);
         }else{
             $id = ArrayHelper::getValue($this->paramData,'id');
+            $copy = ArrayHelper::getValue($this->paramData,'copy');
             $customer_id = ArrayHelper::getValue($this->paramData, 'customer_id');
             $model = ThemeModel::find()->where(['id' => $id])
                 ->with('customer')
@@ -75,6 +76,10 @@ class ThemeController extends BaseController
                     $barcode = $barcode + 1;
                     $barcode = str_pad("$barcode", 4, "0", STR_PAD_LEFT);
                 }
+            }
+            if($copy){
+                unset($model['id']);
+                unset($model['barcode']);
             }
             return $this->render('edit-theme',['model' => $model, 'barcode' => $barcode]);
         }
