@@ -70,6 +70,7 @@ class ThemeController extends BaseController
                 ->with('customer')
                 ->asArray()->one();
             $barcode = '';
+            $customer_id = ArrayHelper::getValue($model, 'customer.id', $customer_id);
             if($customer_id){
                 $barcode = ThemeModel::find()->where(['customer_id' => $customer_id])->max('barcode');
                 if($barcode){
