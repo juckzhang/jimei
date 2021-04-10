@@ -98,10 +98,6 @@ $notMore = ArrayHelper::getValue($params, 'notMore');
                         <a title="图案列表" target="navTab" rel="theme-list" href="<?=Url::to(['theme/theme-list', 'notMore' => 1, 'other' => ['customer_id' => $data->id],'customer-name' => urlencode($data->name)])?>" class="btnInfo">图案列表</a>
                     <?php endif;?>
 
-                    <?php if(\Yii::$app->user->can('theme/side-theme-list')):?>
-                        <a title="侧边图案列表" target="navTab" rel="side-theme-list" href="<?=Url::to(['theme/side-theme-list', 'notMore' => 1, 'other' => ['customer_id' => $data->id],'customer-name' => urlencode($data->name)])?>" class="btnInfo">侧边图案列表</a>
-                    <?php endif;?>
-
                     <?php if(\Yii::$app->user->can('meal/meal-list')):?>
                         <a title="套餐列表" target="navTab" rel="meal-list" href="<?=Url::to(['meal/meal-list', 'notMore' => 1, 'other' => ['customer_id' => $data->id],'customer-name' => urlencode($data->name)])?>" class="btnView">套餐列表</a>
                     <?php endif;?>
