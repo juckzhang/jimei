@@ -67,7 +67,6 @@ class ThemeController extends BaseController
             $customer_id = ArrayHelper::getValue($this->paramData, 'customer_id');
             $model = ThemeModel::find()->where(['id' => $id])
                 ->with('customer')
-                ->with('material')
                 ->asArray()->one();
             $barcode = '';
             if($customer_id){

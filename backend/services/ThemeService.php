@@ -36,7 +36,6 @@ class ThemeService extends BackendService
                 ->limit($limit)
                 ->asArray()
                 ->with('customer')
-//                ->with('material')
                 ->offset($offset)
                 ->all();
             foreach ($models as $key => $model){
@@ -47,33 +46,6 @@ class ThemeService extends BackendService
         }
 
         return $data;
-    }
-
-    public function editTheme($data){
-        $id = ArrayHelper::getValue($data, 'id');
-        $materialIds = ArrayHelper::getValue($data, 'ThemeMaterialModel.material_id');
-        $materialIds = explode(',', $materialIds);
-        $transaction = \Yii::$app->db->beginTransaction();
-        try{
-            $model = $this->editInfo($id, ThemeModel::className());
-            if(!$model) {
-                $transaction->rollBack();
-                return false;
-            }
-            ThemeMaterialModel::deleteAll(['theme_id' => $model->id]);
-            $filed = ['theme_id', 'material_id','create_time','update_time'];
-            $batchData = [];$now = time();
-            foreach ($materialIds as $materialId) {
-                $batchData[] = ['theme_id' => $model->id, 'material_id' => $materialId, 'create_time' => $now, 'update_time' => $now];
-            }
-            \Yii::$app->db->createCommand()->batchInsert(ThemeMaterialModel::tableName(),$filed,$batchData)->execute();
-            $transaction->commit();
-        }catch (\Exception $e){
-            $transaction->rollBack();
-            return false;
-        }
-
-        return true;
     }
 }
 
