@@ -141,23 +141,21 @@ $user = CommonHelper::customer();
                     <td><?=ArrayHelper::getValue($data, 'sidetheme.name')?></td>
                     <td><?=$data['sync_status'] == 0 ? '未同步' : '已同步'?></td>
                     <td><?=sprintf(
-                            "%s%s%s%s%s%s%s",
+                            "%s%s%s%s%s%s",
                             $data['brand']['barcode'],
                             $data['phone']['barcode'],
                             $data['material']['barcode'],
                             $data['color']['barcode'],
                             $data['customer']['barcode'],
-                            $data['theme']['barcode'],
-                            ArrayHelper::getValue($data, 'sidetheme.barcode','')
+                            $data['theme']['barcode']
                         )?></td>
                     <td><?=sprintf(
-                            "%s%s%s (%s) %s %s",
+                            "%s%s%s (%s) %s",
                             $data['brand']['name'],
                             $data['phone']['modal'],
                             $data['material']['name'],
                             $data['color']['name'],
-                            $data['theme']['name'],
-                            ArrayHelper::getValue($data, 'sidetheme.name','')
+                            $data['theme']['name']
                         )?></td>
                     <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                     <td>

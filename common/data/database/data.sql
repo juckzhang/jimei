@@ -16,6 +16,12 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   unique (`customer_id`,`barcode`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
+alter table jimei_theme add `type` tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：无侧边 1：左侧边 2:右侧边 3:双侧边' after `id`;
+alter table jimei_theme add left_template_url VARCHAR(255) NOT NULL default '' comment '左侧图片地址' after source_pic_name;
+alter table jimei_theme add left_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称' after left_template_url;
+alter table jimei_theme add right_template_url VARCHAR(255) NOT NULL default '' comment '图片地址' after left_source_pic_name;
+alter table jimei_theme add right_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称' after right_template_url;
+
 -- 侧图片原始素材表
 CREATE TABLE if NOT EXISTS jimei_side_theme(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',

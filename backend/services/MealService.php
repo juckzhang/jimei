@@ -4,13 +4,10 @@ namespace backend\services;
 use common\constants\CodeConstant;
 use common\helpers\ClientHelper;
 use common\models\mysql\ColorModel;
-use common\models\mysql\LeftThemeModel;
 use common\models\mysql\MaterialModel;
 use common\models\mysql\MealModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
-use common\models\mysql\RightThemeModel;
-use common\models\mysql\SideThemeModel;
 use common\models\mysql\SyncMealModel;
 use common\models\mysql\ThemeModel;
 use yii\base\Model;
@@ -55,9 +52,6 @@ class MealService extends BackendService
             ->andFilterWhere(['material_id' => ArrayHelper::getValue($other, 'material_id')])
             ->andFilterWhere(['customer_id' => ArrayHelper::getValue($other, 'customer_id')])
             ->andFilterWhere(['sync_status' => ArrayHelper::getValue($other, 'sync_status')])
-            ->andFilterWhere(['side_theme_id' => ArrayHelper::getValue($other, 'side_theme_id')])
-//            ->andFilterWhere(['left_theme_id' => ArrayHelper::getValue($other, 'left_theme_id')])
-//            ->andFilterWhere(['right_theme_id' => ArrayHelper::getValue($other, 'right_theme_id')])
             ->andFilterWhere(['theme_id' => ArrayHelper::getValue($other, 'theme_id')]);
 
         $data['dataCount'] = $models->count();
@@ -70,9 +64,6 @@ class MealService extends BackendService
                 ->with('phone')
                 ->with('material')
                 ->with('color')
-                ->with('sidetheme')
-//                ->with('lefttheme')
-//                ->with('righttheme')
                 ->with('theme')
                 ->with('customer')
                 ->offset($offset)
@@ -99,9 +90,6 @@ class MealService extends BackendService
         $colorIds = ArrayHelper::getValue($data, 'MealModel.color_id');
         $customerIds = ArrayHelper::getValue($data, 'MealModel.customer_id');
         $themeIds = ArrayHelper::getValue($data, 'MealModel.theme_id');
-        $sidethemeIds = ArrayHelper::getValue($data, 'MealModel.side_theme_id');
-//        $leftthemeIds = ArrayHelper::getValue($data, 'MealModel.left_theme_id');
-//        $rightthemeIds = ArrayHelper::getValue($data, 'MealModel.right_theme_id');
 
         if((!$phoneIds and !$brandIds) or !$colorIds or !$materialIds or (!$themeIds and !$customerIds)) return false;
         $brandIds = array_filter(array_unique(explode(',', $brandIds)));
@@ -110,30 +98,18 @@ class MealService extends BackendService
         $colorIds = array_filter(array_unique(explode(',', $colorIds)));
         $customerIds = array_filter(array_unique(explode(',', $customerIds)));
         $themeIds = array_filter(array_unique(explode(',', $themeIds)));
-        $sidethemeIds = array_filter(array_unique(explode(',', $sidethemeIds)));
-//        $leftthemeIds = array_filter(array_unique(explode(',', $leftthemeIds)));
-//        $rightthemeIds = array_filter(array_unique(explode(',', $rightthemeIds)));
         $phoneWhere = ['id' => $phoneIds];
         if(empty($phoneIds)) $phoneWhere = ['brand_id' => $brandIds];
         $themeWhere = ['id' => $themeIds];
-        $sidethemeWhere = ['id' => $sidethemeIds];
-//        $leftthemeWhere = ['id' => $leftthemeIds];
-//        $rightthemeWhere = ['id' => $rightthemeIds];
         if(empty($themeIds)) $themeWhere = ['customer_id' => $customerIds];
-//        if(empty($leftthemeIds)) $leftthemeWhere = ['customer_id' => $customerIds];
-//        if(empty($rightthemeIds)) $rightthemeWhere = ['customer_id' => $customerIds];
-        if(empty($sidethemeIds)) $sidethemeWhere = ['customer_id' => $customerIds];
         $phoneList = PhoneModel::find()->where($phoneWhere)->with('brand')->asArray()->all();
         $phoneList = ArrayHelper::index($phoneList, 'id');
         $themeList = ThemeModel::find()->where($themeWhere)->with('customer')->asArray()->all();
-        $sidethemeList = SideThemeModel::find()->where($sidethemeWhere)->with('customer')->asArray()->all();
-//        $leftthemeList = LeftThemeModel::find()->where($leftthemeWhere)->with('customer')->asArray()->all();
-//        $rightthemeList = RightThemeModel::find()->where($rightthemeWhere)->with('customer')->asArray()->all();
         $colorList = ColorModel::find()->where(['id' => $colorIds])->asArray()->all();
         $colorList = ArrayHelper::index($colorList, 'id');
         $materialList = MaterialModel::find()->where(['id' => $materialIds])->with('phone')->with('color')->asArray()->all();
         $batchData = []; $now = time();
-        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id','left_theme_id','right_theme_id'];
+        $filed = ['brand_id','mobile_id','create_time', 'update_time','color_id','customer_id','theme_id','material_id'];
 
         foreach ($materialList as $material){
             $phones = ArrayHelper::getValue($material, 'phone', []);
@@ -154,61 +130,7 @@ class MealService extends BackendService
                                     'customer_id' => $theme['customer_id'],
                                     'theme_id' => $theme['id'],
                                     'material_id' => $material['id'],
-                                    'side_theme_id' => 0,
-//                                    'left_theme_id' => 0,
-//                                    'right_theme_id' => 0,
                                 ];
-                                if(!empty($sidethemeList)){
-                                    foreach ($sidethemeList as $sideTheme){
-                                        if($sideTheme['customer_id'] == $theme['customer_id']){
-                                            $batchData[] = [
-                                                'brand_id' => $phone['brand_id'],
-                                                'mobile_id' => $phone['id'],
-                                                'create_time' => $now,
-                                                'update_time' => $now,
-                                                'color_id' => $color['id'],
-                                                'customer_id' => $theme['customer_id'],
-                                                'theme_id' => $theme['id'],
-                                                'material_id' => $material['id'],
-                                                'side_theme_id' => $sideTheme['id'],
-//                                    'left_theme_id' => 0,
-//                                    'right_theme_id' => 0,
-                                            ];
-                                        }
-                                    }
-                                }
-//                                if(!empty($leftthemeList)){
-//                                    foreach ($leftthemeList as $leftTheme){
-//                                        if($leftTheme['customer_id'] == $theme['customer_id']){
-//                                            $batchData[] = [
-//                                                'brand_id' => $phone['brand_id'],
-//                                                'mobile_id' => $phone['id'],
-//                                                'create_time' => $now,
-//                                                'update_time' => $now,
-//                                                'color_id' => $color['id'],
-//                                                'customer_id' => $theme['customer_id'],
-//                                                'theme_id' => $theme['id'],
-//                                                'material_id' => $material['id'],
-//                                                'left_theme_id' => $leftTheme['id'],
-//                                                'right_theme_id' => 0,
-//                                            ];
-//                                            foreach ($rightthemeList as $rightTheme){
-//                                                $batchData[] = [
-//                                                    'brand_id' => $phone['brand_id'],
-//                                                    'mobile_id' => $phone['id'],
-//                                                    'create_time' => $now,
-//                                                    'update_time' => $now,
-//                                                    'color_id' => $color['id'],
-//                                                    'customer_id' => $theme['customer_id'],
-//                                                    'theme_id' => $theme['id'],
-//                                                    'material_id' => $material['id'],
-//                                                    'left_theme_id' => $leftTheme['id'],
-//                                                    'right_theme_id' => $rightTheme['id'],
-//                                                ];
-//                                            }
-//                                        }
-//                                    }
-//                                }
                             }
                         }
                     }
@@ -225,9 +147,6 @@ class MealService extends BackendService
                 'customer_id' => $data['customer_id'],
                 'theme_id' => $data['theme_id'],
                 'material_id' => $data['material_id'],
-                'side_theme_id' => $data['side_theme_id'],
-//                'left_theme_id' => $data['left_theme_id'],
-//                'right_theme_id' => $data['right_theme_id'],
             ];
         }
 
@@ -267,26 +186,20 @@ class MealService extends BackendService
             ->with('color')
             ->with('customer')
             ->with('theme')
-            ->with('sidetheme')
-//            ->with('lefttheme')
-//            ->with('righttheme')
             ->all();
         $param = $meal = [];
         foreach ($data as $item){
             if(!$item['brand'] or !$item['phone'] or !$item['material'] or !$item['color']
                 or !$item['customer'] or !$item['theme']
             ) continue;
-//            $leftTheme = ArrayHelper::getValue($item, 'lefttheme.barcode', '00');
-//            $rightTheme = ArrayHelper::getValue($item, 'righttheme.barcode', '00');
             $suitecode = sprintf(
-                "%s%s%s%s%s%s%s%s%s",
+                "%s%s%s%s%s%s",
                 $item['brand']['barcode'],
                 $item['phone']['barcode'],
                 $item['material']['barcode'],
                 $item['color']['barcode'],
                 $item['customer']['barcode'],
-                $item['theme']['barcode'],
-                ArrayHelper::getValue($item,'sidetheme.barcode', '')
+                $item['theme']['barcode']
             );
             $meal[$suitecode] = $item['id'];
             $param[] = [
@@ -332,4 +245,3 @@ class MealService extends BackendService
         return $res;
     }
 }
-

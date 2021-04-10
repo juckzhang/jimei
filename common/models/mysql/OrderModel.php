@@ -27,27 +27,6 @@ class OrderModel extends ActiveRecord
             ->asArray();
     }
 
-    public function getLefttheme()
-    {
-        return $this->hasOne(LeftThemeModel::className(),['id' => 'left_theme_id'])
-            ->select(['id','name','template_url','status','barcode'])
-            ->asArray();
-    }
-
-    public function getRighttheme()
-    {
-        return $this->hasOne(RightThemeModel::className(),['id' => 'right_theme_id'])
-            ->select(['id','name','template_url','status','barcode'])
-            ->asArray();
-    }
-
-    public function getSidetheme()
-    {
-        return $this->hasOne(SideThemeModel::className(),['id' => 'side_theme_id'])
-            ->select(['id','name','left_template_url','left_template_url','status','barcode'])
-            ->asArray();
-    }
-
     public function getPhone()
     {
         return $this->hasOne(PhoneModel::className(), ['id' => 'mobile_id'])

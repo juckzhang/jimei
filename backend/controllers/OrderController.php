@@ -71,9 +71,6 @@ class OrderController extends BaseController
                 ->with('color')
                 ->with('customer')
                 ->with('theme')
-                ->with('sidetheme')
-//                ->with('lefttheme')
-//                ->with('righttheme')
                 ->asArray()->one();
             return $this->render('edit-order',['model' => $model,]);
         }
@@ -143,7 +140,7 @@ class OrderController extends BaseController
         $ids = ArrayHelper::getValue($this->paramData,'ids');
         $return = OrderService::getService()->deleteInfo($ids, DistributionModel::className());
         $this->log($return);
-        if($return === true)
+        if($return === true){
             //删除对应的订单数据
             OrderModel::deleteAll(['base_id' => $ids]);
             return $this->returnAjaxSuccess([
@@ -152,6 +149,8 @@ class OrderController extends BaseController
                 'callbackType' => 'forward',
                 'forwardUrl'  => Url::to(['order/distribution-list'])
             ]);
+        }
+
         return $this->returnAjaxError($return);
     }
 
