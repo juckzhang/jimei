@@ -42,6 +42,10 @@ class ThemeService extends BackendService
             foreach ($models as $key => $model){
                 $borderUrl = $model['template_url'];
                 if(!empty($borderUrl)) $models[$key]['template_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+                $lborderUrl = $model['left_template_url'];
+                if(!empty($lborderUrl)) $models[$key]['left_template_url'] = \Yii::$app->params['picUrlPrefix'].$lborderUrl;
+                $rborderUrl = $model['right_template_url'];
+                if(!empty($rborderUrl)) $models[$key]['right_template_url'] = \Yii::$app->params['picUrlPrefix'].$rborderUrl;
             }
             $data['dataList'] = $models;
         }

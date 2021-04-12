@@ -129,6 +129,8 @@ class OrderService extends BackendService
                 ),
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
                 'template_url' => $templateUrl,
+                'left_template_url' => $lefttemplateUrl,
+                'right_template_url' => $righttemplateUrl,
                 'brand' => ArrayHelper::getValue($item, 'brand.name'),
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
                 'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type'),
