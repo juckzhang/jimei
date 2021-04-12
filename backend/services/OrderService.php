@@ -95,20 +95,6 @@ class OrderService extends BackendService
 
         $dataList = [];
         foreach ($items as $item){
-            $templateUrl = ArrayHelper::getValue($item, 'theme.template_url');
-            $lefttemplateUrl = ArrayHelper::getValue($item, 'theme.left_template_url');
-            $righttemplateUrl = ArrayHelper::getValue($item, 'theme.right_template_url');
-            if($templateUrl) $templateUrl = \Yii::$app->params['picUrlPrefix'] . $templateUrl;
-            if($lefttemplateUrl) $lefttemplateUrl = \Yii::$app->params['picUrlPrefix'] . $lefttemplateUrl;
-            if($righttemplateUrl) $righttemplateUrl = \Yii::$app->params['picUrlPrefix'] . $righttemplateUrl;
-
-            $borderUrl = ArrayHelper::getValue($item, 'relat.border_url');
-            if($borderUrl) $borderUrl = \Yii::$app->params['picUrlPrefix'] . $borderUrl;
-            $leftborderUrl = ArrayHelper::getValue($item, 'relat.left_border_url');
-            if($leftborderUrl) $leftborderUrl = \Yii::$app->params['picUrlPrefix'] . $leftborderUrl;
-            $rborderUrl = ArrayHelper::getValue($item, 'relat.right_border_url');
-            if($rborderUrl) $rborderUrl = \Yii::$app->params['picUrlPrefix'] . $rborderUrl;
-
             $status = 0;
             if($item['status'] == 2
                 or ArrayHelper::getValue($item,'relat.status') == 2
@@ -128,9 +114,9 @@ class OrderService extends BackendService
                     ArrayHelper::getValue($item, 'theme.barcode')
                 ),
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
-                'template_url' => $templateUrl,
-                'left_template_url' => $lefttemplateUrl,
-                'right_template_url' => $righttemplateUrl,
+                'template_url' => $this->handlerPic($item, 'theme.template_url'),
+                'left_template_url' => $this->handlerPic($item, 'theme.left_template_url'),
+                'right_template_url' => $this->handlerPic($item, 'theme.right_template_url'),
                 'brand' => ArrayHelper::getValue($item, 'brand.name'),
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
                 'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type'),
@@ -140,9 +126,9 @@ class OrderService extends BackendService
                 'left' => ArrayHelper::getValue($item, 'relat.left', 0),
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'side_radian' => ArrayHelper::getValue($item, 'relat.side_radian', 0),
-                'border_url' => $borderUrl,
-                'left_border_url' => $leftborderUrl,
-                'right_border_url' => $rborderUrl,
+                'border_url' => $this->handlerPic($item, 'relat.border_url'),
+                'left_border_url' => $this->handlerPic($item, 'relat.left_border_url'),
+                'right_border_url' => $this->handlerPic($item, 'relat.right_border_url'),
                 'color' => ArrayHelper::getValue($item, 'color.name'),
                 'customer_name' => ArrayHelper::getValue($item,'customer.name'),
                 'status' => $item['status'] ?: $status,
