@@ -3,7 +3,7 @@ namespace backend\services\base;
 
 use common\constants\Constant;
 use common\services\base\Service;
-use cuckoo\util\ArrayHelper;
+use yii\helpers\ArrayHelper;
 
 class BackendService extends Service
 {
