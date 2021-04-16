@@ -1,10 +1,6 @@
 <?php
 namespace backend\services;
 
-use common\models\mysql\LeftThemeModel;
-use common\models\mysql\RightThemeModel;
-use common\models\mysql\SideThemeModel;
-use common\models\mysql\ThemeMaterialModel;
 use common\models\mysql\ThemeModel;
 use backend\services\base\BackendService;
 use yii\helpers\ArrayHelper;

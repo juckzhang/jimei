@@ -120,7 +120,8 @@ $user = CommonHelper::customer();
                 <th orderfield="color_id" width="80">颜色</th>
                 <th orderfield="customer_id" width="80">客户</th>
                 <th orderfield="theme_id" width="80">图案</th>
-                <th orderfield="side_theme_id" width="80">侧边图案</th>
+                <th width="80">左侧边图案</th>
+                <th width="80">右侧边图案</th>
                 <th width="80">同步状态</th>
                 <th width="80">套餐编号</th>
                 <th width="80">套餐名称</th>
@@ -138,7 +139,8 @@ $user = CommonHelper::customer();
                     <td><?=$data['color']['name']?></td>
                     <td><?=$data['customer']['name']?></td>
                     <td><?=$data['theme']['name']?></td>
-                    <td><?=ArrayHelper::getValue($data, 'sidetheme.name')?></td>
+                    <td><?=ArrayHelper::getValue($data, 'theme.left_source_pic_name')?></td>
+                    <td><?=ArrayHelper::getValue($data, 'theme.right_source_pic_name')?></td>
                     <td><?=$data['sync_status'] == 0 ? '未同步' : '已同步'?></td>
                     <td><?=sprintf(
                             "%s%s%s%s%s%s",
