@@ -122,6 +122,7 @@ class OrderService extends BackendService
                 'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type'),
                 'width' => ArrayHelper::getValue($item, 'phone.width'),
                 'height' => ArrayHelper::getValue($item, 'phone.height'),
+                'fat' => ArrayHelper::getValue($item, 'phone.fat'),
                 'material' => ArrayHelper::getValue($item, 'material.name'),
                 'left' => ArrayHelper::getValue($item, 'relat.left', 0),
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),

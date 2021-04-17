@@ -40,6 +40,13 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
+                <dt>厚：</dt>
+                <dd>
+                    <input type="text" name="MaterialPhoneModel[fat]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'fat',0)?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
                 <dt>弧度：</dt>
                 <dd>
                     <input type="text" name="MaterialPhoneModel[side_radian]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'side_radian',0)?>"/>
