@@ -126,6 +126,7 @@ class OrderService extends BackendService
                 'left' => ArrayHelper::getValue($item, 'relat.left', 0),
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
                 'side_radian' => ArrayHelper::getValue($item, 'relat.side_radian', 0),
+                'fixture_num' => ArrayHelper::getValue($item, 'relat.side_radian', 0),
                 'border_url' => $this->handlerPic($item, 'relat.border_url'),
                 'left_border_url' => $this->handlerPic($item, 'relat.left_border_url'),
                 'right_border_url' => $this->handlerPic($item, 'relat.right_border_url'),
