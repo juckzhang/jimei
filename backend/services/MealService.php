@@ -245,4 +245,3 @@ class MealService extends BackendService
         return $res;
     }
 }
-

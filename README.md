@@ -35,3 +35,7 @@
 ### 订单列表
 - url: /api/list-base
 - 请求参数: page: 当前页面 count: 每页返回数量 base_id: 配货单id
+
+### 侧边素材列表/侧边素材图片链接
+- url: /api/side-theme-list
+- 请求参数:customer_id: 客户id page: 当前页面 count: 每页返回数量 update_time: 更新时间 >= 参数时间 默认0

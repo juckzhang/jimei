@@ -39,8 +39,7 @@ class CommonHelper {
 
     public static function randString($length = 6,$source = '')
     {
-        $source = is_string($source) && $source !== '' ?
-            $source : 'QWERTYUIPASDFGHJKLZXCVBNM123456789qwertyuipasdfghjklzxcvbnm';
+        $source = is_string($source) && $source !== '' ? $source : 'OQWERTYUIPASDFGHJKLZXCVBNM123456789';
 
         $_strLength = strlen($source);
 
@@ -48,9 +47,9 @@ class CommonHelper {
             throw new InvalidParamException('Param error for $length too long ' . $length);
 
         $_str = '';
-        for($i = 0; $i <$length; ++$i )
+        for($i = 0; $i <$length; ++$i)
         {
-            srand(time());
+//            srand(time());
             $_random = mt_rand(0,$_strLength - 1);
             $_str .= $source[$_random];
         }

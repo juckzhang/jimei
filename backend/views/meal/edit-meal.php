@@ -14,7 +14,7 @@ if($user['related'] and !$user['multi']){
     $customerName = $user['customer_name'];
 }
 ?>
-<h2 class="contentTitle">编辑机型</h2>
+<h2 class="contentTitle">编辑套餐</h2>
 <div class="pageContent">
     <form method="post" action="<?=Url::to(['meal/edit-meal','id' => ArrayHelper::getValue($model,'id','')])?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
         <input type="hidden" name="MealModel[sync_status]" value="0">
@@ -96,7 +96,6 @@ if($user['related'] and !$user['multi']){
         });
 
         //颜色选择
-        //图案选择
         $('#look-color').on('click',function(){
             var material_id = $('#material-id').val(),
                 _href = '<?=Url::to(['color/color-list', 'search' => 1, 'more' => $more, 'notMore' => 1, 'check' => 1])?>'+'&material_id='+material_id;

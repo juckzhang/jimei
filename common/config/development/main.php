@@ -5,7 +5,7 @@ return [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;dbname=jimei', // MySQL, MariaDB
             'username' => 'root',
-            'password' => 'R4rw.ipb9CT2',
+            'password' => 'jimei123456',
             'charset' => 'utf8mb4',
             'tablePrefix' => 'jimei_',
         ],

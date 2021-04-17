@@ -14,6 +14,12 @@ $search = ArrayHelper::getValue($params,'search');
 $more = ArrayHelper::getValue($params, 'more');
 $notMore = ArrayHelper::getValue($params,'notMore');
 $user = CommonHelper::customer();
+$typeList = [
+    ['name' => '无侧边', 'value' => 0],
+    ['name' => '左侧边', 'value' => 1],
+    ['name' => '右侧边', 'value' => 2],
+    ['name' => '双侧边', 'value' => 3],
+];
 ?>
 <div class="" id="theme-list" rel="theme-list">
 <form id="pagerForm" method="post" action="#rel#">
@@ -46,6 +52,15 @@ $user = CommonHelper::customer();
                             <option value="">--选择颜色--</option>
                             <?php foreach ($colorList as $item):?>
                             <option value="<?=$item['name']?>" <?=ArrayHelper::getValue($other,'color') == $item['name'] ? 'selected' : ''?>><?=$item['name']?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td>
+                        素材类型:
+                        <select name="other[type]" value="<?=ArrayHelper::getValue($other,'type')?>">
+                            <option value="">--选择类型--</option>
+                            <?php foreach ($typeList as $item):?>
+                                <option value="<?=$item['value']?>" <?=ArrayHelper::getValue($other,'type') == $item['value'] ? 'selected' : ''?>><?=$item['name']?></option>
                             <?php endforeach;?>
                         </select>
                     </td>
@@ -94,8 +109,13 @@ $user = CommonHelper::customer();
             <th orderfield="name" width="80">名称</th>
             <th width="80">条码</th>
             <th orderfield="customer_id" width="80">客户</th>
+            <th width="80">素材类型</th>
             <th width="80">图案原图名称</th>
             <th width="80">图案</th>
+            <th width="80">左侧图案原图名称</th>
+            <th width="80">左侧图案</th>
+            <th width="80">右侧图案原图名称</th>
+            <th width="80">右侧图案</th>
             <th width="80">颜色</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
@@ -114,8 +134,13 @@ $user = CommonHelper::customer();
                 <td><?=$data['name']?></td>
                 <td><?=$data['barcode']?></td>
                 <td><?=$data['customer']['name']?></td>
+                <td><?=$data['type']?></td>
                 <td><?=$data['source_pic_name']?></td>
                 <td><img width="50" src="<?=rtrim($data['template_url'],'.tif').'.jpg'?>" /></td>
+                <td><?=$data['left_source_pic_name']?></td>
+                <td><img width="50" src="<?=rtrim($data['left_template_url'],'.tif').'.jpg'?>" /></td>
+                <td><?=$data['right_source_pic_name']?></td>
+                <td><img width="50" src="<?=rtrim($data['right_template_url'],'.tif').'.jpg'?>" /></td>
                 <td><?=$data['color']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <?php if(!$search):?>
@@ -126,6 +151,10 @@ $user = CommonHelper::customer();
 
                     <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
                     <a title="编辑" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id']])?>" class="btnEdit dblclick">编辑</a>
+                    <?php endif;?>
+
+                    <?php if(\Yii::$app->user->can('theme/edit-theme')):?>
+                        <a title="拷贝" target="navTab" href="<?=Url::to(['theme/edit-theme','id' => $data['id'], 'copy' => 1])?>" class="btnEdit dblclick">拷贝</a>
                     <?php endif;?>
 
                     <?php if(\Yii::$app->user->can('meal/meal-list')):?>

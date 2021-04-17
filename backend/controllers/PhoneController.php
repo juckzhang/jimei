@@ -75,8 +75,6 @@ class PhoneController extends BaseController
         return $this->returnAjaxError($return);
     }
 
-
-
     public function actionBrandList()
     {
         $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');

@@ -3,6 +3,8 @@ namespace backend\services\base;
 
 use common\constants\Constant;
 use common\services\base\Service;
+use yii\helpers\ArrayHelper;
+
 class BackendService extends Service
 {
     protected function parsePageParam($page,$prePage)
@@ -42,6 +44,14 @@ class BackendService extends Service
         $num = $modelName::updateAll($filed,[$primaryKey => $id]);
         if($num > 0) return true;
         return false;
+    }
+
+    protected function handlerPic($item, $filed, $default = ''){
+        $pic = ArrayHelper::getValue($item, $filed);
+        if(!empty($pic)) $pic = \Yii::$app->params['picUrlPrefix'] . $pic;
+        else $pic = $default;
+
+        return $pic;
     }
 }
 

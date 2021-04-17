@@ -78,7 +78,11 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">网店名称</th>
             <th width="80">商品名称</th>
             <th width="80">图片</th>
+            <th width="80">左侧边图片</th>
+            <th width="80">右侧边图片</th>
             <th width="80">边框图</th>
+            <th width="80">左边框图</th>
+            <th width="80">右边框图</th>
             <th width="40">状态</th>
             <th width="70">操作</th>
             <th width="80">网店规格型号</th>
@@ -89,9 +93,11 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="40">机型</th>
             <th width="40">机型宽</th>
             <th width="40">机型高</th>
+            <th width="40">机型厚</th>
             <th width="80">材质</th>
             <th width="40">左边距</th>
             <th width="40">上边距</th>
+            <th width="40">侧边弧度</th>
             <th width="40">颜色</th>
         </tr>
         </thead>
@@ -109,7 +115,11 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.left_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.left_template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.right_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.left_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.left_border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.right_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.right_border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?php if($data['status'] == 2
                         or ArrayHelper::getValue($data,'relat.status') == 2
                         or ArrayHelper::getValue($data, 'phone.status') == 2
@@ -149,11 +159,13 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                     )?></td>
                 <td><?=$data['suitecode']?></td>
                 <td><?=ArrayHelper::getValue($data,'phone.modal')?></td>
-                <td><?=ArrayHelper::getValue($data,'phone.width')?></td>
-                <td><?=ArrayHelper::getValue($data,'phone.height')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.width')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.height')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.fat')?></td>
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.left')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.top')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.side_radian')?></td>
                 <td><?=ArrayHelper::getValue($data,'color.name')?></td>
             </tr>
         <?php endforeach;?>

@@ -79,8 +79,9 @@ class PhoneService extends BackendService
                 $models = $models->with('phone')->with('material');
             $models = $models->asArray()->all();
             foreach ($models as $key => $model){
-                $borderUrl = $model['border_url'];
-                if(!empty($borderUrl)) $models[$key]['border_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+                $models[$key]['border_url'] = $this->handlerPic($model, 'border_url');
+                $models[$key]['left_border_url'] = $this->handlerPic($model, 'left_border_url');
+                $models[$key]['right_border_url'] = $this->handlerPic($model, 'right_border_url');
             }
             $data['dataList'] = $models;
         }
@@ -94,8 +95,9 @@ class PhoneService extends BackendService
             ->andWhere(['material_id' => $materialId])
             ->asArray()
             ->one();
-        $borderUrl = $model['border_url'];
-        if(!empty($borderUrl)) $model['border_url'] = \Yii::$app->params['picUrlPrefix'].$borderUrl;
+        $model['border_url'] = $this->handlerPic($model, 'border_url');
+        $model['left_border_url'] = $this->handlerPic($model, 'left_border_url');
+        $model['right_border_url'] = $this->handlerPic($model, 'right_border_url');
 
         return ['data' => $model];
     }

@@ -16,6 +16,59 @@ CREATE TABLE if NOT EXISTS jimei_theme(
   unique (`customer_id`,`barcode`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
 
+alter table jimei_theme add `type` tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：无侧边 1：左侧边 2:右侧边 3:双侧边' after `id`;
+alter table jimei_theme add left_template_url VARCHAR(255) NOT NULL default '' comment '左侧图片地址' after source_pic_name;
+alter table jimei_theme add left_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称' after left_template_url;
+alter table jimei_theme add right_template_url VARCHAR(255) NOT NULL default '' comment '图片地址' after left_source_pic_name;
+alter table jimei_theme add right_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称' after right_template_url;
+
+-- 侧图片原始素材表
+CREATE TABLE if NOT EXISTS jimei_side_theme(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
+  left_template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  left_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
+  right_template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  right_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
+  barcode char(5) NOT NULL default  '' comment '条码识别字符',
+  `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `color` varchar(255) not null default '' comment'颜色:备注信息',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`customer_id`,`barcode`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
+
+-- 左侧图片原始素材表
+CREATE TABLE if NOT EXISTS jimei_left_theme(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
+  template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
+  barcode char(5) NOT NULL default  '' comment '条码识别字符',
+  `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `color` varchar(255) not null default '' comment'颜色:备注信息',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`customer_id`,`barcode`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
+
+-- 右侧图片原始素材表
+CREATE TABLE if NOT EXISTS jimei_right_theme(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  `name` VARCHAR(15) NOT NULL default '' comment '素材名称',
+  template_url VARCHAR(255) NOT NULL default '' comment '图片地址',
+  source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称',
+  barcode char(5) NOT NULL default  '' comment '条码识别字符',
+  `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `color` varchar(255) not null default '' comment'颜色:备注信息',
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  unique (`customer_id`,`barcode`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1;
+
 -- 图案材质关系列表
 CREATE TABLE if NOT EXISTS jimei_theme_material(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
@@ -86,6 +139,10 @@ CREATE TABLE if NOT EXISTS jimei_order(
   key eshopbillcode(eshopbillcode)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'订单';
 
+alter table jimei_order add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_order add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+
+
 -- 机型材质
 CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
@@ -100,6 +157,17 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
   unique (mobile_id,material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'机型材质关系表';
+
+alter table jimei_phone_material_relation add `width` decimal(5,2) NOT NULL default  0 comment'手宽度' after source_pic_name;
+alter table jimei_phone_material_relation add `height` decimal(5,2) NOT NULL default  0 comment'高度' after `width`;
+alter table jimei_phone_material_relation add `fat` decimal(5,2) NOT NULL default  0 comment'厚度' after `height`;
+alter table jimei_phone_material_relation add `side_left` decimal(5,2) NOT NULL default  0 comment'侧边-左右边距' after fat;
+alter table jimei_phone_material_relation add `side_top` decimal(5,2) NOT NULL default  0 comment'手机厚度' after side_left;
+alter table jimei_phone_material_relation add `left_border_url` varchar(255) NOT NULL default '' comment'圆角素材链接' after border_url;
+alter table jimei_phone_material_relation add `right_border_url` varchar(255) NOT NULL default '' comment'圆角素材链接' after left_border_url;
+alter table jimei_phone_material_relation add `left_source_pic_name` VARCHAR(255) NOT NULL default '' comment '原图片名称' after source_pic_name;
+alter table jimei_phone_material_relation add `right_source_pic_name` VARCHAR(255) NOT NULL default '' comment '原图片名称' after left_source_pic_name;
+alter table jimei_phone_material_relation add `side_radian` decimal(5,2) NOT NULL default  0 comment'侧边弧度' after `top`;
 
 -- 手机品牌
 CREATE TABLE if NOT EXISTS jimei_brand(
@@ -180,6 +248,9 @@ CREATE TABLE if NOT EXISTS jimei_meal(
   key color_id(color_id),
   key material_id(material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'套餐';
+
+alter table jimei_meal add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_meal add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
 
 -- 离线套餐同步任务
 CREATE TABLE if NOT EXISTS jimei_sync_meal(
@@ -263,3 +334,15 @@ CREATE TABLE IF NOT EXISTS jimei_admin_operation(
   status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：1：删除',
   key user_id(user_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1 comment'管理员操作记录表';
+
+
+
+
+alter table jimei_meal add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_meal add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+alter table jimei_meal add `side_theme_id` int unsigned NOT NULL default  0 comment'侧边图素材' after theme_id;
+
+alter table jimei_order add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
+alter table jimei_order add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+alter table jimei_order add `side_theme_id` int unsigned NOT NULL default  0 comment'侧边图素材' after theme_id;
+

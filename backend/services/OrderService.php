@@ -95,11 +95,6 @@ class OrderService extends BackendService
 
         $dataList = [];
         foreach ($items as $item){
-            $templateUrl = ArrayHelper::getValue($item, 'theme.template_url');
-            if($templateUrl) $templateUrl = \Yii::$app->params['picUrlPrefix'] . $templateUrl;
-
-            $borderUrl = ArrayHelper::getValue($item, 'relat.border_url');
-            if($borderUrl) $borderUrl = \Yii::$app->params['picUrlPrefix'] . $borderUrl;
             $status = 0;
             if($item['status'] == 2
                 or ArrayHelper::getValue($item,'relat.status') == 2
@@ -119,7 +114,9 @@ class OrderService extends BackendService
                     ArrayHelper::getValue($item, 'theme.barcode')
                 ),
                 'theme' => ArrayHelper::getValue($item, 'theme.name'),
-                'template_url' => $templateUrl,
+                'template_url' => $this->handlerPic($item, 'theme.template_url'),
+                'left_template_url' => $this->handlerPic($item, 'theme.left_template_url'),
+                'right_template_url' => $this->handlerPic($item, 'theme.right_template_url'),
                 'brand' => ArrayHelper::getValue($item, 'brand.name'),
                 'modal' => ArrayHelper::getValue($item, 'phone.modal'),
                 'canvas_type' => ArrayHelper::getValue($item, 'phone.canvas_type'),
@@ -128,7 +125,10 @@ class OrderService extends BackendService
                 'material' => ArrayHelper::getValue($item, 'material.name'),
                 'left' => ArrayHelper::getValue($item, 'relat.left', 0),
                 'top' => ArrayHelper::getValue($item, 'relat.top', 0),
-                'border_url' => $borderUrl,
+                'side_radian' => ArrayHelper::getValue($item, 'relat.side_radian', 0),
+                'border_url' => $this->handlerPic($item, 'relat.border_url'),
+                'left_border_url' => $this->handlerPic($item, 'relat.left_border_url'),
+                'right_border_url' => $this->handlerPic($item, 'relat.right_border_url'),
                 'color' => ArrayHelper::getValue($item, 'color.name'),
                 'customer_name' => ArrayHelper::getValue($item,'customer.name'),
                 'status' => $item['status'] ?: $status,
@@ -276,10 +276,10 @@ class OrderService extends BackendService
         $orderList = OrderModel::find()->select('jimei_order.*')
             ->join('left join','jimei_base_list', 'jimei_order.base_id=jimei_base_list.id')
             ->where([
-            'or',
-            ['wuliu_no' => $keyWord],
-            ['eshopbillcode' => $keyWord],
-        ])
+                'or',
+                ['wuliu_no' => $keyWord],
+                ['eshopbillcode' => $keyWord],
+            ])
             ->andWhere(['add_type' => 1])
             ->orderBy(['suitecode' => SORT_ASC, 'order_id' => SORT_DESC])
             ->all();
@@ -382,4 +382,3 @@ class OrderService extends BackendService
         return $ret;
     }
 }
-
