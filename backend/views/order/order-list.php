@@ -91,13 +91,14 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="80">条码</th>
             <th width="80">套餐编码(全渠道)</th>
             <th width="40">机型</th>
-            <th width="40">机型宽</th>
-            <th width="40">机型高</th>
-            <th width="40">机型厚</th>
+            <th width="40">宽</th>
+            <th width="40">高</th>
+            <th width="40">厚</th>
+            <th width="40">夹具数</th>
             <th width="80">材质</th>
             <th width="40">左边距</th>
             <th width="40">上边距</th>
-            <th width="40">侧边弧度</th>
+            <th width="40">弧度</th>
             <th width="40">颜色</th>
         </tr>
         </thead>
@@ -162,6 +163,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=ArrayHelper::getValue($data,'relat.width')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.height')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.fat')?></td>
+                <td><?=ArrayHelper::getValue($data,'relat.fixture_num')?></td>
                 <td><?=ArrayHelper::getValue($data,'material.name')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.left')?></td>
                 <td><?=ArrayHelper::getValue($data,'relat.top')?></td>

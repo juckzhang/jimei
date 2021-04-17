@@ -158,6 +158,8 @@ CREATE TABLE if NOT EXISTS jimei_phone_material_relation(
   unique (mobile_id,material_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'机型材质关系表';
 
+alter table jimei_phone_material_relation add `fixture_num` tinyint NOT NULL default  0 comment'夹具数量' after side_radian;
+
 alter table jimei_phone_material_relation add `width` decimal(5,2) NOT NULL default  0 comment'手宽度' after source_pic_name;
 alter table jimei_phone_material_relation add `height` decimal(5,2) NOT NULL default  0 comment'高度' after `width`;
 alter table jimei_phone_material_relation add `fat` decimal(5,2) NOT NULL default  0 comment'厚度' after `height`;
