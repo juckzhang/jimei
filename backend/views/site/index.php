@@ -40,6 +40,6 @@
     </div>
 
 </div>
-<div id="footer">Copyright &copy; 2021 Jimei 粤ICP备<span><a href="https://beian.miit.gov.cn">2020086282号</a></span></div>
+<div id="footer">Copyright &copy; 2021 Jimei 粤ICP备<a href="https://beian.miit.gov.cn">2020086282</a>号</div>
 </body>
 </html>
