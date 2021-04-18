@@ -58,7 +58,7 @@ $typeList = [
                     <td>
                         素材类型:
                         <select name="other[type]" value="<?=ArrayHelper::getValue($other,'type')?>">
-                            <option>--选择类型--</option>
+                            <option value="">--选择类型--</option>
                             <option value="0" <?=ArrayHelper::getValue($other,'type') === '0' ? 'selected' : ''?>>无侧边</option>
                             <option value="1" <?=ArrayHelper::getValue($other,'type') === '1' ? 'selected' : ''?>>左侧边</option>
                             <option value="2" <?=ArrayHelper::getValue($other,'type') === '2' ? 'selected' : ''?>>右侧边</option>
@@ -137,11 +137,11 @@ $typeList = [
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['type']?></td>
                 <td><?=$data['source_pic_name']?></td>
-                <td><img width="50" src="<?=rtrim($data['template_url'],'.tif').'.jpg'?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'template_url') ? rtrim(ArrayHelper::getValue($data,'template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['left_source_pic_name']?></td>
-                <td><img width="50" src="<?=rtrim($data['left_template_url'],'.tif').'.jpg'?>" /></td>
+                <td><img height="100" src="<?=ArrayHelper::getValue($data,'left_template_url') ? rtrim(ArrayHelper::getValue($data,'left_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['right_source_pic_name']?></td>
-                <td><img width="50" src="<?=rtrim($data['right_template_url'],'.tif').'.jpg'?>" /></td>
+                <td><img height="100" src="<?=ArrayHelper::getValue($data,'right_template_url') ? rtrim(ArrayHelper::getValue($data,'right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['color']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <?php if(!$search):?>
