@@ -15,10 +15,10 @@ $more = ArrayHelper::getValue($params, 'more');
 $notMore = ArrayHelper::getValue($params,'notMore');
 $user = CommonHelper::customer();
 $typeList = [
-    ['name' => '无侧边', 'value' => 0],
-    ['name' => '左侧边', 'value' => 1],
-    ['name' => '右侧边', 'value' => 2],
-    ['name' => '双侧边', 'value' => 3],
+    ['name' => '无侧边', 'value' => '0'],
+    ['name' => '左侧边', 'value' => '1'],
+    ['name' => '右侧边', 'value' => '2'],
+    ['name' => '双侧边', 'value' => '3'],
 ];
 ?>
 <div class="" id="theme-list" rel="theme-list">
@@ -58,10 +58,11 @@ $typeList = [
                     <td>
                         素材类型:
                         <select name="other[type]" value="<?=ArrayHelper::getValue($other,'type')?>">
-                            <option value="">--选择类型--</option>
-                            <?php foreach ($typeList as $item):?>
-                                <option value="<?=$item['value']?>" <?=ArrayHelper::getValue($other,'type') == $item['value'] ? 'selected' : ''?>><?=$item['name']?></option>
-                            <?php endforeach;?>
+                            <option>--选择类型--</option>
+                            <option value="0" <?=ArrayHelper::getValue($other,'type') === '0' ? 'selected' : ''?>>无侧边</option>
+                            <option value="1" <?=ArrayHelper::getValue($other,'type') === '1' ? 'selected' : ''?>>左侧边</option>
+                            <option value="2" <?=ArrayHelper::getValue($other,'type') === '2' ? 'selected' : ''?>>右侧边</option>
+                            <option value="3" <?=ArrayHelper::getValue($other,'type') === '3' ? 'selected' : ''?>>双侧边</option>
                         </select>
                     </td>
                     <td>信息是否完整:
