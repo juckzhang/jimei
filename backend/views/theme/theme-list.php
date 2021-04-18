@@ -137,11 +137,11 @@ $typeList = [
                 <td><?=$data['customer']['name']?></td>
                 <td><?=$data['type']?></td>
                 <td><?=$data['source_pic_name']?></td>
-                <td><img width="50" src="<?=rtrim($data['template_url'],'.tif').'.jpg'?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'template_url') ? rtrim(ArrayHelper::getValue($data,'template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['left_source_pic_name']?></td>
-                <td><img width="50" src="<?=rtrim($data['left_template_url'],'.tif').'.jpg'?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'left_template_url') ? rtrim(ArrayHelper::getValue($data,'left_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['right_source_pic_name']?></td>
-                <td><img width="50" src="<?=rtrim($data['right_template_url'],'.tif').'.jpg'?>" /></td>
+                <td><img width="50" src="<?=ArrayHelper::getValue($data,'right_template_url') ? rtrim(ArrayHelper::getValue($data,'right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['color']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <?php if(!$search):?>
