@@ -116,8 +116,8 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
                 <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.left_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.left_template_url'),'.tif').'.jpg' : ''?>" /></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.right_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.right_template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="100" src="<?=ArrayHelper::getValue($data,'theme.left_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.left_template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="100" src="<?=ArrayHelper::getValue($data,'theme.right_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?php if($data['status'] == 2
                         or ArrayHelper::getValue($data,'relat.status') == 2
                         or ArrayHelper::getValue($data, 'phone.status') == 2
