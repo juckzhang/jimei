@@ -64,7 +64,7 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
             <dl>
             </dl>
                 <dd>
-                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'template_url',''),'.tif').'.jpg'?>" id="upload-pic"/>
+                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'].rtrim(ArrayHelper::getValue($model, 'template_url',''),'.tif').'.jpg'?>" id="main-upload-pic"/>
                 </dd>
             </dl>
             <dl>
