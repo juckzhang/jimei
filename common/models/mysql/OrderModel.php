@@ -23,7 +23,7 @@ class OrderModel extends ActiveRecord
     public function getTheme()
     {
         return $this->hasOne(ThemeModel::className(),['id' => 'theme_id'])
-            ->select(['id','name','template_url','status','barcode'])
+//            ->select(['id','name','template_url','status','barcode','left_template_url','right_template_url'])
             ->asArray();
     }
 
