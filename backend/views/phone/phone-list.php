@@ -104,8 +104,6 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
                 <th orderfield="modal" width="80">名称</th>
                 <th width="80">条码</th>
                 <th orderfield="brand_id" width="80">品牌</th>
-                <th width="80">宽</th>
-                <th width="80">高</th>
                 <th width="80">画布类型</th>
                 <th orderfield="update_time" width="80">修改时间</th>
                 <?php if(!$search):?>
@@ -132,8 +130,6 @@ $material_id = ArrayHelper::getValue($params, 'material_id', '');
                     <td><?=$data->modal?></td>
                     <td><?=$data->barcode?></td>
                     <td><?=$data->brand->name?></td>
-                    <td><?=$data->width?></td>
-                    <td><?=$data->height?></td>
                     <td><?=ArrayHelper::getValue($canvasType, $data->canvas_type)?></td>
                     <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                     <?php if(!$search):?>
