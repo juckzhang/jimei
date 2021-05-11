@@ -29,20 +29,6 @@ use yii\helpers\ArrayHelper;
                 </dd>
             </dl>
             <dl>
-                <dt>宽：</dt>
-                <dd>
-                    <input type="text" name="PhoneModel[width]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'width',0)?>"/>
-                    <span class="info"></span>
-                </dd>
-            </dl>
-            <dl>
-                <dt>高：</dt>
-                <dd>
-                    <input type="text" name="PhoneModel[height]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'height',0)?>"/>
-                    <span class="info"></span>
-                </dd>
-            </dl>
-            <dl>
                 <dt>画布类型：</dt>
                 <dd>
                     <select name="PhoneModel[canvas_type]" value="<?=ArrayHelper::getValue($model, 'canvas_type')?>">
