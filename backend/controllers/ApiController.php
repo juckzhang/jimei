@@ -127,7 +127,7 @@ class ApiController extends BaseController
         $username = ArrayHelper::getValue($this->paramData, 'username');
         $pass     = ArrayHelper::getValue($this->paramData, 'password');
         $token    = ArrayHelper::getValue($this->paramData, 'token');
-        if (!$token) {
+        if ($token) {
             $user = AdminModel::findOne(['username' => $username, 'auth_key' => $token]);
             if($user){
                 return $this->returnAjaxSuccess(['data' => ['username' => $username, 'token' => $user->auth_key]]);
