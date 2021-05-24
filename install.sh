@@ -35,13 +35,13 @@ cp -f kung/backend/web/index jimei/backend/web/index.php
 cp -f kung/console/yii jimei/console/yii.php
 
 # 拷贝配置文件
-cp -f kung/conf/nginx.conf /data1/openresty/nginx/conf/nginx.conf
-cp -f kung/conf/php.ini /etc/php/7.2/fpm/php.ini
-cp -f kung/conf/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
-cp -f kung/conf/php-fpm.d/www.conf /etc/php/7.2/fpm/pool.d/www.conf
+cp -f jimei/conf/nginx.conf /data1/openresty/nginx/conf/nginx.conf
+cp -f jimei/conf/php.ini /etc/php/7.2/fpm/php.ini
+cp -f jimei/conf/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
+cp -f jimei/conf/php-fpm.d/www.conf /etc/php/7.2/fpm/pool.d/www.conf
 
 # 修改目录所属人
-chown -R nobody.nobody kung
+chown -R nobody.nobody jimei
 
 # 启动服务
 `which php-fpm7.2`

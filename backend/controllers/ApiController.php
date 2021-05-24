@@ -6,6 +6,9 @@ use backend\services\CustomerService;
 use backend\services\MaterialService;
 use backend\services\PhoneService;
 use backend\services\ThemeService;
+use common\constants\CodeConstant;
+use common\models\LoginForm;
+use common\models\mysql\AdminModel;
 use common\models\mysql\OrderModel;
 use Yii;
 use backend\services\OrderService;
@@ -118,5 +121,25 @@ class ApiController extends BaseController
         $data = PhoneService::getService()->RelationList($page, $count, [], ['update_time' => $updateTime], true);
 
         return $this->returnAjaxSuccess($data);
+    }
+
+    public function actionLogin(){
+        $username = ArrayHelper::getValue($this->paramData, 'username');
+        $pass     = ArrayHelper::getValue($this->paramData, 'password');
+        $token    = ArrayHelper::getValue($this->paramData, 'token');
+        if (!$token) {
+            $user = AdminModel::findOne(['username' => $username, 'auth_key' => $token]);
+            if($user){
+                return $this->returnAjaxSuccess(['data' => ['username' => $username, 'token' => $user->auth_key]]);
+            }
+
+            return $this->returnAjaxError(CodeConstant::USER_LOGIN_FAILED);
+        }
+        $model = new LoginForm();
+        if ($model->load(['username' => $username, 'password' => $pass],'') && $model->login()) {
+            return $this->returnAjaxSuccess(['data' => ['username' => $username, 'token' => $model->user->auth_key]]);
+        } else {
+            return $this->returnAjaxError(CodeConstant::USER_LOGIN_FAILED);
+        }
     }
 }
