@@ -80,16 +80,16 @@ $more = ArrayHelper::getValue($params, 'more');
             <th orderfield="mobile_id" width="80">机型名称</th>
             <th orderfield="material_id" width="80">材质名称</th>
             <th>原图名称</th>
-            <th width="40">宽</th>
-            <th width="40">高</th>
-            <th width="40">厚</th>
-            <th width="40">弧度</th>
-            <th width="40">夹具数</th>
-            <th width="40">左边距</th>
-            <th width="40">上边距</th>
-            <th width="50">上框图</th>
-            <th width="50">左框图</th>
-            <th width="50">右框图</th>
+            <th width="80">宽</th>
+            <th width="80">高</th>
+            <th width="80">厚</th>
+            <th width="80">弧度</th>
+            <th width="80">夹具数</th>
+            <th width="80">左边距</th>
+            <th width="80">上边距</th>
+            <th width="80">上框图</th>
+            <th width="80">左框图</th>
+            <th width="80">右框图</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <th width="70">操作</th>
         </tr>
