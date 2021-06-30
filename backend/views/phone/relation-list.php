@@ -108,9 +108,9 @@ $more = ArrayHelper::getValue($params, 'more');
                 <td><?=$data['fixture_num']?></td>
                 <td><?=$data['left']?></td>
                 <td><?=$data['top']?></td>
-                <td><img width="50" height="100" src="<?=rtrim($data['border_url'],'.tif').'.jpg'?>" /></td>
-                <td><img width="50" height="100" src="<?=rtrim($data['left_border_url'],'.tif').'.jpg'?>" /></td>
-                <td><img width="50" height="100" src="<?=rtrim($data['right_border_url'],'.tif').'.jpg'?>" /></td>
+                <td><img height="50" src="<?=rtrim($data['border_url'],'.tif').'.jpg'?>" /></td>
+                <td><img height="50" src="<?=rtrim($data['left_border_url'],'.tif').'.jpg'?>" /></td>
+                <td><img height="50" src="<?=rtrim($data['right_border_url'],'.tif').'.jpg'?>" /></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <td>
                     <?php if(\Yii::$app->user->can('phone/delete-relation')):?>
