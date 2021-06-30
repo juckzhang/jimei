@@ -112,11 +112,11 @@ $typeList = [
             <th orderfield="customer_id" width="80">客户</th>
             <th width="80">素材类型</th>
             <th width="80">图案原图名称</th>
-            <th width="50">图案</th>
+            <th width="80">图案</th>
             <th width="80">左侧图案原图名称</th>
-            <th width="50">左侧图案</th>
+            <th width="80">左侧图案</th>
             <th width="80">右侧图案原图名称</th>
-            <th width="50">右侧图案</th>
+            <th width="80">右侧图案</th>
             <th width="80">颜色</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
