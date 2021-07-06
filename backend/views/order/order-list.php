@@ -74,7 +74,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="22">序号</th>
-            <th width="80">订单号/网店订单号/物流单号</th>
             <th width="80">网店名称</th>
             <th width="80">商品名称</th>
             <th width="50">图片</th>
@@ -87,6 +86,7 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <th width="50">左边框图</th>
             <th width="50">右边框图</th>
             <th width="80">图案名称</th>
+            <th width="80">订单号/网店订单号/物流单号</th>
             <th width="80">校验码</th>
             <th width="80">条码</th>
             <th width="80">套餐编码(全渠道)</th>
@@ -107,12 +107,6 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=($page-1)*$prePage+$key+1?></td>
-                <td><?=$data['order_id']?>
-                    <br/>
-                    <?=$data['eshopbillcode']?>
-                    <br/>
-                    <?=$data['wuliu_no']?>
-                </td>
                 <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
                 <td><img height="80" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
@@ -148,6 +142,12 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                 <td><img height="80" src="<?=ArrayHelper::getValue($data,'relat.left_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.left_border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><img height="80" src="<?=ArrayHelper::getValue($data,'relat.right_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.right_border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
+                <td><?=$data['order_id']?>
+                    <br/>
+                    <?=$data['eshopbillcode']?>
+                    <br/>
+                    <?=$data['wuliu_no']?>
+                </td>
                 <td><?=$data['checkcode']?></td>
                 <td><?=sprintf(
                         "%s%s%s%s%s%s",
