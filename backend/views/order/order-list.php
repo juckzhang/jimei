@@ -74,32 +74,32 @@ $baseId = ArrayHelper::getValue($params,'base_id');
         <tr>
             <th width="22"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
             <th width="22">序号</th>
-            <th width="80">订单号/网店订单号/物流单号</th>
-            <th width="80">网店名称</th>
-            <th width="80">商品名称</th>
-            <th width="80">图片</th>
-            <th width="80">左侧边图片</th>
-            <th width="80">右侧边图片</th>
-            <th width="40">状态</th>
-            <th width="70">操作</th>
-            <th width="80">网店规格型号</th>
-            <th width="80">边框图</th>
-            <th width="80">左边框图</th>
-            <th width="80">右边框图</th>
-            <th width="80">图案名称</th>
-            <th width="80">校验码</th>
+            <th width="60">网店名称</th>
+            <th width="160">商品名称</th>
+            <th width="40">图片</th>
+            <th width="40">左侧边图片</th>
+            <th width="40">右侧边图片</th>
+            <th width="22">状态</th>
+            <th width="60">操作</th>
+            <th width="200">网店规格型号</th>
+            <th width="40">边框图</th>
+            <th width="40">左边框图</th>
+            <th width="40">右边框图</th>
+            <th width="70">图案名称</th>
+            <th width="70">订单号/网店订单号/物流单号</th>
+            <th width="40">校验码</th>
             <th width="80">条码</th>
-            <th width="80">套餐编码(全渠道)</th>
+            <th width="70">套餐编码(全渠道)</th>
             <th width="40">机型</th>
-            <th width="40">宽</th>
-            <th width="40">高</th>
-            <th width="40">厚</th>
-            <th width="40">夹具数</th>
-            <th width="80">材质</th>
-            <th width="40">左边距</th>
-            <th width="40">上边距</th>
-            <th width="40">弧度</th>
-            <th width="40">颜色</th>
+            <th width="30">宽</th>
+            <th width="30">高</th>
+            <th width="30">厚</th>
+            <th width="22">夹具数</th>
+            <th width="70">材质</th>
+            <th width="30">左边距</th>
+            <th width="30">上边距</th>
+            <th width="30">弧度</th>
+            <th width="30">颜色</th>
         </tr>
         </thead>
         <tbody>
@@ -107,17 +107,11 @@ $baseId = ArrayHelper::getValue($params,'base_id');
             <tr target="card-id" rel="<?=$data['id']?>">
                 <td><input name="ids[]" value="<?=$search? "{id:{$data['id']},name:'{$data['modal']}'}" : $data['id']?>" type="checkbox"></td>
                 <td><?=($page-1)*$prePage+$key+1?></td>
-                <td><?=$data['order_id']?>
-                    <br/>
-                    <?=$data['eshopbillcode']?>
-                    <br/>
-                    <?=$data['wuliu_no']?>
-                </td>
                 <td><?=$data['shopname']?></td>
                 <td><?=$data['goodsname']?></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
-                <td><img height="100" src="<?=ArrayHelper::getValue($data,'theme.left_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.left_template_url'),'.tif').'.jpg' : ''?>" /></td>
-                <td><img height="100" src="<?=ArrayHelper::getValue($data,'theme.right_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.right_template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="80" src="<?=ArrayHelper::getValue($data,'theme.template_url') ? rtrim(ArrayHelper::getValue($data,'theme.template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="80" src="<?=ArrayHelper::getValue($data,'theme.left_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.left_template_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="80" src="<?=ArrayHelper::getValue($data,'theme.right_template_url') ? rtrim(ArrayHelper::getValue($data,'theme.right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?php if($data['status'] == 2
                         or ArrayHelper::getValue($data,'relat.status') == 2
                         or ArrayHelper::getValue($data, 'phone.status') == 2
@@ -144,10 +138,16 @@ $baseId = ArrayHelper::getValue($params,'base_id');
                     <?php endif;?>
                 </td>
                 <td><?=$data['eshopskuname']?></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.left_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.left_border_url'),'.tif').'.jpg' : ''?>" /></td>
-                <td><img width="50" src="<?=ArrayHelper::getValue($data,'relat.right_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.right_border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="80" src="<?=ArrayHelper::getValue($data,'relat.border_url') ? rtrim(ArrayHelper::getValue($data,'relat.border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="80" src="<?=ArrayHelper::getValue($data,'relat.left_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.left_border_url'),'.tif').'.jpg' : ''?>" /></td>
+                <td><img height="80" src="<?=ArrayHelper::getValue($data,'relat.right_border_url') ? rtrim(ArrayHelper::getValue($data,'relat.right_border_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=ArrayHelper::getValue($data,'theme.name')?></td>
+                <td><?=$data['order_id']?>
+                    <br/>
+                    <?=$data['eshopbillcode']?>
+                    <br/>
+                    <?=$data['wuliu_no']?>
+                </td>
                 <td><?=$data['checkcode']?></td>
                 <td><?=sprintf(
                         "%s%s%s%s%s%s",

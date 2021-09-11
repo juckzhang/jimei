@@ -100,7 +100,7 @@ use yii\helpers\ArrayHelper;
             </dl>
             <dl>
                 <dd>
-                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'border_url', ''),'.tif').'.jpg'?>" id="source_pic_name-upload-pic"/>
+                    <img height="120" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'border_url', ''),'.tif').'.jpg'?>" id="source_pic_name-upload-pic"/>
                 </dd>
             </dl>
             <dl>
@@ -113,7 +113,7 @@ use yii\helpers\ArrayHelper;
             </dl>
             <dl>
                 <dd>
-                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'left_border_url', ''),'.tif').'.jpg'?>" id="left_source_pic_name-upload-pic"/>
+                    <img height="200" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'left_border_url', ''),'.tif').'.jpg'?>" id="left_source_pic_name-upload-pic"/>
                 </dd>
             </dl>
             <dl>
@@ -126,7 +126,7 @@ use yii\helpers\ArrayHelper;
             </dl>
             <dl>
                 <dd>
-                    <img width="80" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'right_border_url', ''),'.tif').'.jpg'?>" id="right_source_pic_name-upload-pic"/>
+                    <img height="200" src="<?=Yii::$app->params['picUrlPrefix'] . rtrim(ArrayHelper::getValue($model, 'right_border_url', ''),'.tif').'.jpg'?>" id="right_source_pic_name-upload-pic"/>
                 </dd>
             </dl>
         </div>

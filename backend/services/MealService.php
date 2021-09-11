@@ -225,7 +225,8 @@ class MealService extends BackendService
                             $item['color']['barcode']
                         ),
                         'qty' => 1,
-                        'price' => 0,
+                        'price' => 1,
+                        'Total' => 1,
                     ],
                 ],
             ];
