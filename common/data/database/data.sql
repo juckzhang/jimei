@@ -231,6 +231,15 @@ CREATE TABLE if NOT EXISTS jimei_customer(
   unique (barcode)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment'客户';
 
+alter table jimei_customer add balance decimal(12, 2) NOT NULL default 0.00 comment '账户余额' after barcode;
+alter table jimei_customer add lock_balance decimal(12, 2) NOT NULL default 0.00 comment '预扣款锁定金额' after balance;
+alter table jimei_customer add sf_diff decimal(5, 2) NOT NULL default 0.00 comment '顺丰' after lock_balance;
+alter table jimei_customer add zt_diff decimal(5, 2) NOT NULL default 0.00 comment '中通' after sf_diff;
+alter table jimei_customer add ht_diff decimal(5, 2) NOT NULL default 0.00 comment '汇通' after zt_diff;
+alter table jimei_customer add yt_diff decimal(5, 2) NOT NULL default 0.00 comment '圆通' after ht_diff;
+alter table jimei_customer add yd_diff decimal(5, 2) NOT NULL default 0.00 comment '韵达' after yt_diff;
+alter table jimei_customer add st_diff decimal(5, 2) NOT NULL default 0.00 comment '申通' after yd_diff;
+
 -- 套餐
 CREATE TABLE if NOT EXISTS jimei_meal(
   id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
