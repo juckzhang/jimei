@@ -67,6 +67,13 @@ $notMore = ArrayHelper::getValue($params, 'notMore');
             <?php endif;?>
             <th width="80">名称</th>
             <th width="80">条码</th>
+            <th width="80">账户余额</th>
+            <th width="80">顺丰</th>
+            <th width="80">中通</th>
+            <th width="80">圆通</th>
+            <th width="80">汇通</th>
+            <th width="80">韵达</th>
+            <th width="80">申通</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
             <th width="70">操作</th>
@@ -83,6 +90,13 @@ $notMore = ArrayHelper::getValue($params, 'notMore');
                 <?php endif;?>
                 <td><?=$data->name?></td>
                 <td><?=$data->barcode?></td>
+                <td><?=$data->balance?></td>
+                <td><?=$data->sf_diff?></td>
+                <td><?=$data->zt_diff?></td>
+                <td><?=$data->yt_diff?></td>
+                <td><?=$data->hf_diff?></td>
+                <td><?=$data->yd_diff?></td>
+                <td><?=$data->st_diff?></td>
                 <td><?=date('Y-m-d H:i:s',$data->update_time)?></td>
                 <?php if(!$search):?>
                 <td>
