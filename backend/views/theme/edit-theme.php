@@ -46,6 +46,13 @@ $customer_name = ArrayHelper::getValue($params, 'customer_name');
                 </dd>
             </dl>
             <dl>
+                <dt>打印价格：</dt>
+                <dd>
+                    <input type="text" id="theme-price" name="ThemeModel[price]" maxlength="20" class="required" value="<?=ArrayHelper::getValue($model,'price','0.00')?>"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
                 <dt>客户：</dt>
                 <dd>
                     <input type="hidden" id="theme-customer" name="ThemeModel[customer_id]" data-name="customer.id" value="<?=ArrayHelper::getValue($model, 'customer_id',$customer_id)?>">
