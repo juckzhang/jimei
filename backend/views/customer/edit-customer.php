@@ -20,6 +20,55 @@ use yii\helpers\ArrayHelper;
                     <span class="info">条码</span>
                 </dd>
             </dl>
+            <dl>
+                <dt>账户余额</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[balance]" class="required" value="<?=ArrayHelper::getValue($model,'balance','0.00')?>"/>
+                    <span class="info">账户余额</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>顺丰</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[sf_diff]" class="required" value="<?=ArrayHelper::getValue($model,'sf_diff','0.00')?>"/>
+                    <span class="info">顺丰</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>圆通</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[yt_diff]" class="required" value="<?=ArrayHelper::getValue($model,'yt_diff','0.00')?>"/>
+                    <span class="info">圆通</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>中通</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[zt_diff]" class="required" value="<?=ArrayHelper::getValue($model,'zt_diff','0.00')?>"/>
+                    <span class="info">中通</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>汇通</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[ht_diff]" class="required" value="<?=ArrayHelper::getValue($model,'ht_diff','0.00')?>"/>
+                    <span class="info">汇通</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>申通</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[st_diff]" class="required" value="<?=ArrayHelper::getValue($model,'st_diff','0.00')?>"/>
+                    <span class="info">申通</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>韵达</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[yd_diff]" class="required" value="<?=ArrayHelper::getValue($model,'yd_diff','0.00')?>"/>
+                    <span class="info">韵达</span>
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>
