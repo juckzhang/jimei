@@ -24,4 +24,17 @@ class OrderController extends BaseController{
 
         return true;
     }
+    
+    public function actionRsyncOrder($startTime = null, $endTime = null)
+    {
+        $data = ClientHelper::orderList([
+            'pageno' => 1,
+            'pagesize' => 100,
+            'orderstatus' => 'audit',
+            'starttime' => date('Y-m-d H:i:s', strtotime("-1days")),
+            'endtime' => date('Y-m-d H:i:s'),
+        ]);
+
+        echo json_encode($data);
+    }
 }
