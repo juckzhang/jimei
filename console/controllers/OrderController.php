@@ -10,6 +10,19 @@ use yii\helpers\ArrayHelper;
 
 class OrderController extends BaseController{
 
+    public function actionTest()
+    {
+        $data = ClientHelper::orderList([
+            'pageno' => 1,
+            'pagesize' => 100,
+            'orderstatus' => 'audit',
+            'starttime' => date('Y-m-d H:i:s', strtotime("-2days")),
+            'endtime' => date('Y-m-d H:i:s'),
+        ]);
+
+        echo json_encode($data);
+    }
+
     public function actionClearOrder(){
         $createTime = strtotime("-20 day");
 
