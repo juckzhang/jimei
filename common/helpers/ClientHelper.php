@@ -134,7 +134,7 @@ class ClientHelper
      * 财审接口
      * billNoList	全渠道订单ID集合	Y	array
      */
-    public static function FunctionName($data)
+    public static function FinanceAuth($data)
     {
         $param = static::parseParam('erp.order.financeaudit', $data);
         $result = static::sCurl($param, $data);
