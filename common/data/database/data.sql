@@ -21,6 +21,40 @@ alter table jimei_theme add left_template_url VARCHAR(255) NOT NULL default '' c
 alter table jimei_theme add left_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称' after left_template_url;
 alter table jimei_theme add right_template_url VARCHAR(255) NOT NULL default '' comment '图片地址' after left_source_pic_name;
 alter table jimei_theme add right_source_pic_name VARCHAR(255) NOT NULL default '' comment '原图片名称' after right_template_url;
+alter table jimei_theme add price decimal(10,2) NOT NULL default 0.00 comment'打印价格' after `name`;
+
+
+-- 预扣款订单列表
+CREATE TABLE if NOT EXISTS jimei_pre_payment(
+  id int unsigned NOT NULL PRIMARY KEY auto_increment comment'主键',
+  billno bigint unsigned NOT NULL default 0 comment '全渠道订单ID',
+  did bigint unsigned NOT NULL default 0 comment '全渠道订单明细ID',
+  billcode VARCHAR(255) NOT NULL default '' comment '全渠道订单编号',
+  eshopbillcode VARCHAR(255) NOT NULL default '' comment '网店订单号',
+  eshopname VARCHAR(255) NOT NULL default '' comment '网店名称',
+  createtime varchar(255) NOT NULL default  '' comment '制单时间',
+  paytime varchar(255) NOT NULL default  '' comment '付款时间',
+  ecreatetime varchar(255) NOT NULL default  '' comment '拍单时间',
+  eshopskuname varchar(255) NOT NULL default  '' comment '网店商品规格编码',
+  lcmccode varchar(255) NOT NULL default  '' comment '本地商家编码',
+  qty int unsigned NOT NULL default 0.00 comment"数量",
+  price decimal(10, 2) NOT NULL default 0.00 comment"单价",
+  total decimal(10, 2) NOT NULL default 0.00 comment"总额",
+  freighttotal decimal(10, 2) NOT NULL default 0.00 comment"总额",
+  refundstatus int NOT NULL default 0 comment"退款状态",
+  islocked int NOT NULL default 0 comment"是否锁定",
+  `customer_id` int unsigned NOT NULL default 0 comment'客户id',
+  `theme_id` int unsigned NOT NULL default 0  comment'素材id',
+  `meal_id` int unsigned NOT NULL default 0 comment'套餐',
+  payment_total decimal(10, 2) NOT NULL default 0.00 comment"预扣款总额",
+  payment_freight decimal(10, 2) NOT NULL default 0.00 comment"预扣款物流费用",
+  create_time bigint unsigned NOT NULL DEFAULT 0 comment'创建时间',
+  update_time bigint unsigned NOT NULL DEFAULT 0 comment'修改时间',
+  status tinyint unsigned NOT NULL DEFAULT 0 comment'状态 0：有效 1：删除',
+  finance_status int not null default 0 comment '财审状态 0:审核, 1:不通过, 2: 通过, 3: 审批失败'
+  unique (billcode),
+  key customer_id(customer_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 auto_increment=1 comment"预扣款订单列表";
 
 -- 侧图片原始素材表
 CREATE TABLE if NOT EXISTS jimei_side_theme(
@@ -262,6 +296,7 @@ CREATE TABLE if NOT EXISTS jimei_meal(
 
 alter table jimei_meal add `left_theme_id` int unsigned NOT NULL default  0 comment'左边图素材' after theme_id;
 alter table jimei_meal add `right_theme_id` int unsigned NOT NULL default  0 comment'右边图素材' after left_theme_id;
+alter table jimei_meal add price decimal(10,2) NOT NULL default 0.00 comment'套餐价格' after sync_status;
 
 -- 离线套餐同步任务
 CREATE TABLE if NOT EXISTS jimei_sync_meal(
