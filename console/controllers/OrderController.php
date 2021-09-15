@@ -1,10 +1,12 @@
 <?php
 namespace console\controllers;
 
-
 use common\models\mysql\DistributionModel;
 use common\models\mysql\OrderModel;
 use common\helpers\ClientHelper;
+use common\models\mysql\PrePaymentModel;
+use console\services\OrderService;
+use yii\helpers\ArrayHelper;
 
 class OrderController extends BaseController{
 
@@ -28,15 +30,33 @@ class OrderController extends BaseController{
 
     public function actionRsyncOrder($startTime = null, $endTime = null)
     {
-        $data = ClientHelper::orderList([
-            'pageno' => 1,
-            'pagesize' => 100,
-            'orderstatus' => 'audit',
-            'starttime' => date('Y-m-d H:i:s', strtotime("-1days")),
-            'endtime' => date('Y-m-d H:i:s'),
-        ]);
+        $pageno = 1;
+        //获取制单开始时间
+        $startTime = PrePaymentModel::find()->max('createtime') ?: date('Y-m-d H:i:s', strtotime("-1days"));
+        $endTime = date('Y-m-d H:i:s');
+        $orderService = OrderService::getService();
+        while(true){
+            $data = ClientHelper::orderList([
+                'pageno' => $pageno,
+                'pagesize' => 100,
+                'orderstatus' => 'audit',
+                'starttime' => $startTime,
+                'endtime' => $endTime,
+            ]);
 
-        echo json_encode($data);
+            $orderList = ArrayHelper::getValue($data, 'orderlist', []);
+            if(empty($orderList)){
+                break;
+            }
+
+            $orderService->syncOrder($orderList);
+
+            if(count($orderList) < 100){
+                break;
+            }
+
+            $pageno ++;
+        }
     }
 
 }
