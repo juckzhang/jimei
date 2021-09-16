@@ -70,5 +70,8 @@ class OrderController extends BaseController{
 
             $pageno ++;
         }
+
+        //财务审核
+        $orderService->financeAuth();
     }
 }
