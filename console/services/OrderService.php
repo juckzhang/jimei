@@ -16,7 +16,7 @@ class OrderService extends ConsoleService
     {
         $dataList = $columns = [];
         foreach ($orderList as $order) {
-            $mealCode = $order['LCMCCode'];
+            $mealCode = $order['suitecode'];
             $customerCode = substr($mealCode, 9, 2);
             $themeCode = substr($mealCode, 11);
             $customer = CustomerModel::find()->where(['barcode' => $customerCode])->one();
