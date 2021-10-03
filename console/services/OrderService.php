@@ -28,13 +28,13 @@ class OrderService extends ConsoleService
             $customer_id = $theme_id = 0;
             $payment_freight = $payment_total = 0;
             //获取价格
-            if ($theme) {
-                $theme_id = $theme->id;
-            }
             if ($customer) {
                 $customer_id = $customer->id;
                 $payment_freight = $order['FreightTotal'] + $this->logistic($customer, $order['LogisticsName']);
-                $payment_total = $theme->price * $order['Qty'];
+                if($theme){
+                    $payment_total = $theme->price * $order['Qty'];
+                    $theme_id = $theme->id;
+                }
             }
 
             //存储数据
