@@ -58,10 +58,11 @@ class OrderService extends ConsoleService
             }
         }
         try {
-            \Yii::$app->db->createCommand()->batchInsert(PrePaymentModel::tableName(), $columns, $dataList)->execute();
+            $res = \Yii::$app->db->createCommand()->batchInsert(PrePaymentModel::tableName(), $columns, $dataList)->execute();
             \Yii::$app->bizLog->log([
                 'orderNum' => $orderList,
                 'orderList' => $dataList,
+                'res' => $res,
             ], 'req', 'Info');
         } catch (\Exception $e) {
             \Yii::$app->bizLog->log([
@@ -119,6 +120,9 @@ class OrderService extends ConsoleService
                 ->groupBy(['billno'])
                 ->where(['finance_status' => 0])->limit(100)->column();
 
+            if(empty($dataList)) {
+                break;
+            }
             foreach ($dataList as $billno) {
                 $orderList = PrePaymentModel::find()
                     ->where(['billno' => $billno])
