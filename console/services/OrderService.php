@@ -41,6 +41,10 @@ class OrderService extends ConsoleService
                 }
             }
 
+            if($order['BillFlag'] == '我方承担'){
+                $payment_freight = $payment_total = 0;
+            }
+
             //存储数据
             $extData = [
                 'payment_freight' => $payment_freight,
