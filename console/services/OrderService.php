@@ -16,7 +16,7 @@ class OrderService extends ConsoleService
     {
         $dataList = $columns = [];
         foreach ($orderList as $order) {
-            $mealCode = $order['suitecode'];
+            $mealCode = $order['SuiteCode'];
             $customerCode = substr($mealCode, 9, 2);
             $themeCode = substr($mealCode, 11);
             $customer = CustomerModel::find()->where(['barcode' => $customerCode])->one();
@@ -38,12 +38,13 @@ class OrderService extends ConsoleService
             }
 
             //存储数据
-            $dataList[] = $this->formatOrder($order, [
+            $extData = [
                 'payment_freight' => $payment_freight,
                 'customer_id' => $customer_id,
                 'theme_id' => $theme_id,
                 'payment_total' => $payment_total,
-            ]);
+            ];
+            $dataList[] = $this->formatOrder($order, $extData);
             if (count($columns) == 0) {
                 $columns = array_keys($dataList[0]);
             }
