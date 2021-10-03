@@ -74,4 +74,9 @@ class OrderController extends BaseController{
         //财务审核
         $orderService->financeAuth();
     }
+
+    public function actionFinance(){
+        $orderService = OrderService::getService();
+        $orderService->financeAuth();
+    }
 }

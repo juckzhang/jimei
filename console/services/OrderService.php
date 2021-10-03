@@ -1,4 +1,5 @@
 <?php
+
 namespace console\services;
 
 use common\helpers\ClientHelper;
@@ -11,9 +12,10 @@ use yii\helpers\ArrayHelper;
 class OrderService extends ConsoleService
 {
     //拉取预扣款订单列表
-    public function syncOrder($orderList = []){
+    public function syncOrder($orderList = [])
+    {
         $dataList = $columns = [];
-        foreach($orderList as $order){
+        foreach ($orderList as $order) {
             $mealCode = $order['LCMCCode'];
             $customerCode = substr($mealCode, 9, 2);
             $themeCode = substr($mealCode, 11);
@@ -26,10 +28,10 @@ class OrderService extends ConsoleService
             $customer_id = $theme_id = 0;
             $payment_freight = $payment_total = 0;
             //获取价格
-            if($theme){
+            if ($theme) {
                 $theme_id = $theme->id;
             }
-            if($customer){
+            if ($customer) {
                 $customer_id = $customer->id;
                 $payment_freight = $order['FreightTotal'] + $this->logistic($customer, $order['LogisticsName']);
                 $payment_total = $theme->price * $order['Qty'];
@@ -42,7 +44,7 @@ class OrderService extends ConsoleService
                 'theme_id' => $theme_id,
                 'payment_total' => $payment_total,
             ]);
-            if(count($columns) == 0){
+            if (count($columns) == 0) {
                 $columns = array_keys($dataList[0]);
             }
         }
@@ -52,7 +54,7 @@ class OrderService extends ConsoleService
                 'orderNum' => $orderList,
                 'orderList' => $dataList,
             ], 'req', 'Info');
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Yii::$app->bizLog->log([
                 'error' => $e->getMessage(),
                 'orderNum' => $orderList,
@@ -63,7 +65,8 @@ class OrderService extends ConsoleService
 
     private function formatOrder($order, &$extData = [])
     {
-        $extData['billnO'] = $order['BillNO'];
+        $extData['billno'] = $order['BillNO'];
+        $extData['suitecode'] = $order['SuiteCode'];
         $extData['did'] = $order['DID'];
         $extData['logisticsname'] = $order['LogisticsName'];
         $extData['billcode'] = $order['BillCode'];
@@ -86,7 +89,7 @@ class OrderService extends ConsoleService
         $extData['update_time'] = time();
         $extData['finance_status'] = 0;
 
-        if(!$extData['customer_id'] or !$extData['theme_id']){
+        if (!$extData['customer_id'] or !$extData['theme_id']) {
             $extData['finance_status'] = 1; //信息不完整
         }
 
@@ -94,17 +97,126 @@ class OrderService extends ConsoleService
     }
 
     //财审
-    public function financeAuth(){
-        while(true){
+    public function financeAuth()
+    {
+        while (true) {
             $dataList = PrePaymentModel::find()->select(['billno'])
-            ->groupBy(['billno'])
-            ->where(['finance_status' => 0])->limit(100)->column();
+                ->groupBy(['billno'])
+                ->where(['finance_status' => 0])->limit(100)->column();
+
+            foreach ($dataList as $billno) {
+                $orderList = PrePaymentModel::find()
+                    ->where(['billno' => $billno])
+                    ->asArray()
+                    ->all();
+
+                //验证信息完整性
+                $fullInfo = $this->check_order($orderList);
+                if (!$fullInfo) {
+                    continue;
+                }
+
+                //扣款
+                $this->calculation($orderList);
+            }
         }
-        
     }
 
-    private function _finance($billnoList = []){
-        if(empty($billnoList) or count($billnoList) <=0 ) return;
+    //检查订单数据信息完整性
+    private function check_order($orderList = [])
+    {
+        $res = true;
+        $customer_id = 0;
+        foreach ($orderList as $item) {
+            //信息不完整
+            if ($item['theme_id'] <= 0 or $item['customer_id'] <= 0) {
+                $res = false;
+                \Yii::$app->bizLog->log([
+                    'error' => "素材信息不完整",
+                    'orderList' => $orderList,
+                ], 'req', 'Error');
+                break;
+            }
+
+            if ($customer_id > 0 and $item['customer_id'] != $customer_id) {
+                $res = false;
+                \Yii::$app->bizLog->log([
+                    'error' => "订单客户信息不一致",
+                    'orderList' => $orderList,
+                ], 'req', 'Error');
+                break;
+            }
+
+            if ($customer_id == 0) {
+                $customer_id = $item['customer_id'];
+            }
+        }
+
+        return $res;
+    }
+
+    //计算预先扣款值.
+    private function calculation($orderList = [])
+    {
+        $theme_ids = [];
+        $customer_id = 0;
+        $billno = 0;
+
+        foreach ($orderList as $item) {
+            if ($customer_id <= 0) {
+                $customer_id = $item['customer_id'];
+            }
+            $theme_ids[] = $item['theme_id'];
+            if (!$billno) {
+                $billno = $item['billno'];
+            }
+        }
+
+        //获取客户信息与素材信息
+        $customer = CustomerModel::find()->where(['id' => $customer_id])->one();
+        $theme_list = ThemeModel::find()->where(['id' => $theme_ids])->all();
+
+        //用户余额
+        $balance = $customer->balance - $customer->lock_balance;
+
+        //预扣款金额
+        $kou = 0;
+        foreach ($theme_list as $item) {
+            $kou += $item['payment_freight'] + $item['payment_total'];
+        }
+
+        if ($balance - $kou < 0) {
+            \Yii::$app->bizLog->log([
+                'error' => "余额不足",
+                'orderList' => $orderList,
+            ], 'req', 'Error');
+            return false;
+        }
+
+        //调用财审批接口
+        try {
+            $res = ClientHelper::FinanceAuth(['billnoList' => [$billno]]);
+            if ($res === true) {
+                $customer->lock_balance += $kou;
+                $res = $customer->update();
+            }
+            \Yii::$app->bizLog->log([
+                'error' => "ok",
+                'orderList' => $orderList,
+            ], 'req', 'Info');
+            return true;
+        } catch (\Exception $e) {
+            \Yii::$app->bizLog->log([
+                'error' => $e->getMessage(),
+                'orderList' => $orderList,
+            ], 'req', 'Error');
+            return false;
+        }
+    }
+
+    private function _finance($billnoList = [])
+    {
+        if (empty($billnoList) or count($billnoList) <= 0) return;
 
         $res = ClientHelper::FinanceAuth(['billNoList' => $billnoList]);
         $errororderlist = ArrayHelper::getValue($res, 'errororderlist', []);
@@ -118,11 +230,11 @@ class OrderService extends ConsoleService
             try {
                 CustomerModel::updateAllCounters(['lock_balance' => 0 - $payment_freight - $payment_total], ['customer_id' => $customer->id]);
                 \Yii::$app->db->createCommand()->delete(PrePaymentModel::tableName(), [
-                    'billno' => $order['BillNO'], 
+                    'billno' => $order['BillNO'],
                     'billcode' => $order['BillCode']
                 ])->execute();
                 $transaction->commit();
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $transaction->rollBack();
                 continue;
             }
@@ -134,7 +246,7 @@ class OrderService extends ConsoleService
     private function logistic($customer, $name = '')
     {
         $diff = 0;
-        switch($name){
+        switch ($name) {
             case "顺丰速递":
                 $diff = $customer->sf_diff;
                 break;
