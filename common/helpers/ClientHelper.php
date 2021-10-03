@@ -140,9 +140,13 @@ class ClientHelper
         $result = static::sCurl($param, $data);
 
         if(ArrayHelper::getValue($result, 'code') == 0){
-            return $result;
+            if(empty($result['errororderlist'])){
+                return true;
+            }
+
+            return $result['errororderlist'];
         }
 
-        return [];
+        return false;
     }
 }
