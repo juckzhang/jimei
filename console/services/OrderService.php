@@ -16,6 +16,10 @@ class OrderService extends ConsoleService
     {
         $dataList = $columns = [];
         foreach ($orderList as $order) {
+            //判断订单是否已经存在
+            if($this->order_exists($order)){
+                continue;
+            }
             $mealCode = $order['SuiteCode'];
             $customerCode = substr($mealCode, 9, 2);
             $themeCode = substr($mealCode, 11);
@@ -62,6 +66,12 @@ class OrderService extends ConsoleService
                 'orderList' => $dataList,
             ], 'req', 'Error');
         }
+    }
+
+    private function order_exists($order){
+        return PrePaymentModel::find()
+        ->where(['billno' => $order['BillNO'], 'did' => $order['DID']])
+        ->exists();
     }
 
     private function formatOrder($order, &$extData = [])
