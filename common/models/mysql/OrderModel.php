@@ -5,7 +5,7 @@ class OrderModel extends ActiveRecord
 {
     public static function tableName()
     {
-        return "{{%order}}";
+        return "{{%test_order}}";
     }
 
     public function getBrand(){
