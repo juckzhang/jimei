@@ -121,8 +121,8 @@ $search = ArrayHelper::getValue($params, 'search');
                         <td><?= $data['price'] ?>" /></td>
                         <td><?= $data['payment_total'] ?>" /></td>
                         <td><?= $data['payment_freight'] ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data,'customer.name') ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data,'theme.name') ?>" /></td>
+                        <td><?= ArrayHelper::getValue($data, 'customer.name') ?>" /></td>
+                        <td><?= ArrayHelper::getValue($data, 'theme.name') ?>" /></td>
                         <td><?= $data['suitecode'] ?>" /></td>
                         <td><?php if ($data['status'] == 2 or !$data['theme'] or !$data['customer'])
                                 echo '<span style="color: red;">异常</span>';
@@ -131,9 +131,13 @@ $search = ArrayHelper::getValue($params, 'search');
                             ?>
                         </td>
                         <td><?php if ($data['finance_status'] == '0')
-                                echo '<span style="color: red;">异常</span>';
-                            else
-                                echo '正常';
+                                echo '待审核';
+                            elseif ($data['finance_status'] == '1')
+                                echo '财审不通过';
+                            elseif ($data['finance_status'] == '2')
+                                echo '财审通过';
+                            elseif ($data['finance_status'] == '4')
+                                echo '扣款完成';
                             ?>
                         </td>
                         <td>
