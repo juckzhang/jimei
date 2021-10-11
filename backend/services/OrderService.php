@@ -488,7 +488,7 @@ class OrderService extends BackendService
 
         $models = PrePaymentModel::find()
             ->where(['!=', 'status', DistributionModel::STATUS_DELETED])
-            ->andFilterWhere(['finance_status' => $other['finance_status']]);
+            ->andFilterWhere(['finance_status' => ArrayHelper::getValue($other, 'finance_status')]);
 
         $data['dataCount'] = $models->count();
         $data['pageCount'] = $this->reckonPageCount($data['dataCount'], $limit);
