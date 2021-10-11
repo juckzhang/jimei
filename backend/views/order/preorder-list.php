@@ -114,16 +114,16 @@ $search = ArrayHelper::getValue($params, 'search');
                         <td><?= $data['billcode'] ?></td>
                         <td><?= $data['eshopbillcode'] ?></td>
                         <td><?= $data['eshopname'] ?></td>
-                        <td><?= $data['eshopskuname'] ?>" /></td>
-                        <td><?= $data['lcmccode'] ?>" /></td>
-                        <td><?= $data['billflag'] ?>" /></td>
-                        <td><?= $data['qty'] ?>" /></td>
-                        <td><?= $data['price'] ?>" /></td>
-                        <td><?= $data['payment_total'] ?>" /></td>
-                        <td><?= $data['payment_freight'] ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data, 'customer.name') ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data, 'theme.name') ?>" /></td>
-                        <td><?= $data['suitecode'] ?>" /></td>
+                        <td><?= $data['eshopskuname'] ?></td>
+                        <td><?= $data['lcmccode'] ?></td>
+                        <td><?= $data['billflag'] ?></td>
+                        <td><?= $data['qty'] ?></td>
+                        <td><?= $data['price'] ?></td>
+                        <td><?= $data['payment_total'] ?></td>
+                        <td><?= $data['payment_freight'] ?></td>
+                        <td><?= ArrayHelper::getValue($data, 'customer.name') ?></td>
+                        <td><?= ArrayHelper::getValue($data, 'theme.name') ?></td>
+                        <td><?= $data['suitecode'] ?></td>
                         <td><?php if ($data['status'] == 2 or !$data['theme'] or !$data['customer'])
                                 echo '<span style="color: red;">异常</span>';
                             else
