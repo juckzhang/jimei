@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use common\constants\CodeConstant;
@@ -14,26 +15,25 @@ class OrderController extends BaseController
 {
     public function actionOrderList()
     {
-        $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
-        $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
-        $baseId  = ArrayHelper::getValue($this->paramData,'base_id');
+        $_prePage  = ArrayHelper::getValue($this->paramData, 'numPerPage');
+        $_page       = ArrayHelper::getValue($this->paramData, 'pageNum');
+        $baseId  = ArrayHelper::getValue($this->paramData, 'base_id');
         $addType = ArrayHelper::getValue($this->paramData, 'add_type');
-        $_other = ArrayHelper::getValue($this->paramData, 'other',[]);
-        if($addType) $_other['add_type'] = $addType;
+        $_other = ArrayHelper::getValue($this->paramData, 'other', []);
+        if ($addType) $_other['add_type'] = $addType;
         $_order = $this->_sortOrder();
-        $data = OrderService::getService()->OrderList($baseId,$_page,$_prePage, $_order, $_other);
-        return $this->render('order-list',$data);
+        $data = OrderService::getService()->OrderList($baseId, $_page, $_prePage, $_order, $_other);
+        return $this->render('order-list', $data);
     }
 
     public function actionAddOrder()
     {
-        if(\Yii::$app->request->getIsPost())
-        {
-            $base_id = ArrayHelper::getValue($this->paramData,'base_id');
-            $keyWord = trim(ArrayHelper::getValue($this->paramData,'keyWord',''));
-            $result = OrderService::getService()->addOrder($base_id,$keyWord);
+        if (\Yii::$app->request->getIsPost()) {
+            $base_id = ArrayHelper::getValue($this->paramData, 'base_id');
+            $keyWord = trim(ArrayHelper::getValue($this->paramData, 'keyWord', ''));
+            $result = OrderService::getService()->addOrder($base_id, $keyWord);
             $this->log($result);
-            if($result == 200)
+            if ($result == 200)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'order-list',
@@ -41,7 +41,7 @@ class OrderController extends BaseController
                     'forwardUrl' => Url::to(['order/order-list'])
                 ]);
             return $this->returnAjaxError($result);
-        }else{
+        } else {
 
             return $this->render('add-order');
         }
@@ -49,12 +49,11 @@ class OrderController extends BaseController
 
     public function actionEditOrder()
     {
-        if(\Yii::$app->request->getIsPost())
-        {
-            $id = ArrayHelper::getValue($this->paramData,'id');
-            $result = OrderService::getService()->editInfo($id,OrderModel::className());
+        if (\Yii::$app->request->getIsPost()) {
+            $id = ArrayHelper::getValue($this->paramData, 'id');
+            $result = OrderService::getService()->editInfo($id, OrderModel::className());
             $this->log($result);
-            if($result instanceof Model)
+            if ($result instanceof Model)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'order-list',
@@ -62,8 +61,8 @@ class OrderController extends BaseController
                     'forwardUrl' => Url::to(['order/order-list'])
                 ]);
             return $this->returnAjaxError($result);
-        }else{
-            $id = ArrayHelper::getValue($this->paramData,'id');
+        } else {
+            $id = ArrayHelper::getValue($this->paramData, 'id');
             $model = OrderModel::find()->where(['id' => $id])
                 ->with('brand')
                 ->with('phone')
@@ -72,17 +71,17 @@ class OrderController extends BaseController
                 ->with('customer')
                 ->with('theme')
                 ->asArray()->one();
-            return $this->render('edit-order',['model' => $model,]);
+            return $this->render('edit-order', ['model' => $model,]);
         }
     }
 
     public function actionDeleteOrder()
     {
-        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-        $ids = ArrayHelper::getValue($this->paramData,'ids');
-        $return = OrderService::getService()->deleteInfo($ids,OrderModel::className());
+        if (!Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+        $ids = ArrayHelper::getValue($this->paramData, 'ids');
+        $return = OrderService::getService()->deleteInfo($ids, OrderModel::className());
         $this->log($return);
-        if($return === true)
+        if ($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '删除成功',
                 'navTabId' => 'order-list',
@@ -94,21 +93,20 @@ class OrderController extends BaseController
 
     public function actionDistributionList()
     {
-        $_prePage  = ArrayHelper::getValue($this->paramData,'numPerPage');
-        $_page       = ArrayHelper::getValue($this->paramData,'pageNum');
+        $_prePage  = ArrayHelper::getValue($this->paramData, 'numPerPage');
+        $_page       = ArrayHelper::getValue($this->paramData, 'pageNum');
         $_order  = $this->_sortOrder();
         $_other  = ArrayHelper::getValue($this->paramData, 'other');
-        $data = OrderService::getService()->DistributionList($_page,$_prePage,$_order, $_other);
-        return $this->render('distribution-list',$data);
+        $data = OrderService::getService()->DistributionList($_page, $_prePage, $_order, $_other);
+        return $this->render('distribution-list', $data);
     }
 
     public function actionEditDistribution()
     {
-        if(\Yii::$app->request->getIsPost())
-        {
+        if (\Yii::$app->request->getIsPost()) {
             $result = OrderService::getService()->editDistribution($this->paramData);
             $this->log($result);
-            if($result == 200)
+            if ($result == 200)
                 return $this->returnAjaxSuccess([
                     'message' => '编辑成功',
                     'navTabId' => 'distribution-list',
@@ -116,13 +114,13 @@ class OrderController extends BaseController
                     'forwardUrl' => Url::to(['order/distribution-list'])
                 ]);
             return $this->returnAjaxError($result);
-        }else{
-            $id = ArrayHelper::getValue($this->paramData,'id');
+        } else {
+            $id = ArrayHelper::getValue($this->paramData, 'id');
             $model = DistributionModel::find()->where(['id' => $id])->asArray()->one();
             $addType = ArrayHelper::getValue($this->paramData, 'add_type');
             $maxSn = '';
-            if(!$id and $addType == 2){
-                $maxSn = 'S'.date('ymd-');
+            if (!$id and $addType == 2) {
+                $maxSn = 'S' . date('ymd-');
                 $next = DistributionModel::find()
                     ->where(['like', 'sn', $maxSn])
                     ->count() + 1;
@@ -130,17 +128,17 @@ class OrderController extends BaseController
                 $maxSn .= $next;
             }
 
-            return $this->render('edit-distribution',['model' => $model, 'maxSn' => $maxSn]);
+            return $this->render('edit-distribution', ['model' => $model, 'maxSn' => $maxSn]);
         }
     }
 
     public function actionDeleteDistribution()
     {
-        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-        $ids = ArrayHelper::getValue($this->paramData,'ids');
+        if (!Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+        $ids = ArrayHelper::getValue($this->paramData, 'ids');
         $return = OrderService::getService()->deleteInfo($ids, DistributionModel::className());
         $this->log($return);
-        if($return === true){
+        if ($return === true) {
             //删除对应的订单数据
             OrderModel::deleteAll(['base_id' => $ids]);
             return $this->returnAjaxSuccess([
@@ -154,12 +152,13 @@ class OrderController extends BaseController
         return $this->returnAjaxError($return);
     }
 
-    public function actionParseOrder(){
-        if(! Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
-        $ids = ArrayHelper::getValue($this->paramData,'ids');
+    public function actionParseOrder()
+    {
+        if (!Yii::$app->request->getIsAjax()) return $this->returnAjaxError(CodeConstant::REQUEST_METHOD_ERROR);
+        $ids = ArrayHelper::getValue($this->paramData, 'ids');
         $return = OrderService::getService()->reparseOrder($ids);
         $this->log($return);
-        if($return === true)
+        if ($return === true)
             return $this->returnAjaxSuccess([
                 'message' => '更新成功',
                 'navTabId' => 'order-list',
@@ -167,5 +166,15 @@ class OrderController extends BaseController
                 'forwardUrl'  => Url::to(['order/order-list'])
             ]);
         return $this->returnAjaxError($return);
+    }
+
+    public function actionPreOrderList()
+    {
+        $_prePage  = ArrayHelper::getValue($this->paramData, 'numPerPage');
+        $_page  = ArrayHelper::getValue($this->paramData, 'pageNum');
+        $_other = ArrayHelper::getValue($this->paramData, 'other', []);
+        $_order = $this->_sortOrder();
+        $data = OrderService::getService()->preOrderList($_page, $_prePage, $_order, $_other);
+        return $this->render('preorder-list', $data);
     }
 }

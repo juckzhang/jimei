@@ -11,6 +11,7 @@ use common\models\mysql\MaterialModel;
 use common\models\mysql\OrderModel;
 use backend\services\base\BackendService;
 use common\models\mysql\PhoneModel;
+use common\models\mysql\PrePaymentModel;
 use common\models\mysql\ThemeModel;
 use yii\helpers\ArrayHelper;
 
@@ -382,5 +383,29 @@ class OrderService extends BackendService
         }
 
         return $ret;
+    }
+
+    public function preOrderList($page,$prePage,$order = [], $other = [])
+    {
+        list($offset,$limit) = $this->parsePageParam($page,$prePage);
+        $data = ['pageCount' => 0,'dataList' => [],'dataCount' => 0];
+
+        $models = PrePaymentModel::find()
+            ->where(['!=','status' , DistributionModel::STATUS_DELETED])
+            ->andFilterWhere(['finance_status' => $other['finance_status']]);
+
+        $data['dataCount'] = $models->count();
+        $data['pageCount'] = $this->reckonPageCount($data['dataCount'],$limit);
+
+        if($data['pageCount'] > 0 AND $page <= $data['pageCount'])
+            $data['dataList'] = $models->orderBy($order)
+            ->with('customer')
+            ->with('theme')
+            ->limit($limit)
+            ->offset($offset)
+            ->asArray()
+            ->all();
+
+        return $data;
     }
 }
