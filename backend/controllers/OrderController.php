@@ -168,7 +168,7 @@ class OrderController extends BaseController
         return $this->returnAjaxError($return);
     }
 
-    public function actionPreOrderList()
+    public function actionPreorderList()
     {
         $_prePage  = ArrayHelper::getValue($this->paramData, 'numPerPage');
         $_page  = ArrayHelper::getValue($this->paramData, 'pageNum');
