@@ -16,7 +16,7 @@ class OrderController extends BaseController{
             'pageno' => 1,
             'pagesize' => 100,
             'orderstatus' => 'audit',
-            'starttime' => date('Y-m-d H:i:s', strtotime("-2days")),
+            'starttime' => date('Y-m-d H:i:s', strtotime("-1days")),
             'endtime' => date('Y-m-d H:i:s'),
         ]);
 
@@ -48,6 +48,7 @@ class OrderController extends BaseController{
         $startTime = PrePaymentModel::find()->max('createtime') ?: date('Y-m-d H:i:s', strtotime("-1days"));
         $endTime = date('Y-m-d H:i:s');
         $orderService = OrderService::getService();
+        $total = 0;
         while(true){
             $data = ClientHelper::orderList([
                 'pageno' => $pageno,
@@ -62,6 +63,7 @@ class OrderController extends BaseController{
                 break;
             }
 
+            $total += count($orderList);
             $orderService->syncOrder($orderList);
 
             if(count($orderList) < 100){
@@ -70,6 +72,13 @@ class OrderController extends BaseController{
 
             $pageno ++;
         }
+        echo 'startTime:'.$startTime.'  endTime:'.$endTime.'  totalNum:'.$total;
+        echo PHP_EOL;
+        \Yii::$app->bizLog->log([
+            'startTime' => $startTime,
+            'endTime' => $endTime,
+            'totalNum' => $total,
+        ], 'req', 'Info');
 
         //财务审核
         $orderService->financeAuth();
