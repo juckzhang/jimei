@@ -74,10 +74,6 @@ $search = ArrayHelper::getValue($params, 'search');
     <div class="pageContent">
         <div class="panelBar">
             <ul class="toolBar">
-                <?php if (\Yii::$app->user->can('order/add-preorder')) : ?>
-                    <li><a class="add" href="<?= Url::to(['order/add-preorder',]) ?>" target="dialog"><span>添加</span></a></li>
-                <?php endif; ?>
-
                 <?php if (\Yii::$app->user->can('order/delete-preorder')) : ?>
                     <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids[]" href="<?= Url::to(['order/delete-preorder']) ?>" class="delete"><span>批量删除</span></a></li>
                 <?php endif; ?>
@@ -144,6 +140,10 @@ $search = ArrayHelper::getValue($params, 'search');
                             <?php if (\Yii::$app->user->can('order/delete-preorder')) : ?>
                                 <a title="删除" target="ajaxTodo" href="<?= Url::to(['order/delete-preorder', 'ids' => $data['id']]) ?>" class="btnDel">删除</a>
                             <?php endif; ?>
+
+                            <?php if(\Yii::$app->user->can('order/delete-preorder')):?>
+                                <a title="编辑" target="navTab" href="<?=Url::to(['order/edit-preorder','id' => $data['id']])?>" class="btnEdit"><span>编辑</span></a>
+                            <?php endif;?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

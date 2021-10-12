@@ -7,6 +7,7 @@ use common\models\mysql\DistributionModel;
 use common\models\mysql\OrderModel;
 use Yii;
 use backend\services\OrderService;
+use common\models\mysql\PrePaymentModel;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -176,5 +177,28 @@ class OrderController extends BaseController
         $_order = $this->_sortOrder();
         $data = OrderService::getService()->preOrderList($_page, $_prePage, $_order, $_other);
         return $this->render('preorder-list', $data);
+    }
+
+    public function actionEditPreorder()
+    {
+        if(\Yii::$app->request->getIsPost())
+        {
+            $id = ArrayHelper::getValue($this->paramData,'id');
+            $result = OrderService::getService()->editInfo($id, PrePaymentModel::className());
+            $this->log($result);
+            if($result instanceof Model)
+                return $this->returnAjaxSuccess([
+                    'message' => '编辑成功',
+                    'navTabId' => 'preorder-list',
+                    'callbackType' => 'closeCurrent',
+                    'forwardUrl' => Url::to(['order/preorder-list'])
+                ]);
+            return $this->returnAjaxError($result);
+        }else{
+            $id = ArrayHelper::getValue($this->paramData,'id');
+            $model = PrePaymentModel::find()->where(['id' => $id])->asArray()->one();
+
+            return $this->render('edit-preorder',['model' => $model]);
+        }
     }
 }

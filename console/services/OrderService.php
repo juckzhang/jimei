@@ -17,7 +17,7 @@ class OrderService extends ConsoleService
         $dataList = $columns = [];
         foreach ($orderList as $order) {
             //判断订单是否已经存在
-            if($this->order_exists($order)){
+            if ($this->order_exists($order)) {
                 continue;
             }
             $mealCode = $order['SuiteCode'];
@@ -35,13 +35,13 @@ class OrderService extends ConsoleService
             if ($customer) {
                 $customer_id = $customer->id;
                 $payment_freight = $order['FreightTotal'] + $this->logistic($customer, $order['LogistBTypeName']);
-                if($theme){
+                if ($theme) {
                     $payment_total = $theme->price * $order['Qty'];
                     $theme_id = $theme->id;
                 }
             }
 
-            if($order['BillFlag'] == '我方承担'){
+            if ($order['BillFlag'] == '我方承担') {
                 $payment_freight = $payment_total = 0;
             }
 
@@ -73,10 +73,11 @@ class OrderService extends ConsoleService
         }
     }
 
-    private function order_exists($order){
+    private function order_exists($order)
+    {
         return PrePaymentModel::find()
-        ->where(['billno' => $order['BillNO'], 'did' => $order['DID']])
-        ->exists();
+            ->where(['billno' => $order['BillNO'], 'did' => $order['DID']])
+            ->exists();
     }
 
     private function formatOrder($order, &$extData = [])
@@ -84,7 +85,7 @@ class OrderService extends ConsoleService
         $extData['billno'] = $order['BillNO'];
         $extData['suitecode'] = $order['SuiteCode'];
         $extData['did'] = $order['DID'];
-        $extData['logisticsname'] = $order['LogistBTypeName'];
+        $extData['logisticsname'] = $order['LogisticsName'];
         $extData['billcode'] = $order['BillCode'];
         $extData['billflag'] = $order['BillFlag'];
         $extData['logisticsname'] = $order['LogistBTypeName'];
@@ -120,7 +121,7 @@ class OrderService extends ConsoleService
                 ->groupBy(['billno'])
                 ->where(['finance_status' => 0])->limit(100)->column();
 
-            if(empty($dataList)) {
+            if (empty($dataList)) {
                 break;
             }
             foreach ($dataList as $billno) {
@@ -237,9 +238,9 @@ class OrderService extends ConsoleService
             case "中通快递":
                 $diff = $customer->zt_diff;
             case "圆通速递":
-                $diff = $customer->yt_diff;       
+                $diff = $customer->yt_diff;
             case "邮政快递包裹":
-                $diff = $customer->yz_diff;     
+                $diff = $customer->yz_diff;
             default:
                 $diff = 0;
         }
