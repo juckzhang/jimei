@@ -6,7 +6,7 @@ class DistributionModel extends ActiveRecord
 
     public static function tableName()
     {
-        return "{{%base_list}}";
+        return "{{%test_base_list}}";
     }
 
     public function beforeSave($insert)

@@ -114,16 +114,16 @@ $search = ArrayHelper::getValue($params, 'search');
                         <td><?= $data['billcode'] ?></td>
                         <td><?= $data['eshopbillcode'] ?></td>
                         <td><?= $data['eshopname'] ?></td>
-                        <td><?= $data['eshopskuname'] ?>" /></td>
-                        <td><?= $data['lcmccode'] ?>" /></td>
-                        <td><?= $data['billflag'] ?>" /></td>
-                        <td><?= $data['qty'] ?>" /></td>
-                        <td><?= $data['price'] ?>" /></td>
-                        <td><?= $data['payment_total'] ?>" /></td>
-                        <td><?= $data['payment_freight'] ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data, 'customer.name') ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data, 'theme.name') ?>" /></td>
-                        <td><?= $data['suitecode'] ?>" /></td>
+                        <td><?= $data['eshopskuname'] ?></td>
+                        <td><?= $data['lcmccode'] ?></td>
+                        <td><?= $data['billflag'] ?></td>
+                        <td><?= $data['qty'] ?></td>
+                        <td><?= $data['price'] ?></td>
+                        <td><?= $data['payment_total'] ?></td>
+                        <td><?= $data['payment_freight'] ?></td>
+                        <td><?= ArrayHelper::getValue($data, 'customer.name') ?></td>
+                        <td><?= ArrayHelper::getValue($data, 'theme.name') ?></td>
+                        <td><?= $data['suitecode'] ?></td>
                         <td><?php if ($data['status'] == 2 or !$data['theme'] or !$data['customer'])
                                 echo '<span style="color: red;">异常</span>';
                             else
@@ -141,50 +141,10 @@ $search = ArrayHelper::getValue($params, 'search');
                             ?>
                         </td>
                         <td>
-                            <?php if (\Yii::$app->user->can('order/delete-order')) : ?>
-                                <a title="删除" target="ajaxTodo" href="<?= Url::to(['order/delete-order', 'ids' => $data['id']]) ?>" class="btnDel">删除</a>
-                            <?php endif; ?>
-
-                            <?php if (\Yii::$app->user->can('order/delete-order')) : ?>
-                                <a title="解析套餐码" target="ajaxTodo" href="<?= Url::to(['order/parse-order', 'ids' => $data['id']]) ?>" class="btnAttach"><span>解析套餐码</span></a>
-                            <?php endif; ?>
-
-                            <?php if (\Yii::$app->user->can('order/delete-order')) : ?>
-                                <a title="编辑" target="navTab" href="<?= Url::to(['order/edit-order', 'id' => $data['id']]) ?>" class="btnEdit"><span>编辑</span></a>
+                            <?php if (\Yii::$app->user->can('order/delete-preorder')) : ?>
+                                <a title="删除" target="ajaxTodo" href="<?= Url::to(['order/delete-preorder', 'ids' => $data['id']]) ?>" class="btnDel">删除</a>
                             <?php endif; ?>
                         </td>
-                        <td><?= $data['eshopskuname'] ?></td>
-                        <td><img height="80" src="<?= ArrayHelper::getValue($data, 'relat.border_url') ? rtrim(ArrayHelper::getValue($data, 'relat.border_url'), '.tif') . '.jpg' : '' ?>" /></td>
-                        <td><img height="80" src="<?= ArrayHelper::getValue($data, 'relat.left_border_url') ? rtrim(ArrayHelper::getValue($data, 'relat.left_border_url'), '.tif') . '.jpg' : '' ?>" /></td>
-                        <td><img height="80" src="<?= ArrayHelper::getValue($data, 'relat.right_border_url') ? rtrim(ArrayHelper::getValue($data, 'relat.right_border_url'), '.tif') . '.jpg' : '' ?>" /></td>
-                        <td><?= ArrayHelper::getValue($data, 'theme.name') ?></td>
-                        <td><?= $data['order_id'] ?>
-                            <br />
-                            <?= $data['eshopbillcode'] ?>
-                            <br />
-                            <?= $data['wuliu_no'] ?>
-                        </td>
-                        <td><?= $data['checkcode'] ?></td>
-                        <td><?= sprintf(
-                                "%s%s%s%s%s%s",
-                                ArrayHelper::getValue($data, 'brand.barcode'),
-                                ArrayHelper::getValue($data, 'phone.barcode'),
-                                ArrayHelper::getValue($data, 'material.barcode'),
-                                ArrayHelper::getValue($data, 'color.barcode'),
-                                ArrayHelper::getValue($data, 'customer.barcode'),
-                                ArrayHelper::getValue($data, 'theme.barcode')
-                            ) ?></td>
-                        <td><?= $data['suitecode'] ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'phone.modal') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.width') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.height') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.fat') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.fixture_num') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'material.name') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.left') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.top') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'relat.side_radian') ?></td>
-                        <td><?= ArrayHelper::getValue($data, 'color.name') ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -202,7 +162,7 @@ $search = ArrayHelper::getValue($params, 'search');
                 </select>
                 <span>条，共<?= $dataCount ?>条</span>
             </div>
-            <div class="pagination" rel='order-list' targetType="<?= $search ? 'dialog' : 'navTab' ?>" totalCount="<?= $dataCount ?>" numPerPage="<?= $prePage ?>" pageNumShown="10" currentPage="<?= $page ?>"></div>
+            <div class="pagination" rel='preorder-list' targetType="<?= $search ? 'dialog' : 'navTab' ?>" totalCount="<?= $dataCount ?>" numPerPage="<?= $prePage ?>" pageNumShown="10" currentPage="<?= $page ?>"></div>
         </div>
     </div>
 </div>
