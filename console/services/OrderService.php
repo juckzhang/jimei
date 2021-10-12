@@ -34,7 +34,7 @@ class OrderService extends ConsoleService
             //获取价格
             if ($customer) {
                 $customer_id = $customer->id;
-                $payment_freight = $order['FreightTotal'] + $this->logistic($customer, $order['LogisticsName']);
+                $payment_freight = $order['FreightTotal'] + $this->logistic($customer, $order['LogistBTypeName']);
                 if($theme){
                     $payment_total = $theme->price * $order['Qty'];
                     $theme_id = $theme->id;
@@ -84,7 +84,7 @@ class OrderService extends ConsoleService
         $extData['billno'] = $order['BillNO'];
         $extData['suitecode'] = $order['SuiteCode'];
         $extData['did'] = $order['DID'];
-        $extData['logisticsname'] = $order['LogisticsName'];
+        $extData['logisticsname'] = $order['LogistBTypeName'];
         $extData['billcode'] = $order['BillCode'];
         $extData['billflag'] = $order['BillFlag'];
         $extData['logisticsname'] = $order['LogistBTypeName'];
@@ -180,8 +180,10 @@ class OrderService extends ConsoleService
         $theme_ids = [];
         $customer_id = 0;
         $billno = 0;
+        $kou = 0;
 
         foreach ($orderList as $item) {
+            $kou += $item['payment_freight'] + $item['payment_total'];
             if ($customer_id <= 0) {
                 $customer_id = $item['customer_id'];
             }
@@ -191,18 +193,10 @@ class OrderService extends ConsoleService
             }
         }
 
-        //获取客户信息与素材信息
+        //获取客户信息
         $customer = CustomerModel::find()->where(['id' => $customer_id])->one();
-        $theme_list = ThemeModel::find()->where(['id' => $theme_ids])->all();
-
         //用户余额
         $balance = $customer->balance - $customer->lock_balance;
-
-        //预扣款金额
-        $kou = 0;
-        foreach ($theme_list as $item) {
-            $kou += $item['payment_freight'] + $item['payment_total'];
-        }
 
         if ($balance - $kou < 0) {
             \Yii::$app->bizLog->log([
@@ -233,35 +227,6 @@ class OrderService extends ConsoleService
         }
     }
 
-    private function _finance($billnoList = [])
-    {
-        if (empty($billnoList) or count($billnoList) <= 0) return;
-
-        $res = ClientHelper::FinanceAuth(['billNoList' => $billnoList]);
-        $errororderlist = ArrayHelper::getValue($res, 'errororderlist', []);
-
-        foreach ($errororderlist as $order) {
-            $prePayOrder = PrePaymentModel::findOne(['billno' => $order['BillNO'], 'billcode' => $order['BillCode']]);
-            $payment_freight = $prePayOrder->payment_freight;
-            $payment_total = $prePayOrder->payment_total;
-            $customer = CustomerModel::findOne(['id' => $prePayOrder->customer_id]);
-            $transaction = \Yii::$app->db->beginTransaction();
-            try {
-                CustomerModel::updateAllCounters(['lock_balance' => 0 - $payment_freight - $payment_total], ['customer_id' => $customer->id]);
-                \Yii::$app->db->createCommand()->delete(PrePaymentModel::tableName(), [
-                    'billno' => $order['BillNO'],
-                    'billcode' => $order['BillCode']
-                ])->execute();
-                $transaction->commit();
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                continue;
-            }
-        }
-
-        return;
-    }
-
     private function logistic($customer, $name = '')
     {
         $diff = 0;
@@ -269,6 +234,12 @@ class OrderService extends ConsoleService
             case "顺丰速递":
                 $diff = $customer->sf_diff;
                 break;
+            case "中通快递":
+                $diff = $customer->zt_diff;
+            case "圆通速递":
+                $diff = $customer->yt_diff;       
+            case "邮政快递包裹":
+                $diff = $customer->yz_diff;     
             default:
                 $diff = 0;
         }

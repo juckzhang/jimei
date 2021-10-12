@@ -69,6 +69,13 @@ use yii\helpers\ArrayHelper;
                     <span class="info">韵达</span>
                 </dd>
             </dl>
+            <dl>
+                <dt>邮政</dt>
+                <dd>
+                    <input type="text" name="CustomerModel[yz_diff]" class="required" value="<?=ArrayHelper::getValue($model,'yz_diff','0.00')?>"/>
+                    <span class="info">邮政</span>
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>
