@@ -125,6 +125,7 @@ $user = CommonHelper::customer();
                 <th width="80">同步状态</th>
                 <th width="80">套餐编号</th>
                 <th width="80">套餐名称</th>
+                <th width="80">价格</th>
                 <th orderfield="update_time" width="80">修改时间</th>
                 <th width="70">操作</th>
             </tr>
@@ -159,6 +160,7 @@ $user = CommonHelper::customer();
                             $data['color']['name'],
                             $data['theme']['name']
                         )?></td>
+                    <td><?=$data['price']?></td>    
                     <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                     <td>
                         <?php if(\Yii::$app->user->can('meal/delete-meal')):?>

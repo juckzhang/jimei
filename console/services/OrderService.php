@@ -3,7 +3,12 @@
 namespace console\services;
 
 use common\helpers\ClientHelper;
+use common\models\mysql\BrandModel;
+use common\models\mysql\ColorModel;
 use common\models\mysql\CustomerModel;
+use common\models\mysql\MaterialModel;
+use common\models\mysql\MealModel;
+use common\models\mysql\PhoneModel;
 use common\models\mysql\PrePaymentModel;
 use common\models\mysql\ThemeModel;
 use console\services\base\ConsoleService;
@@ -17,32 +22,55 @@ class OrderService extends ConsoleService
         $dataList = $columns = [];
         foreach ($orderList as $order) {
             //判断订单是否已经存在
-            if ($this->order_exists($order)) {
-                continue;
-            }
+            if ($this->order_exists($order))  continue;
             $mealCode = $order['SuiteCode'];
+            $brandCode = substr($mealCode, 0, 2);
+            $phoneCode = substr($mealCode, 2, 3);
+            $materialCode = substr($mealCode, 5, 2);
+            $colorCode = substr($mealCode, 7, 2);
             $customerCode = substr($mealCode, 9, 2);
             $themeCode = substr($mealCode, 11);
+            $brand = BrandModel::find()->where(['barcode' => $brandCode])->asArray()->one();
+            $phone = PhoneModel::find()->where([
+                'brand_id' => ArrayHelper::getValue($brand, 'id', 0),
+                'barcode' => $phoneCode,
+            ])->asArray()->one();
             $customer = CustomerModel::find()->where(['barcode' => $customerCode])->one();
+            $color = ColorModel::find()->where(['barcode' => $colorCode])->asArray()->one();
+            $material = MaterialModel::find()->where(['barcode' => $materialCode])->asArray()->one();
             $theme = ThemeModel::find()->where([
                 'customer_id' => ArrayHelper::getValue($customer, 'id', 0),
                 'barcode' => $themeCode,
-            ])->one();
+            ])->asArray()->one();
 
-            $customer_id = $theme_id = 0;
+            $customer_id = $theme_id = $color_id = $material_id = $phone_id = 0;
             $payment_freight = $payment_total = 0;
             //获取价格
             if ($customer) {
                 $customer_id = $customer->id;
                 $payment_freight = $order['FreightTotal'] + $this->logistic($customer, $order['LogistBTypeName']);
-                if ($theme) {
-                    $payment_total = $theme->price * $order['Qty'];
-                    $theme_id = $theme->id;
-                }
             }
+            if ($theme) $theme_id = $theme['id'];
+            if($color) $color_id = $color['id'];
+            if($phone) $phone_id = $phone['id'];
+            if($material) $material_id = $material['id'];
 
             if ($order['BillFlag'] == '我方承担') {
                 $payment_freight = $payment_total = 0;
+            }else{
+                if($material_id and $phone_id and $color_id and $customer_id and $theme_id){
+                    //查找套餐信息
+                    $meal = MealModel::find()->where([
+                        'color_id' => $color_id,
+                        'phone_id' => $phone_id,
+                        'material_id' => $material_id,
+                        'customer_id' => $customer_id,
+                        'theme_id' => $theme_id,
+                    ])->one();
+                    if($meal){
+                        $payment_freight = $meal->price * $order['Qty'];
+                    }
+                }
             }
 
             //存储数据
@@ -51,6 +79,9 @@ class OrderService extends ConsoleService
                 'customer_id' => $customer_id,
                 'theme_id' => $theme_id,
                 'payment_total' => $payment_total,
+                'color_id' => $color_id,
+                'phone_id' => $phone_id,
+                'material_id' => $material_id,
             ];
             $dataList[] = $this->formatOrder($order, $extData);
             if (count($columns) == 0) {

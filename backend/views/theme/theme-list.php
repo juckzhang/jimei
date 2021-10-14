@@ -118,7 +118,6 @@ $typeList = [
             <th width="80">右侧图案原图名称</th>
             <th width="80">右侧图案</th>
             <th width="80">颜色</th>
-            <th width="80">打印价格</th>
             <th orderfield="update_time" width="80">修改时间</th>
             <?php if(!$search):?>
             <th width="70">操作</th>
@@ -144,7 +143,6 @@ $typeList = [
                 <td><?=$data['right_source_pic_name']?></td>
                 <td><img height="80" src="<?=ArrayHelper::getValue($data,'right_template_url') ? rtrim(ArrayHelper::getValue($data,'right_template_url'),'.tif').'.jpg' : ''?>" /></td>
                 <td><?=$data['color']?></td>
-                <td><?=$data['price']?></td>
                 <td><?=date('Y-m-d H:i:s',$data['update_time'])?></td>
                 <?php if(!$search):?>
                 <td>

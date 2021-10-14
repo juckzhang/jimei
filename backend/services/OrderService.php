@@ -374,50 +374,26 @@ class OrderService extends BackendService
         ];
     }
 
-    private function sortOrder($data)
-    {
-        ArrayHelper::multisort($data, 'goodsname');
-
-        $res = $ret = [];
-        foreach ($data as $item) {
-            $orderId = $item['order_id'];
-            if (isset($res[$orderId])) {
-                $res[$orderId][] = $item;
-            } else {
-                $res[$orderId] = [$item];
-            }
-        }
-
-        foreach ($res as $item) {
-            $ret = ArrayHelper::merge($ret, $item);
-        }
-
-        return $ret;
-    }
-
     //检查订单数据信息完整性
     private function check_order($orderList = [])
     {
-        $res = true;
         $customer_id = 0;
         foreach ($orderList as $item) {
             //信息不完整
             if ($item['theme_id'] <= 0 or $item['customer_id'] <= 0) {
-                $res = 1;
                 \Yii::$app->bizLog->log([
                     'error' => "素材信息不完整",
                     'orderList' => $orderList,
                 ], 'req', 'Error');
-                break;
+                return 1;
             }
 
             if ($customer_id > 0 and $item['customer_id'] != $customer_id) {
-                $res = 1;
                 \Yii::$app->bizLog->log([
                     'error' => "订单客户信息不一致",
                     'orderList' => $orderList,
                 ], 'req', 'Error');
-                break;
+                return 1;
             }
 
             if ($customer_id == 0) {
