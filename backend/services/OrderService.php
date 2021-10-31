@@ -35,18 +35,21 @@ class OrderService extends BackendService
                 ['like', 'checkcode',ArrayHelper::getValue($other, 'keyword')],
                 ['like', 'shopname',ArrayHelper::getValue($other, 'keyword')],
             ]);
-        if($status === '0' or $status == 2){
-            $filter = 'or';
-            if($status === '0') $filter = 'and';
-            $models = $models->join('left join','jimei_theme','jimei_order.theme_id=jimei_theme.id')
-                ->join('left join','jimei_phone_material_relation', 'jimei_order.mobile_id=jimei_phone_material_relation.mobile_id and jimei_order.material_id=jimei_phone_material_relation.material_id')
-                ->andWhere([
-                    $filter,
-                    ['jimei_order.status' => $status],
-                    ['jimei_theme.status' => $status],
-                    ['jimei_phone_material_relation.status' => $status],
-                ]);
-        }else{
+//         if($status === '0' or $status == 2){
+//             $filter = 'or';
+//             if($status === '0') $filter = 'and';
+//             $models = $models->join('left join','jimei_theme','jimei_order.theme_id=jimei_theme.id')
+//                 ->join('left join','jimei_phone_material_relation', 'jimei_order.mobile_id=jimei_phone_material_relation.mobile_id and jimei_order.material_id=jimei_phone_material_relation.material_id')
+//                 ->andWhere([
+//                     $filter,
+//                     ['jimei_order.status' => $status],
+//                     ['jimei_theme.status' => $status],
+//                     ['jimei_phone_material_relation.status' => $status],
+//                 ]);
+//         }else{
+//             $models = $models->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')]);
+//         }
+        if($status != 2 and $status !== '0'){
             $models = $models->andFilterWhere(['status' => ArrayHelper::getValue($other, 'status')]);
         }
         $data['dataCount'] = $models->count();
@@ -67,7 +70,36 @@ class OrderService extends BackendService
                 ->asArray()
                 ->all();
 
+        if($status == 2) {
+            $resData = [];
+            $counts = 0;
+            foreach($data['dataList'] as $order){
+                if($this->checkOrder($order)){
+                    $resData[] = $order;
+                    $counts ++;
+                }
+            }
+            $data['dataCount'] = $counts;
+            $data['pageCount'] = $this->reckonPageCount($data['dataCount'], $limit);
+            $data['dataList'] = $resData;
+        }
+        
         return $data;
+    }
+    
+    private function checkOrder($data)
+    {
+        if($data['status'] == 2
+            or ArrayHelper::getValue($data,'relat.status') == 2
+            or ArrayHelper::getValue($data, 'phone.status') == 2
+            or ArrayHelper::getValue($data, 'theme.status') == 2
+            or !ArrayHelper::getValue($data,'relat')
+            or !ArrayHelper::getValue($data, 'theme.template_url')
+        ){
+            return true;
+        }
+
+        return false;
     }
 
     public function BaseOrderList($baseId,$page, $prePage){
